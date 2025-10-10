@@ -1,0 +1,19 @@
+@use "variables" as *;
+@use "breakpoints" as *;
+@use "spacing" as *;
+@use "typography" as *;
+@use "borders" as *;
+
+.brand {
+  padding: $spacing-1 $spacing-0;
+  text-decoration: none;
+
+  .brand-name {
+    color: $primary-color;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-medium;
+    @include respond(sm) {
+      font-size: $font-size-md;
+    }
+  }
+}

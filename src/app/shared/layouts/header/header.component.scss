@@ -1,0 +1,54 @@
+@use "variables" as *;
+@use "breakpoints" as *;
+@use "spacing" as *;
+@use "typography" as *;
+@use "borders" as *;
+
+.app-header {
+  width: 100%;
+  background-color: $black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $header-hight;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  .left-section {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+
+    .menu-option {
+      display: none;
+    }
+  }
+
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    .user-options {
+      display: flex;
+      gap: $spacing-4;
+      align-items: center;
+    }
+  }
+
+  @include respond("xs") {
+    .left-section {
+      .menu-option {
+        display: block;
+      }
+    }
+    .right-section {
+      gap: $spacing-3;
+      .user-options {
+        gap: $spacing-2;
+      }
+    }
+  }
+}
