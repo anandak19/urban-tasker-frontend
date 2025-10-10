@@ -1,0 +1,56 @@
+@use "variables" as *;
+@use "breakpoints" as *;
+@use "spacing" as *;
+@use "typography" as *;
+@use "borders" as *;
+
+.notification {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: $border-radius-full;
+  cursor: pointer;
+  color: $primary-color;
+  width: 47px;
+  height: 47px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $primary-color-hover;
+  }
+
+  .mat-icon {
+    font-size: $font-size-xxl;
+    height: 33px;
+    width: 33px;
+  }
+
+  .dot {
+    position: absolute;
+    top: 4px; 
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background-color: $red;
+    border-radius: $border-radius-full;
+  }
+
+  @include respond("xs") {
+    width: 37px;
+    height: 37px;
+    .mat-icon {
+      font-size: $font-size-xl;
+      height: 27px;
+      width: 27px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: $border-radius-full;
+    }
+  }
+}

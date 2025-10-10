@@ -10,5 +10,5 @@ import { FooterComponent } from '../../../shared/layouts/footer/footer.component
   styleUrl: './user-layout.component.scss'
 })
 export class UserLayoutComponent {
-
+  
 }

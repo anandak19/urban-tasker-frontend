@@ -1,0 +1,45 @@
+@use "variables" as *;
+@use "breakpoints" as *;
+@use "spacing" as *;
+@use "typography" as *;
+@use "borders" as *;
+
+.btn {
+  padding: $spacing-2 $spacing-3;
+  border: none;
+  border-radius: $border-radius-md;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  font-size: $font-size-sm;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    background-color: $disabled;
+  }
+
+  @include respond("xs") {
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+  }
+}
+
+.btn.primary {
+  background-color: $primary-color;
+  color: $black;
+
+  &:hover {
+    background-color: $primary-color-hover;
+  }
+
+  &:active {
+    background-color: $primary-color-active;
+  }
+}
+
+.btn.secondary {
+  background-color: $disabled;
+  color: $black;
+}
