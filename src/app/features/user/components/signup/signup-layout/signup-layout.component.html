@@ -1,3 +1,78 @@
-<div class="signup">
+<!-- <div class="signup">
     <router-outlet/>
-</div>
+</div> -->
+
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <!-- Step 1: Basic Info -->
+  <mat-step [stepControl]="basicForm">
+    <form [formGroup]="basicForm">
+      <ng-template matStepLabel>Basic Info</ng-template>
+
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
+
+      <div>
+        <button
+          mat-button
+          matStepperNext
+          (click)="checkBasicInfo(stepper)"
+          [disabled]="basicForm.invalid"
+        >
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Step 2: OTP Verification -->
+  <mat-step [stepControl]="otpForm">
+    <form [formGroup]="otpForm">
+      <ng-template matStepLabel>Verify OTP</ng-template>
+
+      <mat-form-field>
+        <mat-label>Enter OTP</mat-label>
+        <input matInput formControlName="otp" />
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button
+          mat-button
+          (click)="verifyOtp(stepper)"
+          [disabled]="otpForm.invalid"
+        >
+          Verify
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Step 3: Password -->
+  <mat-step [stepControl]="passwordForm">
+    <form [formGroup]="passwordForm">
+      <ng-template matStepLabel>Set Password</ng-template>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button color="primary" (click)="submit()">Submit</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

@@ -1,0 +1,12 @@
+@use "colors" as *;
+@use "breakpoints" as *;
+@use "spacing" as *;
+@use "typography" as *;
+@use "borders" as *;
+
+.signup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - $header-hight);
+}

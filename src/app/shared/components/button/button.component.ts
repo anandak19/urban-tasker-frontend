@@ -9,7 +9,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() disabled: boolean = false
-  @Input() type: 'primary'| 'secondary' = 'primary'
+  @Input() variant: 'primary'| 'secondary' = 'primary'
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
 
   @Output() clickEvent = new EventEmitter()
   onBtnClick(){

@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use "colors" as *;
 @use "breakpoints" as *;
 @use "spacing" as *;
 @use "typography" as *;
@@ -7,6 +7,8 @@
 .btn {
   padding: $spacing-2 $spacing-3;
   border: none;
+  display: block;
+  width: 100%;
   border-radius: $border-radius-md;
   font-weight: $font-weight-medium;
   cursor: pointer;

@@ -9,7 +9,7 @@
   <div class="right-section">
     <!-- button   -->
     @if (isUserLogin) { 
-    <app-button [type]="'primary'" (clickEvent)="bookTaskerClicked()">Book a Tasker</app-button>
+    <app-button [variant]="'primary'" (clickEvent)="bookTaskerClicked()">Book a Tasker</app-button>
     }
 
     <!-- user options  -->
@@ -19,12 +19,12 @@
       <app-user-profile-circle (clickProfile)="openUserOptions()" />
       }@else {
       <app-button
-        [type]="isLoginPage ? 'secondary' : 'primary'"
+        [variant]="isLoginPage ? 'secondary' : 'primary'"
         (clickEvent)="goToLogin()"
         >Login</app-button
       >
       <app-button
-        [type]="isLoginPage ? 'primary' : 'secondary'"
+        [variant]="isLoginPage ? 'primary' : 'secondary'"
         (clickEvent)="goToSignup()"
         >Signup</app-button
       >

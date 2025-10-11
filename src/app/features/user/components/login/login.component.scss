@@ -1,0 +1,111 @@
+@use "colors" as *;
+@use "breakpoints" as *;
+@use "spacing" as *;
+@use "typography" as *;
+@use "borders" as *;
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - $header-hight);
+
+  @include respond("xs") {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    padding-top: $spacing-8;
+  }
+
+  .login-form {
+    padding: $spacing-2;
+    border-radius: $border-radius-md;
+    background-color: $background;
+    width: 100%;
+    max-width: 400px;
+
+    @include respond("xs") {
+      width: 80%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: $spacing-3;
+      color: $white;
+
+      @include respond("xs") {
+        font-size: $font-size-lg;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      app-form-field {
+        margin-bottom: $spacing-3;
+        @include respond("xs") {
+          margin-bottom: $spacing-2;
+        }
+      }
+
+      app-button {
+        margin-top: $spacing-3;
+        @include respond("xs") {
+          margin-bottom: $spacing-2;
+        }
+      }
+      ::ng-deep app-button button {
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    .login-option {
+      margin-top: $spacing-4;
+      display: flex;
+      justify-content: center;
+
+      // style it later
+      .google-btn {
+        padding: 0.6rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fff;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s, border-color 0.2s;
+
+        &:hover {
+          background-color: #f0f0f0;
+          border-color: #999;
+        }
+      }
+    }
+
+    .nav-option {
+      margin-top: $spacing-4;
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      @include respond("xs") {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $spacing-2;
+      }
+
+      small {
+        color: $background-text;
+
+        a {
+          color: $primary-color;
+          text-decoration: none;
+          font-weight: $font-weight-regular;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

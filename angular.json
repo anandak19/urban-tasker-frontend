@@ -32,7 +32,8 @@
               }
             ],
             "styles": [
-              "src/app/styles/styles.scss"
+              "src/app/styles/styles.scss",
+              "src/app/styles/material-theme.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
