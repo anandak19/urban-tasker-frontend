@@ -1,5 +1,17 @@
-@use "colors" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
-@use "typography" as *;
-@use "borders" as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'typography' as *;
+@use 'borders' as *;
+
+.signup-form {
+  padding: $spacing-6;
+  .form-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-6;
+  }
+  .signup-btn {
+    margin-top: $spacing-6;
+  }
+}

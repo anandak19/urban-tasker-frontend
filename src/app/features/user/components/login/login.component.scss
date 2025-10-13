@@ -57,6 +57,9 @@
       }
       ::ng-deep app-button button {
         font-weight: $font-weight-bold;
+        @include respond("xs") {
+          padding: $spacing-2;
+        }
       }
     }
 
