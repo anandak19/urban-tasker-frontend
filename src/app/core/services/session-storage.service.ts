@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SessionStorageService {
-  constructor() {}
-
   setSessionItem(key: string, value: string | object | number) {
     if (typeof value === 'string') {
       sessionStorage.setItem(key, value);
@@ -16,8 +14,8 @@ export class SessionStorageService {
 
   getSessionItem(key: string) {
     const result = sessionStorage.getItem(key);
-    if(!result) return null
-    if(typeof result === 'string') return JSON.parse(result)
+    if (!result) return null;
+    if (typeof result === 'string') return JSON.parse(result);
   }
 
   deleteSessionItem(key: string) {

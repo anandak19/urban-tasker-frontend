@@ -4,10 +4,9 @@
 @use 'typography' as *;
 @use 'borders' as *;
 
-
-.otp-form{
-    display: flex;
-    flex-direction: column;
-    gap:  $spacing-8;
-    padding-top: $spacing-8
+.otp-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+  padding-top: $spacing-8;
 }

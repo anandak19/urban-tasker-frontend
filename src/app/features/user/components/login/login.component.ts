@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ButtonComponent } from "../../../../shared/components/button/button.component";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +10,13 @@ import { ButtonComponent } from "../../../../shared/components/button/button.com
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
+  private fb = inject(FormBuilder);
+
   loginForm!: FormGroup;
-  constructor(private fb: FormBuilder) {}
+
+  /** Inserted by Angular inject() migration for backwards compatibility */
+  constructor(...args: unknown[]);
+  constructor() {}
 
   initializeForm() {
     this.loginForm = this.fb.group({

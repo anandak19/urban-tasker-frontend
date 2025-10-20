@@ -1,8 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormFieldComponent } from '../../../../../../shared/components/form-field/form-field.component';
 import { SignupService } from '../../services/signup.service';
-import { ButtonComponent } from "../../../../../../shared/components/button/button.component";
+import { ButtonComponent } from '../../../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-otp-varify',
@@ -11,13 +16,11 @@ import { ButtonComponent } from "../../../../../../shared/components/button/butt
   styleUrl: './otp-varify.component.scss',
 })
 export class OtpVarifyComponent implements OnInit {
+  private _fb = inject(FormBuilder);
+  private _signupService = inject(SignupService);
+
   otpForm!: FormGroup;
   @Output() nextStep = new EventEmitter<void>();
-
-  constructor(
-    private _fb: FormBuilder,
-    private _signupService: SignupService,
-  ) {}
 
   // varify otp entered by user
   verifyOtp() {
@@ -30,8 +33,8 @@ export class OtpVarifyComponent implements OnInit {
     }
   }
 
-  resendOtp(){
-    this._signupService.resendOtp()
+  resendOtp() {
+    this._signupService.resendOtp();
   }
 
   initOtpForm() {

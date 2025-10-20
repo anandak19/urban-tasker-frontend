@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../../../shared/layouts/header/header.component";
-import { SidebarComponent } from "../../../shared/layouts/sidebar/sidebar.component";
+import { HeaderComponent } from '../../../shared/layouts/header/header.component';
+import { SidebarComponent } from '../../../shared/layouts/sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
-
 
 @Component({
   selector: 'app-tasker-layout',
   imports: [HeaderComponent, SidebarComponent, RouterOutlet],
   templateUrl: './tasker-layout.component.html',
-  styleUrl: './tasker-layout.component.scss'
+  styleUrl: './tasker-layout.component.scss',
 })
-export class TaskerLayoutComponent {
-
-}
+export class TaskerLayoutComponent {}

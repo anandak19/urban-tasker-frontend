@@ -7,8 +7,6 @@ import { FooterComponent } from '../../../shared/layouts/footer/footer.component
   selector: 'app-user-layout',
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './user-layout.component.html',
-  styleUrl: './user-layout.component.scss'
+  styleUrl: './user-layout.component.scss',
 })
-export class UserLayoutComponent {
-  
-}
+export class UserLayoutComponent {}

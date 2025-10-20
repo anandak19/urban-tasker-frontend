@@ -16,10 +16,9 @@
     [disabled]="disabled"
     (input)="handleInput($event)"
     (blur)="onTouched()"
-    [ngClass]="showError? 'error-input': ''"
-  />
+    [ngClass]="showError ? 'error-input' : ''" />
   <!-- Validation messages (optional) -->
-  @if (showError) { 
+  @if (showError) {
     <div class="error">
       <small>{{ errorMessage }}</small>
     </div>

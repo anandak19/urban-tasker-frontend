@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-tasks',
   imports: [],
   templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.scss'
+  styleUrl: './tasks.component.scss',
 })
-export class TasksComponent {
-
-}
+export class TasksComponent {}

@@ -1,5 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormFieldComponent } from '../../../../../../shared/components/form-field/form-field.component';
 import { ButtonComponent } from '../../../../../../shared/components/button/button.component';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -7,18 +12,21 @@ import { SignupService } from '../../services/signup.service';
 
 @Component({
   selector: 'app-signup-form',
-  imports: [ReactiveFormsModule, FormFieldComponent, ButtonComponent, MatStepperModule],
+  imports: [
+    ReactiveFormsModule,
+    FormFieldComponent,
+    ButtonComponent,
+    MatStepperModule,
+  ],
   templateUrl: './signup-form.component.html',
   styleUrl: './signup-form.component.scss',
 })
 export class SignupFormComponent implements OnInit {
+  private _fb = inject(FormBuilder);
+  private _signupService = inject(SignupService);
+
   basicForm!: FormGroup;
   @Output() nextStep = new EventEmitter<void>();
-
-  constructor(
-    private _fb: FormBuilder,
-    private _signupService: SignupService,
-  ) {}
 
   initForm() {
     this.basicForm = this._fb.group({

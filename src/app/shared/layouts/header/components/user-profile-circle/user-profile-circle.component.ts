@@ -8,7 +8,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class UserProfileCircleComponent {
   @Output() clickProfile = new EventEmitter();
-  imageUrl:string = 'https://imgflip.com/s/meme/Smiling-Cat.jpg'
+  imageUrl = 'https://imgflip.com/s/meme/Smiling-Cat.jpg';
 
   profileClicked() {
     this.clickProfile.emit();

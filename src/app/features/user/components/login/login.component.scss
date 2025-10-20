@@ -1,8 +1,8 @@
-@use "colors" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
-@use "typography" as *;
-@use "borders" as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'typography' as *;
+@use 'borders' as *;
 
 .login-container {
   display: flex;
@@ -10,7 +10,7 @@
   align-items: center;
   height: calc(100vh - $header-hight);
 
-  @include respond("xs") {
+  @include respond('xs') {
     flex-direction: column;
     justify-content: flex-start;
     height: auto;
@@ -24,7 +24,7 @@
     width: 100%;
     max-width: 400px;
 
-    @include respond("xs") {
+    @include respond('xs') {
       width: 80%;
     }
 
@@ -33,7 +33,7 @@
       margin-bottom: $spacing-3;
       color: $white;
 
-      @include respond("xs") {
+      @include respond('xs') {
         font-size: $font-size-lg;
       }
     }
@@ -44,20 +44,20 @@
 
       app-form-field {
         margin-bottom: $spacing-3;
-        @include respond("xs") {
+        @include respond('xs') {
           margin-bottom: $spacing-2;
         }
       }
 
       app-button {
         margin-top: $spacing-3;
-        @include respond("xs") {
+        @include respond('xs') {
           margin-bottom: $spacing-2;
         }
       }
       ::ng-deep app-button button {
         font-weight: $font-weight-bold;
-        @include respond("xs") {
+        @include respond('xs') {
           padding: $spacing-2;
         }
       }
@@ -76,7 +76,9 @@
         background-color: #fff;
         cursor: pointer;
         font-weight: 500;
-        transition: background-color 0.2s, border-color 0.2s;
+        transition:
+          background-color 0.2s,
+          border-color 0.2s;
 
         &:hover {
           background-color: #f0f0f0;
@@ -90,7 +92,7 @@
       display: flex;
       justify-content: space-between;
       text-align: center;
-      @include respond("xs") {
+      @include respond('xs') {
         flex-direction: column;
         align-items: flex-start;
         gap: $spacing-2;

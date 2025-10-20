@@ -5,14 +5,13 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-notification',
   imports: [MatIconModule],
   templateUrl: './notification.component.html',
-  styleUrl: './notification.component.scss'
+  styleUrl: './notification.component.scss',
 })
 export class NotificationComponent {
-  @Input() hasNotification: boolean = true
-  @Output() isnoficationClicked = new EventEmitter()
+  @Input() hasNotification = true;
+  @Output() isnoficationClicked = new EventEmitter();
 
-  noficationClicked(){
-    this.isnoficationClicked.emit()
+  noficationClicked() {
+    this.isnoficationClicked.emit();
   }
-
 }

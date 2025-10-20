@@ -1,16 +1,17 @@
-@use "material-theme" as *;
-@use "colors" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
+@use 'material-theme' as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
-html, body {
+html,
+body {
   background-color: $background;
   color: $white;
 }
@@ -21,7 +22,7 @@ html, body {
   margin: 0 auto;
   padding: 0 $spacing-8;
   box-sizing: border-box;
-  @include respond("xs") {
+  @include respond('xs') {
     padding: 0 $spacing-4;
   }
 }
@@ -30,12 +31,13 @@ html, body {
   padding-top: $header-hight;
 }
 
-.mat-stepper-vertical, .mat-stepper-horizontal{
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
   background: $background !important;
   color: $white;
 }
 
-.mat-step-text-label{
+.mat-step-text-label {
   color: $white;
 }
 

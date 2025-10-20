@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'tasker',
     component: TaskerLayoutComponent,
-    children: taskerRoutes
+    children: taskerRoutes,
   },
   {
     path: 'admin/login',

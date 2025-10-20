@@ -1,13 +1,7 @@
 <form [formGroup]="otpForm" class="otp-form">
   <!-- otp entering field here -- REMOVE THE CURRENT ONE LATER  -->
-   <p>Enter the OTP send to your email address</p>
-  <app-form-field
-    formControlName="otp"
-    label="OTP"
-    type="text"
-    id="otp"
-    placeholder="Enter your OTP"
-  ></app-form-field>
+  <p>Enter the OTP send to your email address</p>
+  <app-form-field formControlName="otp" label="OTP" type="text" id="otp" placeholder="Enter your OTP"></app-form-field>
 
   <div>
     <app-button variant="primary" type="submit" (clickEvent)="verifyOtp()">Varify</app-button>

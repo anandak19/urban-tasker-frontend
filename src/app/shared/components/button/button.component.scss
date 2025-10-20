@@ -1,8 +1,8 @@
-@use "colors" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
-@use "typography" as *;
-@use "borders" as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'typography' as *;
+@use 'borders' as *;
 
 .btn {
   padding: $spacing-2 $spacing-3;
@@ -22,7 +22,7 @@
     background-color: $disabled;
   }
 
-  @include respond("xs") {
+  @include respond('xs') {
     padding: $spacing-1 $spacing-2;
     font-size: $font-size-xs;
   }

@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Optional, Self } from '@angular/core';
-import {
-  NgControl,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, Input, inject } from '@angular/core';
+import { NgControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-form-field',
@@ -12,34 +9,42 @@ import {
   styleUrl: './form-field.component.scss',
 })
 export class FormFieldComponent {
-  @Input() label!: string; // Label for input
-  @Input() type: string = 'text'; // input type
-  @Input() placeholder: string = ''; // placeholder
-  @Input() id: string = ''; // optional id
+  ngControl = inject(NgControl, { optional: true, self: true });
 
-  value: any = '';
+  @Input() label!: string; // Label for input
+  @Input() type = 'text'; // input type
+  @Input() placeholder = ''; // placeholder
+  @Input() id = ''; // optional id
+
+  value = '';
   disabled = false;
 
-  constructor(@Optional() @Self() public ngControl: NgControl){
-    if(this.ngControl) {
-      this.ngControl.valueAccessor = this
+  /** Inserted by Angular inject() migration for backwards compatibility */
+
+  constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
     }
   }
 
   // Callbacks
-  onChange = (_: any) => {};
-  onTouched = () => {};
+  onChange: (value: string) => void = () => {
+    console.log('Value changed');
+  };
+  onTouched: () => void = () => {
+    console.log('Control touched');
+  };
 
   // Write value from parent form
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     this.value = value;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
@@ -54,20 +59,22 @@ export class FormFieldComponent {
     this.onChange(val);
   }
 
-  get control(){
-    return this.ngControl?.control
+  get control() {
+    return this.ngControl?.control;
   }
 
-  get showError(){
-    return this.control?.touched && this.control.invalid
+  get showError() {
+    return this.control?.touched && this.control.invalid;
   }
 
-  get errorMessage(){
-    if(!this.control || !this.control.errors) return null
-    const errors = this.control.errors
+  get errorMessage() {
+    if (!this.control || !this.control.errors) return null;
+    const errors = this.control.errors;
 
-    if(errors['required']) return `${this.label} is required`
-    if(errors['minLength']) `${this.label} must be at least ${errors['minlength'].requiredLength} characters`;
+    if (errors['required']) return `${this.label} is required`;
+    if (errors['minLength']) {
+      return `${this.label} must be at least ${errors['minlength'].requiredLength} characters`;
+    }
     if (errors['email']) return `Enter a valid email address`;
     return 'Invalid value';
   }

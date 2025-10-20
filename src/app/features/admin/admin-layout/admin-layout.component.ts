@@ -7,8 +7,6 @@ import { SidebarComponent } from '../../../shared/layouts/sidebar/sidebar.compon
   selector: 'app-admin-layout',
   imports: [HeaderComponent, SidebarComponent, RouterOutlet],
   templateUrl: './admin-layout.component.html',
-  styleUrl: './admin-layout.component.scss'
+  styleUrl: './admin-layout.component.scss',
 })
-export class AdminLayoutComponent {
-
-}
+export class AdminLayoutComponent {}

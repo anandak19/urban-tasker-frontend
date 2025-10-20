@@ -1,8 +1,8 @@
-@use "colors" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
-@use "typography" as *;
-@use "borders" as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'typography' as *;
+@use 'borders' as *;
 
 .user-profile {
   width: 40px;
@@ -26,7 +26,7 @@
     object-fit: cover;
   }
 
-  @include respond("xs") {
+  @include respond('xs') {
     width: 30px;
     height: 30px;
   }

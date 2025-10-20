@@ -16,9 +16,12 @@
 //   ));
 // }
 
-html{
+html {
   // color-scheme: dark;
   // background-color: $background;
-  @include mat.theme((color: theme.$primary-palette))
+  @include mat.theme(
+    (
+      color: theme.$primary-palette,
+    )
+  );
 }
-
