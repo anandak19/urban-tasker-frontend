@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
+import { SessionStorageService } from '@core/services/session-storage.service';
 import { BasicData } from '../models/signup.model';
-import { SessionStorageService } from '../../../../../core/services/session-storage.service';
 
 @Injectable({
   providedIn: 'root',

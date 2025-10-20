@@ -5,9 +5,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FormFieldComponent } from '../../../../../../shared/components/form-field/form-field.component';
-import { ButtonComponent } from '../../../../../../shared/components/button/button.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { SignupService } from '../../services/signup.service';
 
 @Component({

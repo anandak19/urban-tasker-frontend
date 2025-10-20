@@ -8,9 +8,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { SignupFormComponent } from '../components/signup-form/signup-form.component';
 import { OtpVarifyComponent } from '../components/otp-varify/otp-varify.component';
 import { PasswordFormComponent } from '../components/password-form/password-form.component';
+import { SignupFormComponent } from '../components/signup-form/signup-form.component';
 
 @Component({
   selector: 'app-signup-layout',

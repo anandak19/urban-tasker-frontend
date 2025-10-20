@@ -1,13 +1,13 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, OnInit, inject, Output, EventEmitter } from '@angular/core';
 import {
+  ReactiveFormsModule,
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FormFieldComponent } from '../../../../../../shared/components/form-field/form-field.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { SignupService } from '../../services/signup.service';
-import { ButtonComponent } from '../../../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-password-form',
