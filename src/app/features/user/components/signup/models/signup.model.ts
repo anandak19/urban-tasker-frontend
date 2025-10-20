@@ -1,12 +1,13 @@
-export interface BasicData {
+export interface IBasicUserData {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
+  isVarified?: boolean;
 }
 
 export interface SignupData {
-  basicData: BasicData | null;
+  basicData: IBasicUserData | null;
   password: string | null;
 }
 

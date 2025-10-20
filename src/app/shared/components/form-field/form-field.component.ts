@@ -72,10 +72,23 @@ export class FormFieldComponent {
     const errors = this.control.errors;
 
     if (errors['required']) return `${this.label} is required`;
+
     if (errors['minLength']) {
       return `${this.label} must be at least ${errors['minlength'].requiredLength} characters`;
     }
-    if (errors['email']) return `Enter a valid email address`;
+
+    if (errors['maxlength']) {
+      return `${this.label} cannot exceed ${errors['maxlength'].requiredLength} characters`;
+    }
+
+    if (errors['email']) {
+      return `Enter a valid email address`;
+    }
+
+    if (errors['customError']) return errors['customError'];
+
+    if (errors['pattern']) return `${this.label} has invalid format`;
+
     return 'Invalid value';
   }
 }

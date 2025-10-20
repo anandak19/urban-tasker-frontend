@@ -1,12 +1,32 @@
 import { Injectable, inject } from '@angular/core';
 import { SessionStorageService } from '@core/services/session-storage.service';
-import { BasicData } from '../models/signup.model';
+import { IBasicUserData } from '../models/signup.model';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { IBasicDataResponse } from '../models/signup-response.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SignupService {
   private _sessionService = inject(SessionStorageService);
+  private _http = inject(HttpClient);
+
+  private readonly apiEndpoint = 'auth/signup/basic';
+
+  // STEP 1: Method to validate and save basic user data and get otp to email
+  validateBasicUserData(
+    userData: IBasicUserData,
+  ): Observable<IBasicDataResponse> {
+    return this._http.post<IBasicDataResponse>(this.apiEndpoint, userData);
+  }
+
+  // STEP 2: Method to send otp to varify
+  // validateOtp() {}
+  // STEP 2.1: Method to call resend otp
+  // resendOtp() {}
+  // STEP 3: Method to send new password and end signup process
+  // validatePassword() {}
 
   // last singup with basic data and password
   //  token that got from otp varify is also send
@@ -29,22 +49,8 @@ export class SignupService {
     }
   }
 
-  resendOtp() {
-    console.log('Resend otp is Under construction');
-  }
-
   // send the otp to server. if valid: it return a token in cooke
   varifyOtp(otp: string) {
     console.log('otp ', otp);
-  }
-
-  requestOtp(basicData: BasicData) {
-    // after validation save the user data in local storage for percistance
-    console.log('reqOtp: basic data', basicData);
-    this._sessionService.setSessionItem('basic', basicData);
-  }
-
-  getBasicUserData(): BasicData | null {
-    return this._sessionService.getSessionItem('basic');
   }
 }

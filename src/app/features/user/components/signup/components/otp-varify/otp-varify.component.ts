@@ -34,7 +34,7 @@ export class OtpVarifyComponent implements OnInit {
   }
 
   resendOtp() {
-    this._signupService.resendOtp();
+    alert('Resend not writen yet');
   }
 
   initOtpForm() {
