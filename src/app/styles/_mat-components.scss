@@ -1,0 +1,34 @@
+@use '@angular/material' as mat;
+@use 'colors' as *;
+
+.snackbar-success {
+  @include mat.snack-bar-overrides(
+    (
+      button-color: rgb(255, 255, 255),
+      container-color: rgb(0, 141, 75),
+    )
+  );
+}
+
+.snackbar-error {
+  @include mat.snack-bar-overrides(
+    (
+      button-color: rgb(255, 255, 255),
+      container-color: rgb(226, 0, 0),
+    )
+  );
+}
+
+:root {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: rgb(0, 0, 0),
+      size: 24px,
+    )
+  );
+}
+
+.spinner {
+  width: 22px !important;
+  height: 22px !important;
+}

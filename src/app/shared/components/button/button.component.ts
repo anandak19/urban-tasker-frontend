@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  @Input() disabled: boolean = false;
+  @Input() disabled = false;
   @Input() variant: 'primary' | 'secondary' = 'primary';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
 

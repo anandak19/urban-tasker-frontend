@@ -7,6 +7,40 @@
 .otp-form {
   display: flex;
   flex-direction: column;
-  gap: $spacing-8;
-  padding-top: $spacing-8;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  .otp-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  .error {
+    color: $red;
+    font-size: 0.85rem;
+  }
+
+  ::ng-deep .ng-otp-input {
+    width: 50px;
+    height: 50px;
+    border: $border-width-thin solid $disabled; // green border
+    background-color: $inputs; // black inside
+    color: $primary-color; // yellow text
+    border-radius: 5px;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    text-align: center;
+    margin: 5px;
+    &:focus {
+      border-color: $primary-color; // orange border on focus
+    }
+  }
+
+  .btns{
+    display: flex;
+    gap: $spacing-3;
+  }
 }

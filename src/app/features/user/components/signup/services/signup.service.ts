@@ -12,21 +12,36 @@ export class SignupService {
   private _sessionService = inject(SessionStorageService);
   private _http = inject(HttpClient);
 
-  private readonly apiEndpoint = 'auth/signup/basic';
+  private readonly apiEndpoint = 'auth/signup';
 
   // STEP 1: Method to validate and save basic user data and get otp to email
   validateBasicUserData(
     userData: IBasicUserData,
   ): Observable<IBasicDataResponse> {
-    return this._http.post<IBasicDataResponse>(this.apiEndpoint, userData);
+    return this._http.post<IBasicDataResponse>(
+      `${this.apiEndpoint}/basic`,
+      userData,
+    );
   }
 
   // STEP 2: Method to send otp to varify
-  // validateOtp() {}
+  validateOtp(otp: string): Observable<IBasicDataResponse> {
+    return this._http.post<IBasicDataResponse>(`${this.apiEndpoint}/otp`, {
+      otp,
+    });
+  }
   // STEP 2.1: Method to call resend otp
-  // resendOtp() {}
+  resendOtp() {
+    return this._http.get(`${this.apiEndpoint}/otp`);
+  }
+  // STEP 2.2: Method to get time left
+  getTimeLeft() {
+    return this._http.get(`${this.apiEndpoint}/otp-status`);
+  }
   // STEP 3: Method to send new password and end signup process
-  // validatePassword() {}
+  validatePassword(password: string) {
+    return this._http.post(this.apiEndpoint, { password });
+  }
 
   // last singup with basic data and password
   //  token that got from otp varify is also send

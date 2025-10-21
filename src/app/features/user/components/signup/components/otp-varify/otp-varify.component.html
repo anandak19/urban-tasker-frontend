@@ -1,9 +1,36 @@
-<form [formGroup]="otpForm" class="otp-form">
-  <!-- otp entering field here -- REMOVE THE CURRENT ONE LATER  -->
+<form [formGroup]="otpForm" class="otp-form" (ngSubmit)="submitOtp()">
   <p>Enter the OTP send to your email address</p>
-  <app-form-field formControlName="otp" label="OTP" type="text" id="otp" placeholder="Enter your OTP"></app-form-field>
-
-  <div>
-    <app-button variant="primary" type="submit" (clickEvent)="verifyOtp()">Varify</app-button>
+  <div class="otp-input">
+    <p>Remaining time: {{ timeLeft() }}</p>
+    <ng-otp-input
+      #otpInputRef
+      [config]="otpConfig"
+      (onInputChange)="onOtpChange($event)"
+    ></ng-otp-input>
+    @if (isSubmitted) {
+      @if (otpForm.get('otp')?.errors) {
+        <small class="error">Please enter a valid 4-digit OTP</small>
+      }
+    }
+  </div>
+  <div class="btns">
+    <app-button
+      variant="secondary"
+      (clickEvent)="resendOtp()"
+      [disabled]="timeLeft() > 0"
+    >
+      @if (!isResendLoading()) {
+        Resend OTP
+      } @else {
+        <mat-spinner diameter="20" class="btn-spinner"></mat-spinner>
+      }
+    </app-button>
+    <app-button variant="primary" type="submit">
+      @if (!isLoading()) {
+        Verify Email
+      } @else {
+        <mat-spinner diameter="20" class="btn-spinner"></mat-spinner>
+      }
+    </app-button>
   </div>
 </form>

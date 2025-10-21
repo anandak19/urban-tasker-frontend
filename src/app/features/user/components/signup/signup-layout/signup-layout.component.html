@@ -15,7 +15,7 @@
     <mat-horizontal-stepper [linear]="true" #stepper>
       <!-- Step 1: Basic Info -->
       <mat-step>
-        <app-signup-form (nextStep)="stepper.next()"></app-signup-form>
+        <app-signup-form (nextStep)="initOtpForm(stepper)"></app-signup-form>
       </mat-step>
 
       <!-- Step 2: OTP Verification -->

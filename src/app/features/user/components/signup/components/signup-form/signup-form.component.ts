@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,6 +24,9 @@ import {
   noWhitespaceValidator,
   phoneNumberValidator,
 } from '@shared/validators/custom-auth-validators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-signup-form',
@@ -25,6 +35,7 @@ import {
     FormFieldComponent,
     ButtonComponent,
     MatStepperModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './signup-form.component.html',
   styleUrl: './signup-form.component.scss',
@@ -32,8 +43,11 @@ import {
 export class SignupFormComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _signupService = inject(SignupService);
+  //snackbar
+  private snackBar = inject(MatSnackBar);
 
   basicForm!: FormGroup;
+  isLoading = signal(false);
   @Output() nextStep = new EventEmitter<void>();
 
   initForm() {
@@ -78,22 +92,26 @@ export class SignupFormComponent implements OnInit {
     }); // Validators.minLength(10)]  Validators.email
   }
 
-  // step: 1 working fine
+  // step: 1 submit basic details
   submitBasicForm() {
     if (this.basicForm.valid) {
-      console.log('otp is requesting');
+      this.isLoading.set(true);
       this._signupService
         .validateBasicUserData(this.basicForm.value)
+        .pipe(finalize(() => this.isLoading.set(false)))
         .subscribe({
           next: (res) => {
             console.log(res);
-            // after otp send confirmation is got
+            this.snackBar.open('OTP send successfully', 'Dismiss', {
+              duration: 9000,
+            });
             this.nextStep.emit();
           },
           error: (err: HttpErrorResponse) => {
             const error = err.error as IApiResponseError;
-            console.log(error);
-            alert(error.message);
+            this.snackBar.open(error.message, 'Dismiss', {
+              duration: 9000,
+            });
           },
         });
     } else {
