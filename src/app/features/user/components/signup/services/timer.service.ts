@@ -7,6 +7,7 @@ import { IApiResponseSuccess } from '@shared/models/api-response.model';
 })
 export class TimerService {
   private _singupService = inject(SignupService);
+  private _intervalId!: ReturnType<typeof setInterval>;
   timer = signal(0);
 
   setTimer() {
@@ -14,21 +15,19 @@ export class TimerService {
       next: (res) => {
         const result = res as IApiResponseSuccess<{ timeLeft: number }>;
         this.timer.set(result.data.timeLeft);
-        this.startCountdown();
-      },
-      error: (err) => {
-        console.log(err);
+
+        if (this._intervalId) {
+          clearInterval(this._intervalId);
+        }
+
+        this._intervalId = setInterval(() => {
+          if (this.timer() > 0) {
+            this.timer.update((val) => val - 1);
+          } else {
+            clearInterval(this._intervalId);
+          }
+        }, 1000);
       },
     });
-  }
-
-  startCountdown() {
-    const tick = () => {
-      if (this.timer() > 0) {
-        this.timer.set(this.timer() - 1);
-        setTimeout(tick, 1000);
-      }
-    };
-    tick();
   }
 }

@@ -108,6 +108,8 @@ export class SignupFormComponent implements OnInit {
             this.nextStep.emit();
           },
           error: (err: HttpErrorResponse) => {
+            console.error(err);
+
             const error = err.error as IApiResponseError;
             this.snackBar.open(error.message, 'Dismiss', {
               duration: 9000,
