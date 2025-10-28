@@ -2,6 +2,7 @@
 @use 'breakpoints' as *;
 @use 'spacing' as *;
 @use 'typography' as *;
+@use 'variables' as *;
 @use 'borders' as *;
 
 .nav-links {
@@ -21,7 +22,7 @@
     position: absolute;
     background-color: $black;
     left: 0;
-    top: $header-hight;
+    top: $header-height;
     height: 100vh;
     flex-direction: column;
     width: 50%;

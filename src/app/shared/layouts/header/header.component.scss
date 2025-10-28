@@ -1,6 +1,7 @@
 @use 'colors' as *;
 @use 'breakpoints' as *;
 @use 'spacing' as *;
+@use 'variables' as *;
 @use 'typography' as *;
 @use 'borders' as *;
 
@@ -10,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: $header-hight;
+  height: $header-height;
   position: fixed;
   top: 0;
   left: 0;

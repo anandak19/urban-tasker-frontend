@@ -42,6 +42,10 @@ export class SignupLayoutComponent
     this._timerService.setTimer();
   }
 
+  resetForm() {
+    this._isSignupDirty = false;
+  }
+
   canDeactivate(): boolean {
     if (this._isSignupDirty) {
       const confirmLeave = confirm(

@@ -89,7 +89,7 @@ export class SignupFormComponent implements OnInit {
           phoneNumberValidator,
         ],
       ],
-    }); // Validators.minLength(10)]  Validators.email
+    });
   }
 
   // step: 1 submit basic details
@@ -108,8 +108,6 @@ export class SignupFormComponent implements OnInit {
             this.nextStep.emit();
           },
           error: (err: HttpErrorResponse) => {
-            console.error(err);
-
             const error = err.error as IApiResponseError;
             this.snackBar.open(error.message, 'Dismiss', {
               duration: 9000,

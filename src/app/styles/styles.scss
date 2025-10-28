@@ -2,6 +2,7 @@
 @use 'colors' as *;
 @use 'breakpoints' as *;
 @use 'spacing' as *;
+@use 'variables' as *;
 @use 'mat-components';
 
 * {
@@ -29,7 +30,7 @@ body {
 }
 
 .main-content {
-  padding-top: $header-hight;
+  padding-top: $header-height;
 }
 
 .mat-stepper-vertical,

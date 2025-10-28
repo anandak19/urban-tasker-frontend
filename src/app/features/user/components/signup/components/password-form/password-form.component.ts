@@ -46,7 +46,7 @@ export class PasswordFormComponent implements OnInit {
 
   passwordForm!: FormGroup;
   isLoading = signal(false);
-  @Output() nextStep = new EventEmitter<void>();
+  @Output() singupCompleted = new EventEmitter<void>();
 
   initPasswordForm() {
     this.passwordForm = this._fb.group(
@@ -74,6 +74,7 @@ export class PasswordFormComponent implements OnInit {
           .subscribe({
             next: (res) => {
               console.log(res);
+              this.singupCompleted.emit();
               const result = res as IBasicDataResponse;
               const snackRef = this.snackBar.open(result.message, 'Dismiss', {
                 duration: 9000,
