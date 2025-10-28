@@ -1,24 +1,36 @@
 @use '@angular/material' as mat;
+@use 'borders' as *;
 @use 'colors' as *;
+@use 'typography' as *;
 
-.snackbar-success {
-  @include mat.snack-bar-overrides(
-    (
-      button-color: rgb(255, 255, 255),
-      container-color: rgb(0, 141, 75),
-    )
-  );
+// snackbar
+.mat-snackbar-panel-custom {
+  border-radius: $border-radius-md;
+  font-size: 14px;
+  font-weight: $font-weight-medium;
+  display: flex;
+  align-items: center;
 }
 
-.snackbar-error {
-  @include mat.snack-bar-overrides(
-    (
-      button-color: rgb(255, 255, 255),
-      container-color: rgb(226, 0, 0),
-    )
-  );
+.mode-success {
+  background-color: $success-green;
+}
+.mode-error {
+  background-color: $red;
 }
 
+.mode-info {
+  background-color: $black-hover;
+}
+
+.color-white {
+  color: #fff;
+}
+.text-center {
+  justify-content: center;
+}
+
+// spinner
 :root {
   @include mat.progress-spinner-overrides(
     (

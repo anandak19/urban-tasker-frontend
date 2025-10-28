@@ -24,9 +24,9 @@ import {
   noWhitespaceValidator,
   phoneNumberValidator,
 } from '@shared/validators/custom-auth-validators';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-signup-form',
@@ -44,7 +44,7 @@ export class SignupFormComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _signupService = inject(SignupService);
   //snackbar
-  private snackBar = inject(MatSnackBar);
+  private _snackbarService = inject(SnackbarService);
 
   basicForm!: FormGroup;
   isLoading = signal(false);
@@ -102,16 +102,12 @@ export class SignupFormComponent implements OnInit {
         .subscribe({
           next: (res) => {
             console.log(res);
-            this.snackBar.open('OTP send successfully', 'Dismiss', {
-              duration: 9000,
-            });
+            this._snackbarService.success('OTP send successfully');
             this.nextStep.emit();
           },
           error: (err: HttpErrorResponse) => {
             const error = err.error as IApiResponseError;
-            this.snackBar.open(error.message, 'Dismiss', {
-              duration: 9000,
-            });
+            this._snackbarService.info(error.message);
           },
         });
     } else {

@@ -23,9 +23,9 @@ import { IBasicDataResponse } from '../../models/signup-response.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { TimerService } from '../../services/timer.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-otp-varify',
@@ -42,7 +42,7 @@ export class OtpVarifyComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _signupService = inject(SignupService);
   private _timerService = inject(TimerService);
-  private snackBar = inject(MatSnackBar);
+  private _snackBar = inject(SnackbarService);
 
   //OTP input configuration
   otpConfig = {
@@ -71,15 +71,11 @@ export class OtpVarifyComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.snackBar.open('OTP send successfully', 'Dismiss', {
-            duration: 9000,
-          });
+          this._snackBar.success('OTP send successfully');
           this._timerService.setTimer();
         },
         error: (err) => {
-          this.snackBar.open('Error sending OTP', 'Dismiss', {
-            duration: 9000,
-          });
+          this._snackBar.error('Error sending OTP');
           console.error(err);
         },
       });
@@ -115,16 +111,12 @@ export class OtpVarifyComponent implements OnInit {
       .subscribe({
         next: (res: IBasicDataResponse) => {
           console.log(res);
-          this.snackBar.open(res.message, 'Dismiss', {
-            duration: 9000,
-          });
+          this._snackBar.success(res.message);
           this.nextStep.emit();
         },
         error: (err: HttpErrorResponse) => {
           const error = err.error as IApiResponseError;
-          this.snackBar.open(error.message, 'Dismiss', {
-            duration: 9000,
-          });
+          this._snackBar.info(error.message);
         },
       });
   }
