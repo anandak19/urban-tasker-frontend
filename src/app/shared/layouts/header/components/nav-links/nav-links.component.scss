@@ -1,8 +1,9 @@
-@use "variables" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
-@use "typography" as *;
-@use "borders" as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'typography' as *;
+@use 'variables' as *;
+@use 'borders' as *;
 
 .nav-links {
   display: flex;
@@ -17,11 +18,11 @@
     }
   }
 
-  @include respond("xs") {
+  @include respond('xs') {
     position: absolute;
     background-color: $black;
     left: 0;
-    top: $header-hight;
+    top: $header-height;
     height: 100vh;
     flex-direction: column;
     width: 50%;

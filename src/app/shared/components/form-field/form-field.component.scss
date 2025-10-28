@@ -1,0 +1,44 @@
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'typography' as *;
+@use 'borders' as *;
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacing-1;
+
+  label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-regular;
+    margin-bottom: $spacing-1;
+    color: $white;
+  }
+
+  input {
+    padding: $spacing-2 $spacing-3;
+    border-radius: $border-radius-sm;
+    border: $border-width-thin solid transparent;
+    background-color: $inputs;
+    font-size: $font-size-sm;
+    outline: none;
+    color: $white;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+      color: $disabled;
+    }
+
+    &:focus {
+      border-color: $primary-color;
+    }
+  }
+  .error {
+    color: $red;
+    font-size: $font-size-sm;
+  }
+  .error-input {
+    border-color: $red;
+  }
+}

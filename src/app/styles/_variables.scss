@@ -1,13 +1,5 @@
-$primary-color: #facc15;
-$primary-color-hover: #ffdb4b;
-$primary-color-active: #e7b900;
+@use 'spacing' as *;
 
-// $secondary-color: #1;
-// $secondary-color-hover: #a51118;
-
-$background: #231f0f;
-$white: #ffffff;
-$black: #000000; 
-$black-hover: rgb(54, 54, 54);
-$red: #ff3b30;
-$disabled: #7e7e7e;
+// specific
+$header-height-sm: $spacing-8; 
+$header-height: $spacing-10;

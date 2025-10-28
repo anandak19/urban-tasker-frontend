@@ -1,12 +1,14 @@
-@use "variables" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
-@use "typography" as *;
-@use "borders" as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'typography' as *;
+@use 'borders' as *;
+@use 'sass:color';
 
 .btn {
   padding: $spacing-2 $spacing-3;
   border: none;
+  width: 100%;
   border-radius: $border-radius-md;
   font-weight: $font-weight-medium;
   cursor: pointer;
@@ -15,31 +17,58 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
+  outline: none;
 
-  &:disabled {
-    background-color: $disabled;
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.8;
+    box-shadow: none;
   }
 
-  @include respond("xs") {
+  @include respond('xs') {
     padding: $spacing-1 $spacing-2;
     font-size: $font-size-xs;
   }
 }
 
+/*  Primary Button */
 .btn.primary {
   background-color: $primary-color;
   color: $black;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: $primary-color-hover;
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: $primary-color-active;
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: color.adjust($primary-color, $lightness: 15%);
+    color: color.adjust($black, $lightness: 20%);
+    cursor: not-allowed;
+    pointer-events: none;
   }
 }
 
+/*  Secondary Button */
 .btn.secondary {
-  background-color: $disabled;
+  background-color: $secondary-color;
   color: $black;
+
+  &:hover:not(:disabled) {
+    background-color: $secondary-color-hover;
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: color.adjust($primary-color, $lightness: 45%);
+    color: color.adjust($black, $lightness: 20%);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }

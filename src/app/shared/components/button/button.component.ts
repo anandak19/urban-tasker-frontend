@@ -5,14 +5,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'app-button',
   imports: [CommonModule],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.scss'
+  styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  @Input() disabled: boolean = false
-  @Input() type: 'primary'| 'secondary' = 'primary'
+  @Input() disabled = false;
+  @Input() variant: 'primary' | 'secondary' = 'primary';
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
 
-  @Output() clickEvent = new EventEmitter()
-  onBtnClick(){
-    this.clickEvent.emit()
+  @Output() clickEvent = new EventEmitter();
+  onBtnClick() {
+    this.clickEvent.emit();
   }
 }

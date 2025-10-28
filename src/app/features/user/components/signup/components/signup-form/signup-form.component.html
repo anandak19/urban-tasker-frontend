@@ -1,8 +1,52 @@
-<div class="signup-form">
-    <div class="title">
-        <h3>Signup</h3>
-    </div>
-    <div class="form">
-        <form action=""></form>
-    </div>
-</div>
+<form [formGroup]="basicForm" class="signup-form">
+  <ng-template matStepLabel>Basic Info</ng-template>
+
+  <div class="form-fields">
+    <app-form-field
+      formControlName="firstName"
+      label="First Name"
+      type="text"
+      id="firstName"
+      placeholder="Enter your First Name"
+    ></app-form-field>
+
+    <app-form-field
+      formControlName="lastName"
+      label="Last Name"
+      type="text"
+      id="lastName"
+      placeholder="Enter your Last Name"
+    ></app-form-field>
+
+    <app-form-field
+      formControlName="email"
+      label="Email"
+      type="text"
+      id="email"
+      placeholder="Enter your Email"
+    ></app-form-field>
+
+    <app-form-field
+      formControlName="phone"
+      label="Phone Number"
+      type="number"
+      id="phone"
+      placeholder="Enter your Phone Number"
+    ></app-form-field>
+  </div>
+
+  <div class="signup-btn">
+    <app-button
+      variant="primary"
+      type="submit"
+      [disabled]="isLoading()"
+      (clickEvent)="submitBasicForm()"
+    >
+      @if (!isLoading()) {
+        Verify Email
+      } @else {
+        <mat-spinner diameter="20" class="btn-spinner"></mat-spinner>
+      }
+    </app-button>
+  </div>
+</form>

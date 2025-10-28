@@ -1,8 +1,9 @@
-@use "variables" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
-@use "typography" as *;
-@use "borders" as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'variables' as *;
+@use 'typography' as *;
+@use 'borders' as *;
 
 .app-header {
   width: 100%;
@@ -10,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: $header-hight;
+  height: $header-height;
   position: fixed;
   top: 0;
   left: 0;
@@ -38,7 +39,7 @@
     }
   }
 
-  @include respond("xs") {
+  @include respond('xs') {
     .left-section {
       .menu-option {
         display: block;

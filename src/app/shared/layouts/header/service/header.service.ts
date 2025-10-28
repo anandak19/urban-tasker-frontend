@@ -1,15 +1,12 @@
 import { Injectable, signal } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HeaderService {
-
-  sidebarOpen = signal(false)
+  sidebarOpen = signal(false);
 
   toggleSidebar() {
-    this.sidebarOpen.update(value => !value);
+    this.sidebarOpen.update((value) => !value);
   }
-
-
 }

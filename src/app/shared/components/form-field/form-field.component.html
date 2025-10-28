@@ -1,0 +1,26 @@
+<!-- <div class="form-field">
+  <label for="username">Username</label>
+  <input type="text" id="username" placeholder="Enter your username" />
+</div> -->
+
+<!-- <div class="form-field">
+  <ng-content></ng-content>
+</div> -->
+<div class="form-field">
+  <label [for]="id">{{ label }}</label>
+  <input
+    [id]="id"
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="value"
+    [disabled]="disabled"
+    (input)="handleInput($event)"
+    (blur)="onTouched()"
+    [ngClass]="showError ? 'error-input' : ''" />
+  <!-- Validation messages (optional) -->
+  @if (showError) {
+    <div class="error">
+      <small>{{ errorMessage }}</small>
+    </div>
+  }
+</div>

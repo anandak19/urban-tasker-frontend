@@ -8,9 +8,8 @@ describe('OtpVarifyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OtpVarifyComponent]
-    })
-    .compileComponents();
+      imports: [OtpVarifyComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(OtpVarifyComponent);
     component = fixture.componentInstance;

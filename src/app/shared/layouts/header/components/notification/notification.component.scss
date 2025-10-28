@@ -1,8 +1,8 @@
-@use "variables" as *;
-@use "breakpoints" as *;
-@use "spacing" as *;
-@use "typography" as *;
-@use "borders" as *;
+@use 'colors' as *;
+@use 'breakpoints' as *;
+@use 'spacing' as *;
+@use 'typography' as *;
+@use 'borders' as *;
 
 .notification {
   position: relative;
@@ -30,7 +30,7 @@
 
   .dot {
     position: absolute;
-    top: 4px; 
+    top: 4px;
     right: 5px;
     width: 8px;
     height: 8px;
@@ -38,7 +38,7 @@
     border-radius: $border-radius-full;
   }
 
-  @include respond("xs") {
+  @include respond('xs') {
     width: 37px;
     height: 37px;
     .mat-icon {

@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-form">
+    <h2>Login</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+      <app-form-field formControlName="email" label="Email" type="email" id="email" placeholder="Enter your email"></app-form-field>
+
+      <app-form-field formControlName="password" label="Password" type="password" id="password" placeholder="Enter your password"></app-form-field>
+
+      <app-button type="submit" variant="primary">Login</app-button>
+    </form>
+
+    <div class="login-option">
+      <!-- use diffent button here-->
+      <button class="google-btn">Login with Google</button>
+    </div>
+
+    <div class="nav-option">
+      <small><a href="/forgot-password">Forgot Password ?</a></small>
+      <small>Don't have an account? <a href="/signup">Signup</a></small>
+    </div>
+  </div>
+</div>

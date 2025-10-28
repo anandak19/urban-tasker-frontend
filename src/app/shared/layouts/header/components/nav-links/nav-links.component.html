@@ -1,10 +1,5 @@
-<nav class="nav-links" [ngClass]="isSidebarOpen()? 'active-sidebar' : ''">
+<nav class="nav-links" [ngClass]="isSidebarOpen() ? 'active-sidebar' : ''">
   @for (link of links; track $index) {
-  <a
-    [routerLink]="link.path"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    class="nav-item"
-    >{{ link.label }}</a>
+    <a [routerLink]="link.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item">{{ link.label }}</a>
   }
 </nav>

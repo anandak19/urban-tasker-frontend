@@ -4,6 +4,7 @@ import {
   HostListener,
   OnInit,
   WritableSignal,
+  inject,
 } from '@angular/core';
 import { BrandComponent } from '../../components/brand/brand.component';
 import { NavLink } from '../../interfaces/nav-link.interface';
@@ -29,20 +30,18 @@ import { HeaderService } from './service/header.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
-  isLoginPage: boolean = true;
-  isUserLogin: boolean = true;
+  private router = inject(Router);
+  private el = inject(ElementRef);
+  private headerService = inject(HeaderService);
+
+  isLoginPage = true;
+  isUserLogin = false;
   isSidebarOpen!: WritableSignal<boolean>;
 
   links: NavLink[] = [
     { label: 'Home', path: '/' },
     { label: 'Categories', path: '/categories' },
   ];
-
-  constructor(
-    private router: Router,
-    private el: ElementRef,
-    private headerService: HeaderService
-  ) {}
 
   bookTaskerClicked() {
     alert('Show book tasker page');
@@ -72,12 +71,11 @@ export class HeaderComponent implements OnInit {
   onDocumentClick(event: MouseEvent) {
     const clickedInside = this.el.nativeElement.contains(event.target);
     if (!clickedInside && this.headerService.sidebarOpen()) {
-      this.toggleSidePannel()
+      this.toggleSidePannel();
     }
   }
 
   //hooks
-
   ngOnInit(): void {
     this.isSidebarOpen = this.headerService.sidebarOpen;
   }
