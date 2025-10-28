@@ -22,12 +22,8 @@
     padding: $spacing-2;
     border-radius: $border-radius-md;
     background-color: $background;
-    width: 100%;
-    // max-width: 400px;
-
-    @include respond('xs') {
-      width: 80%;
-    }
+    width: 80%;
+    max-width: 400px;
 
     h2 {
       text-align: center;

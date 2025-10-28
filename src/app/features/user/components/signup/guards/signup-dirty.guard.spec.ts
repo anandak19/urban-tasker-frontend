@@ -4,8 +4,8 @@ import { CanDeactivateFn } from '@angular/router';
 import { signupDirtyGuard } from './signup-dirty.guard';
 
 describe('signupDirtyGuard', () => {
-  const executeGuard: CanDeactivateFn<unknown> = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => signupDirtyGuard(...guardParameters));
+  const executeGuard: CanDeactivateFn<unknown> = (...guardParameters) =>
+    TestBed.runInInjectionContext(() => signupDirtyGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

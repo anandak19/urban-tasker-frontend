@@ -14,7 +14,7 @@
   @include respond('xs') {
     height: fit-content;
     padding: $spacing-4 0;
-    h2{
+    h2 {
       font-size: $font-size-lg;
     }
   }
