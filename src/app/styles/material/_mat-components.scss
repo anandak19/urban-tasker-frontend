@@ -1,0 +1,45 @@
+@use '../base' as *;
+@use '../abstracts' as *;
+@use '@angular/material' as mat;
+
+// snackbar
+.mat-snackbar-panel-custom {
+  border-radius: $border-radius-md;
+  font-size: 14px;
+  font-weight: $font-weight-medium;
+  display: flex;
+  align-items: center;
+}
+
+.mode-success {
+  background-color: $success-green;
+}
+.mode-error {
+  background-color: $red;
+}
+
+.mode-info {
+  background-color: $black-hover;
+}
+
+.color-white {
+  color: #fff;
+}
+.text-center {
+  justify-content: center;
+}
+
+// spinner
+:root {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: rgb(0, 0, 0),
+      size: 24px,
+    )
+  );
+}
+
+.spinner {
+  width: 22px !important;
+  height: 22px !important;
+}

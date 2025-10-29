@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { CategoriesComponent } from './components/categories/categories.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupLayoutComponent } from './components/signup/signup-layout/signup-layout.component';
-import { signupDirtyGuard } from './components/signup/guards/signup-dirty.guard';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { signupDirtyGuard } from './pages/signup/guards/signup-dirty.guard';
+import { SignupLayoutComponent } from './pages/signup/signup-layout/signup-layout.component';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
