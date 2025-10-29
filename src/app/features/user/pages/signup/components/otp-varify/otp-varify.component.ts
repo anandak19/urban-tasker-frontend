@@ -25,7 +25,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { finalize } from 'rxjs';
-import { IBasicDataResponse } from '../../models/signup-response.model';
+import { IBasicDataResponse } from '../../../../models/signup/signup-response.model';
 
 @Component({
   selector: 'app-otp-varify',

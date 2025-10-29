@@ -2,8 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { SessionStorageService } from '@core/services/session-storage.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IBasicDataResponse } from '@features/user/pages/signup/models/signup-response.model';
-import { IBasicUserData } from '@features/user/pages/signup/models/signup.model';
+import { IBasicDataResponse } from '@features/user/models/signup/signup-response.model';
+import { IBasicUserData } from '@features/user/models/signup/signup.model';
 
 @Injectable({
   providedIn: 'root',
