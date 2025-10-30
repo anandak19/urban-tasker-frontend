@@ -5,8 +5,7 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { SignupService } from '@features/user/services/signup/signup.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { finalize } from 'rxjs';
-// fix this
-import { IBasicDataResponse } from '../../../../models/signup/signup-response.model';
+import { IBasicDataResponse } from '@features/user/models/signup/signup-response.model';
 import { NewPasswordFormComponent } from '@features/user/components/new-password-form/new-password-form.component';
 
 @Component({

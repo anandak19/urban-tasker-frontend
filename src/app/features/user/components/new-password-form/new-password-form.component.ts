@@ -34,6 +34,7 @@ import {
 })
 export class NewPasswordFormComponent implements OnInit {
   @Input() isLoading = signal(false);
+
   @Output() newPassword = new EventEmitter<string>();
   passwordForm!: FormGroup;
 
