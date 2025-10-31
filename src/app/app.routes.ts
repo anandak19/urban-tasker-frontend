@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from '@features/admin/admin-layout/admin-layout.component';
 import { adminRoutes } from '@features/admin/admin.routes';
-import { AdminLoginComponent } from '@features/admin/components/admin-login/admin-login.component';
+import { AdminLoginComponent } from '@features/admin/pages/admin-login/admin-login.component';
 import { TaskerLayoutComponent } from '@features/tasker/tasker-layout/tasker-layout.component';
 import { taskerRoutes } from '@features/tasker/tasker.routes';
 import { UserLayoutComponent } from '@features/user/user-layout/user-layout.component';

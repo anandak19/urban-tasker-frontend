@@ -1,54 +1,45 @@
-import { Component, OnInit, inject } from '@angular/core';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { ButtonComponent } from '@shared/components/button/button.component';
-import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
-import { TokenService } from '@core/services/token/token.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, signal, ViewChild } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { AuthService } from '@features/user/services/auth/auth.service';
+import { LoginFormComponent } from '@shared/components/login-form/login-form.component';
+import { IApiResponseError } from '@shared/models/api-response.model';
+import { ILoginData } from '@shared/models/auth.model';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [FormFieldComponent, ReactiveFormsModule, ButtonComponent],
+  imports: [ReactiveFormsModule, LoginFormComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
-  private fb = inject(FormBuilder);
+export class LoginComponent {
   private _authService = inject(AuthService);
-  private _tokenService = inject(TokenService);
+  private _snackBar = inject(SnackbarService);
+  private _router = inject(Router);
 
-  loginForm!: FormGroup;
+  @ViewChild(LoginFormComponent) loginFormChild!: LoginFormComponent;
 
-  initializeForm() {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
-  }
+  isLoading = signal(false);
 
-  onFormSubmit() {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-      this._authService.login(this.loginForm.value).subscribe({
-        next: (res) => {
-          const response = res as { data: { accessToken: string } };
-          console.log(response.data.accessToken);
-          this._tokenService.setAccessToken(response?.data.accessToken);
+  onLogin(loginData: ILoginData) {
+    this._authService
+      .login(loginData)
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        next: () => {
+          this.loginFormChild.resetForm();
+          const snackRef = this._snackBar.success('Login Successfull');
+          snackRef.afterDismissed().subscribe(() => {
+            this._router.navigate(['/']);
+          });
         },
-        error: (err) => {
-          console.log(err);
+        error: (err: HttpErrorResponse) => {
+          const error = err.error as IApiResponseError;
+          this._snackBar.info(error.message);
         },
       });
-    } else {
-      this.loginForm.markAllAsTouched();
-    }
-  }
-
-  ngOnInit(): void {
-    this.initializeForm();
   }
 }

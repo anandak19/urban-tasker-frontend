@@ -8,7 +8,7 @@ import { tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly _apiEndPoint = 'auth';
+  private readonly _apiEndPoint = 'auth/admin';
 
   private _http = inject(HttpClient);
   private _tokenService = inject(TokenService);
