@@ -15,7 +15,8 @@ export class HomeComponent {
   // mocke api call
   getProtectedData() {
     this._homeService.getProtectedData().subscribe({
-      next: () => {
+      next: (res) => {
+        console.log(res);
         this._snackBar.success('Protected data received');
       },
       error: (err) => {

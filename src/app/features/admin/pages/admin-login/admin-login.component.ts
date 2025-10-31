@@ -3,7 +3,7 @@ import { Component, inject, signal, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { AuthService } from '@features/admin/services/auth/auth.service';
-import { ILoginData } from '@features/user/models/login/login.model';
+import { ILoginData } from '@features/user/models/auth/login.model';
 import { LoginFormComponent } from '@shared/components/login-form/login-form.component';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { finalize } from 'rxjs';

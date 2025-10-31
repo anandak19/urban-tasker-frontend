@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TokenService } from '@core/services/token/token.service';
+import { IisLoginResponse } from '@features/user/models/auth/login.model';
 import { ILoginData, ILoginSuccessResponse } from '@shared/models/auth.model';
-import { tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +25,15 @@ export class AuthService {
 
   logout() {
     throw new Error('Method not implemented');
+  }
+
+  isUserLogin() {
+    return this._http.get(`${this._apiEndPoint}/is-login`).pipe(
+      map((res) => {
+        const response = res as IisLoginResponse;
+        return !!response.data.user.email;
+      }),
+      catchError(() => of(false)),
+    );
   }
 }

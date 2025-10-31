@@ -15,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
-import { ILoginData } from '@features/user/models/login/login.model';
+import { ILoginData } from '@features/user/models/auth/login.model';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
