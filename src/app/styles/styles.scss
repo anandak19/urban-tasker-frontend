@@ -1,9 +1,4 @@
-@use 'material-theme' as *;
-@use 'colors' as *;
-@use 'breakpoints' as *;
-@use 'spacing' as *;
-@use 'variables' as *;
-@use 'mat-components';
+@use 'index' as *;
 
 * {
   padding: 0;

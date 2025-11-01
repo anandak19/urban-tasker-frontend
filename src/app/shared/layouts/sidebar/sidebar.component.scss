@@ -1,0 +1,40 @@
+@use 'index' as *;
+
+.sidenav {
+  background: $background;
+  transition: all 0.3s ease-in;
+
+  .nav-item {
+    color: $background-text;
+    transition: all 0.2s ease-in;
+    span {
+      color: $background-text;
+    }
+
+    // When hovering
+    &:hover {
+      background-color: $background-hover;
+
+      mat-icon {
+        color: $white;
+      }
+      span {
+        color: $white;
+      }
+    }
+
+    // Active route
+    &.active {
+      background-color: $primary-color;
+      color: $white;
+
+      mat-icon {
+        color: $black;
+      }
+
+      span {
+        color: $black;
+      }
+    }
+  }
+}

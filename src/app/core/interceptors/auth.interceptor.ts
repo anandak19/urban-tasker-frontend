@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from '@core/services/token/token.service';
+import { IRefreshTokenResponse } from '@features/user/models/auth/token.models';
 import { catchError, switchMap, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
@@ -9,7 +10,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const _router = inject(Router);
 
   const token = _tokenService.getAccessToken();
-  console.log('Access token in memory: ', token);
+  console.log('Access token has in memory: ', !!token);
+
+  if (req.url.includes('/auth/refresh')) {
+    return next(req);
+  }
 
   // add token to header
   const authReq = token
@@ -25,11 +30,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         return _tokenService.refreshTokens().pipe(
           // retry the request with new token
           switchMap((res) => {
-            console.log('Tokens refreshed');
+            console.log('Access Token refreshed');
+            const response = res as IRefreshTokenResponse;
 
-            _tokenService.setAccessToken(res.data.accessToken);
+            _tokenService.setAccessToken(response.data.accessToken);
             const retry = req.clone({
-              setHeaders: { Authorization: `Bearer ${res.data.accessToken}` },
+              setHeaders: {
+                Authorization: `Bearer ${response.data.accessToken}`,
+              },
             });
             return next(retry);
           }),
@@ -38,7 +46,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             // logout user here
             _tokenService.clearAccessToken();
             // redirect user to login
-            _router.navigateByUrl('/login');
+            if (!req.url.includes('/is-login')) {
+              _router.navigateByUrl('/login');
+            }
             return throwError(() => e);
           }),
         );

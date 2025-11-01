@@ -1,0 +1,20 @@
+<div class="login-container">
+  <div class="login-form">
+    <h2>Login</h2>
+
+    <app-login-form
+      (login)="onLogin($event)"
+      [isLoading]="isLoading"
+    ></app-login-form>
+
+    <div class="login-option">
+      <!-- use diffent button here-->
+      <button type="button" class="google-btn">Login with Google</button>
+    </div>
+
+    <div class="nav-option">
+      <small><a href="/forgot-password">Forgot Password ?</a></small>
+      <small>Don't have an account? <a href="/signup">Signup</a></small>
+    </div>
+  </div>
+</div>

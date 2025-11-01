@@ -1,0 +1,121 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  Component,
+  OnInit,
+  inject,
+  signal,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatStepperModule } from '@angular/material/stepper';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { SignupService } from '@features/user/services/signup/signup.service';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
+import { IApiResponseError } from '@shared/models/api-response.model';
+import {
+  noWhitespaceValidator,
+  nameValidator,
+  emailValidator,
+  phoneNumberValidator,
+} from '@shared/validators/custom-auth-validators';
+import { finalize } from 'rxjs';
+
+@Component({
+  selector: 'app-signup-form',
+  imports: [
+    ReactiveFormsModule,
+    FormFieldComponent,
+    ButtonComponent,
+    MatStepperModule,
+    MatProgressSpinnerModule,
+  ],
+  templateUrl: './signup-form.component.html',
+  styleUrl: './signup-form.component.scss',
+})
+export class SignupFormComponent implements OnInit {
+  private _fb = inject(FormBuilder);
+  private _signupService = inject(SignupService);
+  //snackbar
+  private _snackbarService = inject(SnackbarService);
+
+  basicForm!: FormGroup;
+  isLoading = signal(false);
+  @Output() nextStep = new EventEmitter<void>();
+
+  initForm() {
+    this.basicForm = this._fb.group({
+      firstName: [
+        '',
+        [
+          Validators.required,
+          noWhitespaceValidator,
+          Validators.maxLength(15),
+          nameValidator,
+        ],
+      ],
+      lastName: [
+        '',
+        [
+          Validators.required,
+          noWhitespaceValidator,
+          Validators.maxLength(15),
+          nameValidator,
+        ],
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          noWhitespaceValidator,
+          Validators.email,
+          emailValidator,
+        ],
+      ],
+      phone: [
+        '',
+        [
+          Validators.required,
+          noWhitespaceValidator,
+          Validators.minLength(10),
+          Validators.maxLength(14),
+          phoneNumberValidator,
+        ],
+      ],
+    });
+  }
+
+  // step: 1 submit basic details
+  submitBasicForm() {
+    if (this.basicForm.valid) {
+      this.isLoading.set(true);
+      this._signupService
+        .validateBasicUserData(this.basicForm.value)
+        .pipe(finalize(() => this.isLoading.set(false)))
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this._snackbarService.success('OTP send successfully');
+            this.nextStep.emit();
+          },
+          error: (err: HttpErrorResponse) => {
+            const error = err.error as IApiResponseError;
+            this._snackbarService.info(error.message);
+          },
+        });
+    } else {
+      this.basicForm.markAllAsTouched();
+    }
+  }
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+}

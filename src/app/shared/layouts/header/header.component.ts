@@ -8,13 +8,13 @@ import {
 } from '@angular/core';
 import { BrandComponent } from '../../components/brand/brand.component';
 import { NavLink } from '../../interfaces/nav-link.interface';
-import { NavLinksComponent } from './components/nav-links/nav-links.component';
 import { ButtonComponent } from '../../components/button/button.component';
-import { NotificationComponent } from './components/notification/notification.component';
-import { UserProfileCircleComponent } from './components/user-profile-circle/user-profile-circle.component';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderService } from './service/header.service';
+import { NavLinksComponent } from '../components/nav-links/nav-links.component';
+import { NotificationComponent } from '../components/notification/notification.component';
+import { UserProfileCircleComponent } from '../components/user-profile-circle/user-profile-circle.component';
 
 @Component({
   selector: 'app-header',
