@@ -1,5 +1,27 @@
-<app-header></app-header>
-<main class="main-content">
-  <app-sidebar></app-sidebar>
-  <router-outlet></router-outlet>
+<!-- admin header  -->
+<app-admin-header>
+  <button mat-icon-button (click)="collapsed.set(!collapsed())" class="nav-btn">
+    <mat-icon class="material-icons-outlined menu-option">menu</mat-icon>
+  </button>
+</app-admin-header>
+
+<!-- side bar and content  -->
+<main class="main-content-admin background">
+  <mat-sidenav-container class="background">
+    <!-- side bar  -->
+    <mat-sidenav
+      opened
+      mode="side"
+      [style.width]="sidenavWidth()"
+      class="background"
+    >
+      <!-- navigation links  -->
+      <app-sidebar [collapsed]="collapsed()"></app-sidebar>
+    </mat-sidenav>
+
+    <!-- content  -->
+    <mat-sidenav-content [style.margin-left]="sidenavWidth()">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </main>

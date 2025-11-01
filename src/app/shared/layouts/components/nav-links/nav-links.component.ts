@@ -6,9 +6,10 @@ import {
   inject,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NavLink } from '../../../../interfaces/nav-link.interface';
-import { HeaderService } from '../../service/header.service';
+
 import { CommonModule } from '@angular/common';
+import { NavLink } from '@shared/interfaces/nav-link.interface';
+import { HeaderService } from '@shared/layouts/header/service/header.service';
 
 @Component({
   selector: 'app-nav-links',

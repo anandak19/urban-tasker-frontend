@@ -16,8 +16,7 @@
 // }
 
 html {
-  // color-scheme: dark;
-  // background-color: $background;
+  color-scheme: light;
   @include mat.theme(
     (
       color: theme.$primary-palette,
