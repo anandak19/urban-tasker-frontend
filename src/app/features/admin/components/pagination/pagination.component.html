@@ -1,0 +1,13 @@
+<div class="pagination-container">
+  <button class="nav-btn" (click)="goPrev()" [disabled]="isPrevDisabled">
+    Prev
+  </button>
+
+  <span class="page-info">
+    Page {{ currentpage }} of {{ totalPages }}
+  </span>
+
+  <button class="nav-btn" (click)="goNext()" [disabled]="isNextDisabled">
+    Next
+  </button>
+</div>

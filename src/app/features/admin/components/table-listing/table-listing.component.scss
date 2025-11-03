@@ -1,0 +1,18 @@
+@use 'index' as *;
+
+.table-listing {
+  background-color: $background;
+  border: 1px solid $background-text;
+
+  th,
+  td {
+    color: $background-text;
+  }
+
+  .mat-mdc-header-row {
+    background-color: $background-hover;
+  }
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background-color: $inputs;
+  }
+}
