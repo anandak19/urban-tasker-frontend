@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from '@features/admin/admin-layout/admin-layout.component';
 import { adminRoutes } from '@features/admin/admin.routes';
+import { adminAuthGuard } from '@features/admin/guards/auth/admin-auth.guard';
 import { AdminLoginComponent } from '@features/admin/pages/admin-login/admin-login.component';
 import { TaskerLayoutComponent } from '@features/tasker/tasker-layout/tasker-layout.component';
 import { taskerRoutes } from '@features/tasker/tasker.routes';
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [adminAuthGuard],
     children: adminRoutes,
   },
 ];
