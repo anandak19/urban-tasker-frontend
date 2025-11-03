@@ -15,6 +15,8 @@ import { HeaderService } from './service/header.service';
 import { NavLinksComponent } from '../components/nav-links/nav-links.component';
 import { NotificationComponent } from '../components/notification/notification.component';
 import { UserProfileCircleComponent } from '../components/user-profile-circle/user-profile-circle.component';
+import { AuthService } from '@features/user/services/auth/auth.service';
+import { TokenService } from '@core/services/token/token.service';
 
 @Component({
   selector: 'app-header',
@@ -33,9 +35,10 @@ export class HeaderComponent implements OnInit {
   private router = inject(Router);
   private el = inject(ElementRef);
   private headerService = inject(HeaderService);
+  private _authService = inject(AuthService);
+  public _tokenService = inject(TokenService);
 
   isLoginPage = true;
-  isUserLogin = false;
   isSidebarOpen!: WritableSignal<boolean>;
 
   links: NavLink[] = [
@@ -73,6 +76,10 @@ export class HeaderComponent implements OnInit {
     if (!clickedInside && this.headerService.sidebarOpen()) {
       this.toggleSidePannel();
     }
+  }
+
+  onUserLogout() {
+    this.router.navigate(['/login']);
   }
 
   //hooks

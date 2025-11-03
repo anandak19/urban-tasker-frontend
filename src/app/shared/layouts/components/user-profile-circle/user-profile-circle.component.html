@@ -1,10 +1,13 @@
-<div
+<button
   class="user-profile"
   role="button"
   tabindex="0"
-  (click)="profileClicked()"
-  (keydown.enter)="profileClicked()"
-  (keydown.space)="profileClicked()"
+  [matMenuTriggerFor]="menu"
 >
   <img [src]="imageUrl" alt="User Profile" />
-</div>
+</button>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="gotToProfileClicked()">Profile</button>
+  <button mat-menu-item (click)="logoutClicked()">Logout</button>
+</mat-menu>
