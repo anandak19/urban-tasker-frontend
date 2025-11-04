@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableListingComponent } from './table-listing.component';
+import { WhyChooseCardComponent } from './why-choose-card.component';
 
-describe('TableListingComponent', () => {
-  let component: TableListingComponent;
-  let fixture: ComponentFixture<TableListingComponent>;
+describe('WhyChooseCardComponent', () => {
+  let component: WhyChooseCardComponent;
+  let fixture: ComponentFixture<WhyChooseCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableListingComponent],
+      imports: [WhyChooseCardComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TableListingComponent);
+    fixture = TestBed.createComponent(WhyChooseCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

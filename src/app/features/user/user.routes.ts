@@ -8,6 +8,7 @@ import { signupDirtyGuard } from './guards/signup/signup-dirty.guard';
 import { SignupLayoutComponent } from './pages/signup/signup-layout/signup-layout.component';
 import { isLoginGuard } from './guards/login/is-login.guard';
 import { isNotLoginGuard } from './guards/login/is-not-login.guard';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -39,7 +40,11 @@ export const userRoutes: Routes = [
   },
   {
     path: 'categories',
-    canActivate: [isLoginGuard], // sample -remove it
     component: CategoriesComponent,
+  },
+  {
+    path: 'profile',
+    canActivate: [isLoginGuard],
+    component: UserProfileComponent,
   },
 ];

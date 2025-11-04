@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { HomeService } from '../../services/home/home.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { HomeHeroComponent } from './components/home-hero/home-hero.component';
+import { PopularCategoriesComponent } from './components/popular-categories/popular-categories.component';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [HomeHeroComponent, PopularCategoriesComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

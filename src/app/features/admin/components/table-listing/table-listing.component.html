@@ -1,4 +1,8 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-listing">
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8 table-listing"
+>
   @for (item of columns; track $index) {
     <ng-container [matColumnDef]="item.key">
       <th mat-header-cell *matHeaderCellDef>{{ item.label }}</th>
