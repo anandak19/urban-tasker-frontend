@@ -9,6 +9,7 @@ import { SignupLayoutComponent } from './pages/signup/signup-layout/signup-layou
 import { isLoginGuard } from './guards/login/is-login.guard';
 import { isNotLoginGuard } from './guards/login/is-not-login.guard';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { GoogleAuthSuccessComponent } from './pages/google-auth-success/google-auth.success';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -37,6 +38,10 @@ export const userRoutes: Routes = [
     path: 'reset-password',
     canActivate: [isNotLoginGuard],
     component: ResetPasswordComponent,
+  },
+  {
+    path: 'login/google-success',
+    component: GoogleAuthSuccessComponent,
   },
   {
     path: 'categories',

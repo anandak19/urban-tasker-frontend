@@ -2,8 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/services/auth/auth.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
-import { AuthService } from '@features/user/services/auth/auth.service';
+import { AuthService as userAuthService } from '@features/user/services/auth/auth.service';
 import { LoginFormComponent } from '@shared/components/login-form/login-form.component';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { ILoginData } from '@shared/models/auth.model';
@@ -16,7 +17,8 @@ import { finalize } from 'rxjs';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private _authService = inject(AuthService);
+  private _userAuthService = inject(userAuthService);
+  private _authServices = inject(AuthService);
   private _snackBar = inject(SnackbarService);
   private _router = inject(Router);
 
@@ -25,7 +27,7 @@ export class LoginComponent {
   isLoading = signal(false);
 
   onLogin(loginData: ILoginData) {
-    this._authService
+    this._userAuthService
       .login(loginData)
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
@@ -41,5 +43,9 @@ export class LoginComponent {
           this._snackBar.info(error.message);
         },
       });
+  }
+
+  googleLoginClicked() {
+    this._authServices.googleLogin();
   }
 }

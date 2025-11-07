@@ -5,13 +5,17 @@ import { inject, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  private _apiEndPoints = 'auth';
+  private _apiEndPoint = 'auth';
 
   private _http = inject(HttpClient);
 
+  googleLogin() {
+    window.location.href = 'http://localhost:3000/api/auth/google/login';
+  }
+
   logout() {
     return this._http.post(
-      `${this._apiEndPoints}/logout`,
+      `${this._apiEndPoint}/logout`,
       {},
       { withCredentials: true },
     );
