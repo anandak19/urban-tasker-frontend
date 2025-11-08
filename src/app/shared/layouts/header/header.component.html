@@ -11,7 +11,7 @@
   <app-nav-links [links]="links"></app-nav-links>
   <div class="right-section">
     <!-- button   -->
-    @if (_tokenService.isLoggedIn()) {
+    @if (_authGuardService.currentUser()) {
       <app-button [variant]="'primary'" (clickEvent)="bookTaskerClicked()"
         >Book a Tasker</app-button
       >
@@ -19,7 +19,7 @@
 
     <!-- user options  -->
     <div class="user-options">
-      @if (_tokenService.isLoggedIn()) {
+      @if (_authGuardService.currentUser()?.email) {
         <app-notification (isnoficationClicked)="openNotifications()" />
         <app-user-profile-circle (logout)="onUserLogout()" />
       } @else {

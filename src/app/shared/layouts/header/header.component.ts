@@ -15,8 +15,8 @@ import { HeaderService } from './service/header.service';
 import { NavLinksComponent } from '../components/nav-links/nav-links.component';
 import { NotificationComponent } from '../components/notification/notification.component';
 import { UserProfileCircleComponent } from '../components/user-profile-circle/user-profile-circle.component';
-import { AuthService } from '@features/user/services/auth/auth.service';
-import { TokenService } from '@core/services/token/token.service';
+import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
+import { UserRoles } from '@shared/constants/enums/user.enum';
 
 @Component({
   selector: 'app-header',
@@ -35,9 +35,9 @@ export class HeaderComponent implements OnInit {
   private router = inject(Router);
   private el = inject(ElementRef);
   private headerService = inject(HeaderService);
-  private _authService = inject(AuthService);
-  public _tokenService = inject(TokenService);
+  public _authGuardService = inject(AuthGuardService);
 
+  roles = UserRoles;
   isLoginPage = true;
   isSidebarOpen!: WritableSignal<boolean>;
 

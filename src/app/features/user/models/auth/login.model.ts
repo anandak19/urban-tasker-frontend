@@ -1,3 +1,4 @@
+import { UserRoles } from '@shared/constants/enums/user.enum';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
 
 export interface ILoginData {
@@ -5,13 +6,16 @@ export interface ILoginData {
   password: string;
 }
 
+export interface ICurrentUser {
+  id: string;
+  email: string;
+  userRole: UserRoles;
+  iat: number;
+  exp: number;
+}
+
 export interface IisLoginData {
-  message: string;
-  user: {
-    id: string;
-    email: string;
-    role: 'user' | 'admin';
-  };
+  user: ICurrentUser;
 }
 
 export type IisLoginResponse = IApiResponseSuccess<IisLoginData>;

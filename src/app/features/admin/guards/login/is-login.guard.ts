@@ -1,35 +1,31 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
+import { UserRoles } from '@shared/constants/enums/user.enum';
 import { catchError, map, of } from 'rxjs';
 
-export const isLoginGuard: CanActivateFn = () => {
-  const _router = inject(Router);
+export const isAdminLoginGuard: CanActivateFn = () => {
   const _authGuardService = inject(AuthGuardService);
-
-  console.log('Is login guard', _authGuardService.currentUser());
+  const _router = inject(Router);
 
   const currentUser = _authGuardService.currentUser();
 
-  if (currentUser && currentUser.email) {
-    return _router.createUrlTree(['/']);
+  if (currentUser && currentUser.userRole === UserRoles.ADMIN) {
+    return _router.createUrlTree(['/admin']);
   }
 
   return _authGuardService.fetchLoginUser().pipe(
     map((res) => {
-      const user = res?.data?.user;
-      console.log('User in guard after call', user);
+      const user = res?.data.user;
 
-      if (user && user.email) {
+      if (user && user.userRole === UserRoles.ADMIN) {
         _authGuardService.currentUser.set(user);
-        return _router.createUrlTree(['/']);
+        return _router.createUrlTree(['/admin']);
       } else {
         return true;
       }
     }),
     catchError(() => {
-      console.log('error in not login guard');
-
       return of(true);
     }),
   );

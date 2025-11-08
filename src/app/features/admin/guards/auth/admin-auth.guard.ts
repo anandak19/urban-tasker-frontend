@@ -1,15 +1,25 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '@features/admin/services/auth/auth.service';
+import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
+import { UserRoles } from '@shared/constants/enums/user.enum';
 import { catchError, map, of } from 'rxjs';
 
 export const adminAuthGuard: CanActivateFn = () => {
-  const _adminAuthService = inject(AuthService);
   const router = inject(Router);
 
-  return _adminAuthService.isAdminLogin().pipe(
-    map((isLoggedIn) => {
-      if (isLoggedIn) {
+  const _authGuardService = inject(AuthGuardService);
+
+  const currentUser = _authGuardService.currentUser();
+
+  if (currentUser?.userRole === UserRoles.ADMIN) {
+    return true;
+  }
+
+  return _authGuardService.fetchLoginUser().pipe(
+    map((res) => {
+      const user = res?.data.user;
+      console.log('Admin auth guard user,', user);
+      if (user && user.userRole === UserRoles.ADMIN) {
         return true;
       } else {
         router.navigate(['/admin/login']);

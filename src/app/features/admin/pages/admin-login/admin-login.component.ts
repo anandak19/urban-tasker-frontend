@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/services/auth/auth.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
-import { AuthService } from '@features/admin/services/auth/auth.service';
 import { ILoginData } from '@features/user/models/auth/login.model';
 import { LoginFormComponent } from '@shared/components/login-form/login-form.component';
 import { IApiResponseError } from '@shared/models/api-response.model';
@@ -19,12 +19,13 @@ export class AdminLoginComponent {
   @ViewChild(LoginFormComponent) loginFormChild!: LoginFormComponent;
 
   private _authService = inject(AuthService);
+
   private _snackbar = inject(SnackbarService);
   private _router = inject(Router);
 
   onLogin(data: ILoginData) {
     this._authService
-      .login(data)
+      .localLogin(data)
       .pipe(finalize(() => this.isLoding.set(false)))
       .subscribe({
         next: (res) => {
