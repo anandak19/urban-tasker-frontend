@@ -1,0 +1,23 @@
+@if (categoryData) {
+  <div class="category-card">
+    <!-- image  -->
+    <div class="image-section">
+      <img [src]="categoryData.imageUrl" alt="" />
+    </div>
+    <!-- content  -->
+    <div class="content-section">
+      <div class="content-wrapper">
+        <p class="category-name">{{ categoryData.categoryName }}</p>
+        <span class="category-disc">{{ categoryData.description }}</span>
+        <!-- book button  -->
+        <app-button
+          type="button"
+          size="small"
+          (clickEvent)="onBookBtnClick(categoryData.categoryId)"
+        >
+          Book Now
+        </app-button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,23 +1,36 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '@features/user/services/auth/auth.service';
+import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
 import { catchError, map, of } from 'rxjs';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const isLoginGuard: CanActivateFn = (_route, _state) => {
+export const isLoginGuard: CanActivateFn = () => {
   const _router = inject(Router);
-  const _authService = inject(AuthService);
+  const _authGuardService = inject(AuthGuardService);
 
-  return _authService.isUserLogin().pipe(
-    map((isLoggedIn) => {
-      if (isLoggedIn) {
-        return true;
+  console.log('Is login guard', _authGuardService.currentUser());
+
+  const currentUser = _authGuardService.currentUser();
+
+  if (currentUser && currentUser.email) {
+    return _router.createUrlTree(['/']);
+  }
+
+  return _authGuardService.fetchLoginUser().pipe(
+    map((res) => {
+      const user = res?.data?.user;
+      console.log('User in guard after call', user);
+
+      if (user && user.email) {
+        _authGuardService.currentUser.set(user);
+        return _router.createUrlTree(['/']);
       } else {
-        return _router.createUrlTree(['/login']);
+        return true;
       }
     }),
     catchError(() => {
-      return of(_router.createUrlTree(['/login']));
+      console.log('error in not login guard');
+
+      return of(true);
     }),
   );
 };

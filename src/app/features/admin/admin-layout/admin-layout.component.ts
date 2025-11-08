@@ -22,5 +22,5 @@ import { AdminHeaderComponent } from '@shared/layouts/admin-header/admin-header.
 export class AdminLayoutComponent {
   collapsed = signal(false);
 
-  sidenavWidth = computed(() => (this.collapsed() ? '65px' : '250px'));
+  sidenavWidth = computed(() => (this.collapsed() ? '65px' : '268px'));
 }

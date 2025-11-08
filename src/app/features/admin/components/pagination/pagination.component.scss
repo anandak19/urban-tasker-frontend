@@ -1,0 +1,35 @@
+@use 'index' as *;
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+
+  .nav-btn {
+    padding: 0.4rem 1rem;
+    border: none;
+    background-color: $primary-color;
+    color: $black;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: $primary-color-hover;
+    }
+
+    &:disabled {
+      background-color: $disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  .page-info {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $white;
+  }
+}

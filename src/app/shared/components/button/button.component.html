@@ -2,7 +2,7 @@
   [disabled]="disabled"
   [type]="type"
   class="btn"
-  [ngClass]="variant"
+  [ngClass]="[variant, size]"
   (click)="onBtnClick()"
 >
   <ng-content></ng-content>

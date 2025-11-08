@@ -12,18 +12,18 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { httpInterceptor } from './core/interceptors/http.interceptor';
 import { authInterceptor } from '@core/interceptors/auth.interceptor';
-import { TokenService } from '@core/services/token/token.service';
 import { firstValueFrom, take } from 'rxjs';
+import { AuthService } from '@core/services/auth/auth.service';
 
-export function appInitFactory(tokenService: TokenService) {
-  return firstValueFrom(tokenService.refreshTokens().pipe(take(1)));
+export function appInitFactory(authservice: AuthService) {
+  return firstValueFrom(authservice.refreshToken().pipe(take(1)));
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideAppInitializer(() => appInitFactory(inject(TokenService))),
+    provideAppInitializer(() => appInitFactory(inject(AuthService))),
     provideHttpClient(withInterceptors([authInterceptor, httpInterceptor])),
     provideStore(),
     provideEffects(),
