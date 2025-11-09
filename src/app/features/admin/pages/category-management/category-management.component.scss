@@ -1,0 +1,7 @@
+@use 'index' as *;
+
+.category-management{
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+}

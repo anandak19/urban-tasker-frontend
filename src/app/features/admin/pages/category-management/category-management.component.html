@@ -1,1 +1,12 @@
-<p>category-management works!</p>
+<div class="category-management">
+  <app-admin-page-title title="Category Management">
+    <app-button type="button" (clickEvent)="addCategoryClicked()"
+      >Add Category</app-button
+    >
+  </app-admin-page-title>
+
+  <app-admin-table-filters
+    searchPlaceholder="Search by category name"
+    (searchChange)="searchCategory($event)"
+  ></app-admin-table-filters>
+</div>

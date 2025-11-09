@@ -4,38 +4,4 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-4;
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: $spacing-4;
-
-    h2 {
-      margin: 0;
-      font-size: $font-size-xl;
-      font-weight: $font-weight-medium;
-      color: $white;
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: $spacing-2;
-
-      button {
-        padding: $spacing-1 $spacing-4;
-        border: none;
-        border-radius: $border-radius-sm;
-        background-color: $primary-color;
-        color: $black;
-        cursor: pointer;
-        transition: 0.2s;
-
-        &:hover {
-          background-color: $primary-color-hover;
-        }
-      }
-    }
-  }
 }

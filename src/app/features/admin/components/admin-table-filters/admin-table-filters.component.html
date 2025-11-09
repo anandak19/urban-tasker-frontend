@@ -1,0 +1,13 @@
+<div class="table-filter">
+  <div class="search-form">
+    <form [formGroup]="searchForm">
+      <mat-icon class="search-icon material-icons-outlined">search</mat-icon>
+      <input
+        type="text"
+        formControlName="search"
+        (input)="onFormSubmit()"
+        [placeholder]="searchPlaceholder"
+      />
+    </form>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+@use 'index' as *;
+
+.admin-page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .title {
+    h2 {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-medium;
+      color: $white;
+    }
+  }
+}
