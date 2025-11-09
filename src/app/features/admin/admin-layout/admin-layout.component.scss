@@ -1,0 +1,45 @@
+@use 'index' as *;
+
+// header
+app-admin-header {
+  position: relative;
+  z-index: 5;
+  mat-icon {
+    color: $background-text;
+  }
+
+  .nav-btn {
+    &:hover {
+      mat-icon {
+        color: $white;
+      }
+    }
+  }
+}
+
+.main-content-admin {
+  mat-sidenav-container {
+    height: calc(100vh - 64px);
+    border-top: 1px solid $background-text;
+  }
+
+  mat-sidenav {
+    padding: $spacing-1;
+    border-right: 1px solid $background-text;
+  }
+
+  mat-sidenav-content {
+    padding: $spacing-6;
+  }
+
+  mat-sidenav,
+  mat-sidenav-content {
+    border-radius: 0;
+    transition: all 0.3s ease-out;
+  }
+}
+
+.background {
+  background-color: $background;
+  color: $white;
+}

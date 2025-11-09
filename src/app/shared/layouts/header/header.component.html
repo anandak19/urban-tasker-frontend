@@ -1,6 +1,9 @@
 <header class="app-header container">
   <div class="left-section">
-    <mat-icon class="material-icons-outlined menu-option" (click)="toggleSidePannel()">
+    <mat-icon
+      class="material-icons-outlined menu-option"
+      (click)="toggleSidePannel()"
+    >
       {{ isSidebarOpen() ? 'close' : 'menu' }}
     </mat-icon>
     <app-brand></app-brand>
@@ -8,18 +11,28 @@
   <app-nav-links [links]="links"></app-nav-links>
   <div class="right-section">
     <!-- button   -->
-    @if (isUserLogin) {
-      <app-button [variant]="'primary'" (clickEvent)="bookTaskerClicked()">Book a Tasker</app-button>
+    @if (_authGuardService.currentUser()) {
+      <app-button [variant]="'primary'" (clickEvent)="bookTaskerClicked()"
+        >Book a Tasker</app-button
+      >
     }
 
     <!-- user options  -->
     <div class="user-options">
-      @if (isUserLogin) {
+      @if (_authGuardService.currentUser()?.email) {
         <app-notification (isnoficationClicked)="openNotifications()" />
-        <app-user-profile-circle (clickProfile)="openUserOptions()" />
+        <app-user-profile-circle (logout)="onUserLogout()" />
       } @else {
-        <app-button [variant]="isLoginPage ? 'secondary' : 'primary'" (clickEvent)="goToLogin()">Login</app-button>
-        <app-button [variant]="isLoginPage ? 'primary' : 'secondary'" (clickEvent)="goToSignup()">Signup</app-button>
+        <app-button
+          [variant]="isLoginPage ? 'secondary' : 'primary'"
+          (clickEvent)="goToLogin()"
+          >Login</app-button
+        >
+        <app-button
+          [variant]="isLoginPage ? 'primary' : 'secondary'"
+          (clickEvent)="goToSignup()"
+          >Signup</app-button
+        >
       }
     </div>
   </div>

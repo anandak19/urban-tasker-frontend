@@ -19,8 +19,6 @@ export class FormFieldComponent {
   value = '';
   disabled = false;
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-
   constructor() {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
@@ -37,7 +35,7 @@ export class FormFieldComponent {
 
   // Write value from parent form
   writeValue(value: string): void {
-    this.value = value;
+    this.value = value || '';
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -57,6 +55,15 @@ export class FormFieldComponent {
     const val = (event.target as HTMLInputElement).value;
     this.value = val;
     this.onChange(val);
+  }
+
+  resetControl(): void {
+    if (this.control) {
+      this.control.reset();
+      this.value = '';
+      this.onChange(this.value);
+      this.control.markAsUntouched();
+    }
   }
 
   get control() {

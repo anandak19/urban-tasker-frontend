@@ -1,23 +1,18 @@
-@use 'colors' as *;
-@use 'breakpoints' as *;
-@use 'spacing' as *;
-@use 'typography' as *;
-@use 'borders' as *;
+@use 'index' as *;
 @use 'sass:color';
 
 .btn {
-  padding: $spacing-2 $spacing-3;
   border: none;
   width: 100%;
-  border-radius: $border-radius-md;
-  font-weight: $font-weight-medium;
   cursor: pointer;
-  font-size: $font-size-sm;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
   outline: none;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-sm;
+  border-radius: $border-radius-md;
 
   &:disabled,
   &.disabled {
@@ -27,8 +22,29 @@
     box-shadow: none;
   }
 
-  @include respond('xs') {
+  &.large {
+    padding: $spacing-3 $spacing-4;
+    @include respond('xs') {
+      padding: $spacing-2 $spacing-3;
+    }
+  }
+
+  // default
+  &.medium {
+    padding: $spacing-2 $spacing-3;
+    @include respond('xs') {
+      padding: $spacing-1 $spacing-2;
+    }
+  }
+
+  &.small {
     padding: $spacing-1 $spacing-2;
+    @include respond('xs') {
+      padding: 0;
+    }
+  }
+
+  @include respond('xs') {
     font-size: $font-size-xs;
   }
 }

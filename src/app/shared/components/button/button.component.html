@@ -1,3 +1,9 @@
-<button [disabled]="disabled" [type]="type" class="btn" [ngClass]="variant" (click)="onBtnClick()">
+<button
+  [disabled]="disabled"
+  [type]="type"
+  class="btn"
+  [ngClass]="[variant, size]"
+  (click)="onBtnClick()"
+>
   <ng-content></ng-content>
 </button>

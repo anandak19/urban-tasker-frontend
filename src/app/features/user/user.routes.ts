@@ -1,9 +1,13 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { CategoriesComponent } from './components/categories/categories.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupLayoutComponent } from './components/signup/signup-layout/signup-layout.component';
-import { signupDirtyGuard } from './components/signup/guards/signup-dirty.guard';
+import { HomeComponent } from './pages/home/home.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { signupDirtyGuard } from './guards/signup/signup-dirty.guard';
+import { SignupLayoutComponent } from './pages/signup/signup-layout/signup-layout.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { userAuthGuard } from './guards/auth/user-auth.guard';
+import { isLoginGuard } from './guards/login/is-login.guard';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -14,15 +18,34 @@ export const userRoutes: Routes = [
   },
   {
     path: 'signup',
+    canActivate: [isLoginGuard],
     component: SignupLayoutComponent,
     canDeactivate: [signupDirtyGuard],
   },
   {
     path: 'login',
-    component: LoginComponent,
+    canActivate: [isLoginGuard],
+    loadComponent: () =>
+      import('./pages/login/login.component').then((c) => c.LoginComponent),
+  },
+  {
+    path: 'forgot-password',
+    canActivate: [isLoginGuard],
+    component: ForgotPasswordComponent,
+  },
+  {
+    path: 'reset-password',
+    canActivate: [isLoginGuard],
+    component: ResetPasswordComponent,
   },
   {
     path: 'categories',
+    canActivate: [userAuthGuard],
     component: CategoriesComponent,
+  },
+  {
+    path: 'profile',
+    canActivate: [userAuthGuard],
+    component: UserProfileComponent,
   },
 ];

@@ -1,0 +1,11 @@
+@use 'index' as *;
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  ::ng-deep app-button button {
+    font-weight: $font-weight-bold;
+    padding: $spacing-2 0;
+  }
+}

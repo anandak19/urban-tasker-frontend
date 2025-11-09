@@ -9,5 +9,5 @@ import { RouterLink } from '@angular/router';
 })
 export class BrandComponent {
   // path
-  @Input() link: string = '/';
+  @Input() link = '/';
 }

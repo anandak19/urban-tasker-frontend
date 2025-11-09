@@ -1,9 +1,4 @@
-@use 'colors' as *;
-@use 'breakpoints' as *;
-@use 'spacing' as *;
-@use 'variables' as *;
-@use 'typography' as *;
-@use 'borders' as *;
+@use 'index' as *;
 
 .app-header {
   width: 100%;

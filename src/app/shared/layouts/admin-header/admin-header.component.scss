@@ -1,0 +1,22 @@
+@use 'index' as *;
+
+.admin-header {
+  background-color: $background;
+  display: flex;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  .right {
+    color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-2;
+  }
+}
