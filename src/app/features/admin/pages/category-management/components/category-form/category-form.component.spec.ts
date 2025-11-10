@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminPageTitleComponent } from './admin-page-title.component';
+import { CategoryFormComponent } from './category-form.component';
 
-describe('AdminPageTitleComponent', () => {
-  let component: AdminPageTitleComponent;
-  let fixture: ComponentFixture<AdminPageTitleComponent>;
+describe('CategoryFormComponent', () => {
+  let component: CategoryFormComponent;
+  let fixture: ComponentFixture<CategoryFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminPageTitleComponent],
+      imports: [CategoryFormComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminPageTitleComponent);
+    fixture = TestBed.createComponent(CategoryFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,37 @@
+<div class="image-upload-field">
+  <div
+    class="image-upload"
+    [ngClass]="showError ? 'error-input' : ''"
+    (click)="trigerFileInput(fileInput)"
+    (keydown.enter)="trigerFileInput(fileInput)"
+    (keydown.space)="trigerFileInput(fileInput)"
+    tabindex="0"
+    role="button"
+  >
+    <input
+      #fileInput
+      type="file"
+      accept="image/*"
+      (change)="selectImage($event)"
+      [disabled]="disabled"
+      hidden
+    />
+
+    @if (imageUrl()) {
+      <img [src]="imageUrl()" alt="Preview" class="preview-image" />
+    } @else {
+      <div class="placeholder">
+        <mat-icon
+          class="upload-icon material-icons-outlined"
+          fontIcon="cloud_upload"
+        ></mat-icon>
+        <p>Add image</p>
+        <small>Maximum {{ maxSizeInMB }} MB</small>
+      </div>
+    }
+  </div>
+
+  @if (showError) {
+    <small class="error">{{ errorMessage }}</small>
+  }
+</div>

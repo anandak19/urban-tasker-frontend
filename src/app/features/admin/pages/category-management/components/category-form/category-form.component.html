@@ -1,0 +1,17 @@
+<div class="category-form">
+  <form [formGroup]="categoryForm" (ngSubmit)="onFormSubmit()">
+
+    <!-- name field  -->
+    <app-form-field
+      label="Category Name"
+      placeholder="Enter Category Name"
+      id="name"
+      formControlName="name"
+    />
+
+    <!-- image field  -->
+    <app-image-upload-field formControlName="image" />
+
+    <app-button type="submit">Add Categroy</app-button>
+  </form>
+</div>

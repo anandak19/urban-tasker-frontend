@@ -1,0 +1,15 @@
+@use 'index' as *;
+
+.add-category{
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-8;
+    .add-category-form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        app-category-form{
+            width: 50%;
+        }
+    }
+}

@@ -1,0 +1,77 @@
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ICreateCategory } from '@features/admin/models/category.interface';
+import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
+import { ImageUploadFieldComponent } from '@features/admin/components/image-upload-field/image-upload-field.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import {
+  nameValidator,
+  noWhitespaceValidator,
+} from '@shared/validators/custom-auth-validators';
+
+@Component({
+  selector: 'app-category-form',
+  imports: [
+    ReactiveFormsModule,
+    FormFieldComponent,
+    ImageUploadFieldComponent,
+    ButtonComponent,
+  ],
+  templateUrl: './category-form.component.html',
+  styleUrl: './category-form.component.scss',
+})
+export class CategoryFormComponent implements OnInit {
+  @Input() categoryData: ICreateCategory | null = null;
+  @Output() formValues = new EventEmitter<ICreateCategory>();
+
+  categoryForm!: FormGroup;
+
+  private _fb = inject(FormBuilder);
+
+  onFormSubmit() {
+    if (this.categoryForm.valid) {
+      const formCategoryData: ICreateCategory = {
+        name: this.categoryForm.get('name')?.value.trim(),
+        imageUrl: this.categoryForm.get('image')?.value,
+      };
+      this.formValues.emit(formCategoryData);
+    } else {
+      this.categoryForm.markAllAsTouched();
+    }
+  }
+
+  initForm() {
+    this.categoryForm = this._fb.group({
+      name: ['', [Validators.required, noWhitespaceValidator, nameValidator]],
+      image: ['', Validators.required],
+    });
+  }
+
+  patchForm(category: ICreateCategory) {
+    if (category) {
+      this.categoryForm.patchValue({
+        name: category.name,
+        image: category.imageUrl,
+      });
+    }
+  }
+
+  ngOnInit(): void {
+    this.initForm();
+    if (this.categoryData) {
+      this.patchForm(this.categoryData);
+    }
+  }
+}

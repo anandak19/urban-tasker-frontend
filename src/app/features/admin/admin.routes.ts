@@ -2,7 +2,8 @@ import { Routes } from '@angular/router';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { UsersManagementComponent } from './pages/users-management/users-management.component';
 import { TasksManagementComponent } from './pages/tasks-management/tasks-management.component';
-import { CategoryManagementComponent } from './pages/category-management/category-management.component';
+import { categoryManagementRoutes } from './pages/category-management/category-management.routes';
+import { CategoryManagementLayout } from './pages/category-management/category-management-layout/category-management-layout.component';
 
 export const adminRoutes: Routes = [
   {
@@ -24,6 +25,7 @@ export const adminRoutes: Routes = [
   },
   {
     path: 'category-management',
-    component: CategoryManagementComponent,
+    component: CategoryManagementLayout,
+    children: categoryManagementRoutes,
   },
 ];

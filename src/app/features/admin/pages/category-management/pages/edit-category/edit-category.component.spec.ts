@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminPageTitleComponent } from './admin-page-title.component';
+import { EditCategoryComponent } from './edit-category.component';
 
-describe('AdminPageTitleComponent', () => {
-  let component: AdminPageTitleComponent;
-  let fixture: ComponentFixture<AdminPageTitleComponent>;
+describe('EditCategoryComponent', () => {
+  let component: EditCategoryComponent;
+  let fixture: ComponentFixture<EditCategoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminPageTitleComponent],
+      imports: [EditCategoryComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminPageTitleComponent);
+    fixture = TestBed.createComponent(EditCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

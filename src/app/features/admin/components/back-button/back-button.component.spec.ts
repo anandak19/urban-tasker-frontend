@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminPageTitleComponent } from './admin-page-title.component';
+import { BackButtonComponent } from './back-button.component';
 
-describe('AdminPageTitleComponent', () => {
-  let component: AdminPageTitleComponent;
-  let fixture: ComponentFixture<AdminPageTitleComponent>;
+describe('BackButtonComponent', () => {
+  let component: BackButtonComponent;
+  let fixture: ComponentFixture<BackButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminPageTitleComponent],
+      imports: [BackButtonComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminPageTitleComponent);
+    fixture = TestBed.createComponent(BackButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

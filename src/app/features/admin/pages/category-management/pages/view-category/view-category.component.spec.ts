@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminPageTitleComponent } from './admin-page-title.component';
+import { ViewCategoryComponent } from './view-category.component';
 
-describe('AdminPageTitleComponent', () => {
-  let component: AdminPageTitleComponent;
-  let fixture: ComponentFixture<AdminPageTitleComponent>;
+describe('ViewCategoryComponent', () => {
+  let component: ViewCategoryComponent;
+  let fixture: ComponentFixture<ViewCategoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminPageTitleComponent],
+      imports: [ViewCategoryComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminPageTitleComponent);
+    fixture = TestBed.createComponent(ViewCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
