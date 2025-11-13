@@ -34,19 +34,29 @@ import {
 })
 export class CategoryFormComponent implements OnInit {
   @Input() categoryData: ICreateCategory | null = null;
-  @Output() formValues = new EventEmitter<ICreateCategory>();
+  @Output() formValues = new EventEmitter<FormData>();
 
   categoryForm!: FormGroup;
 
   private _fb = inject(FormBuilder);
 
+  /**
+   * On submitting the category form
+   */
   onFormSubmit() {
     if (this.categoryForm.valid) {
-      const formCategoryData: ICreateCategory = {
-        name: this.categoryForm.get('name')?.value.trim(),
-        imageUrl: this.categoryForm.get('image')?.value,
-      };
-      this.formValues.emit(formCategoryData);
+      // create instance of formData
+      const categoryFormData = new FormData();
+      // assign values to form data
+      categoryFormData.append(
+        'name',
+        this.categoryForm.get('name')?.value.trim(),
+      );
+
+      categoryFormData.append('image', this.categoryForm.get('image')?.value);
+
+      // pass the value to parent
+      this.formValues.emit(categoryFormData);
     } else {
       this.categoryForm.markAllAsTouched();
     }
@@ -55,7 +65,7 @@ export class CategoryFormComponent implements OnInit {
   initForm() {
     this.categoryForm = this._fb.group({
       name: ['', [Validators.required, noWhitespaceValidator, nameValidator]],
-      image: ['', Validators.required],
+      image: [null, Validators.required],
     });
   }
 
@@ -63,7 +73,7 @@ export class CategoryFormComponent implements OnInit {
     if (category) {
       this.categoryForm.patchValue({
         name: category.name,
-        image: category.imageUrl,
+        image: category.image,
       });
     }
   }

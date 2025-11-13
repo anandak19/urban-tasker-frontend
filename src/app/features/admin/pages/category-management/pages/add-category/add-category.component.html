@@ -1,8 +1,12 @@
 <div class="add-category">
+  <!-- page title  -->
   <app-admin-page-title title="Add New Category">
-    <app-back-button></app-back-button>
+    <!-- back button  -->
+    <app-back-button />
   </app-admin-page-title>
+
+  <!-- add category form  -->
   <div class="add-category-form">
-    <app-category-form (formValues)="handleFormData($event)"></app-category-form>
+    <app-category-form (formValues)="handleFormData($event)" />
   </div>
 </div>

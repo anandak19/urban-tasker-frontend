@@ -18,6 +18,7 @@ import { TImageFile } from '@features/admin/models/category.interface';
 export class ImageUploadFieldComponent implements ControlValueAccessor {
   imageUrl = signal<TImageFile>(null);
   selectedImage: TImageFile = null;
+  imageFile!: File | null; // controller value
   disabled = false;
   maxSizeInMB = 1;
 
@@ -30,7 +31,7 @@ export class ImageUploadFieldComponent implements ControlValueAccessor {
   }
 
   // ControlValueAccessor methods
-  onChange: (value: TImageFile) => void = () => {
+  onChange: (value: File | null) => void = () => {
     console.log('Value changed');
   };
 
@@ -38,16 +39,16 @@ export class ImageUploadFieldComponent implements ControlValueAccessor {
     console.log('Control touched');
   };
 
-  writeValue(value: TImageFile) {
+  writeValue(value: File | null) {
     if (value) {
-      this.imageUrl.set(value);
+      this.imageFile = value;
     } else {
-      this.imageUrl.set(null);
+      this.imageFile = null;
     }
   }
 
   // control state changing methods
-  registerOnChange(fn: (value: TImageFile) => void): void {
+  registerOnChange(fn: (value: File | null) => void): void {
     this.onChange = fn;
   }
 
@@ -81,17 +82,19 @@ export class ImageUploadFieldComponent implements ControlValueAccessor {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const inputImage = input.files[0];
-      console.log('File selected');
 
       const isError = this.isSizeError(inputImage.size);
       if (isError) return;
 
+      // write to controller
+      this.writeValue(inputImage);
+      this.onChange(inputImage);
+
+      // to show the image
       const reader = new FileReader();
       reader.onload = (e) => {
         this.selectedImage = e.target?.result as TImageFile;
-        this.writeValue(this.selectedImage);
-
-        this.onChange(this.selectedImage);
+        this.imageUrl.set(this.selectedImage);
       };
       reader.readAsDataURL(inputImage);
     }

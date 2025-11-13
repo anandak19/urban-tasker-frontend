@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CategoryFormComponent } from '../../components/category-form/category-form.component';
 import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
-import { ICreateCategory } from '@features/admin/models/category.interface';
-// import { ICreateCategory } from '@features/admin/models/category.interface';
+import { CategoryManagementService } from '@features/admin/services/category-management/category-management.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-category',
@@ -16,12 +16,21 @@ import { ICreateCategory } from '@features/admin/models/category.interface';
   styleUrl: './add-category.component.scss',
 })
 export class AddCategoryComponent implements OnInit {
+  private _categoryService = inject(CategoryManagementService);
+
   ngOnInit(): void {
     console.log('Init add Category');
   }
 
   // --- call api method to add category here
-  handleFormData(categoryData: ICreateCategory) {
-    console.log('Form Data In Add Category:', categoryData);
+  handleFormData(categoryFormData: FormData) {
+    this._categoryService.addCategory(categoryFormData).subscribe({
+      next: (res) => {
+        console.log('Response', res);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log('err', error);
+      },
+    });
   }
 }
