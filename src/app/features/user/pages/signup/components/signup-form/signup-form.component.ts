@@ -17,7 +17,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { SignupService } from '@features/user/services/signup/signup.service';
-import { ButtonComponent } from '@shared/components/button/button.component';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import {
@@ -27,15 +26,16 @@ import {
   phoneNumberValidator,
 } from '@shared/validators/custom-auth-validators';
 import { finalize } from 'rxjs';
+import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 
 @Component({
   selector: 'app-signup-form',
   imports: [
     ReactiveFormsModule,
     FormFieldComponent,
-    ButtonComponent,
     MatStepperModule,
     MatProgressSpinnerModule,
+    ButtonLoadingComponent,
   ],
   templateUrl: './signup-form.component.html',
   styleUrl: './signup-form.component.scss',

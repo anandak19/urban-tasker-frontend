@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ICreateCategory } from '@features/admin/models/category.interface';
+// import { delay, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,11 @@ export class CategoryManagementService {
   private _http = inject(HttpClient);
 
   addCategory(categoryData: FormData) {
+    console.log('Category to add', categoryData);
     return this._http.post(`${this.apiEndPoint}`, categoryData);
+    // return of({ message: 'Category created successfully!' }).pipe(
+    //   delay(2000), // simulate 2-second API delay
+    // );
   }
 
   updateCatgory(categoryData: ICreateCategory) {

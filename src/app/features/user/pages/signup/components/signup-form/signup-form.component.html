@@ -36,17 +36,11 @@
   </div>
 
   <div class="signup-btn">
-    <app-button
-      variant="primary"
+    <app-button-loading
       type="submit"
-      [disabled]="isLoading()"
-      (clickEvent)="submitBasicForm()"
-    >
-      @if (!isLoading()) {
-        Verify Email
-      } @else {
-        <mat-spinner diameter="20" class="btn-spinner"></mat-spinner>
-      }
-    </app-button>
+      [isLoading]="isLoading"
+      (isClicked)="submitBasicForm()"
+      text="Varify Email"
+    ></app-button-loading>
   </div>
 </form>

@@ -7,6 +7,10 @@
 
   <!-- add category form  -->
   <div class="add-category-form">
-    <app-category-form (formValues)="handleFormData($event)" />
+    <app-category-form
+      #categoryForm
+      (formValues)="handleFormData($event)"
+      [loading]="isCreating()"
+    ></app-category-form>
   </div>
 </div>

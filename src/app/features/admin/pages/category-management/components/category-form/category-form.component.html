@@ -1,6 +1,5 @@
 <div class="category-form">
   <form [formGroup]="categoryForm" (ngSubmit)="onFormSubmit()">
-
     <!-- name field  -->
     <app-form-field
       label="Category Name"
@@ -10,8 +9,13 @@
     />
 
     <!-- image field  -->
-    <app-image-upload-field formControlName="image" />
+    <app-image-upload-field formControlName="image"  #imageField/>
 
-    <app-button type="submit">Add Categroy</app-button>
+    <!-- <app-button type="submit">Add Categroy</app-button>  -->
+    <app-button-loading
+      type="submit"
+      text="Add Category"
+      [isLoading]="isLoading"
+    />
   </form>
 </div>

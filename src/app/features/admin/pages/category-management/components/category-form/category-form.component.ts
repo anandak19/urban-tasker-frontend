@@ -5,6 +5,8 @@ import {
   Input,
   OnInit,
   Output,
+  signal,
+  ViewChild,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -15,11 +17,11 @@ import {
 import { ICreateCategory } from '@features/admin/models/category.interface';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { ImageUploadFieldComponent } from '@features/admin/components/image-upload-field/image-upload-field.component';
-import { ButtonComponent } from '@shared/components/button/button.component';
 import {
   nameValidator,
   noWhitespaceValidator,
 } from '@shared/validators/custom-auth-validators';
+import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 
 @Component({
   selector: 'app-category-form',
@@ -27,7 +29,7 @@ import {
     ReactiveFormsModule,
     FormFieldComponent,
     ImageUploadFieldComponent,
-    ButtonComponent,
+    ButtonLoadingComponent,
   ],
   templateUrl: './category-form.component.html',
   styleUrl: './category-form.component.scss',
@@ -36,14 +38,29 @@ export class CategoryFormComponent implements OnInit {
   @Input() categoryData: ICreateCategory | null = null;
   @Output() formValues = new EventEmitter<FormData>();
 
-  categoryForm!: FormGroup;
+  @ViewChild('imageField') imageField!: ImageUploadFieldComponent;
 
+  // loading state
+  isLoading = signal<boolean>(false);
+  @Input() set loading(val: boolean) {
+    this.isLoading.set(val);
+  }
+
+  categoryForm!: FormGroup;
   private _fb = inject(FormBuilder);
+
+  // to reset the form, from parent
+  resetForm() {
+    this.categoryForm.reset();
+    this.imageField.clearImage();
+  }
 
   /**
    * On submitting the category form
    */
   onFormSubmit() {
+    console.log('check this', this.categoryForm.value);
+
     if (this.categoryForm.valid) {
       // create instance of formData
       const categoryFormData = new FormData();

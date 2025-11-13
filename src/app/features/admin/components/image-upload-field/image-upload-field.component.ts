@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   NgControl,
@@ -17,12 +23,13 @@ import { TImageFile } from '@features/admin/models/category.interface';
 })
 export class ImageUploadFieldComponent implements ControlValueAccessor {
   imageUrl = signal<TImageFile>(null);
-  selectedImage: TImageFile = null;
   imageFile!: File | null; // controller value
   disabled = false;
   maxSizeInMB = 1;
 
   private ngControl = inject(NgControl, { optional: true, self: true });
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor() {
     if (this.ngControl) {
@@ -44,6 +51,16 @@ export class ImageUploadFieldComponent implements ControlValueAccessor {
       this.imageFile = value;
     } else {
       this.imageFile = null;
+    }
+  }
+
+  clearImage() {
+    this.imageUrl.set(null);
+    this.writeValue(null);
+    this.onChange(null);
+    this.control?.reset();
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
     }
   }
 
@@ -93,8 +110,8 @@ export class ImageUploadFieldComponent implements ControlValueAccessor {
       // to show the image
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.selectedImage = e.target?.result as TImageFile;
-        this.imageUrl.set(this.selectedImage);
+        const selectedImage = e.target?.result as TImageFile;
+        this.imageUrl.set(selectedImage);
       };
       reader.readAsDataURL(inputImage);
     }
