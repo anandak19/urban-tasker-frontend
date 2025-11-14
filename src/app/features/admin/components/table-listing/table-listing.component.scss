@@ -15,4 +15,20 @@
   .mat-mdc-row:hover .mat-mdc-cell {
     background-color: $inputs;
   }
+
+  .actions-cell {
+    padding: $spacing-2;
+
+    app-button {
+      display: inline-block;
+      margin-right: $spacing-2;
+    }
+  }
+}
+
+.empty-text {
+  text-align: center;
+  font-style: italic;
+  font-size: $font-size-lg;
+  color: $disabled;
 }
