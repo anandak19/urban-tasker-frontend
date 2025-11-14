@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -39,9 +38,8 @@ export class LoginComponent {
             this._router.navigate(['/']);
           });
         },
-        error: (err: HttpErrorResponse) => {
-          const error = err.error as IApiResponseError;
-          this._snackBar.info(error.message);
+        error: (err: IApiResponseError) => {
+          this._snackBar.info(err.message);
         },
       });
   }

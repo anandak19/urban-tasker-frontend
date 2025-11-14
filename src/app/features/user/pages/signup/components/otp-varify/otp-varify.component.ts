@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   OnInit,
@@ -114,9 +113,8 @@ export class OtpVarifyComponent implements OnInit {
           this._snackBar.success(res.message);
           this.nextStep.emit();
         },
-        error: (err: HttpErrorResponse) => {
-          const error = err.error as IApiResponseError;
-          this._snackBar.info(error.message);
+        error: (err: IApiResponseError) => {
+          this._snackBar.info(err.message);
         },
       });
   }

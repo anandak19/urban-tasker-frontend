@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
 import {
   Component,

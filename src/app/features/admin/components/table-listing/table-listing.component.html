@@ -7,7 +7,18 @@
     @for (item of columns; track $index) {
       <ng-container [matColumnDef]="item.key">
         <th mat-header-cell *matHeaderCellDef>{{ item.label }}</th>
-        <td mat-cell *matCellDef="let element">{{ element[item.key] }}</td>
+
+        <td mat-cell *matCellDef="let element">
+          @if (item.key === 'image') {
+            <div class="image-container">
+              <img [src]="element[item.key]" alt="" />
+            </div>
+          } @else if (typeof element[item.key] === 'boolean') {
+            {{ element[item.key] ? 'Yes' : 'No' }}
+          } @else {
+            {{ element[item.key] }}
+          }
+        </td>
       </ng-container>
     }
 

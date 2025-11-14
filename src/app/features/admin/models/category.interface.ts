@@ -8,7 +8,7 @@ export interface ICreateCategory {
 // category document from db
 export interface ICategoryData {
   name: string;
-  imageUrl: string;
+  image: string;
   isActive: boolean;
   slug: string;
 }

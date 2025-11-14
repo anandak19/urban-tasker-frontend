@@ -16,6 +16,16 @@
     background-color: $inputs;
   }
 
+  .image-container{
+    width: max-content;
+    overflow: hidden;
+    img{
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+  }
+
   .actions-cell {
     padding: $spacing-2;
 

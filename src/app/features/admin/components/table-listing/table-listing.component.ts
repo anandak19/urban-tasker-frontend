@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { IMatColumns } from '@shared/interfaces/table.interface';
 import { ButtonComponent } from '@shared/components/button/button.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table-listing',
-  imports: [MatTableModule, ButtonComponent],
+  imports: [MatTableModule, ButtonComponent, CommonModule],
   templateUrl: './table-listing.component.html',
   styleUrl: './table-listing.component.scss',
 })

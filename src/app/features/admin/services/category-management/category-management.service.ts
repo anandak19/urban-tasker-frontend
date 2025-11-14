@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { IFindAllCategoriesResponse } from '@features/admin/models/api-response.model';
 import { ICreateCategory } from '@features/admin/models/category.interface';
 // import { delay, of } from 'rxjs';
 
@@ -23,7 +24,7 @@ export class CategoryManagementService {
   }
 
   getAllCategories() {
-    console.log('GET ALL CATEGORY NOT IMPLEMENTED');
+    return this._http.get<IFindAllCategoriesResponse>(`${this.apiEndPoint}`);
   }
 
   changeCategoryActiveState(id: string) {

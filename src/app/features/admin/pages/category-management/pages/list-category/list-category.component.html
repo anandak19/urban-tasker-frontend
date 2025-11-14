@@ -9,4 +9,13 @@
     searchPlaceholder="Search by category name"
     (searchChange)="searchCategory($event)"
   ></app-admin-table-filters>
+
+  <!-- table  -->
+  <app-table-listing [dataSource]="categories" [columns]="categoryColumns">
+  </app-table-listing>
+
+  <app-pagination
+    [paginationData]="pagination()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 </div>

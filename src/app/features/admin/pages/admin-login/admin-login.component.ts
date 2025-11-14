@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
@@ -36,9 +35,8 @@ export class AdminLoginComponent {
             this._router.navigate(['/admin']);
           });
         },
-        error: (err: HttpErrorResponse) => {
-          const error = err.error as IApiResponseError;
-          this._snackbar.success(error.message);
+        error: (err: IApiResponseError) => {
+          this._snackbar.success(err.message);
         },
       });
   }

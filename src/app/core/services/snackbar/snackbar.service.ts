@@ -14,7 +14,7 @@ export class SnackbarService {
     });
   }
 
-  error(message: string) {
+  error(message = 'An Error Occoured') {
     return this._snackbar.open(message, 'Dismiss', {
       duration: 9000,
       panelClass: ['mat-snackbar-panel-custom', 'mode-error'],

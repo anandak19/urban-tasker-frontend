@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
@@ -40,10 +39,9 @@ export class PasswordFormComponent {
           });
         },
 
-        error: (err: HttpErrorResponse) => {
+        error: (err: IApiResponseError) => {
           console.log(err);
-          const error = err.error as IApiResponseError;
-          this._snackBar.info(error.message);
+          this._snackBar.info(err.message);
         },
       });
   }

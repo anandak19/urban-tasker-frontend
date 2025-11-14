@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   OnInit,
@@ -105,9 +104,8 @@ export class SignupFormComponent implements OnInit {
             this._snackbarService.success('OTP send successfully');
             this.nextStep.emit();
           },
-          error: (err: HttpErrorResponse) => {
-            const error = err.error as IApiResponseError;
-            this._snackbarService.info(error.message);
+          error: (err: IApiResponseError) => {
+            this._snackbarService.info(err.message);
           },
         });
     } else {
