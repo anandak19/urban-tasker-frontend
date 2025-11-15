@@ -20,12 +20,12 @@ app-admin-header {
 .main-content-admin {
   mat-sidenav-container {
     height: calc(100vh - 64px);
-    border-top: 1px solid $background-text;
+    border-top: 1px solid $background-division;
   }
 
   mat-sidenav {
     padding: $spacing-1;
-    border-right: 1px solid $background-text;
+    border-right: 1px solid $background-division;
   }
 
   mat-sidenav-content {

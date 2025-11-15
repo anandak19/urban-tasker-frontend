@@ -5,9 +5,11 @@ export interface ICreateCategory {
   image: string;
 }
 
-// category document from db
+// category document from db --in use
 export interface ICategoryData {
+  id: string;
   name: string;
+  description?: string;
   image: string;
   isActive: boolean;
   slug: string;

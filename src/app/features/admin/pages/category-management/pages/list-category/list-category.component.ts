@@ -40,8 +40,9 @@ export class ListCategoryComponent implements OnInit {
   // dummy
   // categories: ICategoryData[] = [
   //   {
+  //     id: '691647459fb6be9543dd91f8',
   //     image:
-  //       'https://urban-tasker-b1.s3.ap-south-1.amazonaws.com/categories/1763067775064-a-living-fence-2396623_1280.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAS2SAFIOBCPIZ4J6P%2F20251114%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20251114T180854Z&X-Amz-Expires=3600&X-Amz-Signature=9c8a9c63f513c90559a3227d014431b02551848484cd9f5ed43217edbcda99f9&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject',
+  //       'https://cdn.pixabay.com/photo/2019/07/30/18/26/surface-4373559_1280.jpg',
   //     isActive: true,
   //     name: 'Gardening',
   //     slug: 'gardening',
@@ -57,8 +58,15 @@ export class ListCategoryComponent implements OnInit {
     { label: 'Image', key: 'image' },
   ] as const;
 
+  // --- Navigations
   addCategoryClicked() {
     this._router.navigate(['add'], { relativeTo: this._route });
+  }
+  viewCategoryClicked(id: string) {
+    this._router.navigate([this._router.url, id]);
+  }
+  editCategoryClicked(id: string) {
+    this._router.navigate([id], { relativeTo: this._route });
   }
 
   searchCategory(search: string) {

@@ -1,6 +1,14 @@
 <div class="add-category">
-  <app-admin-page-title [title]="categoryName">
+  <!-- title  -->
+  <app-admin-page-title [title]="categoryData().name || 'Category Details'">
     <app-back-button></app-back-button>
   </app-admin-page-title>
-  <p>show category data and sub categories here</p>
+  <!-- category details card  -->
+  <app-category-details-card
+    [categoryData]="categoryData()"
+    (changeActiveStatus)="changeCategoryStatus($event)"
+    (deleteClicked)="onDeleteClick()"
+  ></app-category-details-card>
+
+  <!-- subcategories listing table  -->
 </div>

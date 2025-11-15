@@ -11,7 +11,11 @@
   ></app-admin-table-filters>
 
   <!-- table  -->
-  <app-table-listing [dataSource]="categories" [columns]="categoryColumns">
+  <app-table-listing
+    [dataSource]="categories"
+    [columns]="categoryColumns"
+    (editClicked)="editCategoryClicked($event)"
+    (viewClicked)="viewCategoryClicked($event)">
   </app-table-listing>
 
   <app-pagination

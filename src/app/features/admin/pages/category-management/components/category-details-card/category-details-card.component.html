@@ -1,0 +1,33 @@
+<div class="category-details-card">
+  <div class="category">
+    <div class="category-image">
+      <img [src]="category().image" alt="Category Image" />
+    </div>
+
+    <div class="category-info">
+      <p class="name">{{ category().name }}</p>
+      @if (category().description) {
+        <p class="discription">{{ category().description }}</p>
+      }
+
+      <p class="status" [ngClass]="category().isActive ? 'active' : 'inactive'">
+        {{ category().isActive ? 'Active' : 'Inactive' }}
+      </p>
+
+      <div class="toggle">
+        <span>Change Status:</span>
+        <mat-slide-toggle
+          [checked]="category().isActive"
+          (change)="onChangeStatusClick(category().isActive)"
+          ></mat-slide-toggle
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="category-actions">
+    <app-button (clickEvent)="onDeleteClick()" variant="danger"
+      >Delete</app-button
+    >
+  </div>
+</div>

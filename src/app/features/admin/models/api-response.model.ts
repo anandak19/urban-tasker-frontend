@@ -8,3 +8,5 @@ import { ICategoryData } from './category.interface';
 export type IFindAllCategoriesResponse = IApiResponseSuccess<
   IFindAllResponseData<ICategoryData>
 >;
+
+export type IFindOneCategoryResponse = IApiResponseSuccess<ICategoryData>;

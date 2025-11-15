@@ -88,3 +88,13 @@
     pointer-events: none;
   }
 }
+
+.btn.danger {
+  background-color: $red;
+  color: $black;
+  color: $white;
+
+  &:hover:not(:disabled) {
+    background-color: color.adjust($red, $lightness: 25%);
+  }
+}

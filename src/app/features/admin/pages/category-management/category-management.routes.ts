@@ -14,11 +14,11 @@ export const categoryManagementRoutes: Routes = [
     component: AddCategoryComponent,
   },
   {
-    path: 'edit/:slug',
+    path: 'edit/:categoryId',
     component: EditCategoryComponent,
   },
   {
-    path: ':slug',
+    path: ':categoryId',
     component: ViewCategoryComponent,
   },
 ];
