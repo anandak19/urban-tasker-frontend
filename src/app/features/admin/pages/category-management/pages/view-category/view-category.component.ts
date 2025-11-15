@@ -6,6 +6,7 @@ import { ICategoryData } from '@features/admin/models/category.interface';
 import { CategoryManagementService } from '@features/admin/services/category-management/category-management.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { CategoryDetailsCardComponent } from '../../components/category-details-card/category-details-card.component';
+import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
 
 @Component({
   selector: 'app-view-category',
@@ -35,17 +36,31 @@ export class ViewCategoryComponent implements OnInit {
 
   private _categoryManagementService = inject(CategoryManagementService);
   private _snackbar = inject(SnackbarService);
+  private _confirmDialog = inject(ConfirmDialogService);
   /**
    * TODOS
    * If inavalid id throw error
    */
 
-  changeCategoryStatus(status: boolean) {
-    alert(`Current status: ${status}`);
+  async changeCategoryStatus(status: boolean) {
+    const yes = await this._confirmDialog.ask(
+      `Change category status to ${status ? 'Active' : 'Inactive'}`,
+    );
+
+    if (yes) {
+      alert(`Current status: ${status}`);
+      // TODO: Call the method to change category status here recall the getCategory method
+    }
   }
 
-  onDeleteClick() {
-    alert(`Delete`);
+  async onDeleteClick() {
+    const yes = await this._confirmDialog.ask(
+      'Are you sure you want to delete this?',
+    );
+    if (yes) {
+      alert(`Delete method not implemented`);
+      // TODO: Call delete method here and redirect to view all categories
+    }
   }
 
   getCategoryDetails(id: string) {

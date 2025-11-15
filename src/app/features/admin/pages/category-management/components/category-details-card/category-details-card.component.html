@@ -18,7 +18,7 @@
         <span>Change Status:</span>
         <mat-slide-toggle
           [checked]="category().isActive"
-          (change)="onChangeStatusClick(category().isActive)"
+          (change)="onChangeStatusClick(!category().isActive)"
           ></mat-slide-toggle
         >
       </div>

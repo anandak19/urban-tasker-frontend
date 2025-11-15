@@ -95,6 +95,6 @@
   color: $white;
 
   &:hover:not(:disabled) {
-    background-color: color.adjust($red, $lightness: 25%);
+    background-color: $red-hover;
   }
 }
