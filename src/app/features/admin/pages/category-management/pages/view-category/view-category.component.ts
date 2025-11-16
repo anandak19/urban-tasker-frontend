@@ -7,6 +7,7 @@ import { CategoryManagementService } from '@features/admin/services/category-man
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { CategoryDetailsCardComponent } from '../../components/category-details-card/category-details-card.component';
 import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-category',
@@ -37,6 +38,7 @@ export class ViewCategoryComponent implements OnInit {
   private _categoryManagementService = inject(CategoryManagementService);
   private _snackbar = inject(SnackbarService);
   private _confirmDialog = inject(ConfirmDialogService);
+  private _router = inject(Router);
   /**
    * TODOS
    * If inavalid id throw error
@@ -68,8 +70,18 @@ export class ViewCategoryComponent implements OnInit {
       'Are you sure you want to delete this?',
     );
     if (yes) {
-      alert(`Delete method not implemented`);
-      // TODO: Call delete method here and redirect to view all categories
+      this._categoryManagementService
+        .deleteCategoryById(this.categoryId)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this._snackbar.success(res.message);
+            this._router.navigate(['/admin/category-management']);
+          },
+          error: (err: IApiResponseError) => {
+            this._snackbar.error(err.message);
+          },
+        });
     }
   }
 

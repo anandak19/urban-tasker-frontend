@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
   IFindAllCategoriesResponse,
-  IFindOneCategoryResponse,
+  IOneCategoryResponse,
 } from '@features/admin/models/api-response.model';
 import { ICreateCategory } from '@features/admin/models/category.interface';
+import { IBaseApiResponse } from '@shared/models/api-response.model';
 // import { delay, of } from 'rxjs';
 
 @Injectable({
@@ -31,13 +32,11 @@ export class CategoryManagementService {
   }
 
   getCategoryDataById(id: string) {
-    return this._http.get<IFindOneCategoryResponse>(
-      `${this.apiEndPoint}/${id}`,
-    );
+    return this._http.get<IOneCategoryResponse>(`${this.apiEndPoint}/${id}`);
   }
 
   changeCategoryActiveState(id: string, isActive: boolean) {
-    return this._http.patch<IFindOneCategoryResponse>(
+    return this._http.patch<IOneCategoryResponse>(
       `${this.apiEndPoint}/${id}/status`,
       {
         isActive,
@@ -46,6 +45,6 @@ export class CategoryManagementService {
   }
 
   deleteCategoryById(id: string) {
-    console.log('Category id to delete: ', id);
+    return this._http.delete<IBaseApiResponse>(`${this.apiEndPoint}/${id}`);
   }
 }

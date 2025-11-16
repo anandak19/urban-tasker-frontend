@@ -9,4 +9,4 @@ export type IFindAllCategoriesResponse = IApiResponseSuccess<
   IFindAllResponseData<ICategoryData>
 >;
 
-export type IFindOneCategoryResponse = IApiResponseSuccess<ICategoryData>;
+export type IOneCategoryResponse = IApiResponseSuccess<ICategoryData>;
