@@ -1,5 +1,5 @@
 // normal api response
-export interface ApiResponse {
+export interface IBaseApiResponse {
   statusCode: number;
   success: boolean;
   message: string;
@@ -7,12 +7,12 @@ export interface ApiResponse {
 }
 
 // success api response
-export interface IApiResponseSuccess<T> extends ApiResponse {
+export interface IApiResponseSuccess<T> extends IBaseApiResponse {
   data: T;
 }
 
 // error api respose
-export interface IApiResponseError extends ApiResponse {
+export interface IApiResponseError extends IBaseApiResponse {
   path: string;
 }
 

@@ -48,8 +48,18 @@ export class ViewCategoryComponent implements OnInit {
     );
 
     if (yes) {
-      alert(`Current status: ${status}`);
-      // TODO: Call the method to change category status here recall the getCategory method
+      this._categoryManagementService
+        .changeCategoryActiveState(this.categoryId, status)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.categoryData.set(res.data);
+          },
+          error: (err: IApiResponseError) => {
+            console.error(err);
+            this._snackbar.error(err.message);
+          },
+        });
     }
   }
 
@@ -63,21 +73,23 @@ export class ViewCategoryComponent implements OnInit {
     }
   }
 
-  getCategoryDetails(id: string) {
-    this._categoryManagementService.getCategoryDataById(id).subscribe({
-      next: (res) => {
-        this.categoryData.set(res.data);
-      },
-      error: (err: IApiResponseError) => {
-        this._snackbar.error(err.message);
-        console.log(err);
-      },
-    });
+  getCategoryDetails() {
+    this._categoryManagementService
+      .getCategoryDataById(this.categoryId)
+      .subscribe({
+        next: (res) => {
+          this.categoryData.set(res.data);
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbar.error(err.message);
+          console.log(err);
+        },
+      });
   }
 
   ngOnInit(): void {
     console.log(this.categoryId);
-    this.getCategoryDetails(this.categoryId);
+    this.getCategoryDetails();
     // this.categoryData.set(this.categoryDataSample);
   }
 }

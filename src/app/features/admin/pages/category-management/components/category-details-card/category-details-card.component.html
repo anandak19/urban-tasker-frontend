@@ -15,11 +15,10 @@
       </p>
 
       <div class="toggle">
-        <span>Change Status:</span>
-        <mat-slide-toggle
-          [checked]="category().isActive"
-          (change)="onChangeStatusClick(!category().isActive)"
-          ></mat-slide-toggle
+        <app-button
+          size="small"
+          (clickEvent)="onChangeStatusClick(!category().isActive)"
+          >Change Status</app-button
         >
       </div>
     </div>

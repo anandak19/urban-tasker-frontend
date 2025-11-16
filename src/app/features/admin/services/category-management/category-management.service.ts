@@ -36,8 +36,13 @@ export class CategoryManagementService {
     );
   }
 
-  changeCategoryActiveState(id: string) {
-    console.log('Category id to update state: ', id);
+  changeCategoryActiveState(id: string, isActive: boolean) {
+    return this._http.patch<IFindOneCategoryResponse>(
+      `${this.apiEndPoint}/${id}/status`,
+      {
+        isActive,
+      },
+    );
   }
 
   deleteCategoryById(id: string) {
