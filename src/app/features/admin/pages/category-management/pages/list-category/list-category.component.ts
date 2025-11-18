@@ -91,6 +91,5 @@ export class ListCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
-    console.warn('Get category is turned off');
   }
 }

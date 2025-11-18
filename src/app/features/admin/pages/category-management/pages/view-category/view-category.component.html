@@ -17,5 +17,12 @@
         >Add Sub-Category</app-button
       >
     </app-admin-page-title>
+
+    <!-- sub categories in table  -->
+    <app-table-listing
+      [dataSource]="subcategories"
+      [columns]="subcategoryColumns"
+    ></app-table-listing>
+    <app-pagination [paginationData]="pagination()"></app-pagination>
   </div>
 </div>

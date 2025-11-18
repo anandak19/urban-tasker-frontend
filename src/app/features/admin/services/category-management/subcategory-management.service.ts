@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IOneCategoryResponse } from '@features/admin/models/api-response.model';
+import {
+  IFindAllCategoriesResponse,
+  IOneCategoryResponse,
+} from '@features/admin/models/api-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +28,9 @@ export class SubcategoryManagementService {
       this.url(categoryId),
       subcategoryData,
     );
+  }
+
+  getSubcategories(categoryId: string) {
+    return this._http.get<IFindAllCategoriesResponse>(this.url(categoryId));
   }
 }
