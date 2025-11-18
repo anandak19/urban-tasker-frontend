@@ -66,7 +66,7 @@ export class ListCategoryComponent implements OnInit {
     this._router.navigate([this._router.url, id]);
   }
   editCategoryClicked(id: string) {
-    this._router.navigate([id], { relativeTo: this._route });
+    this._router.navigate([`edit/${id}`], { relativeTo: this._route });
   }
 
   searchCategory(search: string) {

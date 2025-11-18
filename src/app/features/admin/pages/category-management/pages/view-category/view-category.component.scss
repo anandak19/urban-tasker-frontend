@@ -1,7 +1,13 @@
 @use 'index' as *;
 
 .add-category {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-3;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  .sub-categories {
+    padding: $spacing-4;
+    border: $section-border;
+    border-radius: $border-radius-lg;
+  }
 }

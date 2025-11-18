@@ -7,7 +7,8 @@ import { CategoryManagementService } from '@features/admin/services/category-man
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { CategoryDetailsCardComponent } from '../../components/category-details-card/category-details-card.component';
 import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
   selector: 'app-view-category',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
     AdminPageTitleComponent,
     BackButtonComponent,
     CategoryDetailsCardComponent,
+    ButtonComponent,
   ],
   templateUrl: './view-category.component.html',
   styleUrl: './view-category.component.scss',
@@ -39,10 +41,17 @@ export class ViewCategoryComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
   private _confirmDialog = inject(ConfirmDialogService);
   private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
   /**
    * TODOS
    * If inavalid id throw error
    */
+
+  onAddSubCategory() {
+    this._router.navigate([`add-subcategory`], {
+      relativeTo: this._route,
+    });
+  }
 
   async changeCategoryStatus(status: boolean) {
     const yes = await this._confirmDialog.ask(

@@ -25,7 +25,6 @@ export class AddCategoryComponent {
 
   isCreating = signal<boolean>(false);
 
-  // --- call api method to add category here
   handleFormData(categoryFormData: FormData) {
     this.isCreating.set(true);
     this._categoryService

@@ -35,7 +35,7 @@ import { ButtonLoadingComponent } from '@shared/components/button-loading/button
   styleUrl: './category-form.component.scss',
 })
 export class CategoryFormComponent implements OnInit {
-  @Input() categoryData: ICreateCategory | null = null;
+  @Input() categoryData: ICreateCategory | null = null; // for patching
   @Output() formValues = new EventEmitter<FormData>();
 
   @ViewChild('imageField') imageField!: ImageUploadFieldComponent;

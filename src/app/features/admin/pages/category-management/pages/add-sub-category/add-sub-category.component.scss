@@ -1,0 +1,15 @@
+@use 'index' as *;
+
+.add-subcategory {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+  .add-subcategory-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    app-subcategory-form {
+      width: 50%;
+    }
+  }
+}

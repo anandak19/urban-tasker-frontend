@@ -3,6 +3,7 @@ import { AddCategoryComponent } from './pages/add-category/add-category.componen
 import { EditCategoryComponent } from './pages/edit-category/edit-category.component';
 import { ListCategoryComponent } from './pages/list-category/list-category.component';
 import { ViewCategoryComponent } from './pages/view-category/view-category.component';
+import { AddSubCategoryComponent } from './pages/add-sub-category/add-sub-category.component';
 
 export const categoryManagementRoutes: Routes = [
   {
@@ -20,5 +21,9 @@ export const categoryManagementRoutes: Routes = [
   {
     path: ':categoryId',
     component: ViewCategoryComponent,
+  },
+  {
+    path: ':categoryId/add-subcategory',
+    component: AddSubCategoryComponent,
   },
 ];

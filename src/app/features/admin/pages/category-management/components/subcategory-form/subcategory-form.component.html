@@ -1,0 +1,27 @@
+<div class="category-form">
+  <form [formGroup]="subcategoryForm" (ngSubmit)="onFormSubmit()">
+    <!-- name field  -->
+    <app-form-field
+      label="Sub-Category Name"
+      placeholder="Enter Sub-Category Name"
+      id="name"
+      formControlName="name"
+    />
+
+    <app-form-field
+      label="Sub-Category Discription"
+      placeholder="Enter Sub-Category Discription"
+      id="description"
+      formControlName="description"
+    />
+
+    <!-- image field  -->
+    <app-image-upload-field formControlName="image" #imageField />
+
+    <app-button-loading
+      type="submit"
+      text="Add Sub-Category"
+      [isLoading]="isLoading"
+    />
+  </form>
+</div>
