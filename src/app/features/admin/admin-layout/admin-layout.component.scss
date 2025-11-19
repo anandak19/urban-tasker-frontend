@@ -9,7 +9,11 @@ app-admin-header {
   }
 
   .nav-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover {
+      background-color: $background-hover;
       mat-icon {
         color: $white;
       }

@@ -37,4 +37,19 @@
       }
     }
   }
+
+  @include respond('xs') {
+    .nav-item {
+      height: 36px;
+      mat-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: $font-size-lg;
+      }
+      span {
+        font-size: $font-size-sm;
+      }
+    }
+  }
 }

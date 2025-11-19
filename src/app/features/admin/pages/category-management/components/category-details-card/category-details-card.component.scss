@@ -53,16 +53,16 @@
         color: $red;
       }
 
-      .toggle{
+      .toggle {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: $spacing-1;
-        span{
+        span {
           font-size: $font-size-sm;
         }
 
-        mat-slide-toggle{
+        mat-slide-toggle {
           transform: scale(0.8);
         }
       }

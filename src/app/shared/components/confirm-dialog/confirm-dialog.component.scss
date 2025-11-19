@@ -1,8 +1,8 @@
 @use 'index' as *;
 
-.confirm-dialog{
-    mat-dialog-actions{
-        display: flex;
-        gap: $spacing-2;
-    }
+.confirm-dialog {
+  mat-dialog-actions {
+    display: flex;
+    gap: $spacing-2;
+  }
 }
