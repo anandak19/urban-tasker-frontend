@@ -79,6 +79,16 @@ export class ViewCategoryComponent implements OnInit {
       relativeTo: this._route,
     });
   }
+  // Navigate to view the details page of selected sub category
+  onViewOneSubCategory(id: string) {
+    this._router.navigate([`subcategory/${id}`], { relativeTo: this._route });
+  }
+  // Navigate to Edit page of selected sub category
+  onEditOneSubCategory(id: string) {
+    this._router.navigate([`subcategory/${id}/edit`], {
+      relativeTo: this._route,
+    });
+  }
 
   // Change Category Status (Active/Inactive)
   async changeCategoryStatus(status: boolean) {

@@ -30,6 +30,7 @@
 
     .category-info {
       display: flex;
+      align-items: flex-start;
       flex-direction: column;
       gap: $spacing-1;
 

@@ -7,10 +7,10 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class ConfirmDialogService {
-  dialog = inject(MatDialog);
+  private _dialog = inject(MatDialog);
 
   ask(message: string): Promise<boolean> {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       data: { message },
       enterAnimationDuration: '90ms',
     });

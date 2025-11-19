@@ -22,6 +22,8 @@
     <app-table-listing
       [dataSource]="subcategories"
       [columns]="subcategoryColumns"
+      (viewClicked)="onViewOneSubCategory($event)"
+      (editClicked)="onEditOneSubCategory($event)"
     ></app-table-listing>
     <app-pagination [paginationData]="pagination()"></app-pagination>
   </div>
