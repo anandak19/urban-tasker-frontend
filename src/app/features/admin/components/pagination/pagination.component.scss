@@ -3,12 +3,12 @@
 .pagination-container {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: $spacing-3;
   justify-content: center;
-  margin: 1rem 0;
+  margin: $spacing-4 0;
 
-  .nav-btn {
-    padding: 0.4rem 1rem;
+  &__nav-btn {
+    padding: $spacing-2 $spacing-4;
     border: none;
     background-color: $primary-color;
     color: $black;
@@ -27,9 +27,15 @@
     }
   }
 
-  .page-info {
-    font-size: 0.95rem;
-    font-weight: 500;
+  &__page-info {
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
     color: $white;
+  }
+
+  @include respond('xs') {
+    &__page-info {
+      font-size: $font-size-sm;
+    }
   }
 }

@@ -4,7 +4,7 @@
   background: $background;
   transition: all 0.3s ease-in;
 
-  .nav-item {
+  &__nav-item {
     color: $background-text;
     transition: all 0.2s ease-in;
     span {
@@ -39,7 +39,7 @@
   }
 
   @include respond('xs') {
-    .nav-item {
+    &__nav-item {
       height: 36px;
       mat-icon {
         display: flex;

@@ -1,6 +1,6 @@
 <div class="image-upload-field">
   <div
-    class="image-upload"
+    class="image-upload-field__image-upload"
     [ngClass]="showError ? 'error-input' : ''"
     (click)="trigerFileInput(fileInput)"
     (keydown.enter)="trigerFileInput(fileInput)"
@@ -18,9 +18,13 @@
     />
 
     @if (imageUrl()) {
-      <img [src]="imageUrl()" alt="Preview" class="preview-image" />
+      <img
+        [src]="imageUrl()"
+        alt="Preview"
+        class="image-upload-field__preview-image"
+      />
     } @else {
-      <div class="placeholder">
+      <div class="image-upload-field__placeholder">
         <mat-icon
           class="upload-icon material-icons-outlined"
           fontIcon="cloud_upload"
@@ -32,6 +36,6 @@
   </div>
 
   @if (showError) {
-    <small class="error">{{ errorMessage }}</small>
+    <small class="image-upload-field__error">{{ errorMessage }}</small>
   }
 </div>

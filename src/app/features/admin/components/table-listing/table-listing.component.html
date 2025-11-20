@@ -1,50 +1,58 @@
-@if (dataSource.length > 0) {
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    class="mat-elevation-z8 table-listing"
-  >
-    @for (item of columns; track $index) {
-      <ng-container [matColumnDef]="item.key">
-        <th mat-header-cell *matHeaderCellDef>{{ item.label }}</th>
+<div class="table-listing">
+  @if (dataSource.length > 0) {
+    <div class="table-listing__wrapper">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8 table-listing__table"
+      >
+        @for (item of columns; track $index) {
+          <ng-container [matColumnDef]="item.key">
+            <th mat-header-cell *matHeaderCellDef>{{ item.label }}</th>
 
-        <td mat-cell *matCellDef="let element">
-          @if (item.key === 'image') {
-            <div class="image-container">
-              <img [src]="element[item.key]" alt="" />
-            </div>
-          } @else if (typeof element[item.key] === 'boolean') {
-            {{ element[item.key] ? 'Yes' : 'No' }}
-          } @else {
-            {{ element[item.key] }}
-          }
-        </td>
-      </ng-container>
-    }
+            <td mat-cell *matCellDef="let element">
+              @if (item.key === 'image') {
+                <div class="table-listing__image-container">
+                  <img [src]="element[item.key]" alt="" />
+                </div>
+              } @else if (typeof element[item.key] === 'boolean') {
+                {{ element[item.key] ? 'Yes' : 'No' }}
+              } @else {
+                {{ element[item.key] }}
+              }
+            </td>
+          </ng-container>
+        }
 
-    <!-- actions  -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <!-- actions  -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
 
-      <td mat-cell *matCellDef="let element" class="actions-cell">
-        <app-button
-          size="small"
-          type="button"
-          (clickEvent)="onViewBtnClick(element.id)"
-          >View</app-button
-        >
-        <app-button
-          size="small"
-          type="button"
-          (clickEvent)="onEditBtnClick(element.id)"
-          >Edit</app-button
-        >
-      </td>
-    </ng-container>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="table-listing__actions-cell"
+          >
+            <app-button
+              size="small"
+              type="button"
+              (clickEvent)="onViewBtnClick(element.id)"
+              >View</app-button
+            >
+            <app-button
+              size="small"
+              type="button"
+              (clickEvent)="onEditBtnClick(element.id)"
+              >Edit</app-button
+            >
+          </td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-} @else {
-  <p class="empty-text">Nothing to show</p>
-}
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  } @else {
+    <p class="table-listing__empty-text">Nothing to show</p>
+  }
+</div>

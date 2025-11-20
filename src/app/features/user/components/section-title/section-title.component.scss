@@ -4,7 +4,7 @@
   line-height: $line-height-lg;
   margin-bottom: $spacing-2;
 
-  &.left {
+  &--left {
     h2 {
       font-size: $font-size-lg;
       text-align: left;
@@ -26,7 +26,7 @@
     }
   }
 
-  &.center {
+  &--center {
     h2 {
       font-size: $font-size-xl;
       text-align: center;

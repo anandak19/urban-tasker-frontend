@@ -1,7 +1,7 @@
 <form [formGroup]="basicForm" class="signup-form">
   <ng-template matStepLabel>Basic Info</ng-template>
 
-  <div class="form-fields">
+  <div class="signup-form__form-fields">
     <app-form-field
       formControlName="firstName"
       label="First Name"
@@ -35,7 +35,7 @@
     ></app-form-field>
   </div>
 
-  <div class="signup-btn">
+  <div class="signup-form__signup-btn">
     <app-button-loading
       type="submit"
       [isLoading]="isLoading"

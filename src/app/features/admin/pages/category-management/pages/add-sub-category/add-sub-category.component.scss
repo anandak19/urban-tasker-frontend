@@ -4,12 +4,20 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-8;
-  .add-subcategory-form {
+  &__form {
     display: flex;
     justify-content: center;
     align-items: center;
     app-subcategory-form {
       width: 50%;
+    }
+  }
+
+  @include respond('xs') {
+    &__form {
+      app-subcategory-form {
+        width: 100%;
+      }
     }
   }
 }

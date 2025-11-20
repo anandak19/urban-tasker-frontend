@@ -1,10 +1,10 @@
 <div class="category-details-card">
-  <div class="category">
-    <div class="category-image">
+  <div class="category-details-card__category">
+    <div class="category-details-card__category-image">
       <img [src]="category().image" alt="Category Image" />
     </div>
 
-    <div class="category-info">
+    <div class="category-details-card__category-info">
       <p class="name">{{ category().name }}</p>
       @if (category().description) {
         <p class="discription">{{ category().description }}</p>
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div class="category-actions">
+  <div class="category-details-card__category-actions">
     <app-button (clickEvent)="onDeleteClick()" variant="danger"
       >Delete</app-button
     >

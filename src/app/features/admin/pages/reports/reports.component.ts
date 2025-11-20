@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { ButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
   selector: 'app-reports',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss',
 })
-export class ReportsComponent {}
+export class ReportsComponent {
+  isDisabled = true;
+}

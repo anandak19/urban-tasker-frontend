@@ -1,12 +1,22 @@
 @if (totalItems > 0) {
   <div class="pagination-container">
-    <button class="nav-btn" (click)="goPrev()" [disabled]="isPrevDisabled">
+    <button
+      class="pagination-container__nav-btn"
+      (click)="goPrev()"
+      [disabled]="isPrevDisabled"
+    >
       Prev
     </button>
 
-    <span class="page-info"> Page {{ currentpage }} of {{ totalPages }} </span>
+    <span class="pagination-container__page-info">
+      Page {{ currentpage }} of {{ totalPages }}
+    </span>
 
-    <button class="nav-btn" (click)="goNext()" [disabled]="isNextDisabled">
+    <button
+      class="pagination-container__nav-btn"
+      (click)="goNext()"
+      [disabled]="isNextDisabled"
+    >
       Next
     </button>
   </div>

@@ -3,7 +3,7 @@
 .nav-links {
   display: flex;
   gap: $spacing-5;
-  .nav-item {
+  &__nav-item {
     text-decoration: none;
     color: $white;
     padding: $spacing-1;
@@ -25,7 +25,7 @@
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
 
-    .nav-item {
+    &__nav-item {
       padding: $spacing-2;
       border-radius: $border-radius-sm;
       font-size: $font-size-sm;

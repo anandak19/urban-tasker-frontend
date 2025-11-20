@@ -1,5 +1,5 @@
 <header class="app-header container">
-  <div class="left-section">
+  <div class="app-header__left-section">
     <mat-icon
       class="material-icons-outlined menu-option"
       (click)="toggleSidePannel()"
@@ -9,10 +9,10 @@
     <app-brand></app-brand>
   </div>
   <app-nav-links [links]="links"></app-nav-links>
-  <div class="right-section">
-    <!-- button   -->
+  <div class="app-header__right-section">
+    <!-- button  -->
     @if (_authGuardService.currentUser()) {
-      <app-button [variant]="'primary'" (clickEvent)="bookTaskerClicked()"
+      <app-button variant="primary" (clickEvent)="bookTaskerClicked()"
         >Book a Tasker</app-button
       >
     }

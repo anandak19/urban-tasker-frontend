@@ -7,33 +7,19 @@
   gap: $spacing-4;
   padding: $spacing-7;
 
-  @include respond('xs') {
-    gap: $spacing-3;
-    padding: $spacing-5;
-  }
-
-  .otp-input {
+  &__otp-input {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: $spacing-3;
-    @include respond('xs') {
-      gap: $spacing-1;
-    }
-  }
 
-  .sub-txt {
-    @include respond('xs') {
+    .error-text {
+      color: $red;
       font-size: $font-size-sm;
-    }
-  }
-
-  .error {
-    color: $red;
-    font-size: $font-size-sm;
-    @include respond('xs') {
-      font-size: $font-size-xs;
+      @include respond('xs') {
+        font-size: $font-size-xs;
+      }
     }
   }
 
@@ -57,8 +43,19 @@
     }
   }
 
-  .btns {
+  &__btns {
     display: flex;
     gap: $spacing-3;
+  }
+
+  @include respond('xs') {
+    gap: $spacing-3;
+    padding: $spacing-5;
+    &__otp-input {
+      gap: $spacing-1;
+    }
+    &__sub-txt {
+      font-size: $font-size-sm;
+    }
   }
 }
