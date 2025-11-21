@@ -1,5 +1,6 @@
 import {
   Component,
+  effect,
   EventEmitter,
   inject,
   Input,
@@ -14,7 +15,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ICreateCategory } from '@features/admin/models/category.interface';
+import { ICategoryData } from '@features/admin/models/category.interface';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { ImageUploadFieldComponent } from '@features/admin/components/image-upload-field/image-upload-field.component';
 import {
@@ -35,7 +36,8 @@ import { ButtonLoadingComponent } from '@shared/components/button-loading/button
   styleUrl: './category-form.component.scss',
 })
 export class CategoryFormComponent implements OnInit {
-  @Input() categoryData: ICreateCategory | null = null; // for patching
+  @Input() categoryData = signal<ICategoryData | null>(null);
+  @Input() isEdit = false;
   @Output() formValues = new EventEmitter<FormData>();
 
   @ViewChild('imageField') imageField!: ImageUploadFieldComponent;
@@ -48,6 +50,14 @@ export class CategoryFormComponent implements OnInit {
 
   categoryForm!: FormGroup;
   private _fb = inject(FormBuilder);
+
+  constructor() {
+    effect(() => {
+      const data = this.categoryData();
+      if (!data) return;
+      this.patchForm(data);
+    });
+  }
 
   // to reset the form, from parent
   resetForm() {
@@ -70,7 +80,12 @@ export class CategoryFormComponent implements OnInit {
         this.categoryForm.get('name')?.value.trim(),
       );
 
-      categoryFormData.append('image', this.categoryForm.get('image')?.value);
+      const imageControlVal: File | string =
+        this.categoryForm.get('image')?.value;
+      if (imageControlVal instanceof File) {
+        console.log('Its a file');
+        categoryFormData.append('image', imageControlVal);
+      }
 
       // pass the value to parent
       this.formValues.emit(categoryFormData);
@@ -86,19 +101,17 @@ export class CategoryFormComponent implements OnInit {
     });
   }
 
-  patchForm(category: ICreateCategory) {
+  patchForm(category: ICategoryData) {
     if (category) {
       this.categoryForm.patchValue({
         name: category.name,
         image: category.image,
       });
+      this.imageField.displayImage(category.image);
     }
   }
 
   ngOnInit(): void {
     this.initForm();
-    if (this.categoryData) {
-      this.patchForm(this.categoryData);
-    }
   }
 }

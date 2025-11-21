@@ -2,5 +2,12 @@
   <app-admin-page-title title="Edit Category">
     <app-back-button></app-back-button>
   </app-admin-page-title>
-  <app-subcategory-form class="edit-category__form"></app-subcategory-form>
+
+  <div class="edit-category__form">
+    <app-subcategory-form
+      [loading]="isLoading()"
+      [categoryData]="subcategoryData"
+      (subcategoryFormData)="updateSubCategory($event)"
+    ></app-subcategory-form>
+  </div>
 </div>

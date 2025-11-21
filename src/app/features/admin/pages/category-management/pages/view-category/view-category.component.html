@@ -25,6 +25,9 @@
       (viewClicked)="onViewOneSubCategory($event)"
       (editClicked)="onEditOneSubCategory($event)"
     ></app-table-listing>
-    <app-pagination [paginationData]="pagination()"></app-pagination>
+    <app-pagination
+      [paginationData]="pagination()"
+      (pageChange)="onPagechange($event)"
+    ></app-pagination>
   </div>
 </div>

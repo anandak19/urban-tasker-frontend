@@ -1,5 +1,6 @@
 import {
   Component,
+  effect,
   EventEmitter,
   inject,
   Input,
@@ -21,6 +22,7 @@ import {
   nameValidator,
   noWhitespaceValidator,
 } from '@shared/validators/custom-auth-validators';
+import { ICategoryData } from '@features/admin/models/category.interface';
 
 @Component({
   selector: 'app-subcategory-form',
@@ -35,12 +37,25 @@ import {
 })
 export class SubcategoryFormComponent implements OnInit {
   @Output() subcategoryFormData = new EventEmitter<FormData>();
+
+  @Input() isEdit = false;
+
   isLoading = signal<boolean>(false);
   @Input() set loading(val: boolean) {
     this.isLoading.set(val);
   }
 
+  @Input() categoryData = signal<ICategoryData | null>(null);
+
   @ViewChild('imageField') imageField!: ImageUploadFieldComponent;
+
+  constructor() {
+    effect(() => {
+      const data = this.categoryData();
+      if (!data) return;
+      this.patchForm(data);
+    });
+  }
 
   subcategoryForm!: FormGroup;
   private _fb = inject(FormBuilder);
@@ -56,9 +71,8 @@ export class SubcategoryFormComponent implements OnInit {
    * On submiting form
    */
   onFormSubmit() {
+    console.log('subcat', this.subcategoryForm.value);
     if (this.subcategoryForm.valid) {
-      console.log(this.subcategoryForm.value);
-
       // create formdata
       const formData = new FormData();
       // apend name
@@ -68,8 +82,12 @@ export class SubcategoryFormComponent implements OnInit {
         'description',
         this.subcategoryForm.get('description')?.value.trim(),
       );
-      // append image
-      formData.append('image', this.subcategoryForm.get('image')?.value);
+
+      const imageControlVal = this.subcategoryForm.get('image')?.value;
+      if (imageControlVal instanceof File) {
+        // append image
+        formData.append('image', imageControlVal);
+      }
       // emit data
       this.subcategoryFormData.emit(formData);
     } else {
@@ -83,6 +101,17 @@ export class SubcategoryFormComponent implements OnInit {
       description: ['', [Validators.required]],
       image: [null, Validators.required],
     });
+  }
+
+  patchForm(subcategory: ICategoryData) {
+    if (subcategory) {
+      this.subcategoryForm.patchValue({
+        name: subcategory.name,
+        description: subcategory.description,
+        image: subcategory.image,
+      });
+      this.imageField.displayImage(subcategory.image);
+    }
   }
 
   ngOnInit(): void {

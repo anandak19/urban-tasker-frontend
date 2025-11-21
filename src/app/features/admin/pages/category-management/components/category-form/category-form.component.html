@@ -14,7 +14,7 @@
     <!-- <app-button type="submit">Add Categroy</app-button>  -->
     <app-button-loading
       type="submit"
-      text="Add Category"
+      [text]="isEdit ? 'Update Category' : 'Add Category'"
       [isLoading]="isLoading"
     />
   </form>

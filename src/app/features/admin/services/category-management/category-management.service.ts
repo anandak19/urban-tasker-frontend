@@ -4,9 +4,9 @@ import {
   IFindAllCategoriesResponse,
   IOneCategoryResponse,
 } from '@features/admin/models/api-response.model';
-import { ICreateCategory } from '@features/admin/models/category.interface';
+import { buildQuery } from '@shared/helpers/query-builder';
 import { IBaseApiResponse } from '@shared/models/api-response.model';
-// import { delay, of } from 'rxjs';
+import { IBaseFilters } from '@shared/models/request-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,17 +18,21 @@ export class CategoryManagementService {
   addCategory(categoryData: FormData) {
     console.log('Category to add', categoryData);
     return this._http.post(`${this.apiEndPoint}`, categoryData);
-    // return of({ message: 'Category created successfully!' }).pipe(
-    //   delay(2000), // simulate 2-second API delay
-    // );
   }
 
-  updateCatgory(categoryData: ICreateCategory) {
-    console.log('Category to update', categoryData);
+  updateCatgory(id: string, categoryData: FormData) {
+    return this._http.patch<IOneCategoryResponse>(
+      `${this.apiEndPoint}/${id}`,
+      categoryData,
+    );
   }
 
-  getAllCategories() {
-    return this._http.get<IFindAllCategoriesResponse>(`${this.apiEndPoint}`);
+  getAllCategories(query: IBaseFilters) {
+    console.log('par', buildQuery(query));
+
+    return this._http.get<IFindAllCategoriesResponse>(`${this.apiEndPoint}`, {
+      params: buildQuery(query),
+    });
   }
 
   getCategoryDataById(id: string) {

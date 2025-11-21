@@ -4,7 +4,7 @@
   padding: $spacing-3 $spacing-1;
   &__wrapper {
     border: 1px solid $background-text;
-    width: max-content;
+    width: 100%;
   }
 
   &__table {
@@ -65,5 +65,8 @@
 
   @include respond('xs') {
     overflow-x: scroll;
+    &__wrapper {
+      width: max-content;
+    }
   }
 }

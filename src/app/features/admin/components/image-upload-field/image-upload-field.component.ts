@@ -63,6 +63,10 @@ export class ImageUploadFieldComponent implements ControlValueAccessor {
     }
   }
 
+  displayImage(url: TImageFile) {
+    this.imageUrl.set(url);
+  }
+
   // control state changing methods
   registerOnChange(fn: (value: File | null) => void): void {
     this.onChange = fn;
@@ -110,7 +114,7 @@ export class ImageUploadFieldComponent implements ControlValueAccessor {
       const reader = new FileReader();
       reader.onload = (e) => {
         const selectedImage = e.target?.result as TImageFile;
-        this.imageUrl.set(selectedImage);
+        this.displayImage(selectedImage);
       };
       reader.readAsDataURL(inputImage);
     }

@@ -20,7 +20,7 @@
 
     <app-button-loading
       type="submit"
-      text="Add Sub-Category"
+      [text]="isEdit ? 'Update Sub-Category' : 'Add Sub-Category'"
       [isLoading]="isLoading"
     />
   </form>

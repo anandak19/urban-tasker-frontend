@@ -14,6 +14,7 @@ import { TableListingComponent } from '@features/admin/components/table-listing/
 import { IMatColumns } from '@shared/interfaces/table.interface';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
+import { IBaseFilters } from '@shared/models/request-data.model';
 
 @Component({
   selector: 'app-view-category',
@@ -40,6 +41,9 @@ export class ViewCategoryComponent implements OnInit {
     limit: 5,
     page: 1,
     pages: 0,
+  });
+  filter = signal<IBaseFilters>({
+    page: 1,
   });
 
   subcategoryColumns: IMatColumns[] = [
@@ -133,19 +137,29 @@ export class ViewCategoryComponent implements OnInit {
     }
   }
 
+  onPagechange(page: number) {
+    this.filter.update((val) => ({
+      ...val,
+      page,
+    }));
+    this.getSubcategories();
+  }
+
   // Get Sub-categories of the current category
   getSubcategories() {
-    this._subcategoryService.getSubcategories(this.categoryId).subscribe({
-      next: (res) => {
-        console.log('Success', res);
-        this.subcategories = res.data.documents;
-        this.pagination.set(res.data.meta);
-      },
-      error: (err: IApiResponseError) => {
-        console.log('Error in adding sub cat', err);
-        this._snackbar.error(err.message);
-      },
-    });
+    this._subcategoryService
+      .getSubcategories(this.categoryId, this.filter())
+      .subscribe({
+        next: (res) => {
+          console.log('Success', res);
+          this.subcategories = res.data.documents;
+          this.pagination.set(res.data.meta);
+        },
+        error: (err: IApiResponseError) => {
+          console.log('Error in adding sub cat', err);
+          this._snackbar.error(err.message);
+        },
+      });
   }
 
   // Get all details of current category

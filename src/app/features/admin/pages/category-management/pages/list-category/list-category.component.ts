@@ -11,6 +11,7 @@ import { ICategoryData } from '@features/admin/models/category.interface';
 import { IMatColumns } from '@shared/interfaces/table.interface';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
+import { IBaseFilters } from '@shared/models/request-data.model';
 
 @Component({
   selector: 'app-list-category',
@@ -37,17 +38,10 @@ export class ListCategoryComponent implements OnInit {
     total: 0,
   });
 
-  // dummy
-  // categories: ICategoryData[] = [
-  //   {
-  //     id: '691647459fb6be9543dd91f8',
-  //     image:
-  //       'https://cdn.pixabay.com/photo/2019/07/30/18/26/surface-4373559_1280.jpg',
-  //     isActive: true,
-  //     name: 'Gardening',
-  //     slug: 'gardening',
-  //   },
-  // ];
+  filter = signal<IBaseFilters>({
+    page: 1,
+    limit: 2, // -----------REMOVE THIS LATER
+  });
 
   categories: ICategoryData[] = [];
 
@@ -70,13 +64,18 @@ export class ListCategoryComponent implements OnInit {
   }
 
   searchCategory(search: string) {
-    console.log(search);
+    this.filter.update((val) => ({
+      ...val,
+      search,
+    }));
+    this.getCategories();
   }
 
   getCategories() {
-    this._categoryManagementService.getAllCategories().subscribe({
+    this._categoryManagementService.getAllCategories(this.filter()).subscribe({
       next: (res) => {
         this.categories = res.data.documents;
+        console.log(res);
         this.pagination.set(res.data.meta);
       },
       error: (err: IApiResponseError) => {
@@ -86,7 +85,11 @@ export class ListCategoryComponent implements OnInit {
   }
 
   onPageChange(page: number) {
-    console.log(page);
+    this.filter.update((val) => ({
+      ...val,
+      page,
+    }));
+    this.getCategories();
   }
 
   ngOnInit(): void {
