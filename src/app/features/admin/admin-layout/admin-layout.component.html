@@ -1,6 +1,6 @@
 <!-- admin header  -->
 <app-admin-header>
-  <button mat-icon-button (click)="collapsed.set(!collapsed())" class="nav-btn">
+  <button mat-icon-button (click)="collapseNav()" class="nav-btn">
     <mat-icon class="material-icons-outlined menu-option">menu</mat-icon>
   </button>
 </app-admin-header>
@@ -10,17 +10,20 @@
   <mat-sidenav-container class="background">
     <!-- side bar  -->
     <mat-sidenav
-      opened
-      mode="side"
-      [style.width]="sidenavWidth()"
+      (closedStart)="onSidenavClose()"
+      [opened]="!isHandset || collapsed()"
+      [mode]="sidenavMode()"
+      [style.width]="isHandset ? '278px' : sidenavWidth()"
       class="background"
     >
       <!-- navigation links  -->
-      <app-sidebar [collapsed]="collapsed()"></app-sidebar>
+      <app-sidebar [collapsed]="hideText()"></app-sidebar>
     </mat-sidenav>
 
     <!-- content  -->
-    <mat-sidenav-content [style.margin-left]="sidenavWidth()">
+    <mat-sidenav-content
+      [style.margin-left]="isHandset ? '0px' : sidenavWidth()"
+    >
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

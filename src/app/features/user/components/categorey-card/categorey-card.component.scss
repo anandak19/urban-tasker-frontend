@@ -12,7 +12,7 @@
   max-width: 600px;
   height: 140px;
 
-  .image-section {
+  &__image-section {
     width: 40%;
     height: 100%;
 
@@ -23,7 +23,7 @@
     }
   }
 
-  .content-section {
+  &__content-section {
     width: 60%;
     height: 100%;
     display: flex;
@@ -66,7 +66,7 @@
     max-width: 100%;
     height: 140px;
 
-    .content-section {
+    &__content-section {
       .content-wrapper {
         padding: $spacing-3;
       }

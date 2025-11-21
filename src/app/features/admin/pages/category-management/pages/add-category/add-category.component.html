@@ -1,0 +1,16 @@
+<div class="add-category">
+  <!-- page title  -->
+  <app-admin-page-title title="Add New Category">
+    <!-- back button  -->
+    <app-back-button />
+  </app-admin-page-title>
+
+  <!-- add category form  -->
+  <div class="add-category__form">
+    <app-category-form
+      #categoryForm
+      (formValues)="handleFormData($event)"
+      [loading]="isCreating()"
+    ></app-category-form>
+  </div>
+</div>

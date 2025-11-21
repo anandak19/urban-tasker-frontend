@@ -1,0 +1,13 @@
+<div class="edit-category">
+  <app-admin-page-title title="Edit Category">
+    <app-back-button></app-back-button>
+  </app-admin-page-title>
+
+  <div class="edit-category__form">
+    <app-subcategory-form
+      [loading]="isLoading()"
+      [categoryData]="subcategoryData"
+      (subcategoryFormData)="updateSubCategory($event)"
+    ></app-subcategory-form>
+  </div>
+</div>

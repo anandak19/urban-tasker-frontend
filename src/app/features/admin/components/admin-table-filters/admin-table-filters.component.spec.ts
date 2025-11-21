@@ -8,9 +8,8 @@ describe('AdminTableFiltersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminTableFiltersComponent]
-    })
-    .compileComponents();
+      imports: [AdminTableFiltersComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminTableFiltersComponent);
     component = fixture.componentInstance;

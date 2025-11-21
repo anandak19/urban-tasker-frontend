@@ -27,10 +27,10 @@ export class FormFieldComponent {
 
   // Callbacks
   onChange: (value: string) => void = () => {
-    console.log('Value changed');
+    // on value change
   };
   onTouched: () => void = () => {
-    console.log('Control touched');
+    // on touched
   };
 
   // Write value from parent form
@@ -57,6 +57,9 @@ export class FormFieldComponent {
     this.onChange(val);
   }
 
+  /**
+   * To reset from control from parent
+   */
   resetControl(): void {
     if (this.control) {
       this.control.reset();
@@ -66,14 +69,19 @@ export class FormFieldComponent {
     }
   }
 
+  // --- Getters
+
+  // control getter
   get control() {
     return this.ngControl?.control;
   }
 
+  // returns true if control has error
   get showError() {
     return this.control?.touched && this.control.invalid;
   }
 
+  // return error message if control has error
   get errorMessage() {
     if (!this.control || !this.control.errors) return null;
     const errors = this.control.errors;

@@ -1,7 +1,8 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
+import { IApiResponseError } from '@shared/models/api-response.model';
 import { catchError, switchMap, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
@@ -13,19 +14,19 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(req).pipe(
-    catchError((err: HttpErrorResponse) => {
+    catchError((err: IApiResponseError) => {
       // error is unautherized 401
-      if (err.status === 401) {
+      if (err.statusCode === 401) {
         console.log('Access token expired');
         // refresh the token's
         return _authService.refreshToken().pipe(
           // retry the request with new token
-          switchMap((res) => {
-            console.log('Access Token refreshed', res);
+          switchMap(() => {
+            console.log('Access Token refreshed');
             return next(req);
           }),
           catchError((e) => {
-            console.log('Refresh token expired or malformed', e);
+            console.log('Refresh token expired or malformed');
             // logout user here
             // redirect user to login
             if (!req.url.includes('/login-user')) {

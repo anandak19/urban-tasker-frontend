@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
@@ -51,9 +50,8 @@ export class ResetPasswordComponent implements OnInit {
             this._router.navigate(['/login']);
           });
         },
-        error: (err: HttpErrorResponse) => {
-          const error = err.error as IApiResponseError;
-          this._snackbar.error(error.message);
+        error: (err: IApiResponseError) => {
+          this._snackbar.error(err.message);
         },
       });
   }

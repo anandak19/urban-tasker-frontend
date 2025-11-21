@@ -5,7 +5,7 @@
   justify-content: flex-start;
   align-items: center;
 
-  .search-form {
+  &__search-form {
     form {
       display: flex;
       align-items: center;
@@ -14,15 +14,6 @@
       border-radius: $border-radius-sm;
       padding: $spacing-1 $spacing-2;
       transition: all 0.2s ease-in-out;
-
-      .search-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $background-text;
-        margin-right: $spacing-2;
-        font-size: $font-size-lg;
-      }
 
       input[type='text'] {
         border: none;
@@ -41,6 +32,33 @@
       &:focus-within {
         border: $input-border-hover;
       }
+    }
+  }
+
+  &__search-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $background-text;
+    margin-right: $spacing-2;
+    font-size: $font-size-lg;
+  }
+
+  @include respond('xs') {
+    &__search-form {
+      form {
+        padding: $spacing-1;
+
+        input[type='text'] {
+          width: 194px;
+          padding: $spacing-1;
+        }
+      }
+    }
+
+    &__search-icon {
+      margin-right: 0;
+      font-size: $font-size-md;
     }
   }
 }

@@ -1,0 +1,16 @@
+@use 'index' as *;
+
+.category-form {
+  width: 100%;
+  form {
+    display: grid;
+    gap: $spacing-4;
+    place-items: center;
+    width: 100%;
+
+    app-form-field,
+    app-button-loading {
+      justify-self: stretch;
+    }
+  }
+}

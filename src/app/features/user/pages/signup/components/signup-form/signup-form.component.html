@@ -1,7 +1,7 @@
 <form [formGroup]="basicForm" class="signup-form">
   <ng-template matStepLabel>Basic Info</ng-template>
 
-  <div class="form-fields">
+  <div class="signup-form__form-fields">
     <app-form-field
       formControlName="firstName"
       label="First Name"
@@ -35,18 +35,12 @@
     ></app-form-field>
   </div>
 
-  <div class="signup-btn">
-    <app-button
-      variant="primary"
+  <div class="signup-form__signup-btn">
+    <app-button-loading
       type="submit"
-      [disabled]="isLoading()"
-      (clickEvent)="submitBasicForm()"
-    >
-      @if (!isLoading()) {
-        Verify Email
-      } @else {
-        <mat-spinner diameter="20" class="btn-spinner"></mat-spinner>
-      }
-    </app-button>
+      [isLoading]="isLoading"
+      (isClicked)="submitBasicForm()"
+      text="Varify Email"
+    ></app-button-loading>
   </div>
 </form>

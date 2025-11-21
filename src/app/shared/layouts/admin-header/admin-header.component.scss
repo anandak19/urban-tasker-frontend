@@ -5,14 +5,14 @@
   display: flex;
   justify-content: space-between;
 
-  .left {
+  &__left {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: $spacing-2;
   }
 
-  .right {
+  &__right {
     color: $white;
     display: flex;
     justify-content: center;

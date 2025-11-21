@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
@@ -55,9 +54,8 @@ export class ForgotPasswordComponent implements OnInit {
               this.forgotForm.reset();
             });
           },
-          error: (err: HttpErrorResponse) => {
-            const error = err.error as IApiResponseError;
-            this._snackbar.info(error.message);
+          error: (err: IApiResponseError) => {
+            this._snackbar.info(err.message);
           },
         });
     } else {

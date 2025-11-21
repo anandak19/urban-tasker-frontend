@@ -8,11 +8,15 @@ import { PaginationComponent } from '@features/admin/components/pagination/pagin
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { TableListingComponent } from '@features/admin/components/table-listing/table-listing.component';
 import { IMatColumns } from '@shared/interfaces/table.interface';
-import { AdminPageTitleComponent } from "@features/admin/components/admin-page-title/admin-page-title.component";
+import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
 
 @Component({
   selector: 'app-users-management',
-  imports: [PaginationComponent, TableListingComponent, AdminPageTitleComponent],
+  imports: [
+    PaginationComponent,
+    TableListingComponent,
+    AdminPageTitleComponent,
+  ],
   templateUrl: './users-management.component.html',
   styleUrl: './users-management.component.scss',
 })

@@ -1,7 +1,8 @@
 @use 'index' as *;
 
-.category-management{
+.confirm-dialog {
+  mat-dialog-actions {
     display: flex;
-    flex-direction: column;
     gap: $spacing-2;
+  }
 }

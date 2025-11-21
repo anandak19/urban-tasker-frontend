@@ -1,0 +1,15 @@
+<div class="button-loading">
+  <app-button
+    [variant]="variant"
+    [size]="size"
+    [type]="type"
+    [disabled]="isLoading()"
+    (clickEvent)="buttonClicked()"
+  >
+    @if (!isLoading()) {
+      {{ text }}
+    } @else {
+      <mat-spinner diameter="20" class="btn-spinner"></mat-spinner>
+    }
+  </app-button>
+</div>

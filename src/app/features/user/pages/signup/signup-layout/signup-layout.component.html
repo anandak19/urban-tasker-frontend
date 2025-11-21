@@ -1,9 +1,9 @@
-<div class="singup-layout">
+<div class="signup-layout">
   <h2>Signup</h2>
-  <div class="stepper-container">
+  <div class="signup-layout__stepper-container">
     <!-- indicators  -->
     @if (stepper) {
-      <div class="circle-steps">
+      <div class="signup-layout__circle-steps">
         @for (step of stepper.steps; track step; let i = $index) {
           <div class="circle" [class.active]="stepper.selectedIndex === i">
             {{ i + 1 }}

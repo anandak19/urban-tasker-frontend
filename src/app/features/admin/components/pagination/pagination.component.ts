@@ -38,6 +38,10 @@ export class PaginationComponent {
     return this.pagination().page >= this.totalPages;
   }
 
+  get totalItems(): number {
+    return this.pagination().total ?? 0;
+  }
+
   goPrev(): void {
     if (!this.isPrevDisabled) this.pageChange.emit(this.pagination().page - 1);
   }

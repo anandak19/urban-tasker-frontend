@@ -1,0 +1,26 @@
+<div class="list-category">
+  <app-admin-page-title title="Category Management">
+    <app-button type="button" (clickEvent)="addCategoryClicked()"
+      >Add Category</app-button
+    >
+  </app-admin-page-title>
+
+  <app-admin-table-filters
+    searchPlaceholder="Search by category name"
+    (searchChange)="searchCategory($event)"
+  ></app-admin-table-filters>
+
+  <!-- table  -->
+  <app-table-listing
+    [dataSource]="categories"
+    [columns]="categoryColumns"
+    (editClicked)="editCategoryClicked($event)"
+    (viewClicked)="viewCategoryClicked($event)"
+  >
+  </app-table-listing>
+
+  <app-pagination
+    [paginationData]="pagination()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+</div>
