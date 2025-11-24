@@ -8,6 +8,7 @@ import { SignupLayoutComponent } from './pages/signup/signup-layout/signup-layou
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { userAuthGuard } from './guards/auth/user-auth.guard';
 import { isLoginGuard } from './guards/login/is-login.guard';
+import { TaskerApplicationComponent } from './pages/tasker-application/tasker-application.component';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -47,5 +48,9 @@ export const userRoutes: Routes = [
     path: 'profile',
     canActivate: [userAuthGuard],
     component: UserProfileComponent,
+  },
+  {
+    path: 'tasker-application',
+    component: TaskerApplicationComponent,
   },
 ];

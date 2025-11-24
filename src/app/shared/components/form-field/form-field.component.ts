@@ -11,7 +11,7 @@ import { NgControl, ReactiveFormsModule } from '@angular/forms';
 export class FormFieldComponent {
   ngControl = inject(NgControl, { optional: true, self: true });
 
-  @Input() label!: string; // Label for input
+  @Input() label!: string; // Label for input *
   @Input() type = 'text'; // input type
   @Input() placeholder = ''; // placeholder
   @Input() id = ''; // optional id

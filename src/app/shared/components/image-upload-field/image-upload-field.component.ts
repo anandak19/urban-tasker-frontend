@@ -20,7 +20,7 @@ import { TImageFile } from '@features/admin/models/category.interface';
   templateUrl: './image-upload-field.component.html',
   styleUrl: './image-upload-field.component.scss',
 })
-export class ImageUploadFieldComponent2 implements ControlValueAccessor {
+export class ImageUploadFieldComponent implements ControlValueAccessor {
   imageUrl = signal<TImageFile>(null);
   imageFile!: File | null; // controller value
   disabled = false;
