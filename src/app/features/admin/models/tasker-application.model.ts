@@ -1,12 +1,14 @@
+import { IDropdownOption } from '@shared/models/form-inputs.model';
+
 //not using
 export interface ICreateTaskerApplication {
   firstName: string;
-  latName: string;
+  lastName: string;
   hourlyRate: string | number;
-  city: string;
+  city: IDropdownOption;
   workCategories: string[];
   idProof: {
-    idProofType: string;
+    idProofType: IDropdownOption;
     frontImage: File | string;
     backImage: File | string;
   };

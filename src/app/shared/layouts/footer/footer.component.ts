@@ -14,6 +14,6 @@ export class FooterComponent {
   private _router = inject(Router);
 
   onBecomeTaskerBtnClick() {
-    this._router.navigate(['tasker-application']);
+    this._router.navigate(['tasker/application']);
   }
 }

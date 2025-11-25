@@ -22,6 +22,7 @@ import { IDropdownOption } from '@shared/models/form-inputs.model';
 export class DropdownComponent {
   @Input() text = 'Select an option';
   @Input() options = signal<IDropdownOption[]>([]);
+  @Input() isSubmitted = signal<boolean>(false);
 
   @Input() isAutoClear = false;
   @Output() optionSelected = new EventEmitter<IDropdownOption>();
@@ -103,7 +104,7 @@ export class DropdownComponent {
   }
 
   get showError() {
-    return this.control?.touched && this.control.invalid;
+    return this.isSubmitted() && this.control?.invalid;
   }
 
   get errorMessage() {
