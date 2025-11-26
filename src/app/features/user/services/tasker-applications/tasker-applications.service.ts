@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { TTaskerApplicationResponse } from '@features/user/models/tasker-applications/api-responses.model';
 import { IBaseApiResponse } from '@shared/models/api-response.model';
 
 @Injectable({
@@ -15,5 +16,9 @@ export class TaskerApplicationsService {
       `${this.API_ENDPOINT}`,
       applicationData,
     );
+  }
+
+  findLoggedInUsersApplication() {
+    return this._http.get<TTaskerApplicationResponse>(this.API_ENDPOINT);
   }
 }

@@ -1,8 +1,11 @@
 <div class="tasker-application container">
   <div class="tasker-application__wrapper">
     <div class="title">
-      <h2>Become a Tasker</h2>
-      <p>Join our community and start earning money on your own schedule</p>
+      <div class="content">
+        <h2>Become a Tasker</h2>
+        <p>Join our community and start earning money on your own schedule</p>
+      </div>
+      <app-back-button></app-back-button>
     </div>
 
     <form [formGroup]="taskerApplication" (ngSubmit)="submitApplication()">

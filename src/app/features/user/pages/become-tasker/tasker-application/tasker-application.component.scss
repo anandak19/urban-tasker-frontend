@@ -11,6 +11,9 @@
     width: 50%;
 
     .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin: $spacing-4 0;
     }
 

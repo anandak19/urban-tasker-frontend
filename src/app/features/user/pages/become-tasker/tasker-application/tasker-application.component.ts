@@ -23,6 +23,7 @@ import { TaskerApplicationsService } from '@features/user/services/tasker-applic
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
+import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-tasker-application',
@@ -36,6 +37,7 @@ import { Router } from '@angular/router';
     ChipsBoxComponent,
     FormFieldWrapperComponent,
     ImageUploadFieldComponent,
+    BackButtonComponent,
   ],
   templateUrl: './tasker-application.component.html',
   styleUrl: './tasker-application.component.scss',
