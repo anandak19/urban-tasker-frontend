@@ -1,0 +1,12 @@
+@use 'index' as *;
+
+.view-application{
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+
+    &__wrapper{
+        margin: 0 auto;
+        width: 80%;
+    }
+}

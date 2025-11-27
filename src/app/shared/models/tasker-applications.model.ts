@@ -1,5 +1,11 @@
 import { TaskerApplicationStatus } from '@shared/constants/enums/application-status.enum';
 
+export interface IIdProof {
+  idProofType: string;
+  frontImage: string;
+  backImage: string;
+}
+
 export interface IBaseTaskerApplication {
   firstName: string;
   lastName: string;
@@ -15,5 +21,7 @@ export interface IWorkCategoriesObject {
 export interface ITaskerApplication extends IBaseTaskerApplication {
   workCategories: IWorkCategoriesObject[];
   applicationStatus: TaskerApplicationStatus;
+  idProof: IIdProof;
   adminFeedback: string;
+  id: string;
 }

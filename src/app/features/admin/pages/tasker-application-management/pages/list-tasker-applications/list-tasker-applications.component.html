@@ -9,6 +9,7 @@
     [columns]="columns"
     [dataSource]="applications"
     [editable]="false"
+    (viewClicked)="onViewClicked($event)"
   ></app-table-listing>
 
   <app-pagination [paginationData]="paginationMeta()" (pageChange)="onPageChange($event)"></app-pagination>

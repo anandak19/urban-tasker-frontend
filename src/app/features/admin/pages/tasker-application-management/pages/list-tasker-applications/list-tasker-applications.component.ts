@@ -8,6 +8,7 @@ import { IMatColumns } from '@shared/interfaces/table.interface';
 import { ITaskerApplicationListItem } from '@features/admin/models/tasker-application.model';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { IBaseFilters } from '@shared/models/request-data.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-tasker-applications',
@@ -24,6 +25,9 @@ export class ListTaskerApplicationsComponent implements OnInit {
   private _taskerApplicationManagement = inject(
     TaskerApplicationManagementService,
   );
+
+  private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
 
   filter = signal<IBaseFilters>({
     page: 1,
@@ -65,6 +69,10 @@ export class ListTaskerApplicationsComponent implements OnInit {
       return { ...c, page };
     });
     this.getApplications();
+  }
+
+  onViewClicked(id: string) {
+    this._router.navigate([`${id}`], { relativeTo: this._route });
   }
 
   getApplications() {

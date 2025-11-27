@@ -1,1 +1,11 @@
-<p>view-one-tasker-application works!</p>
+<div class="view-application">
+  <app-admin-page-title title="Application Details">
+    <app-back-button></app-back-button>
+  </app-admin-page-title>
+
+  <div class="view-application__wrapper">
+    <app-tasker-application-data
+      [taskerApplicationData]="taskerApplicationData"
+    ></app-tasker-application-data>
+  </div>
+</div>

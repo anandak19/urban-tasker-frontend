@@ -16,96 +16,18 @@
     }
   }
 
-  &__data {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-2;
-  }
-
-  &__tasker-apply,
-  &__status,
-  &__basic-data,
-  &__categories,
-  &__id-data {
+  &__tasker-apply {
     padding: $spacing-6;
     border: $section-border;
     border-radius: $border-radius-md;
   }
 
-  &__status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .status-label,
-    .status {
-      font-size: $font-size-md;
-    }
-
-    .status {
-      color: $primary-color;
-      font-weight: $font-weight-bold;
-    }
-
-    .pending {
-      color: $primary-color;
-    }
-    .rejected {
-      color: $red;
-    }
-    .approved {
-      color: $success-green;
-    }
-  }
-
-  &__value {
-    color: $white;
-    font-size: $font-size-md;
-    span {
-      background-color: $primary-color;
-      color: $black;
-      padding: 0 $spacing-2;
-      margin-right: $spacing-2;
-      border-radius: $border-radius-md;
-      font-size: $font-size-md;
-    }
-  }
-
-  &__basic-data {
-    display: grid;
-    gap: $spacing-4;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-  }
-
-  &__id-data {
+  &__tasker-apply {
     display: flex;
     flex-direction: column;
-    gap: $spacing-4;
-
-    .images-wrapper {
-      display: flex;
-      gap: $spacing-4;
-      .image {
-        width: 220px;
-        height: 180px;
-        border-radius: 12px;
-        border: $input-border;
-        img {
-          height: 100%;
-          width: 100%;
-          object-fit: contain;
-        }
-      }
+    justify-content: center;
+    app-button {
+      margin: 0 auto;
     }
   }
-
-    &__tasker-apply{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      app-button{
-        margin: 0 auto;
-      }
-    }
 }
