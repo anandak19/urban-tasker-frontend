@@ -1,15 +1,8 @@
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { TaskerApplicationStatus } from '@shared/constants/enums/application-status.enum';
+import { IBaseTaskerApplication } from '@shared/models/tasker-applications.model';
 
-//not using
-export interface ICreateTaskerApplication {
-  firstName: string;
-  lastName: string;
-  hourlyRate: string | number;
-  city: IDropdownOption;
-  workCategories: string[];
-  idProof: {
-    idProofType: IDropdownOption;
-    frontImage: File | string;
-    backImage: File | string;
-  };
+export interface ITaskerApplicationListItem
+  extends Omit<IBaseTaskerApplication, 'idProof'> {
+  applicationStatus: TaskerApplicationStatus;
+  id: string;
 }

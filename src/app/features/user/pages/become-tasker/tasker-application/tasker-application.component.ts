@@ -18,12 +18,12 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
 import { ImageUploadFieldComponent } from '@shared/components/image-upload-field/image-upload-field.component';
 import { noWhitespaceValidator } from '@shared/validators/custom-auth-validators';
-import { ICreateTaskerApplication } from '@features/admin/models/tasker-application.model';
 import { TaskerApplicationsService } from '@features/user/services/tasker-applications/tasker-applications.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
+import { ICreateTaskerApplication } from '@features/user/models/tasker-applications/tasker-applications.model';
 
 @Component({
   selector: 'app-tasker-application',
