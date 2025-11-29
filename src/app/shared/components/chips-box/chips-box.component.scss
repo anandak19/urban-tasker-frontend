@@ -1,0 +1,9 @@
+@use 'index' as *;
+
+.chips-box {
+  border: $section-border;
+  padding: $spacing-3;
+  border-radius: $border-radius-md;
+  --mdc-chip-label-text-color: $background-text;
+  --mat-sys-on-surface-variant: $background-text;
+}

@@ -28,6 +28,11 @@ body {
   padding-top: $header-height;
 }
 
+.error-text {
+  color: $red;
+  font-size: $font-size-sm;
+}
+
 .mat-stepper-vertical,
 .mat-stepper-horizontal {
   background: $background !important;
@@ -42,4 +47,20 @@ body {
   background-color: transparent !important;
 }
 
-// html, body { height: 100%; }
+// scroll bar styles
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $background;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $secondary-color;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $secondary-color-hover;
+}

@@ -13,10 +13,10 @@ export class ButtonLoadingComponent {
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
 
-  @Input() isLoading = signal(false);
-  @Input() text!: string;
+  @Input() isLoading = signal(false); // *
+  @Input() text!: string; // *
 
-  @Output() isClicked = new EventEmitter();
+  @Output() isClicked = new EventEmitter(); // *
 
   buttonClicked() {
     this.isClicked.emit();

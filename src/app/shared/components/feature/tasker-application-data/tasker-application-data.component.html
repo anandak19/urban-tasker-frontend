@@ -1,0 +1,80 @@
+<div class="tasker-application-data">
+  @if (taskerApplicationData()?.adminFeedback) {
+    <div class="tasker-application-data__admin-feedback">
+      <h4>Admin Feedback</h4>
+      <p>{{ taskerApplicationData()?.adminFeedback }}</p>
+    </div>
+  }
+  <!-- application status  -->
+  <div class="tasker-application-data__status">
+    <p class="status-label">Application Status</p>
+    <span
+      class="status"
+      [ngClass]="taskerApplicationData()?.applicationStatus"
+      >{{ taskerApplicationData()?.applicationStatus | titlecase}}</span
+    >
+  </div>
+
+  <!-- basic user data  -->
+  <div class="tasker-application-data__basic-data">
+    <!-- 4 label and value components  -->
+    <app-form-field-wrapper label="First Name">
+      <p class="tasker-application-data__value">
+        {{ taskerApplicationData()?.firstName }}
+      </p>
+    </app-form-field-wrapper>
+
+    <app-form-field-wrapper label="Last Name">
+      <p class="tasker-application-data__value">
+        {{ taskerApplicationData()?.lastName }}
+      </p>
+    </app-form-field-wrapper>
+
+    <app-form-field-wrapper label="Hourly Rate">
+      <p class="tasker-application-data__value">
+        {{ taskerApplicationData()?.hourlyRate }}
+      </p>
+    </app-form-field-wrapper>
+
+    <app-form-field-wrapper label="City">
+      <p class="tasker-application-data__value">
+        {{ taskerApplicationData()?.city }}
+      </p>
+    </app-form-field-wrapper>
+  </div>
+
+  <!-- selected categories  -->
+  <div class="tasker-application-data__categories">
+    <app-form-field-wrapper label="Work Categories">
+      <p class="tasker-application-data__value">
+        @for (item of taskerApplicationData()?.workCategories; track $index) {
+          <span>{{ item.name }}</span>
+        }
+      </p>
+    </app-form-field-wrapper>
+  </div>
+
+  <!-- id Proof data   -->
+  <div class="tasker-application-data__id-data">
+    <app-form-field-wrapper label="ID Proof Type">
+      <p class="tasker-application-data__value">
+        {{ taskerApplicationData()?.idProof?.idProofType }}
+      </p>
+    </app-form-field-wrapper>
+
+    <!-- 2 image showing compoenent  -->
+    <div class="images-wrapper">
+      <app-form-field-wrapper label="Front Image">
+        <div class="image">
+          <img [src]="taskerApplicationData()?.idProof?.frontImage" alt="" />
+        </div>
+      </app-form-field-wrapper>
+
+      <app-form-field-wrapper label="Back Image">
+        <div class="image">
+          <img [src]="taskerApplicationData()?.idProof?.backImage" alt="" />
+        </div>
+      </app-form-field-wrapper>
+    </div>
+  </div>
+</div>

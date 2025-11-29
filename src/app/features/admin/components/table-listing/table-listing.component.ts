@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class TableListingComponent<T> {
   @Input() columns!: IMatColumns[]; // array of object containing column info
   @Input() dataSource: T[] = []; // array of data to show in table
+  @Input() editable = true;
 
   @Output() viewClicked = new EventEmitter<string>();
   @Output() editClicked = new EventEmitter<string>();

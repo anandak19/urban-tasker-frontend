@@ -1,0 +1,16 @@
+@use 'index' as *;
+
+.label-description {
+  &__label {
+    font-size: $font-size-md;
+  }
+  &__description {
+    font-size: $font-size-xs;
+  }
+
+  @include respond('xs') {
+    &__label {
+      font-size: $font-size-sm;
+    }
+  }
+}

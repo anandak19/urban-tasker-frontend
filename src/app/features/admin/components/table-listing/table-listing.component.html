@@ -39,12 +39,14 @@
               (clickEvent)="onViewBtnClick(element.id)"
               >View</app-button
             >
-            <app-button
-              size="small"
-              type="button"
-              (clickEvent)="onEditBtnClick(element.id)"
-              >Edit</app-button
-            >
+            @if (editable) {
+              <app-button
+                size="small"
+                type="button"
+                (clickEvent)="onEditBtnClick(element.id)"
+                >Edit</app-button
+              >
+            }
           </td>
         </ng-container>
 

@@ -1,0 +1,61 @@
+@use 'index' as *;
+
+.tasker-application {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+  padding: $spacing-8 0;
+  margin-bottom: $spacing-8;
+  &__wrapper {
+    width: 50%;
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: $spacing-4 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-4;
+    }
+  }
+
+  &__basics,
+  &__work-categories,
+  &__id-proof {
+    padding: $spacing-4;
+    border: $section-border;
+    border-radius: $border-radius-md;
+  }
+
+  &__basics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: $spacing-4;
+  }
+
+  &__dropdown-wrapper {
+    width: 300px;
+    margin: $spacing-2 0;
+  }
+
+  &__id-proof {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    .images-wrapper {
+      display: flex;
+      gap: $spacing-8;
+    }
+  }
+
+  &__submit-btn {
+    margin: $spacing-4 auto;
+    width: 50%;
+  }
+}

@@ -37,8 +37,8 @@ export class AuthService {
     return this._http
       .post(`${this._apiEndPoint}/refresh`, {}, { withCredentials: true })
       .pipe(
-        tap((res) => {
-          console.log('Token Refreshed', res);
+        tap(() => {
+          console.log('Token Refreshed');
           this._authGuardService.fetchLoginUser().subscribe();
         }),
         catchError((err) => {

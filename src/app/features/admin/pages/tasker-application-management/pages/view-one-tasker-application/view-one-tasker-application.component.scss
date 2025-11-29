@@ -1,0 +1,22 @@
+@use 'index' as *;
+
+.view-application {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  &__wrapper {
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  &__edit {
+    padding: $spacing-6;
+    border: $section-border;
+    border-radius: $border-radius-md;
+    margin-bottom: $spacing-2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

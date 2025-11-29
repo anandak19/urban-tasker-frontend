@@ -1,0 +1,46 @@
+@use 'index' as *;
+
+.status-modal {
+  background-color: $background-hover;
+  padding: $spacing-6;
+  border-radius: $border-radius-md;
+  border: $section-border;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  h3{
+    margin: 0 auto;
+  }
+
+  &__form {
+
+    form{
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-4;
+      margin-bottom: $spacing-4;
+    }
+
+    textarea {
+      width: 100%;
+      padding: $spacing-2 $spacing-3;
+      border-radius: $border-radius-sm;
+      border: $border-width-thin solid $input-border-hover;
+      background-color: $inputs;
+      font-size: $font-size-sm;
+      outline: none;
+      color: $white;
+      transition: border-color 0.2s;
+      resize: vertical;
+
+      &::placeholder {
+        color: $disabled;
+      }
+
+      &:focus {
+        border-color: $primary-color;
+      }
+    }
+  }
+}

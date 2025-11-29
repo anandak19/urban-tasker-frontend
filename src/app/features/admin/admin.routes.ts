@@ -4,6 +4,8 @@ import { UsersManagementComponent } from './pages/users-management/users-managem
 import { TasksManagementComponent } from './pages/tasks-management/tasks-management.component';
 import { categoryManagementRoutes } from './pages/category-management/category-management.routes';
 import { CategoryManagementLayout } from './pages/category-management/category-management-layout/category-management-layout.component';
+import { TaskerApplicationsLayoutComponent } from './pages/tasker-application-management/tasker-applications-layout/tasker-applications-layout.component';
+import { TaskerApplicationRoutes } from './pages/tasker-application-management/tasker-application.routes';
 
 export const adminRoutes: Routes = [
   {
@@ -27,5 +29,10 @@ export const adminRoutes: Routes = [
     path: 'category-management',
     component: CategoryManagementLayout,
     children: categoryManagementRoutes,
+  },
+  {
+    path: 'tasker-applications',
+    component: TaskerApplicationsLayoutComponent,
+    children: TaskerApplicationRoutes,
   },
 ];

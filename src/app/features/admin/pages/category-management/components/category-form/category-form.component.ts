@@ -17,12 +17,12 @@ import {
 } from '@angular/forms';
 import { ICategoryData } from '@features/admin/models/category.interface';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
-import { ImageUploadFieldComponent } from '@features/admin/components/image-upload-field/image-upload-field.component';
 import {
   nameValidator,
   noWhitespaceValidator,
 } from '@shared/validators/custom-auth-validators';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
+import { ImageUploadFieldComponent } from '@shared/components/image-upload-field/image-upload-field.component';
 
 @Component({
   selector: 'app-category-form',

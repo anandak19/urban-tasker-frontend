@@ -1,0 +1,16 @@
+<div class="list-applications">
+  <app-admin-page-title title="Tasker Applications"></app-admin-page-title>
+
+  <app-admin-table-filters
+    searchPlaceholder="Search by user email"
+  ></app-admin-table-filters>
+
+  <app-table-listing
+    [columns]="columns"
+    [dataSource]="applications"
+    [editable]="false"
+    (viewClicked)="onViewClicked($event)"
+  ></app-table-listing>
+
+  <app-pagination [paginationData]="paginationMeta()" (pageChange)="onPageChange($event)"></app-pagination>
+</div>

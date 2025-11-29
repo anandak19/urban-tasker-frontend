@@ -45,5 +45,10 @@ export class SidebarComponent {
       label: 'Category Management',
       route: 'category-management',
     },
+    {
+      icon: 'category',
+      label: 'Tasker Applications',
+      route: 'tasker-applications',
+    },
   ]);
 }

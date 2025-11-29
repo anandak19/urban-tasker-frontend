@@ -1,0 +1,17 @@
+<div class="status-modal">
+  <h3>Update Application Status</h3>
+  <div class="status-modal__form">
+    <form [formGroup]="statusForm" (ngSubmit)="submit()">
+      <app-dropdown-field label="Select Status">
+        <app-dropdown [options]="options" formControlName="applicationStatus"></app-dropdown>
+      </app-dropdown-field>
+
+      <app-form-field-wrapper label="Feedback (Optional)">
+        <textarea formControlName="adminFeedback"></textarea>
+      </app-form-field-wrapper>
+
+      <app-button-loading type="submit" text="Update"></app-button-loading>
+    </form>
+    <app-button variant="secondary" (clickEvent)="close()">Close</app-button>
+  </div>
+</div>
