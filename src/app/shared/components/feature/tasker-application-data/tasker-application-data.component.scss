@@ -5,6 +5,18 @@
   flex-direction: column;
   gap: $spacing-2;
 
+  &__admin-feedback {
+    background-color: $background-hover;
+    h4 {
+      color: $primary-color-active;
+      font-size: $font-size-md;
+    }
+    p {
+      font-size: $font-size-sm;
+    }
+  }
+
+  &__admin-feedback,
   &__status,
   &__basic-data,
   &__categories,

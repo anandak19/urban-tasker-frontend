@@ -4,6 +4,7 @@ import { IFindAllTaskerApplicationsResponse } from '@features/admin/models/api-r
 import { buildQuery } from '@shared/helpers/query-builder';
 import { TTaskerApplicationResponse } from '@shared/models/common-api-responses.model';
 import { IBaseFilters } from '@shared/models/request-data.model';
+import { IApplicationStatusInfo } from '@shared/models/tasker-applications.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,15 @@ export class TaskerApplicationManagementService {
   findOneApplicationById(id: string) {
     return this._http.get<TTaskerApplicationResponse>(
       `${this.API_ENDPOINT}/${id}`,
+    );
+  }
+
+  changeApplicationStatus(id: string, statusInfo: IApplicationStatusInfo) {
+    console.log(statusInfo);
+
+    return this._http.patch<TTaskerApplicationResponse>(
+      `${this.API_ENDPOINT}/${id}/status`,
+      statusInfo,
     );
   }
 }

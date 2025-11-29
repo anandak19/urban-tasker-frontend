@@ -4,6 +4,19 @@
   </app-admin-page-title>
 
   <div class="view-application__wrapper">
+    <div class="view-application__edit">
+      <app-form-field-wrapper label="User Email">
+        <p class="value">
+          {{ taskerApplicationData()?.email }}
+        </p>
+      </app-form-field-wrapper>
+
+      <app-button
+        size="small"
+        variant="secondary"
+        (clickEvent)="onChangeStatus()">Change Status</app-button>
+
+    </div>
     <app-tasker-application-data
       [taskerApplicationData]="taskerApplicationData"
     ></app-tasker-application-data>

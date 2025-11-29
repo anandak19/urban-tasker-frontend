@@ -13,15 +13,21 @@ export interface IBaseTaskerApplication {
   hourlyRate: string | number;
 }
 
+export interface IApplicationStatusInfo {
+  adminFeedback: string;
+  applicationStatus: TaskerApplicationStatus;
+}
+
 export interface IWorkCategoriesObject {
   name: string;
   id: string;
 }
 
-export interface ITaskerApplication extends IBaseTaskerApplication {
+export interface ITaskerApplication
+  extends IBaseTaskerApplication,
+    IApplicationStatusInfo {
   workCategories: IWorkCategoriesObject[];
-  applicationStatus: TaskerApplicationStatus;
   idProof: IIdProof;
-  adminFeedback: string;
   id: string;
+  email: string;
 }

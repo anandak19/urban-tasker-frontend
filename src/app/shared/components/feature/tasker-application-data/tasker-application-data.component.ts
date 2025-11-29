@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, Input, signal } from '@angular/core';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
 import { ITaskerApplication } from '@shared/models/tasker-applications.model';
 
 @Component({
   selector: 'app-tasker-application-data',
-  imports: [FormFieldWrapperComponent, CommonModule],
+  imports: [FormFieldWrapperComponent, CommonModule, TitleCasePipe],
   templateUrl: './tasker-application-data.component.html',
   styleUrl: './tasker-application-data.component.scss',
 })
