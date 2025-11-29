@@ -1,0 +1,33 @@
+<div class="update-status-dialog">
+  <div class="update-status-dialog__header">
+    <h2 class="update-status-dialog__title">Update Application Status</h2>
+
+    <button
+      mat-icon-button
+      (click)="close()"
+      class="update-status-dialog__close-btn"
+    >
+      <mat-icon class="material-icons-outlined">close</mat-icon>
+    </button>
+  </div>
+
+  <div class="update-status-dialog__content">
+    <!-- <mat-radio-group
+        formControlName="status"
+        class="update-status-dialog__radio-group"
+      >
+      </mat-radio-group> -->
+    <form [formGroup]="statusForm">
+      <app-dropdown-field label="Application Status"> 
+      </app-dropdown-field>
+
+      <app-button-loading text="hi"></app-button-loading>
+
+    </form>
+  </div>
+
+  <div class="update-status-dialog__actions">
+    <button mat-stroked-button color="warn" (click)="close()">Close</button>
+    <button mat-raised-button color="primary">Submit</button>
+  </div>
+</div>
