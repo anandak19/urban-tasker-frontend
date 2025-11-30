@@ -1,9 +1,9 @@
 <div class="tasker-application-data">
-  @if (taskerApplicationData()?.adminFeedback) {
-    <div class="tasker-application-data__admin-feedback">
-      <h4>Admin Feedback</h4>
-      <p>{{ taskerApplicationData()?.adminFeedback }}</p>
-    </div>
+  @if (!!taskerApplicationData()?.adminFeedback) {
+    <app-info-panel
+      title="Admin Feedback"
+      [description]="taskerApplicationData()?.adminFeedback ?? ''"
+    ></app-info-panel>
   }
   <!-- application status  -->
   <div class="tasker-application-data__status">
@@ -11,7 +11,7 @@
     <span
       class="status"
       [ngClass]="taskerApplicationData()?.applicationStatus"
-      >{{ taskerApplicationData()?.applicationStatus | titlecase}}</span
+      >{{ taskerApplicationData()?.applicationStatus | titlecase }}</span
     >
   </div>
 

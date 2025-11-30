@@ -1,27 +1,30 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { IPaginationMeta } from '@features/admin/models/common.interface';
 import {
-  IGetAllUsersSuccessResponse,
   IUserData,
+  IGetAllUsersSuccessResponse,
 } from '@features/admin/models/user-data.interface';
 import { UserManagementService } from '@features/admin/services/user-management/user-management.service';
-import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
-import { IPaginationMeta } from '@features/admin/models/common.interface';
-import { TableListingComponent } from '@features/admin/components/table-listing/table-listing.component';
 import { IMatColumns } from '@shared/interfaces/table.interface';
 import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
+import { TableListingComponent } from '@features/admin/components/table-listing/table-listing.component';
+import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-users-management',
+  selector: 'app-list-users',
   imports: [
-    PaginationComponent,
-    TableListingComponent,
     AdminPageTitleComponent,
+    TableListingComponent,
+    PaginationComponent,
   ],
-  templateUrl: './users-management.component.html',
-  styleUrl: './users-management.component.scss',
+  templateUrl: './list-users.component.html',
+  styleUrl: './list-users.component.scss',
 })
-export class UsersManagementComponent implements OnInit {
+export class ListUsersComponent implements OnInit {
   private _usersManagementService = inject(UserManagementService);
+  private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
   users!: IUserData[];
   pagination = signal<IPaginationMeta>({
     limit: 0,
@@ -51,6 +54,10 @@ export class UsersManagementComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  onViewClick(id: string) {
+    this._router.navigate([`${id}`], { relativeTo: this._route });
   }
 
   onPageChange(page: number) {

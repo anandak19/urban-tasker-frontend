@@ -1,0 +1,15 @@
+@use 'index' as *;
+
+.info-panel {
+  padding: $spacing-6;
+  border: $section-border;
+  border-radius: $border-radius-md;
+  background-color: $background-hover;
+  h4 {
+    color: $primary-color-active;
+    font-size: $font-size-md;
+  }
+  p {
+    font-size: $font-size-sm;
+  }
+}

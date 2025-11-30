@@ -1,0 +1,57 @@
+@use 'index' as *;
+
+.view-user {
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+    margin-top: $spacing-6;
+  }
+
+  &__user-data {
+    display: flex;
+    gap: $spacing-2;
+    align-items: center;
+
+    .image {
+      height: 100px;
+      width: 100px;
+      overflow: hidden;
+      border-radius: $border-radius-full;
+      border: $section-border;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .name-role {
+      p {
+        font-size: $font-size-md;
+        font-weight: $font-weight-medium;
+        line-height: $line-height-lg;
+        color: $primary-color;
+      }
+      span {
+        background-color: $secondary-color;
+        color: $black;
+        padding: 0 $spacing-2;
+        font-weight: $font-weight-medium;
+        border-radius: $border-radius-md;
+        border: $section-border;
+      }
+    }
+  }
+
+  &__status {
+    @include section-box;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+
+    .button {
+      width: 200px;
+    }
+  }
+}

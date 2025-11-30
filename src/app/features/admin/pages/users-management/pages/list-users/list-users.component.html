@@ -1,9 +1,12 @@
-<div class="user-management">
+<div class="users-listing">
   <app-admin-page-title title="User Management">
     <!-- add button and filters goes here  -->
   </app-admin-page-title>
 
-  <app-table-listing [dataSource]="users" [columns]="userColumns">
+  <app-table-listing
+    [dataSource]="users"
+    [columns]="userColumns"
+    (viewClicked)="onViewClick($event)">
   </app-table-listing>
 
   <app-pagination

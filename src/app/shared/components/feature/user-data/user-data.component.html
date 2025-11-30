@@ -1,0 +1,23 @@
+@if (userData) {
+  <div class="user-data">
+    <app-form-field-wrapper label="First Name">
+      <p>{{ userData.firstName }}</p>
+    </app-form-field-wrapper>
+
+    <app-form-field-wrapper label="Last Name">
+      <p>{{ userData.lastName }}</p>
+    </app-form-field-wrapper>
+
+    <app-form-field-wrapper label="Email">
+      <p>{{ userData.email }}</p>
+    </app-form-field-wrapper>
+
+    <app-form-field-wrapper label="Phone">
+      <p>{{ userData.phone || '-' }}</p>
+    </app-form-field-wrapper>
+
+    <app-form-field-wrapper label="Account Type">
+      <p>{{ userData.userRole | titlecase }}</p>
+    </app-form-field-wrapper>
+  </div>
+}

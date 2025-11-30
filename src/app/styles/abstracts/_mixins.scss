@@ -1,0 +1,10 @@
+@use 'colors' as *;
+@use 'spacing' as *;
+@use 'variables' as *;
+@use '../base' as *;
+
+@mixin section-box {
+  padding: $spacing-6;
+  border: $section-border;
+  border-radius: $border-radius-md;
+}

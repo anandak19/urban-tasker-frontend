@@ -23,3 +23,4 @@ export interface IGetAllUsersData {
 }
 
 export type IGetAllUsersSuccessResponse = IApiResponseSuccess<IGetAllUsersData>;
+export type IOneUserResponse = IApiResponseSuccess<IUserData>;
