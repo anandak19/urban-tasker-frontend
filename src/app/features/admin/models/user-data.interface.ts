@@ -8,6 +8,8 @@ export interface IUserData {
   phone: string;
   userRole: string;
   isTaskerApplied: string;
+  isSuspended: boolean;
+  suspendedReason: string;
 }
 
 export interface IPaginationMetadata {
@@ -23,3 +25,4 @@ export interface IGetAllUsersData {
 }
 
 export type IGetAllUsersSuccessResponse = IApiResponseSuccess<IGetAllUsersData>;
+export type IOneUserResponse = IApiResponseSuccess<IUserData>;

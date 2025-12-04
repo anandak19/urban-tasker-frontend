@@ -3,7 +3,10 @@
   <div class="status-modal__form">
     <form [formGroup]="statusForm" (ngSubmit)="submit()">
       <app-dropdown-field label="Select Status">
-        <app-dropdown [options]="options" formControlName="applicationStatus"></app-dropdown>
+        <app-dropdown
+          [options]="options"
+          formControlName="applicationStatus"
+        ></app-dropdown>
       </app-dropdown-field>
 
       <app-form-field-wrapper label="Feedback (Optional)">

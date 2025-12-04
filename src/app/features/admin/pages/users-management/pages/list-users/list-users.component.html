@@ -1,0 +1,24 @@
+<div class="users-listing">
+  <app-admin-page-title title="User Management">
+    <!-- add button and filters goes here  -->
+  </app-admin-page-title>
+
+  <app-admin-table-filters
+    searchPlaceholder="Search user by email"
+    (searchChange)="onSearch($event)"
+  ></app-admin-table-filters>
+
+  <app-table-listing
+    [dataSource]="users"
+    [columns]="userColumns"
+    [editable]="false"
+    (viewClicked)="onViewClick($event)"
+  >
+  </app-table-listing>
+
+  <app-pagination
+    [paginationData]="pagination()"
+    (pageChange)="onPageChange($event)"
+  >
+  </app-pagination>
+</div>

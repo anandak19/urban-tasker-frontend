@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatusModalComponent } from './status-modal.component';
+import { ListUsersComponent } from './list-users.component';
 
-describe('StatusModalComponent', () => {
-  let component: StatusModalComponent;
-  let fixture: ComponentFixture<StatusModalComponent>;
+describe('ListUsersComponent', () => {
+  let component: ListUsersComponent;
+  let fixture: ComponentFixture<ListUsersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StatusModalComponent],
+      imports: [ListUsersComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StatusModalComponent);
+    fixture = TestBed.createComponent(ListUsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

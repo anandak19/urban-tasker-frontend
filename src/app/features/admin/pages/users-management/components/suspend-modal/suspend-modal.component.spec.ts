@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatusModalComponent } from './status-modal.component';
+import { SuspendModalComponent } from './suspend-modal.component';
 
-describe('StatusModalComponent', () => {
-  let component: StatusModalComponent;
-  let fixture: ComponentFixture<StatusModalComponent>;
+describe('SuspendModalComponent', () => {
+  let component: SuspendModalComponent;
+  let fixture: ComponentFixture<SuspendModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StatusModalComponent],
+      imports: [SuspendModalComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StatusModalComponent);
+    fixture = TestBed.createComponent(SuspendModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

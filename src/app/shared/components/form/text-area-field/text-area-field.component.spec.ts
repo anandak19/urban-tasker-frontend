@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatusModalComponent } from './status-modal.component';
+import { TextAreaFieldComponent } from './text-area-field.component';
 
-describe('StatusModalComponent', () => {
-  let component: StatusModalComponent;
-  let fixture: ComponentFixture<StatusModalComponent>;
+describe('TextAreaFieldComponent', () => {
+  let component: TextAreaFieldComponent;
+  let fixture: ComponentFixture<TextAreaFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StatusModalComponent],
+      imports: [TextAreaFieldComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StatusModalComponent);
+    fixture = TestBed.createComponent(TextAreaFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

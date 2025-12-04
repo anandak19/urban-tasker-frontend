@@ -16,7 +16,7 @@ export class AuthService {
   private _authGuardService = inject(AuthGuardService);
 
   googleLogin() {
-    window.location.href = 'http://localhost:3000/api/auth/google/login';
+    window.open('http://localhost:3000/api/auth/google/login', '_self');
   }
 
   localLogin(loginData: ILoginData) {
