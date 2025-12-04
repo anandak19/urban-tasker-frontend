@@ -10,6 +10,8 @@ import { AdminPageTitleComponent } from '@features/admin/components/admin-page-t
 import { TableListingComponent } from '@features/admin/components/table-listing/table-listing.component';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AdminTableFiltersComponent } from '@features/admin/components/admin-table-filters/admin-table-filters.component';
+import { IBaseFilters } from '@shared/models/request-data.model';
 
 @Component({
   selector: 'app-list-users',
@@ -17,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     AdminPageTitleComponent,
     TableListingComponent,
     PaginationComponent,
+    AdminTableFiltersComponent,
   ],
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.scss',
@@ -33,6 +36,11 @@ export class ListUsersComponent implements OnInit {
     total: 0,
   });
 
+  filter = signal<IBaseFilters>({
+    page: 1,
+    limit: 2, // -----------REMOVE THIS LATER
+  });
+
   //col
   userColumns: IMatColumns[] = [
     { label: 'First Name', key: 'firstName' },
@@ -43,11 +51,12 @@ export class ListUsersComponent implements OnInit {
     { label: 'Tasker Applied', key: 'isTaskerApplied' },
   ] as const;
 
-  getUsers(page: number) {
-    this._usersManagementService.getAllUsers(page).subscribe({
+  getUsers() {
+    this._usersManagementService.getAllUsers(this.filter()).subscribe({
       next: (res) => {
         const response = res as IGetAllUsersSuccessResponse;
         this.users = response.data.allUsers;
+        console.log(response.data.allUsers);
         this.pagination.set(response.data.metaData);
       },
       error: (err) => {
@@ -60,11 +69,25 @@ export class ListUsersComponent implements OnInit {
     this._router.navigate([`${id}`], { relativeTo: this._route });
   }
 
+  onSearch(search: string) {
+    this.filter.update((val) => ({
+      ...val,
+      page: 1,
+      search,
+    }));
+    console.log(`Search: ${search} find it`);
+    this.getUsers();
+  }
+
   onPageChange(page: number) {
-    this.getUsers(page);
+    this.filter.update((val) => ({
+      ...val,
+      page,
+    }));
+    this.getUsers();
   }
 
   ngOnInit(): void {
-    this.getUsers(1);
+    this.getUsers();
   }
 }

@@ -3,6 +3,11 @@
     <!-- add button and filters goes here  -->
   </app-admin-page-title>
 
+  <app-admin-table-filters
+    searchPlaceholder="Search user by email"
+    (searchChange)="onSearch($event)"
+  ></app-admin-table-filters>
+
   <app-table-listing
     [dataSource]="users"
     [columns]="userColumns"
