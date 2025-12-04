@@ -6,7 +6,9 @@
   <app-table-listing
     [dataSource]="users"
     [columns]="userColumns"
-    (viewClicked)="onViewClick($event)">
+    [editable]="false"
+    (viewClicked)="onViewClick($event)"
+  >
   </app-table-listing>
 
   <app-pagination

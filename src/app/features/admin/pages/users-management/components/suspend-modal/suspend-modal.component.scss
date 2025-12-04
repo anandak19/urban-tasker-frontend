@@ -1,13 +1,11 @@
 @use 'index' as *;
 
-.status-modal {
+.suspend-modal {
+  @include section-box;
   background-color: $background-hover;
-  padding: $spacing-6;
-  border-radius: $border-radius-md;
-  border: $section-border;
   display: flex;
   flex-direction: column;
-  gap: $spacing-4;
+  margin: 0 auto;
 
   h3 {
     margin: 0 auto;

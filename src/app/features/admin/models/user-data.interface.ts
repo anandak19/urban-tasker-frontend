@@ -8,6 +8,8 @@ export interface IUserData {
   phone: string;
   userRole: string;
   isTaskerApplied: string;
+  isSuspended: boolean;
+  suspendedReason: string;
 }
 
 export interface IPaginationMetadata {

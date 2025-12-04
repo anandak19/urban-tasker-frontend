@@ -17,4 +17,20 @@ export class UserManagementService {
   getUserById(id: string) {
     return this._http.get<IOneUserResponse>(`${this._apiEndPoint}/${id}`);
   }
+
+  suspendUser(id: string, reason: string) {
+    console.log(`${id} - ${reason}`);
+    return this._http.patch<IOneUserResponse>(
+      `${this._apiEndPoint}/${id}/suspend`,
+      { suspendedReason: reason },
+    );
+  }
+
+  unsuspendUser(id: string) {
+    console.log(`${id}`);
+    return this._http.patch<IOneUserResponse>(
+      `${this._apiEndPoint}/${id}/unsuspend`,
+      {},
+    );
+  }
 }

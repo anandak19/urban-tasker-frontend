@@ -8,9 +8,8 @@ describe('TaskerApplicationDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskerApplicationDataComponent]
-    })
-    .compileComponents();
+      imports: [TaskerApplicationDataComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskerApplicationDataComponent);
     component = fixture.componentInstance;

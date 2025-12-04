@@ -14,16 +14,25 @@
       </div>
       <div class="name-role">
         <p>{{ fullName }}</p>
-        <span>{{ userData()?.userRole | titlecase}}</span>
+        <span>{{ userData()?.userRole | titlecase }}</span>
       </div>
     </div>
 
     <app-user-data [userData]="userData()"></app-user-data>
 
     <div class="view-user__status">
-      <app-info-panel title="chumma"></app-info-panel>
+      @if (userData()?.isSuspended && userData()?.suspendedReason) {
+        <app-info-panel
+          title="User is suspended for the reason"
+          [description]="userData()?.suspendedReason ?? 'Not available'"
+        ></app-info-panel>
+      }
       <div class="button">
-        <app-button>Suspend User</app-button>
+        <app-button-loading
+          [text]="userData()?.isSuspended ? 'Unsuspend user' : 'Suspend User'"
+          (isClicked)="onSuspendBtnClick()"
+          [isLoading]="isSuspendLoading"
+        ></app-button-loading>
       </div>
     </div>
   </div>

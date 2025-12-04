@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewOneUserComponent } from './view-one-user.component';
+import { TextAreaFieldComponent } from './text-area-field.component';
 
-describe('ViewOneUserComponent', () => {
-  let component: ViewOneUserComponent;
-  let fixture: ComponentFixture<ViewOneUserComponent>;
+describe('TextAreaFieldComponent', () => {
+  let component: TextAreaFieldComponent;
+  let fixture: ComponentFixture<TextAreaFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewOneUserComponent],
+      imports: [TextAreaFieldComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewOneUserComponent);
+    fixture = TestBed.createComponent(TextAreaFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

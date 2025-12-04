@@ -1,0 +1,12 @@
+<div class="suspend-modal">
+  <h3>Reason</h3>
+  <div class="suspend-modal__form">
+    <form [formGroup]="reasonForm" (ngSubmit)="onFormSubmit()">
+      <app-form-field-wrapper label="Reason for suspending">
+        <textarea formControlName="suspendedReason"></textarea>
+      </app-form-field-wrapper>
+      <app-button type="submit">Suspend</app-button>
+    </form>
+    <app-button variant="secondary" (clickEvent)="close()">Cancel</app-button>
+  </div>
+</div>

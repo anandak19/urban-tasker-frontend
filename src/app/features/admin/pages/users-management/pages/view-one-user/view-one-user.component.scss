@@ -45,7 +45,6 @@
   }
 
   &__status {
-    @include section-box;
     display: flex;
     flex-direction: column;
     gap: $spacing-6;

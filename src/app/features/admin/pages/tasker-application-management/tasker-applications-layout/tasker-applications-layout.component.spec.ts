@@ -8,9 +8,8 @@ describe('TaskerApplicationsLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskerApplicationsLayoutComponent]
-    })
-    .compileComponents();
+      imports: [TaskerApplicationsLayoutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskerApplicationsLayoutComponent);
     component = fixture.componentInstance;

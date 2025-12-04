@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewOneUserComponent } from './view-one-user.component';
+import { SuspendModalComponent } from './suspend-modal.component';
 
-describe('ViewOneUserComponent', () => {
-  let component: ViewOneUserComponent;
-  let fixture: ComponentFixture<ViewOneUserComponent>;
+describe('SuspendModalComponent', () => {
+  let component: SuspendModalComponent;
+  let fixture: ComponentFixture<SuspendModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewOneUserComponent],
+      imports: [SuspendModalComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewOneUserComponent);
+    fixture = TestBed.createComponent(SuspendModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

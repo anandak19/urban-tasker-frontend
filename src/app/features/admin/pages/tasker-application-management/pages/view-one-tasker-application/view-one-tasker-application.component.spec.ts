@@ -8,9 +8,8 @@ describe('ViewOneTaskerApplicationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewOneTaskerApplicationComponent]
-    })
-    .compileComponents();
+      imports: [ViewOneTaskerApplicationComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewOneTaskerApplicationComponent);
     component = fixture.componentInstance;
