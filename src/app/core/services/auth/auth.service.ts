@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ILoginData } from '@shared/models/auth.model';
 import { catchError, of, tap } from 'rxjs';
 import { AuthGuardService } from '../auth-guard-service/auth-guard.service';
+import { IisLoginResponse } from '@features/user/models/auth/login.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class AuthService {
 
   localLogin(loginData: ILoginData) {
     return this._http
-      .post(`${this._apiEndPoint}/login`, loginData)
+      .post<IisLoginResponse>(`${this._apiEndPoint}/login`, loginData)
       .pipe(tap(() => this._authGuardService.fetchLoginUser()));
   }
 

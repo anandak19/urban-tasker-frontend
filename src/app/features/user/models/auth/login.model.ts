@@ -10,8 +10,8 @@ export interface ICurrentUser {
   id: string;
   email: string;
   userRole: UserRoles;
-  iat: number;
-  exp: number;
+  iat?: number;
+  exp?: number;
 }
 
 export interface IisLoginData {

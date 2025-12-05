@@ -4,6 +4,7 @@ import { adminRoutes } from '@features/admin/admin.routes';
 import { adminAuthGuard } from '@features/admin/guards/auth/admin-auth.guard';
 import { isAdminLoginGuard } from '@features/admin/guards/login/is-login.guard';
 import { AdminLoginComponent } from '@features/admin/pages/admin-login/admin-login.component';
+import { isTaskerGuard } from '@features/tasker/guards/isTasker/is-tasker.guard';
 import { TaskerLayoutComponent } from '@features/tasker/tasker-layout/tasker-layout.component';
 import { taskerRoutes } from '@features/tasker/tasker.routes';
 import { UserLayoutComponent } from '@features/user/user-layout/user-layout.component';
@@ -19,6 +20,7 @@ export const routes: Routes = [
     path: 'tasker',
     component: TaskerLayoutComponent,
     children: taskerRoutes,
+    canActivate: [isTaskerGuard],
   },
   {
     path: 'admin/login',

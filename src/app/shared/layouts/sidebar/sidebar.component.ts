@@ -22,33 +22,6 @@ export class SidebarComponent {
   @Input() set collapsed(val: boolean) {
     this.isSideNavCollapsed.set(val);
   }
-
+  @Input() sideMenuItems = signal<ISideNavItem[]>([]);
   // this should be passed from parent
-  sideMenuItems = signal<ISideNavItem[]>([
-    {
-      icon: 'analytics',
-      label: 'Reports',
-      route: 'reports',
-    },
-    {
-      icon: 'manage_accounts',
-      label: 'Users Managment',
-      route: 'user-management',
-    },
-    {
-      icon: 'task_alt',
-      label: 'Tasks Management',
-      route: 'task-management',
-    },
-    {
-      icon: 'category',
-      label: 'Category Management',
-      route: 'category-management',
-    },
-    {
-      icon: 'category',
-      label: 'Tasker Applications',
-      route: 'tasker-applications',
-    },
-  ]);
 }

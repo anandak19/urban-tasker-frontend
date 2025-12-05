@@ -1,0 +1,9 @@
+@use 'index' as *;
+
+.tasker-header {
+  &__left {
+    display: flex;
+    gap: $spacing-2;
+    align-items: center;
+  }
+}
