@@ -42,7 +42,7 @@ export class TaskerLayoutComponent {
     },
     {
       icon: 'account_circle',
-      label: 'Profile',
+      label: 'Tasker Profile',
       route: 'tasker-profile',
     },
     {

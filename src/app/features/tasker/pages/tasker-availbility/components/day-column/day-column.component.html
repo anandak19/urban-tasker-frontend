@@ -1,0 +1,32 @@
+<div class="day">
+  <div class="day__title">
+    {{ day.name }}
+  </div>
+
+  <div class="day__slots">
+    <div class="day__slot" *ngFor="let slot of day.slots; let j = index">
+      <!-- {{ slot }} -->
+      <div class="times">
+        <p class="time">09:00AM</p>
+        <p class="time">-</p>
+        <p class="time">12:00 PM</p>
+      </div>
+      <div class="actions">
+        <button mat-icon-button>
+          <mat-icon class="material-icons-outlined">edit</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon class="material-icons-outlined">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <button
+      class="day__add-slot"
+      (click)="onAddSlot()"
+      [disabled]="day.slots.length >= 3"
+    >
+      + Add Slot
+    </button>
+  </div>
+</div>

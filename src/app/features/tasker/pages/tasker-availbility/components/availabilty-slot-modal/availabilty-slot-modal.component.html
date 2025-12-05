@@ -1,0 +1,45 @@
+<div class="availabilty-slot-modal">
+  <button class="availabilty-slot-modal__close-btn" (click)="onClose()">
+    <mat-icon class="material-icons-outlined">close</mat-icon>
+  </button>
+
+  <div class="availabilty-slot-modal__title">
+    <h3>Sunday Slot 2</h3>
+  </div>
+
+  <div class="availabilty-slot-modal__form-wrapper">
+    <!-- pickers  -->
+    <form>
+      <div class="inputs">
+        <!-- Start time  -->
+        <app-form-field-wrapper>
+          <mat-form-field>
+            <mat-label>Start Time</mat-label>
+            <input matInput [matTimepicker]="start" />
+            <mat-timepicker-toggle
+              matIconSuffix
+              [for]="start"
+            ></mat-timepicker-toggle>
+            <mat-timepicker #start></mat-timepicker>
+          </mat-form-field>
+        </app-form-field-wrapper>
+
+        <!-- End time  -->
+        <app-form-field-wrapper>
+          <mat-form-field>
+            <mat-label>End Time</mat-label>
+            <input matInput [matTimepicker]="end" />
+            <mat-timepicker-toggle
+              matIconSuffix
+              [for]="end"
+            ></mat-timepicker-toggle>
+            <mat-timepicker #end></mat-timepicker>
+          </mat-form-field>
+        </app-form-field-wrapper>
+      </div>
+
+      <app-button-loading text="Save"></app-button-loading>
+    </form>
+    <app-button-loading text="Disable this slot" variant="secondary"></app-button-loading>
+  </div>
+</div>

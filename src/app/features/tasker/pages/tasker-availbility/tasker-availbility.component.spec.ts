@@ -8,9 +8,8 @@ describe('TaskerAvailbilityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskerAvailbilityComponent]
-    })
-    .compileComponents();
+      imports: [TaskerAvailbilityComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskerAvailbilityComponent);
     component = fixture.componentInstance;

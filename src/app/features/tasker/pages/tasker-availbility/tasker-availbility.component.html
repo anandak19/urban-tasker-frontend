@@ -1,1 +1,20 @@
-<p>tasker-availbility works!</p>
+<div class="tasker-availbility">
+  <app-page-title title="Availabilty" description="Set your weekly availabilty">
+  </app-page-title>
+
+  <div class="tasker-availbility__main-content">
+    <div class="tasker-availbility__toolbar">
+      <app-button-loading text="Add Defaults" (isClicked)="addDefault()"></app-button-loading>
+    </div>
+
+    <div class="week">
+      <app-day-column
+        *ngFor="let day of days; let i = index"
+        [day]="day"
+        [dayIndex]="i"
+        (addSlot)="addSlot($event)"
+        (removeSlot)="removeSlot($event.dayIndex, $event.slotIndex)"
+      ></app-day-column>
+    </div>
+  </div>
+</div>
