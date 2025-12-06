@@ -11,12 +11,20 @@
         </p>
       </app-form-field-wrapper>
 
-      <app-button
-        size="small"
-        variant="secondary"
-        (clickEvent)="onChangeStatus()"
-        >Change Status</app-button
-      >
+      @if (!isApproved) {
+        <div class="view-application__actions">
+          <app-button
+            size="small"
+            variant="secondary"
+            (clickEvent)="onChangeStatus()"
+            >Change Status</app-button
+          >
+
+          <app-button size="small" (clickEvent)="onApprove()"
+            >Approve</app-button
+          >
+        </div>
+      }
     </div>
     <app-tasker-application-data
       [taskerApplicationData]="taskerApplicationData"

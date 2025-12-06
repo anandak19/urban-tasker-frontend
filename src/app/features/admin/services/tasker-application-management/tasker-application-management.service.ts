@@ -29,11 +29,16 @@ export class TaskerApplicationManagementService {
   }
 
   changeApplicationStatus(id: string, statusInfo: IApplicationStatusInfo) {
-    console.log(statusInfo);
-
     return this._http.patch<TTaskerApplicationResponse>(
       `${this.API_ENDPOINT}/${id}/status`,
       statusInfo,
+    );
+  }
+
+  approveApplication(id: string) {
+    return this._http.patch<TTaskerApplicationResponse>(
+      `${this.API_ENDPOINT}/${id}/approve`,
+      {},
     );
   }
 }

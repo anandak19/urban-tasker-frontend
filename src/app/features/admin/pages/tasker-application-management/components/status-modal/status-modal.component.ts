@@ -46,10 +46,6 @@ export class StatusModalComponent implements OnInit {
       label: 'Pending',
     },
     {
-      id: 'approved',
-      label: 'Approved',
-    },
-    {
       id: 'rejected',
       label: 'Rejected',
     },
@@ -101,7 +97,5 @@ export class StatusModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    console.log('Form init');
-    console.log('Dialog data:', this.data);
   }
 }
