@@ -15,6 +15,10 @@ import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { Dialog } from '@angular/cdk/dialog';
 import { StatusModalComponent } from '../../components/status-modal/status-modal.component';
+import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { IApiResponseError } from '@shared/models/api-response.model';
+import { TaskerApplicationStatus } from '@shared/constants/enums/application-status.enum';
 
 @Component({
   selector: 'app-view-one-tasker-application',
@@ -34,6 +38,8 @@ export class ViewOneTaskerApplicationComponent implements OnInit {
 
   taskerApplicationData = signal<ITaskerApplication | null>(null);
   private _dialog = inject(Dialog);
+  private _confirmDialog = inject(ConfirmDialogService);
+  private _snackbar = inject(SnackbarService);
 
   private _taskerApplicationManagement = inject(
     TaskerApplicationManagementService,
@@ -53,6 +59,27 @@ export class ViewOneTaskerApplicationComponent implements OnInit {
     });
   }
 
+  async onApprove() {
+    const yes = await this._confirmDialog.ask(
+      'Approve this application and change user role to tasker ?',
+    );
+
+    if (yes) {
+      this._taskerApplicationManagement
+        .approveApplication(this.applicationId)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this._snackbar.success(res.message);
+            this.getApplicationData();
+          },
+          error: (err: IApiResponseError) => {
+            this._snackbar.error(err.message);
+          },
+        });
+    }
+  }
+
   getApplicationData() {
     this._taskerApplicationManagement
       .findOneApplicationById(this.applicationId)
@@ -61,6 +88,13 @@ export class ViewOneTaskerApplicationComponent implements OnInit {
           this.taskerApplicationData.set(res.data);
         },
       });
+  }
+
+  get isApproved() {
+    return (
+      this.taskerApplicationData()?.applicationStatus ===
+      TaskerApplicationStatus.APPROVED
+    );
   }
 
   ngOnInit(): void {
