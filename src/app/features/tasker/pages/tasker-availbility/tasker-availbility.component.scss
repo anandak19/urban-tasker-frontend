@@ -1,0 +1,22 @@
+@use "index" as *;
+
+.tasker-availbility {
+  &__main-content {
+    display: flex;
+    flex-direction: column;
+
+    .week {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+    }
+  }
+
+  &__toolbar {
+    display: flex;
+    margin-bottom: $spacing-6;
+    app-button-loading {
+      margin-left: auto;
+    }
+  }
+}

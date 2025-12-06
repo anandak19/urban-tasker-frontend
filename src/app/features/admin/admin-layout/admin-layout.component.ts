@@ -6,6 +6,7 @@ import { SidebarComponent } from '@shared/layouts/sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { AdminHeaderComponent } from '@shared/layouts/admin-header/admin-header.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ISideNavItem } from '@shared/interfaces/nav-link.interface';
 
 @Component({
   selector: 'app-admin-layout',
@@ -23,6 +24,34 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class AdminLayoutComponent {
   collapsed = signal(false);
   isHandset = false;
+
+  sideMenuItems = signal<ISideNavItem[]>([
+    {
+      icon: 'analytics',
+      label: 'Reports',
+      route: 'reports',
+    },
+    {
+      icon: 'manage_accounts',
+      label: 'Users Managment',
+      route: 'user-management',
+    },
+    {
+      icon: 'task_alt',
+      label: 'Tasks Management',
+      route: 'task-management',
+    },
+    {
+      icon: 'category',
+      label: 'Category Management',
+      route: 'category-management',
+    },
+    {
+      icon: 'category',
+      label: 'Tasker Applications',
+      route: 'tasker-applications',
+    },
+  ]);
 
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '278px'));
   hideText = computed(() => !this.isHandset && this.collapsed());

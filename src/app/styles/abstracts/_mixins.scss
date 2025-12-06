@@ -8,3 +8,9 @@
   border: $section-border;
   border-radius: $border-radius-md;
 }
+
+@mixin center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

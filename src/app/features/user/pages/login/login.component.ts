@@ -5,6 +5,7 @@ import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.s
 import { AuthService } from '@core/services/auth/auth.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { LoginFormComponent } from '@shared/components/login-form/login-form.component';
+import { UserRoles } from '@shared/constants/enums/user.enum';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { ILoginData } from '@shared/models/auth.model';
 import { finalize } from 'rxjs';
@@ -25,17 +26,23 @@ export class LoginComponent {
 
   isLoading = signal(false);
 
+  // local login
   onLogin(loginData: ILoginData) {
     this._authServices
       .localLogin(loginData)
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
-        next: () => {
+        next: (res) => {
           this.loginFormChild.resetForm();
-          const snackRef = this._snackBar.success('Login Successfull');
+          const snackRef = this._snackBar.success(res.message);
           this._authGuradService.fetchLoginUser().subscribe();
+
           snackRef.afterDismissed().subscribe(() => {
-            this._router.navigate(['/']);
+            if (res.data.user.userRole === UserRoles.TASKER) {
+              this._router.navigate(['/tasker']);
+            } else {
+              this._router.navigate(['/']);
+            }
           });
         },
         error: (err: IApiResponseError) => {
