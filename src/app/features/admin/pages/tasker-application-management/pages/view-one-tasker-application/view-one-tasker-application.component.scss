@@ -20,7 +20,7 @@
     justify-content: space-between;
   }
 
-  &__actions{
+  &__actions {
     @include center-div;
     gap: $spacing-2;
   }

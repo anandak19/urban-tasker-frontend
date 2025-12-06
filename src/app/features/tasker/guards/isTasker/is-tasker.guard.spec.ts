@@ -4,8 +4,8 @@ import { CanActivateFn } from '@angular/router';
 import { isTaskerGuard } from './is-tasker.guard';
 
 describe('isTaskerGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => isTaskerGuard(...guardParameters));
+  const executeGuard: CanActivateFn = (...guardParameters) =>
+    TestBed.runInInjectionContext(() => isTaskerGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

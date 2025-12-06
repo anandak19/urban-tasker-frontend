@@ -23,7 +23,6 @@ app-tasker-header {
 
 .main-content-wrapper {
   mat-sidenav-container {
-    
     height: calc(100vh - 64px);
     border-top: 1px solid $background-division;
   }
@@ -35,7 +34,6 @@ app-tasker-header {
 
   mat-sidenav-content {
     padding: $spacing-6;
-    
   }
 
   mat-sidenav,

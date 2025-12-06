@@ -10,23 +10,23 @@ export const isTaskerGuard: CanActivateFn = () => {
 
   const currentUser = _authGuardService.currentUser();
 
-  if (currentUser && currentUser.userRole !== UserRoles.TASKER) {
-    return _router.createUrlTree(['/']);
+  if (currentUser && currentUser.userRole === UserRoles.TASKER) {
+    return true;
   }
 
   return _authGuardService.fetchLoginUser().pipe(
     map((res) => {
       const user = res?.data?.user;
 
-      if (user && user.userRole !== UserRoles.TASKER) {
+      if (user && user.userRole === UserRoles.TASKER) {
         _authGuardService.currentUser.set(user);
-        return _router.createUrlTree(['/']);
-      } else {
         return true;
+      } else {
+        return _router.createUrlTree(['/']);
       }
     }),
     catchError(() => {
-      return of(true);
+      return of(false);
     }),
   );
 };
