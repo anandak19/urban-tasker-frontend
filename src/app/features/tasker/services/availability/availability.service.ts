@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IAvailabilitiesResponse } from '@features/tasker/modals/api-response.modal';
+import { ISlot } from '@features/tasker/modals/availability.modal';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +16,9 @@ export class AvailabilityService {
 
   findTaskerAvailabilities() {
     return this._http.get<IAvailabilitiesResponse>(`${this.API_ENDPOINT}`);
+  }
+
+  deleteSlot(availabilityId: string, slot: ISlot) {
+    return this._http.patch(`${this.API_ENDPOINT}/${availabilityId}`, slot);
   }
 }

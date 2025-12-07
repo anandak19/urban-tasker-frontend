@@ -18,14 +18,17 @@ export class DayColumnComponent {
   @Input() day!: WeekDayKeys;
 
   @Output() addSlot = new EventEmitter<WeekDayKeys>();
-  @Output() removeSlot = new EventEmitter<{ day: WeekDayKeys; slot: ISlot }>();
+  @Output() removeSlot = new EventEmitter<{
+    availabilityId: string;
+    slot: ISlot;
+  }>();
 
   onAddSlot(day: WeekDayKeys) {
     this.addSlot.emit(day);
   }
 
-  onRemoveSlot(day: WeekDayKeys, slot: ISlot) {
-    this.removeSlot.emit({ day, slot });
+  onRemoveSlot(availabilityId: string, slot: ISlot) {
+    this.removeSlot.emit({ availabilityId, slot });
   }
 
   get isMaxSlot() {

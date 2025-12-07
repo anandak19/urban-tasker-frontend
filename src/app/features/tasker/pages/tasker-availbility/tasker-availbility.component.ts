@@ -68,9 +68,22 @@ export class TaskerAvailbilityComponent implements OnInit {
     });
   }
 
-  removeSlot(day: WeekDayKeys, slot: ISlot) {
-    console.log(day);
-    console.log(slot);
+  async removeSlot(availabilityId: string, slot: ISlot) {
+    const yes = await this._confirmDialog.ask(
+      'Are you sure to delete remove this slot ?',
+    );
+
+    if (yes) {
+      this._availabilityService.deleteSlot(availabilityId, slot).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.getAvailabilities();
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
+    }
   }
 
   getAvailabilities() {
