@@ -17,5 +17,15 @@ export interface IAvailability extends ICreateAvailability {
   updatedAt?: Date;
 }
 
+// modal
+export interface ISlotModalBase {
+  day: WeekDayKeys;
+}
+
+export interface ISlotModalData extends ISlotModalBase {
+  availabilityId: string;
+  slot: ISlot;
+}
+
 // resonse shape
 export type IMappedAvailability = Partial<Record<WeekDayKeys, IAvailability>>;

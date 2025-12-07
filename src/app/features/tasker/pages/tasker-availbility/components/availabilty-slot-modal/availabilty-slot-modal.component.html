@@ -4,18 +4,18 @@
   </button>
 
   <div class="availabilty-slot-modal__title">
-    <h3>Sunday Slot 2</h3>
+    <h3>Sunday Availability</h3>
   </div>
 
   <div class="availabilty-slot-modal__form-wrapper">
     <!-- pickers  -->
-    <form>
+    <form [formGroup]="slotForm" (ngSubmit)="onFormSubmit()">
       <div class="inputs">
         <!-- Start time  -->
         <app-form-field-wrapper>
           <mat-form-field>
             <mat-label>Start Time</mat-label>
-            <input matInput [matTimepicker]="start" />
+            <input matInput [matTimepicker]="start" formControlName="start" />
             <mat-timepicker-toggle
               matIconSuffix
               [for]="start"
@@ -28,7 +28,7 @@
         <app-form-field-wrapper>
           <mat-form-field>
             <mat-label>End Time</mat-label>
-            <input matInput [matTimepicker]="end" />
+            <input matInput [matTimepicker]="end" formControlName="end" />
             <mat-timepicker-toggle
               matIconSuffix
               [for]="end"
@@ -38,7 +38,7 @@
         </app-form-field-wrapper>
       </div>
 
-      <app-button-loading text="Save"></app-button-loading>
+      <app-button-loading text="Save" type="submit"></app-button-loading>
     </form>
     <app-button-loading
       text="Disable this slot"

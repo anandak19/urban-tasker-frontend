@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 import { IAvailabilitiesResponse } from '@features/tasker/modals/api-response.modal';
 import { ISlot } from '@features/tasker/modals/availability.modal';
 
@@ -20,5 +21,9 @@ export class AvailabilityService {
 
   deleteSlot(availabilityId: string, slot: ISlot) {
     return this._http.patch(`${this.API_ENDPOINT}/${availabilityId}`, slot);
+  }
+
+  createSlot(day: WeekDayKeys, slot: ISlot) {
+    return this._http.post(`${this.API_ENDPOINT}/day/${day}`, slot);
   }
 }

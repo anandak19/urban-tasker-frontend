@@ -13,7 +13,10 @@
             <p class="time">{{ slot.end }}</p>
           </div>
           <div class="actions">
-            <button mat-icon-button>
+            <button
+              mat-icon-button
+              (click)="onEditSlot(day, availabilityData.id, slot)"
+            >
               <mat-icon class="material-icons-outlined">edit</mat-icon>
             </button>
             <button

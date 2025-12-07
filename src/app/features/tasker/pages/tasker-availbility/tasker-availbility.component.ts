@@ -10,6 +10,8 @@ import { AvailabilityService } from '@features/tasker/services/availability/avai
 import {
   IMappedAvailability,
   ISlot,
+  ISlotModalBase,
+  ISlotModalData,
 } from '@features/tasker/modals/availability.modal';
 import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 
@@ -45,11 +47,30 @@ export class TaskerAvailbilityComponent implements OnInit {
     return this.availability?.[day] || null;
   }
 
-  addSlot(dayIndex: WeekDayKeys) {
-    this._dialog.open(AvailabiltySlotModalComponent, {
+  addSlot(day: WeekDayKeys) {
+    const dialogRef = this._dialog.open<
+      AvailabiltySlotModalComponent,
+      ISlotModalBase
+    >(AvailabiltySlotModalComponent, {
       disableClose: true,
-      data: dayIndex,
+      data: { day },
     });
+
+    dialogRef.closed.subscribe((isRefresh) => {
+      if (!isRefresh) return;
+
+      this.getAvailabilities();
+    });
+  }
+
+  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlot) {
+    this._dialog.open<AvailabiltySlotModalComponent, ISlotModalData>(
+      AvailabiltySlotModalComponent,
+      {
+        disableClose: true,
+        data: { day, availabilityId, slot },
+      },
+    );
   }
 
   async addDefault() {
