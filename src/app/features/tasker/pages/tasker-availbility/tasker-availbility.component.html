@@ -12,11 +12,11 @@
 
     <div class="week">
       <app-day-column
-        *ngFor="let day of days; let i = index"
+        *ngFor="let day of weekDays; let i = index"
         [day]="day"
-        [dayIndex]="i"
+        [availabilityData]="getOneAvailability(day)"
         (addSlot)="addSlot($event)"
-        (removeSlot)="removeSlot($event.dayIndex, $event.slotIndex)"
+        (removeSlot)="removeSlot($event.day, $event.slot)"
       ></app-day-column>
     </div>
   </div>
