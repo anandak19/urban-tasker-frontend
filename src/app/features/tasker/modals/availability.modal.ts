@@ -5,14 +5,19 @@ export interface ISlot {
   end: string;
 }
 
+export interface ISlotDoc extends ISlot {
+  id: string;
+}
+
 export interface ICreateAvailability {
   taskerId: string;
   day: WeekDays;
   slots: ISlot[];
 }
 
-export interface IAvailability extends ICreateAvailability {
+export interface IAvailability extends Omit<ICreateAvailability, 'slots'> {
   id: string;
+  slots: ISlotDoc[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -24,7 +29,7 @@ export interface ISlotModalBase {
 
 export interface ISlotModalData extends ISlotModalBase {
   availabilityId: string;
-  slot: ISlot;
+  slot: ISlotDoc;
 }
 
 // resonse shape

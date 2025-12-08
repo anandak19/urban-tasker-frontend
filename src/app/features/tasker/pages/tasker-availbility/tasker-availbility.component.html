@@ -16,7 +16,7 @@
         [day]="day"
         [availabilityData]="getOneAvailability(day)"
         (addSlot)="addSlot($event)"
-        (removeSlot)="removeSlot($event.availabilityId, $event.slot)"
+        (removeSlot)="removeSlot($event.availabilityId, $event.slotId)"
         (editSlot)="onEditSlot($event.day, $event.availabilityId, $event.slot)"
       ></app-day-column>
     </div>

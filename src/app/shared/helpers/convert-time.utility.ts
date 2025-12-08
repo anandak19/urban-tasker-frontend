@@ -13,3 +13,9 @@ export const timeToMinutes = (time: string) => {
 export const isInvalid = (end: string, start: string) => {
   return timeToMinutes(end) <= timeToMinutes(start);
 };
+
+export const toDate = (time: string): Date | null => {
+  if (!time) return null;
+  const [h, m] = time.split(':').map(Number);
+  return new Date(1970, 0, 1, h, m);
+};

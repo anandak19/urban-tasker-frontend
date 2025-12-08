@@ -19,8 +19,10 @@ export class AvailabilityService {
     return this._http.get<IAvailabilitiesResponse>(`${this.API_ENDPOINT}`);
   }
 
-  deleteSlot(availabilityId: string, slot: ISlot) {
-    return this._http.patch(`${this.API_ENDPOINT}/${availabilityId}`, slot);
+  deleteSlot(availabilityId: string, slotId: string) {
+    return this._http.delete(
+      `${this.API_ENDPOINT}/${availabilityId}/${slotId}`,
+    );
   }
 
   createSlot(day: WeekDayKeys, slot: ISlot) {

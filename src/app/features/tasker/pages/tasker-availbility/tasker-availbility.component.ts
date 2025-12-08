@@ -9,7 +9,7 @@ import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.servi
 import { AvailabilityService } from '@features/tasker/services/availability/availability.service';
 import {
   IMappedAvailability,
-  ISlot,
+  ISlotDoc,
   ISlotModalBase,
   ISlotModalData,
 } from '@features/tasker/modals/availability.modal';
@@ -63,7 +63,7 @@ export class TaskerAvailbilityComponent implements OnInit {
     });
   }
 
-  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlot) {
+  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
     this._dialog.open<AvailabiltySlotModalComponent, ISlotModalData>(
       AvailabiltySlotModalComponent,
       {
@@ -89,13 +89,13 @@ export class TaskerAvailbilityComponent implements OnInit {
     });
   }
 
-  async removeSlot(availabilityId: string, slot: ISlot) {
+  async removeSlot(availabilityId: string, slotId: string) {
     const yes = await this._confirmDialog.ask(
       'Are you sure to delete remove this slot ?',
     );
 
     if (yes) {
-      this._availabilityService.deleteSlot(availabilityId, slot).subscribe({
+      this._availabilityService.deleteSlot(availabilityId, slotId).subscribe({
         next: (res) => {
           console.log(res);
           this.getAvailabilities();
@@ -110,8 +110,8 @@ export class TaskerAvailbilityComponent implements OnInit {
   getAvailabilities() {
     this._availabilityService.findTaskerAvailabilities().subscribe({
       next: (res) => {
+        console.log(res.data);
         this.availability = res.data;
-        console.log(this.availability);
       },
       error: (err) => {
         console.error(err);

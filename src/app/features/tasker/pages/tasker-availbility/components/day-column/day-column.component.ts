@@ -4,7 +4,7 @@ import { MatIcon } from '@angular/material/icon';
 import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 import {
   IAvailability,
-  ISlot,
+  ISlotDoc,
   ISlotModalData,
 } from '@features/tasker/modals/availability.modal';
 
@@ -21,7 +21,7 @@ export class DayColumnComponent {
   @Output() addSlot = new EventEmitter<WeekDayKeys>();
   @Output() removeSlot = new EventEmitter<{
     availabilityId: string;
-    slot: ISlot;
+    slotId: string;
   }>();
   @Output() editSlot = new EventEmitter<ISlotModalData>();
 
@@ -29,16 +29,16 @@ export class DayColumnComponent {
     this.addSlot.emit(day);
   }
 
-  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlot) {
+  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
     this.editSlot.emit({ day, availabilityId, slot });
   }
 
-  onRemoveSlot(availabilityId: string, slot: ISlot) {
-    this.removeSlot.emit({ availabilityId, slot });
+  onRemoveSlot(availabilityId: string, slotId: string) {
+    this.removeSlot.emit({ availabilityId, slotId });
   }
 
   get isMaxSlot() {
-    return this.availabilityData && this.availabilityData.slots.length > 3
+    return this.availabilityData && this.availabilityData.slots.length >= 3
       ? true
       : false;
   }

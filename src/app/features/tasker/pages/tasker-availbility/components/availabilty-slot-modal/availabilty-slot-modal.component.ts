@@ -20,7 +20,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { getTime, isInvalid } from '@shared/helpers/convert-time.utility';
+import {
+  getTime,
+  isInvalid,
+  toDate,
+} from '@shared/helpers/convert-time.utility';
 import {
   ISlot,
   ISlotModalData,
@@ -101,8 +105,18 @@ export class AvailabiltySlotModalComponent implements OnInit {
     });
   }
 
+  patchForm(slot: ISlot) {
+    this.slotForm.patchValue({
+      start: toDate(slot.start),
+      end: toDate(slot.end),
+    });
+  }
+
   ngOnInit(): void {
     console.log(this._slotData);
     this.initForm();
+    if (this._slotData.slot) {
+      this.patchForm(this._slotData.slot);
+    }
   }
 }
