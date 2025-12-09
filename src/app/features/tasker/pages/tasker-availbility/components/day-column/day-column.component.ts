@@ -1,6 +1,5 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
 import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 import {
   IAvailability,
@@ -10,7 +9,7 @@ import {
 
 @Component({
   selector: 'app-day-column',
-  imports: [CommonModule, MatIcon, TitleCasePipe],
+  imports: [CommonModule, TitleCasePipe],
   templateUrl: './day-column.component.html',
   styleUrl: './day-column.component.scss',
 })
@@ -19,10 +18,6 @@ export class DayColumnComponent {
   @Input() day!: WeekDayKeys;
 
   @Output() addSlot = new EventEmitter<WeekDayKeys>();
-  @Output() removeSlot = new EventEmitter<{
-    availabilityId: string;
-    slotId: string;
-  }>();
   @Output() editSlot = new EventEmitter<ISlotModalData>();
 
   onAddSlot(day: WeekDayKeys) {
@@ -31,10 +26,6 @@ export class DayColumnComponent {
 
   onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
     this.editSlot.emit({ day, availabilityId, slot });
-  }
-
-  onRemoveSlot(availabilityId: string, slotId: string) {
-    this.removeSlot.emit({ availabilityId, slotId });
   }
 
   get isMaxSlot() {

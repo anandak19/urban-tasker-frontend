@@ -7,6 +7,7 @@ export interface ISlot {
 
 export interface ISlotDoc extends ISlot {
   id: string;
+  isDisabled: boolean;
 }
 
 export interface ICreateAvailability {

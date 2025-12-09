@@ -1,32 +1,33 @@
 @use 'index' as *;
+@use 'sass:color';
 
 .day {
-  padding: 10px;
-  border-radius: 6px;
+  padding: $spacing-2;
+  border-radius: $border-radius-sm;
   background: $background;
-  min-height: 490px;
+  min-height: 194px;
   border: $section-border;
   border-radius: $border-radius-md;
-  padding: $spacing-3;
 
   &__title {
-    font-weight: 600;
+    font-weight: $font-weight-medium;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: $spacing-3;
   }
 
   &__slots {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: $spacing-3;
   }
 
   &__slot {
     padding: $spacing-2;
     background: $box-green;
-    border-radius: 4px;
+    border-radius: $border-radius-sm;
     position: relative;
     text-align: center;
+    cursor: pointer;
 
     .time {
       @include center-div;
@@ -34,33 +35,50 @@
       text-align: center;
     }
 
-    .actions {
-      @include center-div;
-      gap: $spacing-3;
-      margin-top: $spacing-2;
-      button {
-        @include center-div;
-        border-radius: $border-radius-full;
-        padding: $spacing-1;
-        border: none;
-        cursor: pointer;
-        color: $white;
-        background-color: rgba(255, 255, 255, 0.268);
+    &:hover {
+      background-color: color.adjust($box-green, $lightness: 10%);
+    }
+    &:active {
+      background-color: color.adjust($box-green, $lightness: 15%);
+    }
+
+    &--disabled {
+      background-color: $box-red;
+      color: $red;
+      &:hover {
+        background-color: color.adjust($box-red, $lightness: 10%);
+      }
+      &:active {
+        background-color: color.adjust($box-red, $lightness: 15%);
       }
     }
   }
 
   &__add-slot {
-    margin-top: 6px;
-    padding: 6px;
+    margin-top: $spacing-2;
+    padding: $spacing-1;
     font-size: 14px;
-    border-radius: 4px;
-    border: 1px dashed #888;
+    border-radius: $border-radius-sm;
+    border: $border-width-thin dashed #888;
     cursor: pointer;
 
     &:disabled {
       cursor: not-allowed;
       opacity: 0.5;
+    }
+  }
+
+  @include respond('xs') {
+    padding: $spacing-1;
+    min-height: 208px;
+    padding: $spacing-3;
+
+    &__title {
+      font-size: $font-size-sm;
+    }
+
+    &__slot {
+      min-width: 140px;
     }
   }
 }

@@ -64,13 +64,18 @@ export class TaskerAvailbilityComponent implements OnInit {
   }
 
   onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
-    this._dialog.open<AvailabiltySlotModalComponent, ISlotModalData>(
+    const dialogRef = this._dialog.open<
       AvailabiltySlotModalComponent,
-      {
-        disableClose: true,
-        data: { day, availabilityId, slot },
-      },
-    );
+      ISlotModalData
+    >(AvailabiltySlotModalComponent, {
+      disableClose: true,
+      data: { day, availabilityId, slot },
+    });
+
+    dialogRef.closed.subscribe((isRefresh) => {
+      if (!isRefresh) return;
+      this.getAvailabilities();
+    });
   }
 
   async addDefault() {
@@ -87,24 +92,6 @@ export class TaskerAvailbilityComponent implements OnInit {
         console.log(err);
       },
     });
-  }
-
-  async removeSlot(availabilityId: string, slotId: string) {
-    const yes = await this._confirmDialog.ask(
-      'Are you sure to delete remove this slot ?',
-    );
-
-    if (yes) {
-      this._availabilityService.deleteSlot(availabilityId, slotId).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.getAvailabilities();
-        },
-        error: (err) => {
-          console.error(err);
-        },
-      });
-    }
   }
 
   getAvailabilities() {

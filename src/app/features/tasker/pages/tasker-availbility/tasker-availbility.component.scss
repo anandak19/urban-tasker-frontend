@@ -4,12 +4,12 @@
   &__main-content {
     display: flex;
     flex-direction: column;
+  }
 
-    .week {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 12px;
-    }
+  &__week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: $spacing-3;
   }
 
   &__toolbar {
@@ -17,6 +17,17 @@
     margin-bottom: $spacing-6;
     app-button-loading {
       margin-left: auto;
+    }
+  }
+
+  @include respond('xs') {
+    &__week {
+      gap: $spacing-2;
+      padding-bottom: $spacing-2;
+      overflow-x: scroll;
+    }
+    &__toolbar {
+      margin-bottom: $spacing-4;
     }
   }
 }

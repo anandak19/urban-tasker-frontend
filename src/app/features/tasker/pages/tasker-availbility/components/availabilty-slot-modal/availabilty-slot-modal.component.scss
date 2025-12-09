@@ -37,4 +37,10 @@
       }
     }
   }
+
+  &__actions{
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-2;
+  }
 }

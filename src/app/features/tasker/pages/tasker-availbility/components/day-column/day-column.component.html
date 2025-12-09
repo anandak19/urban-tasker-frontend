@@ -6,25 +6,15 @@
   <div class="day__slots">
     @if (availabilityData) {
       @for (slot of availabilityData.slots; track $index) {
-        <div class="day__slot">
+        <div
+          class="day__slot"
+          [ngClass]="{ 'day__slot--disabled': slot.isDisabled }"
+          (click)="onEditSlot(day, availabilityData.id, slot)"
+          tabindex="0"
+          role="button"
+        >
           <div class="times">
-            <p class="time">{{ slot.start }}</p>
-            <p class="time">-</p>
-            <p class="time">{{ slot.end }}</p>
-          </div>
-          <div class="actions">
-            <button
-              mat-icon-button
-              (click)="onEditSlot(day, availabilityData.id, slot)"
-            >
-              <mat-icon class="material-icons-outlined">edit</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              (click)="onRemoveSlot(availabilityData.id, slot.id)"
-            >
-              <mat-icon class="material-icons-outlined">delete</mat-icon>
-            </button>
+            <p class="time">{{ slot.start }} - {{ slot.end }}</p>
           </div>
         </div>
       } @empty {
@@ -34,12 +24,14 @@
       }
     }
 
-    <button
-      class="day__add-slot"
-      (click)="onAddSlot(day)"
-      [disabled]="isMaxSlot"
-    >
-      + Add Slot
-    </button>
+    @if (!isMaxSlot) {
+      <button
+        class="day__add-slot"
+        (click)="onAddSlot(day)"
+        [disabled]="isMaxSlot"
+      >
+        + Add Slot
+      </button>
+    }
   </div>
 </div>

@@ -28,4 +28,13 @@ export class AvailabilityService {
   createSlot(day: WeekDayKeys, slot: ISlot) {
     return this._http.post(`${this.API_ENDPOINT}/day/${day}`, slot);
   }
+
+  changeStatus(availabilityId: string, slotId: string, isDisabled: boolean) {
+    return this._http.patch(
+      `${this.API_ENDPOINT}/${availabilityId}/${slotId}/status`,
+      {
+        isDisabled,
+      },
+    );
+  }
 }

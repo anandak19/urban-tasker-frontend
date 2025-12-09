@@ -4,7 +4,7 @@
   </button>
 
   <div class="availabilty-slot-modal__title">
-    <h3>Sunday Availability</h3>
+    <h3>{{ isEditModal() ? 'Edit Slot' : 'Add Slot' }}</h3>
   </div>
 
   <div class="availabilty-slot-modal__form-wrapper">
@@ -40,9 +40,21 @@
 
       <app-button-loading text="Save" type="submit"></app-button-loading>
     </form>
-    <app-button-loading
-      text="Disable this slot"
-      variant="secondary"
-    ></app-button-loading>
+    @if (isEditModal()) {
+      <div class="availabilty-slot-modal__actions">
+        <app-button-loading
+          [text]="disableText"
+          variant="secondary"
+          (isClicked)="onChangeDisableClick()"
+        ></app-button-loading>
+
+        <app-button-loading
+          text="Delete"
+          variant="danger"
+          (isClicked)="onDeleteClick()"
+        >
+        </app-button-loading>
+      </div>
+    }
   </div>
 </div>

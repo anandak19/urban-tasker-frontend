@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
@@ -32,6 +33,8 @@ import {
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { AvailabilityService } from '@features/tasker/services/availability/availability.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
+import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
+import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
 
 @Component({
   selector: 'app-availabilty-slot-modal',
@@ -51,21 +54,76 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 })
 export class AvailabiltySlotModalComponent implements OnInit {
   slotForm!: FormGroup;
+  isEditModal = signal<boolean>(false);
 
   private _dialogRef = inject(DialogRef);
   private _slotData = inject<ISlotModalData>(DIALOG_DATA);
   private _fb = inject(FormBuilder);
   private _snackbar = inject(SnackbarService);
   private _availabilityService = inject(AvailabilityService);
+  private _confirmDialog = inject(ConfirmDialogService);
 
   onClose(refresh = false) {
     this._dialogRef.close(refresh);
   }
 
+  async onChangeDisableClick() {
+    const updatedIsDisabled = !this._slotData.slot.isDisabled;
+    if (updatedIsDisabled) {
+      const yes = await this._confirmDialog.ask('Disable this slot');
+
+      if (yes) {
+        this.changeIsDisabled(updatedIsDisabled);
+      }
+    } else {
+      this.changeIsDisabled(updatedIsDisabled);
+    }
+  }
+
+  changeIsDisabled(updatedIsDisabled: boolean) {
+    this._availabilityService
+      .changeStatus(
+        this._slotData.availabilityId,
+        this._slotData.slot.id,
+        updatedIsDisabled,
+      )
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.onClose(true);
+          this._snackbar.success('Updated status');
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+          this._snackbar.error(err.message);
+        },
+      });
+  }
+
+  createSlot(day: WeekDayKeys, newSlot: ISlot) {
+    this._availabilityService.createSlot(day, newSlot).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.onClose(true);
+        this._snackbar.success('Slot added successfully');
+      },
+      error: (err: IApiResponseError) => {
+        console.log(err);
+        this._snackbar.error(err.message);
+      },
+    });
+  }
+
+  updateSlot(updatedSlot: ISlot) {
+    console.log(this._slotData.slot.id);
+    console.log(this._slotData.availabilityId);
+    console.log(updatedSlot);
+    alert('Update not created');
+  }
+
   onFormSubmit() {
     if (this.slotForm.invalid) return;
 
-    console.log(this.slotForm.value);
     const startTime = this.slotForm.get('start')?.value as Date;
     const start = getTime(startTime);
 
@@ -79,23 +137,18 @@ export class AvailabiltySlotModalComponent implements OnInit {
       return;
     }
 
-    const newSlot: ISlot = {
+    const slotData: ISlot = {
       start,
       end,
     };
 
-    this._availabilityService
-      .createSlot(this._slotData.day, newSlot)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.onClose(true);
-        },
-        error: (err: IApiResponseError) => {
-          console.log(err);
-          this._snackbar.error(err.message);
-        },
-      });
+    if (this.isEditModal()) {
+      // if Update
+      this.updateSlot(slotData);
+    } else {
+      // if create
+      this.createSlot(this._slotData.day, slotData);
+    }
   }
 
   initForm() {
@@ -112,10 +165,38 @@ export class AvailabiltySlotModalComponent implements OnInit {
     });
   }
 
+  async onDeleteClick() {
+    const yes = await this._confirmDialog.ask(
+      'Are you sure to delete remove this slot ?',
+    );
+
+    if (yes) {
+      this.deleteSlot(this._slotData.availabilityId, this._slotData.slot.id);
+    }
+  }
+
+  async deleteSlot(availabilityId: string, slotId: string) {
+    this._availabilityService.deleteSlot(availabilityId, slotId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.onClose(true);
+        this._snackbar.success('Succssfully Deleted');
+      },
+      error: (err: IApiResponseError) => {
+        this._snackbar.success(err.message);
+      },
+    });
+  }
+
+  get disableText() {
+    return this._slotData.slot.isDisabled ? 'Enable Slot' : 'Disable Slot';
+  }
+
   ngOnInit(): void {
     console.log(this._slotData);
     this.initForm();
     if (this._slotData.slot) {
+      this.isEditModal.set(true);
       this.patchForm(this._slotData.slot);
     }
   }
