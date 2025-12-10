@@ -37,4 +37,11 @@ export class AvailabilityService {
       },
     );
   }
+
+  updateSlot(availabilityId: string, slotId: string, slot: ISlot) {
+    return this._http.patch(
+      `${this.API_ENDPOINT}/${availabilityId}/${slotId}`,
+      slot,
+    );
+  }
 }

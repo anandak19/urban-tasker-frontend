@@ -1,4 +1,4 @@
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 import {
@@ -6,10 +6,11 @@ import {
   ISlotDoc,
   ISlotModalData,
 } from '@features/tasker/modals/availability.modal';
+import { toDate } from '@shared/helpers/convert-time.utility';
 
 @Component({
   selector: 'app-day-column',
-  imports: [CommonModule, TitleCasePipe],
+  imports: [CommonModule, TitleCasePipe, UpperCasePipe],
   templateUrl: './day-column.component.html',
   styleUrl: './day-column.component.scss',
 })
@@ -26,6 +27,15 @@ export class DayColumnComponent {
 
   onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
     this.editSlot.emit({ day, availabilityId, slot });
+  }
+
+  to12hr(time: string) {
+    const date = toDate(time);
+    return date?.toLocaleTimeString('es-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
   }
 
   get isMaxSlot() {

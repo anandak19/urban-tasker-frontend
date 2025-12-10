@@ -115,10 +115,23 @@ export class AvailabiltySlotModalComponent implements OnInit {
   }
 
   updateSlot(updatedSlot: ISlot) {
-    console.log(this._slotData.slot.id);
-    console.log(this._slotData.availabilityId);
-    console.log(updatedSlot);
-    alert('Update not created');
+    this._availabilityService
+      .updateSlot(
+        this._slotData.availabilityId,
+        this._slotData.slot.id,
+        updatedSlot,
+      )
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.onClose(true);
+          this._snackbar.success('Slot updated successfully');
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+          this._snackbar.error(err.message);
+        },
+      });
   }
 
   onFormSubmit() {
