@@ -5,6 +5,10 @@
 
   <div class="availabilty-slot-modal__title">
     <h3>{{ isEditModal() ? 'Edit Slot' : 'Add Slot' }}</h3>
+    @if (isDisabled) {
+      <p style="color: red;">Currently Disabled</p>
+    }
+    <p></p>
   </div>
 
   <div class="availabilty-slot-modal__form-wrapper">

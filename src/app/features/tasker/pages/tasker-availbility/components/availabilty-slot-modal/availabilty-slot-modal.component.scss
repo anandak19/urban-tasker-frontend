@@ -38,9 +38,24 @@
     }
   }
 
-  &__actions{
+  &__actions {
     display: flex;
     justify-content: space-between;
     gap: $spacing-2;
+  }
+
+  @include respond('xs') {
+    width: 90%;
+    margin: 0 auto;
+
+    &__form-wrapper {
+      form {
+        .inputs {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
   }
 }

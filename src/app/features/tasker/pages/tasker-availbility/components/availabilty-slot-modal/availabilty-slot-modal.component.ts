@@ -205,6 +205,10 @@ export class AvailabiltySlotModalComponent implements OnInit {
     return this._slotData.slot.isDisabled ? 'Enable Slot' : 'Disable Slot';
   }
 
+  get isDisabled() {
+    return this.isEditModal() ? this._slotData.slot.isDisabled : false;
+  }
+
   ngOnInit(): void {
     console.log(this._slotData);
     this.initForm();
