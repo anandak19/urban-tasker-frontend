@@ -8,9 +8,8 @@ describe('AvailabiltySlotModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AvailabiltySlotModalComponent]
-    })
-    .compileComponents();
+      imports: [AvailabiltySlotModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AvailabiltySlotModalComponent);
     component = fixture.componentInstance;

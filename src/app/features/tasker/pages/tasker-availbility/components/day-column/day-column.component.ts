@@ -1,29 +1,46 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
+import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
+import {
+  IAvailability,
+  ISlotDoc,
+  ISlotModalData,
+} from '@features/tasker/modals/availability.modal';
+import { toDate } from '@shared/helpers/convert-time.utility';
 
 @Component({
   selector: 'app-day-column',
-  imports: [CommonModule, MatIcon],
+  imports: [CommonModule, TitleCasePipe, UpperCasePipe],
   templateUrl: './day-column.component.html',
   styleUrl: './day-column.component.scss',
 })
 export class DayColumnComponent {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() day: any;
-  @Input() dayIndex!: number;
+  @Input() availabilityData!: IAvailability | null;
+  @Input() day!: WeekDayKeys;
 
-  @Output() addSlot = new EventEmitter<number>();
-  @Output() removeSlot = new EventEmitter<{
-    dayIndex: number;
-    slotIndex: number;
-  }>();
+  @Output() addSlot = new EventEmitter<WeekDayKeys>();
+  @Output() editSlot = new EventEmitter<ISlotModalData>();
 
-  onAddSlot() {
-    this.addSlot.emit(this.dayIndex);
+  onAddSlot(day: WeekDayKeys) {
+    this.addSlot.emit(day);
   }
 
-  onRemoveSlot(slotIndex: number) {
-    this.removeSlot.emit({ dayIndex: this.dayIndex, slotIndex });
+  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
+    this.editSlot.emit({ day, availabilityId, slot });
+  }
+
+  to12hr(time: string) {
+    const date = toDate(time);
+    return date?.toLocaleTimeString('es-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  }
+
+  get isMaxSlot() {
+    return this.availabilityData && this.availabilityData.slots.length >= 3
+      ? true
+      : false;
   }
 }

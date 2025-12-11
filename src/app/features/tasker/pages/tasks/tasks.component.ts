@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageTitleComponent } from "@shared/components/ui/page-title/page-title.component";
+import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 
 @Component({
   selector: 'app-tasks',

@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { DayColumnComponent } from './components/day-column/day-column.component';
 import { Dialog } from '@angular/cdk/dialog';
 import { AvailabiltySlotModalComponent } from './components/availabilty-slot-modal/availabilty-slot-modal.component';
 import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
-
-interface DayData {
-  name: string;
-  slots: string[];
-}
+import { AvailabilityService } from '@features/tasker/services/availability/availability.service';
+import {
+  IMappedAvailability,
+  ISlotDoc,
+  ISlotModalBase,
+  ISlotModalData,
+} from '@features/tasker/modals/availability.modal';
+import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 
 @Component({
   selector: 'app-tasker-availbility',
@@ -23,30 +26,55 @@ interface DayData {
   templateUrl: './tasker-availbility.component.html',
   styleUrl: './tasker-availbility.component.scss',
 })
-export class TaskerAvailbilityComponent {
+export class TaskerAvailbilityComponent implements OnInit {
   private _dialog = inject(Dialog);
   private _confirmDialog = inject(ConfirmDialogService);
+  private _availabilityService = inject(AvailabilityService);
 
-  days: DayData[] = [
-    { name: 'Sunday', slots: [] },
-    { name: 'Monday', slots: [] },
-    { name: 'Tuesday', slots: [] },
-    { name: 'Wednesday', slots: [] },
-    { name: 'Thursday', slots: [] },
-    { name: 'Friday', slots: [] },
-    { name: 'Saturday', slots: [] },
+  weekDays: WeekDayKeys[] = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
   ];
 
-  addSlot(dayIndex: number) {
-    // if (this.days[dayIndex].slots.length < 3) {
-    //   this.days[dayIndex].slots.push(
-    //     `Slot ${this.days[dayIndex].slots.length + 1}`,
-    //   );
-    // }
+  availability!: IMappedAvailability;
 
-    this._dialog.open(AvailabiltySlotModalComponent, {
+  getOneAvailability(day: WeekDayKeys) {
+    return this.availability?.[day] || null;
+  }
+
+  addSlot(day: WeekDayKeys) {
+    const dialogRef = this._dialog.open<
+      AvailabiltySlotModalComponent,
+      ISlotModalBase
+    >(AvailabiltySlotModalComponent, {
       disableClose: true,
-      data: dayIndex,
+      data: { day },
+    });
+
+    dialogRef.closed.subscribe((isRefresh) => {
+      if (!isRefresh) return;
+
+      this.getAvailabilities();
+    });
+  }
+
+  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
+    const dialogRef = this._dialog.open<
+      AvailabiltySlotModalComponent,
+      ISlotModalData
+    >(AvailabiltySlotModalComponent, {
+      disableClose: true,
+      data: { day, availabilityId, slot },
+    });
+
+    dialogRef.closed.subscribe((isRefresh) => {
+      if (!isRefresh) return;
+      this.getAvailabilities();
     });
   }
 
@@ -55,9 +83,30 @@ export class TaskerAvailbilityComponent {
       `Are you sure to add default time slots for all days`,
     );
     console.log(yes);
+    this._availabilityService.createDefault().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.getAvailabilities();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
-  removeSlot(dayIndex: number, slotIndex: number) {
-    this.days[dayIndex].slots.splice(slotIndex, 1);
+  getAvailabilities() {
+    this._availabilityService.findTaskerAvailabilities().subscribe({
+      next: (res) => {
+        console.log(res.data);
+        this.availability = res.data;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+
+  ngOnInit(): void {
+    this.getAvailabilities();
   }
 }

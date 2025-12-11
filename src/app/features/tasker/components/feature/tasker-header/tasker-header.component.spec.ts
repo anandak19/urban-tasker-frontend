@@ -8,9 +8,8 @@ describe('TaskerHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskerHeaderComponent]
-    })
-    .compileComponents();
+      imports: [TaskerHeaderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskerHeaderComponent);
     component = fixture.componentInstance;

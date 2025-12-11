@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-earnings',
   imports: [],
   templateUrl: './earnings.component.html',
-  styleUrl: './earnings.component.scss'
+  styleUrl: './earnings.component.scss',
 })
-export class EarningsComponent {
-
-}
+export class EarningsComponent {}

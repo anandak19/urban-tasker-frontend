@@ -2,6 +2,8 @@
 @use 'sass:color';
 
 .btn {
+  padding: $spacing-2 $spacing-3;
+  background-color: $primary-color;
   border: none;
   width: 100%;
   cursor: pointer;

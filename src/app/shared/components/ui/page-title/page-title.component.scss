@@ -10,7 +10,7 @@
       font-weight: $font-weight-medium;
       color: $white;
     }
-    p{
+    p {
       font-size: $font-size-md;
     }
   }
@@ -19,6 +19,9 @@
     &__title {
       h2 {
         font-size: $font-size-md;
+      }
+      p {
+        font-size: $font-size-xs;
       }
     }
   }

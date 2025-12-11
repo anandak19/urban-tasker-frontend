@@ -9,8 +9,10 @@ export const userAuthGuard: CanActivateFn = () => {
   console.log('Is login guard', _authGuardService.currentUser());
 
   if (_authGuardService.currentUser()?.email) {
+    console.log('User is ', _authGuardService.currentUser()?.email);
     return true;
   } else {
+    console.log('User is Not logged in');
     return _router.createUrlTree(['/login']);
   }
 };

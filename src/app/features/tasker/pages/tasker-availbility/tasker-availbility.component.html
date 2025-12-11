@@ -4,16 +4,19 @@
 
   <div class="tasker-availbility__main-content">
     <div class="tasker-availbility__toolbar">
-      <app-button-loading text="Add Defaults" (isClicked)="addDefault()"></app-button-loading>
+      <app-button-loading
+        text="Add Defaults"
+        (isClicked)="addDefault()"
+      ></app-button-loading>
     </div>
 
-    <div class="week">
+    <div class="tasker-availbility__week">
       <app-day-column
-        *ngFor="let day of days; let i = index"
+        *ngFor="let day of weekDays; let i = index"
         [day]="day"
-        [dayIndex]="i"
+        [availabilityData]="getOneAvailability(day)"
         (addSlot)="addSlot($event)"
-        (removeSlot)="removeSlot($event.dayIndex, $event.slotIndex)"
+        (editSlot)="onEditSlot($event.day, $event.availabilityId, $event.slot)"
       ></app-day-column>
     </div>
   </div>
