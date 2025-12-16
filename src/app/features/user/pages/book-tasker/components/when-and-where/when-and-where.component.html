@@ -1,0 +1,84 @@
+<div class="time-place">
+  <app-page-title title="When And Where You Need"></app-page-title>
+
+  <div class="time-place__form-wrapper">
+    <form [formGroup]="whenWhereForm" (ngSubmit)="onSubmit()">
+      <div class="time-place__inputs">
+        <div class="time-place__date-time">
+          <!-- date  -->
+          <app-form-field-wrapper label="Prefred Date">
+            <mat-form-field appearance="outline" class="control">
+              <input
+                matInput
+                [matDatepicker]="picker"
+                placeholder="DD / MM / YYYY"
+                formControlName="date"
+              />
+
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+                class="toggle"
+              ></mat-datepicker-toggle>
+
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </app-form-field-wrapper>
+
+          <!-- time  -->
+          <app-form-field-wrapper label="Prefred Time">
+            <mat-form-field appearance="outline" class="control">
+              <input
+                matInput
+                [matTimepicker]="time"
+                formControlName="time"
+                formControlName="time"
+              />
+              <mat-timepicker-toggle matIconSuffix></mat-timepicker-toggle>
+              <mat-timepicker #time></mat-timepicker>
+            </mat-form-field>
+          </app-form-field-wrapper>
+        </div>
+
+        <!-- city  -->
+        <app-dropdown-field label="City">
+          <app-dropdown
+            formControlName="city"
+            [options]="cities"
+          ></app-dropdown>
+        </app-dropdown-field>
+
+        <!-- location  -->
+        <div class="location">
+          <app-form-field-wrapper label="Location">
+            <app-button-loading
+              text="Choose location"
+              (isClicked)="onLocationChoose()"
+            ></app-button-loading>
+          </app-form-field-wrapper>
+        </div>
+
+        <!-- address  -->
+        <app-text-area-field
+          label="Address"
+          formControlName="address"
+          placeholder="Enter Address"
+          [isOptional]="true"
+        ></app-text-area-field>
+      </div>
+
+      <div class="time-place__actions">
+        <app-button type="button" variant="secondary" (clickEvent)="onPrev()"
+          >Prev</app-button
+        >
+        <app-button type="submit" (clickEvent)="onNext()">Next</app-button>
+      </div>
+    </form>
+  </div>
+
+  <!-- <p>Prefred Date</p>
+  <p>Prefred Time</p>
+  <p>Select City</p>
+  <p>Enter Address</p>
+  <p>Choose Location</p> -->
+</div>

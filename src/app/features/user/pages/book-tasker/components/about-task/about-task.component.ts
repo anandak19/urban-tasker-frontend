@@ -1,0 +1,87 @@
+import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { TextAreaFieldComponent } from '@shared/components/form/text-area-field/text-area-field.component';
+import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
+import { DropdownFieldComponent } from '@shared/components/dropdown-field/dropdown-field.component';
+import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
+import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IBookTaskerAboutTask } from '@features/user/models/book-tasker/book-tasker.model';
+import { TaskSize } from '@shared/constants/enums/task-size.enum';
+
+@Component({
+  selector: 'app-about-task',
+  imports: [
+    PageTitleComponent,
+    TextAreaFieldComponent,
+    ReactiveFormsModule,
+    ButtonComponent,
+    DropdownComponent,
+    DropdownFieldComponent,
+    FormFieldWrapperComponent,
+  ],
+  templateUrl: './about-task.component.html',
+  styleUrl: './about-task.component.scss',
+})
+export class AboutTaskComponent implements OnInit {
+  aboutTaskForm!: FormGroup;
+
+  private fb = inject(FormBuilder);
+
+  taskSizes = TaskSize;
+
+  selectedSize: TaskSize | null = null;
+  selectSize(size: TaskSize | null) {
+    this.selectedSize = size;
+    // assign value to form control
+    this.aboutTaskForm.get('taskSize')?.setValue(size);
+    this.aboutTaskForm.get('taskSize')?.markAsTouched();
+  }
+
+  sampleOptions = signal<IDropdownOption[]>([
+    { id: 'sample1', label: 'Sample Cat' },
+  ]);
+
+  private initForm(): void {
+    this.aboutTaskForm = this.fb.group({
+      category: ['', Validators.required],
+      subcategory: ['', Validators.required],
+      description: ['', [Validators.required]],
+      taskSize: ['', Validators.required],
+    });
+  }
+
+  // call api or cache data here
+  submitAboutTask(aboutTaskData: IBookTaskerAboutTask) {
+    console.log('Payload to backend:', aboutTaskData);
+  }
+
+  onSubmit(): void {
+    console.log(this.aboutTaskForm.value);
+
+    if (this.aboutTaskForm.invalid) {
+      this.aboutTaskForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.aboutTaskForm.value;
+
+    const payload: IBookTaskerAboutTask = {
+      categoryId: formValue.category?.id,
+      subcategoryId: formValue.subcategory?.id,
+      description: formValue.description,
+      taskSize: formValue.taskSize as TaskSize,
+    };
+    this.submitAboutTask(payload);
+  }
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+}

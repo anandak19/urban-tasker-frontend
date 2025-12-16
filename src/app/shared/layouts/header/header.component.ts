@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
   ];
 
   bookTaskerClicked() {
-    alert('Show book tasker page');
+    this.headerService.navigateBookTasker();
   }
 
   openNotifications() {

@@ -1,0 +1,64 @@
+@use 'index' as *;
+
+.about-task {
+  width: 55%;
+  margin: 0 auto;
+  app-page-title {
+    margin: $spacing-3;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+
+    .category {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  // size styles
+  &__sizes {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__size {
+    flex: 1;
+    padding: 16px;
+    border: 2px solid $inputs;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background-color: $background;
+
+    &:hover {
+      background-color: $background-hover;
+    }
+
+    &--active {
+      background-color: $background-hover;
+      border-color: $primary-color;
+    }
+  }
+
+  &__size-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  &__size-subtitle {
+    font-size: 13px;
+    color: #666;
+  }
+
+  // actions
+  &__actions {
+    display: flex;
+    margin-top: $spacing-3;
+    justify-content: flex-end;
+  }
+}

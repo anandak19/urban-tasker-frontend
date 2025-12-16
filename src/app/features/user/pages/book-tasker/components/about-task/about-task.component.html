@@ -1,0 +1,84 @@
+<div class="about-task">
+  <app-page-title title="Tell Us About Your Task"></app-page-title>
+
+  <div class="about-task__form-wrapper">
+    <form [formGroup]="aboutTaskForm" (ngSubmit)="onSubmit()">
+      <!-- <p>Select Category</p>
+      <p>Select Sub category</p> -->
+      <div class="about-task__inputs">
+        <div class="category">
+          <!-- Task Category -->
+          <app-dropdown-field label="Category">
+            <app-dropdown
+              formControlName="category"
+              [options]="sampleOptions"
+            ></app-dropdown>
+          </app-dropdown-field>
+
+          <!-- Task Sub Category -->
+          <app-dropdown-field label="Sub Category">
+            <app-dropdown
+              formControlName="subcategory"
+              [options]="sampleOptions"
+            ></app-dropdown>
+          </app-dropdown-field>
+        </div>
+
+        <!-- Task Description -->
+        <app-text-area-field
+          formControlName="description"
+          label="Description"
+          placeholder="Small discription about the task"
+        ></app-text-area-field>
+
+        <!-- Task Size -->
+        <app-form-field-wrapper label="Task Size">
+          <div class="about-task__sizes">
+            <div
+              class="about-task__size"
+              [class.about-task__size--active]="
+                selectedSize === taskSizes.SMALL
+              "
+              (click)="selectSize(taskSizes.SMALL)"
+              (keypress)="selectSize(taskSizes.SMALL)"
+              tabindex="0"
+            >
+              <p class="about-task__size-title">Small</p>
+              <span class="about-task__size-subtitle">2+ hrs</span>
+            </div>
+
+            <div
+              class="about-task__size"
+              [class.about-task__size--active]="
+                selectedSize === taskSizes.MEDIUM
+              "
+              (click)="selectSize(taskSizes.MEDIUM)"
+              (keypress)="selectSize(taskSizes.MEDIUM)"
+              tabindex="0"
+            >
+              <p class="about-task__size-title">Medium</p>
+              <span class="about-task__size-subtitle">3+ hrs</span>
+            </div>
+
+            <div
+              class="about-task__size"
+              [class.about-task__size--active]="
+                selectedSize === taskSizes.LARGE
+              "
+              (click)="selectSize(taskSizes.LARGE)"
+              (keypress)="selectSize(taskSizes.LARGE)"
+              tabindex="0"
+            >
+              <p class="about-task__size-title">Large</p>
+              <span class="about-task__size-subtitle">5+ hrs</span>
+            </div>
+          </div>
+        </app-form-field-wrapper>
+      </div>
+
+      <div class="about-task__actions">
+        <app-button type="submit">Next</app-button>
+      </div>
+    </form>
+  </div>
+</div>

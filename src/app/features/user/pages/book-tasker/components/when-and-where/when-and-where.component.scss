@@ -1,0 +1,82 @@
+@use 'index' as *;
+
+.time-place {
+  --mat-sys-on-surface: $primary-color !important;
+  width: 55%;
+  margin: 0 auto;
+  app-page-title {
+    margin: $spacing-3;
+  }
+
+  // actions
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+    margin-top: $spacing-3;
+    justify-content: space-between;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__date-time {
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-3;
+  }
+
+  // date field
+  &__date-field {
+    width: 100%;
+  }
+
+  // time
+  &__time-field {
+    width: 100%;
+  }
+
+  app-form-field-wrapper {
+    width: 100%;
+  }
+
+  .control {
+    width: 100%;
+
+    .mdc-notched-outline {
+      --mdc-outlined-text-field-outline-color: #9cc5ff;
+      --mdc-outlined-text-field-hover-outline-color: #38bdf8;
+      --mdc-outlined-text-field-focus-outline-color: #22d3ee;
+    }
+
+    &.mat-focused {
+      .mdc-notched-outline {
+        --mdc-outlined-text-field-outline-width: 2px;
+      }
+    }
+
+    .mat-mdc-text-field-wrapper {
+      background-color: $background;
+      border-radius: 8px;
+    }
+
+    input {
+      color: #e5e7eb;
+    }
+
+    .mat-mdc-floating-label {
+      color: #94a3b8;
+    }
+
+    &.mat-focused .mat-mdc-floating-label {
+      color: #22d3ee;
+    }
+  }
+
+  .location {
+    display: flex;
+    width: 200px;
+  }
+}

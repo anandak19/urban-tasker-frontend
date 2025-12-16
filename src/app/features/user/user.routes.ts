@@ -10,6 +10,7 @@ import { userAuthGuard } from './guards/auth/user-auth.guard';
 import { isLoginGuard } from './guards/login/is-login.guard';
 import { TaskerApplicationComponent } from './pages/become-tasker/tasker-application/tasker-application.component';
 import { ViewTaskerApplicationComponent } from './pages/become-tasker/view-tasker-application/view-tasker-application.component';
+import { BookTaskerLayoutComponent } from './pages/book-tasker/book-tasker-layout/book-tasker-layout.component';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -63,5 +64,11 @@ export const userRoutes: Routes = [
         component: TaskerApplicationComponent,
       },
     ],
+  },
+
+  // book tasker
+  {
+    path: 'book-tasker',
+    component: BookTaskerLayoutComponent,
   },
 ];

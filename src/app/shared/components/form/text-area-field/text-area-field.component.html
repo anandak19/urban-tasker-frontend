@@ -1,1 +1,19 @@
-<p>text-area-field works!</p>
+<div class="text-area">
+  <app-form-field-wrapper [label]="label" [isOptional]="isOptional">
+    <textarea
+      [placeholder]="placeholder"
+      [value]="value"
+      [disabled]="disabled"
+      (input)="handleInput($event)"
+      (blur)="onTouched()"
+      rows="2"
+      [class.error-input]="showError"
+    ></textarea>
+
+    @if (showError) {
+      <div class="error-text">
+        <small>{{ errorMessage }}</small>
+      </div>
+    }
+  </app-form-field-wrapper>
+</div>

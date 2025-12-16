@@ -1,0 +1,32 @@
+@use 'index' as *;
+
+.three-stepper {
+  ::ng-deep .mat-horizontal-stepper-header-container {
+    display: none !important;
+  }
+
+  &__circle-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-4;
+    margin: $spacing-3 0;
+    .circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: $disabled;
+      color: $white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .active {
+      background-color: $primary-color;
+      color: $black;
+      transform: scale(1.1);
+    }
+  }
+}

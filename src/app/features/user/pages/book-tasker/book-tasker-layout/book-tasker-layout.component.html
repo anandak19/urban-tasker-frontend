@@ -1,0 +1,18 @@
+<div class="book-tasker">
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <!-- Step 1-->
+    <mat-step>
+      <app-when-and-where></app-when-and-where>
+      <!-- <app-about-task></app-about-task> -->
+    </mat-step>
+
+    <!-- Step 2 -->
+    <mat-step>
+      <app-about-task></app-about-task>
+      <app-when-and-where></app-when-and-where>
+    </mat-step>
+
+    <!-- Step 3: Password -->
+    <mat-step> </mat-step>
+  </mat-horizontal-stepper>
+</div>
