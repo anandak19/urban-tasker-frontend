@@ -52,7 +52,7 @@
         <div class="location">
           <app-form-field-wrapper label="Location">
             <app-button-loading
-              text="Choose location"
+              [text]="locationChoosen ? 'Location Added' : 'Choose Location'"
               (isClicked)="onLocationChoose()"
             ></app-button-loading>
           </app-form-field-wrapper>

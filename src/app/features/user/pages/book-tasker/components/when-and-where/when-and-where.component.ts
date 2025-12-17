@@ -34,6 +34,7 @@ import { getTime } from '@shared/helpers/convert-time.utility';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { Dialog } from '@angular/cdk/dialog';
 import { LocationModalComponent } from './components/location-modal/location-modal.component';
+import { ILocationLatLng } from '@features/user/models/book-tasker/location.model';
 
 @Component({
   selector: 'app-when-and-where',
@@ -66,6 +67,8 @@ export class WhenAndWhereComponent implements OnInit {
   private fb = inject(FormBuilder);
   private dialog = inject(Dialog);
 
+  private _location: ILocationLatLng | null = null;
+
   onNext() {
     this.next.emit();
   }
@@ -74,35 +77,27 @@ export class WhenAndWhereComponent implements OnInit {
     this.prev.emit();
   }
 
-  onLocationChoose() {
-    this.dialog.open(LocationModalComponent);
-    // this.getCurrentLocation();
+  populateLocationData(coords: ILocationLatLng) {
+    this.whenWhereForm.get('location')?.patchValue({
+      latitude: coords.lat,
+      longitude: coords.lng,
+    });
+
+    this._location = coords;
   }
 
-  getCurrentLocation(): void {
-    if (!navigator.geolocation) {
-      console.error('Geolocation is not supported by this browser');
-      return;
-    }
+  onLocationChoose() {
+    const locationModal = this.dialog.open(LocationModalComponent, {
+      data: this._location,
+    });
 
-    console.log('fetching location');
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        console.log('Latitude:', latitude);
-        console.log('Longitude:', longitude);
-      },
-      (error) => {
-        console.error('Location error:', error.message);
-      },
-      {
-        enableHighAccuracy: true,
-        maximumAge: 0,
-      },
-    );
+    locationModal.closed.subscribe((location) => {
+      if (location) {
+        const cordinates = location as ILocationLatLng;
+        this.populateLocationData(cordinates);
+        console.log(`Loca: ${cordinates.lat} : ${cordinates.lng}`);
+      }
+    });
   }
 
   initForm() {
@@ -112,8 +107,8 @@ export class WhenAndWhereComponent implements OnInit {
       city: ['', [Validators.required]],
       address: [''],
       location: this.fb.group({
-        latitude: [''],
-        longitude: [''],
+        latitude: ['', [Validators.required]],
+        longitude: ['', [Validators.required]],
       }),
     });
   }
@@ -144,6 +139,14 @@ export class WhenAndWhereComponent implements OnInit {
     };
 
     this.submitTimeDate(timePlaceData);
+  }
+
+  get locationChoosen() {
+    return (
+      (this.whenWhereForm.get('location')?.get('latitude')?.valid &&
+        this.whenWhereForm.get('location')?.get('longitude')?.valid) ||
+      false
+    );
   }
 
   ngOnInit(): void {

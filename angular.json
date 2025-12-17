@@ -29,7 +29,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/app/styles/styles.scss"],
+            "styles": [
+              "src/app/styles/styles.scss",
+              "node_modules/leaflet/dist/leaflet.css"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": ["src/app/styles"]
             },
