@@ -22,6 +22,7 @@ import { DropdownFieldComponent } from '@shared/components/dropdown-field/dropdo
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import { TextAreaFieldComponent } from '@shared/components/form/text-area-field/text-area-field.component';
 import {
+  AbstractControlOptions,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -35,6 +36,8 @@ import { ButtonLoadingComponent } from '@shared/components/button-loading/button
 import { Dialog } from '@angular/cdk/dialog';
 import { LocationModalComponent } from './components/location-modal/location-modal.component';
 import { ILocationLatLng } from '@features/user/models/book-tasker/location.model';
+import { locationRequiredValidator } from '@shared/validators/location-validators';
+import { noWhitespaceValidator } from '@shared/validators/custom-auth-validators';
 
 @Component({
   selector: 'app-when-and-where',
@@ -63,6 +66,7 @@ export class WhenAndWhereComponent implements OnInit {
 
   whenWhereForm!: FormGroup;
   cities = signal<IDropdownOption[]>(cities);
+  isSubmitted = signal<boolean>(false);
 
   private fb = inject(FormBuilder);
   private dialog = inject(Dialog);
@@ -105,11 +109,14 @@ export class WhenAndWhereComponent implements OnInit {
       date: ['', [Validators.required]],
       time: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      address: [''],
-      location: this.fb.group({
-        latitude: ['', [Validators.required]],
-        longitude: ['', [Validators.required]],
-      }),
+      address: ['', [Validators.required, noWhitespaceValidator]],
+      location: this.fb.group(
+        {
+          latitude: [''],
+          longitude: [''],
+        },
+        { validators: [locationRequiredValidator] } as AbstractControlOptions,
+      ),
     });
   }
 
@@ -118,7 +125,8 @@ export class WhenAndWhereComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.whenWhereForm.value);
+    console.log(this.whenWhereForm);
+    this.isSubmitted.set(true);
 
     if (this.whenWhereForm.invalid) {
       this.whenWhereForm.markAllAsTouched();
@@ -141,12 +149,36 @@ export class WhenAndWhereComponent implements OnInit {
     this.submitTimeDate(timePlaceData);
   }
 
+  get locationControl() {
+    return this.whenWhereForm.get('location');
+  }
+
   get locationChoosen() {
-    return (
-      (this.whenWhereForm.get('location')?.get('latitude')?.valid &&
-        this.whenWhereForm.get('location')?.get('longitude')?.valid) ||
-      false
-    );
+    return this.locationControl?.valid;
+  }
+
+  get locationError() {
+    return this.locationControl?.invalid && this.isSubmitted()
+      ? 'Location is requred'
+      : '';
+  }
+
+  get dateError() {
+    return this.whenWhereForm.get('date')?.invalid && this.isSubmitted()
+      ? 'Date is required'
+      : '';
+  }
+
+  get timeError() {
+    return this.whenWhereForm.get('time')?.invalid && this.isSubmitted()
+      ? 'Time is required'
+      : '';
+  }
+
+  get cityError() {
+    return this.whenWhereForm.get('city')?.invalid && this.isSubmitted()
+      ? 'City is required'
+      : '';
   }
 
   ngOnInit(): void {

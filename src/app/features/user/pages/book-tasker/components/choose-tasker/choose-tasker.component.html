@@ -1,3 +1,18 @@
 <div class="choose-tasker">
-  <p>Choose tasker</p>
+  <app-page-title title="Choose a Tasker"></app-page-title>
+  <!-- tasker content  -->
+  <div class="choose-tasker__content-wrapper">
+    <div class="choose-tasker__filters"></div>
+    <!-- taskers listing  -->
+    <div class="choose-tasker__taskers-listing-wrapper">
+      <app-tasker-listing-card></app-tasker-listing-card>
+      <app-tasker-listing-card></app-tasker-listing-card>
+    </div>
+
+    <div class="choose-tasker__actions">
+      <app-button type="button" variant="secondary" (clickEvent)="onPrev()"
+        >Prev</app-button
+      >
+    </div>
+  </div>
 </div>

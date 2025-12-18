@@ -22,7 +22,15 @@
               ></mat-datepicker-toggle>
 
               <mat-datepicker #picker></mat-datepicker>
+              @if (dateError) {
+                <mat-error>
+                  <small class="error-text">{{ dateError }}</small>
+                </mat-error>
+              }
             </mat-form-field>
+            <!-- @if (dateError) {
+              <small class="error-text">{{ dateError }}</small>
+            } -->
           </app-form-field-wrapper>
 
           <!-- time  -->
@@ -36,6 +44,12 @@
               />
               <mat-timepicker-toggle matIconSuffix></mat-timepicker-toggle>
               <mat-timepicker #time></mat-timepicker>
+
+              @if (timeError) {
+                <mat-error>
+                  <small class="error-text">{{ timeError }}</small>
+                </mat-error>
+              }
             </mat-form-field>
           </app-form-field-wrapper>
         </div>
@@ -46,6 +60,9 @@
             formControlName="city"
             [options]="cities"
           ></app-dropdown>
+          @if (cityError) {
+            <small class="error-text">{{ cityError }}</small>
+          }
         </app-dropdown-field>
 
         <!-- location  -->
@@ -53,9 +70,13 @@
           <app-form-field-wrapper label="Location">
             <app-button-loading
               [text]="locationChoosen ? 'Location Added' : 'Choose Location'"
+              [variant]="locationChoosen ? 'success' : 'primary'"
               (isClicked)="onLocationChoose()"
             ></app-button-loading>
           </app-form-field-wrapper>
+          @if (locationError) {
+            <small class="error-text">Location is requred</small>
+          }
         </div>
 
         <!-- address  -->
@@ -63,7 +84,6 @@
           label="Address"
           formControlName="address"
           placeholder="Enter Address"
-          [isOptional]="true"
         ></app-text-area-field>
       </div>
 
@@ -75,10 +95,4 @@
       </div>
     </form>
   </div>
-
-  <!-- <p>Prefred Date</p>
-  <p>Prefred Time</p>
-  <p>Select City</p>
-  <p>Enter Address</p>
-  <p>Choose Location</p> -->
 </div>

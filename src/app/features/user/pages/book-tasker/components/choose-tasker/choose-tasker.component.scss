@@ -1,0 +1,28 @@
+@use 'index' as *;
+
+.choose-tasker {
+  width: 70%;
+  margin: 0 auto;
+  padding: $spacing-4 0;
+
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    margin-top: $spacing-3;
+  }
+
+  &__taskers-listing-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  // actions
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+    margin-top: $spacing-3;
+    justify-content: space-between;
+  }
+}

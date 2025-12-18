@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -30,6 +37,12 @@ import { TaskSize } from '@shared/constants/enums/task-size.enum';
   styleUrl: './about-task.component.scss',
 })
 export class AboutTaskComponent implements OnInit {
+  @Output() next = new EventEmitter();
+
+  onNext() {
+    this.next.emit();
+  }
+
   aboutTaskForm!: FormGroup;
 
   private fb = inject(FormBuilder);

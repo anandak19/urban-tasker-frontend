@@ -45,12 +45,6 @@
   .control {
     width: 100%;
 
-    .mdc-notched-outline {
-      --mdc-outlined-text-field-outline-color: #9cc5ff;
-      --mdc-outlined-text-field-hover-outline-color: #38bdf8;
-      --mdc-outlined-text-field-focus-outline-color: #22d3ee;
-    }
-
     &.mat-focused {
       .mdc-notched-outline {
         --mdc-outlined-text-field-outline-width: 2px;
@@ -69,14 +63,16 @@
     .mat-mdc-floating-label {
       color: #94a3b8;
     }
+  }
 
-    &.mat-focused .mat-mdc-floating-label {
-      color: #22d3ee;
-    }
+  .mat-mdc-form-field-bottom-align {
+    padding: 0;
+    margin: 0;
   }
 
   .location {
     display: flex;
+    flex-direction: column;
     width: 200px;
   }
 }

@@ -27,11 +27,12 @@
     left: 0;
     top: 105%;
     width: 100%;
-    min-height: max-content;
+    min-height: 300px;
     height: max-content;
     max-height: 300px;
     overflow-y: scroll;
     display: none;
+    padding-bottom: $spacing-1;
     z-index: 1;
     &--active {
       display: block;

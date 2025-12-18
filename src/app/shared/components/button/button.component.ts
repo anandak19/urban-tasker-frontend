@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() disabled = false;
-  @Input() variant: 'primary' | 'secondary' | 'danger' = 'primary';
+  @Input() variant: 'primary' | 'secondary' | 'danger' | 'success' = 'primary';
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
 

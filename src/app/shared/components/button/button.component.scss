@@ -96,6 +96,10 @@
     }
   }
 
+  &--success {
+    background-color: $success-green;
+  }
+
   @include respond('xs') {
     font-size: $font-size-xs;
   }

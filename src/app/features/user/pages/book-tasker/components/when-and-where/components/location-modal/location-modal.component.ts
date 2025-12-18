@@ -60,7 +60,7 @@ export class LocationModalComponent
     );
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
+      attribution: '© OpenStreetMap',
     }).addTo(this.map);
 
     this.setMarkerLocation(this.DEFAULT_POS[0], this.DEFAULT_POS[1]);

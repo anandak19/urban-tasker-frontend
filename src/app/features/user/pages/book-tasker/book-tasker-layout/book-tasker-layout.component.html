@@ -2,17 +2,22 @@
   <mat-horizontal-stepper [linear]="true" #stepper>
     <!-- Step 1-->
     <mat-step>
-      <app-when-and-where></app-when-and-where>
-      <!-- <app-about-task></app-about-task> -->
+      <app-about-task (next)="stepper.next()"></app-about-task>
+      <!-- <app-when-and-where (prev)="stepper.previous()" (next)="stepper.next()"></app-when-and-where> -->
+      <!-- <app-choose-tasker (prev)="stepper.previous()"></app-choose-tasker> -->
     </mat-step>
 
     <!-- Step 2 -->
     <mat-step>
-      <app-about-task></app-about-task>
-      <app-when-and-where></app-when-and-where>
+      <app-when-and-where
+        (prev)="stepper.previous()"
+        (next)="stepper.next()"
+      ></app-when-and-where>
     </mat-step>
 
     <!-- Step 3: Password -->
-    <mat-step> </mat-step>
+    <mat-step>
+      <app-choose-tasker (prev)="stepper.previous()"></app-choose-tasker>
+    </mat-step>
   </mat-horizontal-stepper>
 </div>
