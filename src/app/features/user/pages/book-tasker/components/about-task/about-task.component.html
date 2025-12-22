@@ -11,7 +11,8 @@
           <app-dropdown-field label="Category">
             <app-dropdown
               formControlName="category"
-              [options]="sampleOptions"
+              [options]="categoryOptions"
+              (optionSelected)="onCategorySelect($event)"
             ></app-dropdown>
           </app-dropdown-field>
 
@@ -19,7 +20,7 @@
           <app-dropdown-field label="Sub Category">
             <app-dropdown
               formControlName="subcategory"
-              [options]="sampleOptions"
+              [options]="subCategoryOptions"
             ></app-dropdown>
           </app-dropdown-field>
         </div>
@@ -77,7 +78,7 @@
       </div>
 
       <div class="about-task__actions">
-        <app-button type="submit" (clickEvent)="onNext()">Next</app-button>
+        <app-button type="submit">Add Time and Place</app-button>
       </div>
     </form>
   </div>

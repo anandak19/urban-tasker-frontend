@@ -38,6 +38,7 @@ import { LocationModalComponent } from './components/location-modal/location-mod
 import { ILocationLatLng } from '@features/user/models/book-tasker/location.model';
 import { locationRequiredValidator } from '@shared/validators/location-validators';
 import { noWhitespaceValidator } from '@shared/validators/custom-auth-validators';
+import { BookTaskerService } from '@features/user/services/book-tasker/book-tasker/book-tasker.service';
 
 @Component({
   selector: 'app-when-and-where',
@@ -70,11 +71,13 @@ export class WhenAndWhereComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private dialog = inject(Dialog);
+  private _bookTaskerService = inject(BookTaskerService);
 
   private _location: ILocationLatLng | null = null;
 
   onNext() {
     this.next.emit();
+    this._bookTaskerService.getAvailbleTaskers();
   }
 
   onPrev() {
@@ -121,11 +124,14 @@ export class WhenAndWhereComponent implements OnInit {
   }
 
   submitTimeDate(payload: IBookTaskerTimePlace) {
-    console.log(payload); //logic to submit form
+    console.log('called save time');
+
+    this._bookTaskerService.saveWhenWhere(payload);
+    this.onNext();
   }
 
   onSubmit(): void {
-    console.log(this.whenWhereForm);
+    console.log(this.whenWhereForm.value);
     this.isSubmitted.set(true);
 
     if (this.whenWhereForm.invalid) {
@@ -144,6 +150,10 @@ export class WhenAndWhereComponent implements OnInit {
       time: time,
       city: formValue.city.id,
       address: formValue.address,
+      location: {
+        latitude: formValue.location.latitude,
+        longitude: formValue.location.longitude,
+      },
     };
 
     this.submitTimeDate(timePlaceData);

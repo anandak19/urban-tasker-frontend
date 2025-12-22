@@ -1,17 +1,30 @@
 <div class="choose-tasker">
-  <app-page-title title="Choose a Tasker"></app-page-title>
+  <app-page-title
+    title="Choose a Tasker"
+    [description]="`${paginationData().total} taskers available`"
+  ></app-page-title>
   <!-- tasker content  -->
   <div class="choose-tasker__content-wrapper">
     <div class="choose-tasker__filters"></div>
     <!-- taskers listing  -->
     <div class="choose-tasker__taskers-listing-wrapper">
-      <app-tasker-listing-card></app-tasker-listing-card>
-      <app-tasker-listing-card></app-tasker-listing-card>
+      @for (tasker of availableTaskers(); track $index) {
+        <app-tasker-listing-card
+          [taskerData]="tasker"
+          (chooseTasker)="chooseTasker($event.taskerId)"
+        ></app-tasker-listing-card>
+      }
+    </div>
+    <div class="pagination">
+      <app-pagination
+        [paginationData]="paginationData()"
+        (pageChange)="onTaskerPageChange($event)"
+      ></app-pagination>
     </div>
 
     <div class="choose-tasker__actions">
       <app-button type="button" variant="secondary" (clickEvent)="onPrev()"
-        >Prev</app-button
+        >Chnage Time and Place</app-button
       >
     </div>
   </div>

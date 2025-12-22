@@ -1,9 +1,9 @@
 export interface IListTasker {
-  id: string;
+  userId: string;
   profileImageUrl?: string;
   firstName: string;
   lastName: string;
   hourlyRate: number;
-  totalRating: number;
+  rating: number;
   bio?: string;
 }

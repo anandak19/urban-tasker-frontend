@@ -21,7 +21,10 @@
     <div class="user-options">
       @if (_authGuardService.currentUser()?.email) {
         <app-notification (isnoficationClicked)="openNotifications()" />
-        <app-user-profile-circle (logout)="onUserLogout()" />
+        <app-user-profile-circle
+          (logout)="onUserLogout()"
+          (clickProfile)="navigateProfile()"
+        />
       } @else {
         <app-button
           [variant]="isLoginPage ? 'secondary' : 'primary'"

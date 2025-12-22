@@ -8,8 +8,29 @@ export interface IBookTaskerAboutTask {
 }
 
 export interface IBookTaskerTimePlace {
-  date: string | Date;
+  date: Date;
   time: string;
   city: string;
   address: string;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export interface IBookTaskerTasker {
+  taskerId: string;
+}
+
+export type IBookTasker = IBookTaskerAboutTask &
+  IBookTaskerTimePlace &
+  IBookTaskerTasker;
+
+//---------------------------
+export interface IGetAvailTaskers
+  extends Omit<IBookTaskerTimePlace, 'date' | 'address' | 'location'> {
+  date: string;
+  subcategoryId: string;
+  latitude: number;
+  longitude: number;
 }

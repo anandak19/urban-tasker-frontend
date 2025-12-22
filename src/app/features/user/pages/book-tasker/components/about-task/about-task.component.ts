@@ -21,6 +21,10 @@ import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper
 import { IDropdownOption } from '@shared/models/form-inputs.model';
 import { IBookTaskerAboutTask } from '@features/user/models/book-tasker/book-tasker.model';
 import { TaskSize } from '@shared/constants/enums/task-size.enum';
+import { BookTaskerService } from '@features/user/services/book-tasker/book-tasker/book-tasker.service';
+import { CategoryService } from '@core/services/category/category.service';
+import { IApiResponseError } from '@shared/models/api-response.model';
+import { SubCategoryService } from '@core/services/category/sub-category.service';
 
 @Component({
   selector: 'app-about-task',
@@ -38,6 +42,10 @@ import { TaskSize } from '@shared/constants/enums/task-size.enum';
 })
 export class AboutTaskComponent implements OnInit {
   @Output() next = new EventEmitter();
+
+  private _bookTaskerService = inject(BookTaskerService);
+  private _categoryService = inject(CategoryService);
+  private _subCategoryService = inject(SubCategoryService);
 
   onNext() {
     this.next.emit();
@@ -57,6 +65,8 @@ export class AboutTaskComponent implements OnInit {
     this.aboutTaskForm.get('taskSize')?.markAsTouched();
   }
 
+  categoryOptions = signal<IDropdownOption[]>([]);
+  subCategoryOptions = signal<IDropdownOption[]>([]);
   sampleOptions = signal<IDropdownOption[]>([
     { id: 'sample1', label: 'Sample Cat' },
   ]);
@@ -73,6 +83,8 @@ export class AboutTaskComponent implements OnInit {
   // call api or cache data here
   submitAboutTask(aboutTaskData: IBookTaskerAboutTask) {
     console.log('Payload to backend:', aboutTaskData);
+    this._bookTaskerService.saveAboutTask(aboutTaskData);
+    this.onNext();
   }
 
   onSubmit(): void {
@@ -94,7 +106,34 @@ export class AboutTaskComponent implements OnInit {
     this.submitAboutTask(payload);
   }
 
+  onCategorySelect(categoryOption: IDropdownOption) {
+    this._subCategoryService
+      .getActiveSubcategoriesOptions(categoryOption.id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.subCategoryOptions.set(res.data);
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+        },
+      });
+  }
+
+  getCategoryOptions() {
+    this._categoryService.getCategoryOptions().subscribe({
+      next: (res) => {
+        console.log(res.data);
+        this.categoryOptions.set(res.data);
+      },
+      error: (err: IApiResponseError) => {
+        console.log(err);
+      },
+    });
+  }
+
   ngOnInit(): void {
+    this.getCategoryOptions();
     this.initForm();
   }
 }

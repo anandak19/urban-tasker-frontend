@@ -24,6 +24,8 @@ import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
 import { ICreateTaskerApplication } from '@features/user/models/tasker-applications/tasker-applications.model';
+import { cities } from '@shared/constants/constants/city.constant';
+import { idCards } from '@shared/constants/constants/id-options.constant';
 
 @Component({
   selector: 'app-tasker-application',
@@ -59,38 +61,8 @@ export class TaskerApplicationComponent implements OnInit {
   isSubmitted = signal<boolean>(false);
 
   // form input data's
-  idOptions = signal<IDropdownOption[]>([
-    {
-      id: 'adhaar',
-      label: 'Adhaar',
-    },
-    {
-      id: 'voters-id',
-      label: 'Voters Id',
-    },
-    {
-      id: 'drivers-license',
-      label: 'Drivers license',
-    },
-  ]);
-  citiesOptions = signal<IDropdownOption[]>([
-    {
-      id: 'kochi',
-      label: 'Kochi',
-    },
-    {
-      id: 'trivandrum',
-      label: 'Trivandrum',
-    },
-    {
-      id: 'alappuzha',
-      label: 'Alappuzha',
-    },
-    {
-      id: 'kayamkulam',
-      label: 'kayamkulam',
-    },
-  ]);
+  idOptions = signal<IDropdownOption[]>(idCards);
+  citiesOptions = signal<IDropdownOption[]>(cities);
   categoriesOptions = signal<IDropdownOption[]>([]);
   selectedCategories = signal<IDropdownOption[]>([]);
 

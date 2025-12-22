@@ -10,4 +10,11 @@
     padding: $spacing-3;
     width: 80%;
   }
+
+  @include respond('xs') {
+    mat-horizontal-stepper {
+      padding: 0;
+      width: 100%;
+    }
+  }
 }

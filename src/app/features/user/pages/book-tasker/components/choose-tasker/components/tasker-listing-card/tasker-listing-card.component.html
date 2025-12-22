@@ -1,37 +1,51 @@
-<div class="tasker-card">
-  <!-- LEFT: Profile image -->
-  <div class="tasker-card__profile">
-    <div class="tasker-card__avatar">
-      <img [src]="tasker.profileImageUrl" alt="Tasker profile picture" />
-    </div>
-    <a class="tasker-card__profile-link" href="#"> View Profile </a>
-  </div>
-
-  <!-- CENTER: Tasker details -->
-  <div class="tasker-card__details">
-    <h4 class="tasker-card__name">
-      {{ tasker.firstName }} {{ tasker.lastName }}
-    </h4>
-
-    <div class="tasker-card__rating">
-      <span class="tasker-card__rating-star">★</span>
-      <span class="tasker-card__rating-value">
-        {{ tasker.totalRating }}
-      </span>
+@if (taskerData) {
+  <div class="tasker-card">
+    <!-- Profile image -->
+    <div class="tasker-card__profile">
+      <div class="tasker-card__avatar">
+        <img
+          [src]="
+            taskerData.profileImageUrl || 'assets/defaults/default-user.png'
+          "
+          alt="Tasker profile picture"
+        />
+      </div>
+      <a class="tasker-card__profile-link" href="#"> View Profile </a>
     </div>
 
-    <p class="tasker-card__bio">
-      {{ tasker.bio }}
-    </p>
-  </div>
+    <!--  Tasker details -->
+    <div class="tasker-card__details">
+      <h4 class="tasker-card__name">
+        {{ taskerData.firstName }} {{ taskerData.lastName }}
+      </h4>
 
-  <!-- RIGHT: Price & action -->
-  <div class="tasker-card__actions">
-    <div class="tasker-card__rate">
-      ₹{{ tasker.hourlyRate }}
-      <span class="tasker-card__rate-unit">/hr</span>
+      <div class="tasker-card__rating">
+        <span class="tasker-card__rating-star">★</span>
+        <span class="tasker-card__rating-value">
+          {{ taskerData.rating }}
+        </span>
+      </div>
+
+      @if (taskerData.bio) {
+        <p class="tasker-card__bio">
+          {{ taskerData.bio }}
+        </p>
+      }
     </div>
 
-    <app-button class="tasker-card__select-btn"> Book </app-button>
+    <!--  Price & action -->
+    <div class="tasker-card__actions">
+      <div class="tasker-card__rate">
+        ₹{{ taskerData.hourlyRate }}
+        <span class="tasker-card__rate-unit">/hr</span>
+      </div>
+
+      <app-button
+        class="tasker-card__select-btn"
+        (clickEvent)="onChoosingTasker(taskerData.userId)"
+      >
+        Book
+      </app-button>
+    </div>
   </div>
-</div>
+}

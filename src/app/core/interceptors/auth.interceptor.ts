@@ -15,22 +15,26 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((err: IApiResponseError) => {
+      console.log('[Interceptor]: Error occured in api call');
       // error is unautherized 401
       if (err.statusCode === 401) {
-        console.log('Access token expired');
+        console.log('[Interceptor]: Access token expired');
         // refresh the token's
         return _authService.refreshToken().pipe(
           // retry the request with new token
           switchMap(() => {
-            console.log('Access Token refreshed');
+            console.log('[Interceptor]: Access Token refreshed');
             return next(req);
           }),
           catchError((e) => {
-            console.log('Refresh token expired or malformed');
+            console.log('[Interceptor]: Refresh token expired or malformed');
+            console.log(e);
+
             // logout user here
             // redirect user to login
             if (!req.url.includes('/login-user')) {
-              console.log('api is not for finding curret user');
+              console.log('[Interceptor]: api is not for finding curret user');
+              console.log('[Interceptor]: UrL', req.url);
               _router.navigateByUrl('/login');
             }
             return throwError(() => e);

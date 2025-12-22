@@ -35,6 +35,6 @@ export class UserProfileCircleComponent {
   }
 
   gotToProfileClicked() {
-    alert('Method not implemeted');
+    this.clickProfile.emit();
   }
 }
