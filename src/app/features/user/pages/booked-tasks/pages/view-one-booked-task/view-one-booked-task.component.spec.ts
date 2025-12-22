@@ -8,9 +8,8 @@ describe('ViewOneBookedTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewOneBookedTaskComponent]
-    })
-    .compileComponents();
+      imports: [ViewOneBookedTaskComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewOneBookedTaskComponent);
     component = fixture.componentInstance;
