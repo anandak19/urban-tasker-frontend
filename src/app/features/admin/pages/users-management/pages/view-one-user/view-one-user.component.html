@@ -8,8 +8,8 @@
     <div class="view-user__user-data">
       <div class="image">
         <img
-          src="https://media.tenor.com/_L0MDh9Mv9oAAAAM/kintaro-oe-happy-crying.gif"
-          alt=""
+          [src]="userData()?.profileImageUrl || 'assets/defaults/default-user.png'"
+          alt="profile picture"
         />
       </div>
       <div class="name-role">
