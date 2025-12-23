@@ -1,0 +1,29 @@
+<div class="three-stepper">
+  <!-- indicators  -->
+  <!-- @if (stepper) {
+    <div class="three-stepper__circle-steps">
+      @for (step of stepper.steps; track step; let i = $index) {
+        <div class="circle" [class.active]="stepper.selectedIndex === i">
+          {{ i + 1 }}
+        </div>
+      }
+    </div>
+  } -->
+
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <!-- Step 1 -->
+    <mat-step>
+      <p>Step 1</p>
+    </mat-step>
+
+    <!-- Step 2-->
+    <mat-step>
+      <p>Step 2</p>
+    </mat-step>
+
+    <!-- Step 3-->
+    <mat-step>
+      <p>Step 3</p>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

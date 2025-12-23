@@ -10,6 +10,7 @@ export interface IUserData {
   isTaskerApplied: string;
   isSuspended: boolean;
   suspendedReason: string;
+  profileImageUrl?: string;
 }
 
 export interface IPaginationMetadata {

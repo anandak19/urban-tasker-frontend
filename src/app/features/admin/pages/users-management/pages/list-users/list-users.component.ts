@@ -11,7 +11,10 @@ import { TableListingComponent } from '@features/admin/components/table-listing/
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminTableFiltersComponent } from '@features/admin/components/admin-table-filters/admin-table-filters.component';
-import { IBaseFilters } from '@shared/models/request-data.model';
+import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { UserRoles } from '@shared/constants/enums/user.enum';
+import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
+import { IUserFilter } from '@features/admin/models/user-filter.model';
 
 @Component({
   selector: 'app-list-users',
@@ -20,6 +23,7 @@ import { IBaseFilters } from '@shared/models/request-data.model';
     TableListingComponent,
     PaginationComponent,
     AdminTableFiltersComponent,
+    DropdownComponent,
   ],
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.scss',
@@ -36,9 +40,10 @@ export class ListUsersComponent implements OnInit {
     total: 0,
   });
 
-  filter = signal<IBaseFilters>({
+  filter = signal<IUserFilter>({
     page: 1,
     limit: 2, // -----------REMOVE THIS LATER
+    role: null,
   });
 
   //col
@@ -50,6 +55,21 @@ export class ListUsersComponent implements OnInit {
     { label: 'User Role', key: 'userRole' },
     { label: 'Tasker Applied', key: 'isTaskerApplied' },
   ] as const;
+
+  userRoleOptions = signal<IDropdownOption[]>([
+    { id: '', label: 'All' },
+    { id: UserRoles.USER, label: 'User' },
+    { id: UserRoles.TASKER, label: 'Tasker' },
+  ]);
+
+  onOptionSelect(option: IDropdownOption) {
+    this.filter.update((current) => ({
+      ...current,
+      role: (option?.id as UserRoles) ? (option.id as UserRoles) : null,
+      page: 1,
+    }));
+    this.getUsers();
+  }
 
   getUsers() {
     this._usersManagementService.getAllUsers(this.filter()).subscribe({

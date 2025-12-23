@@ -44,10 +44,11 @@ export class HeaderComponent implements OnInit {
   links: NavLink[] = [
     { label: 'Home', path: '/' },
     { label: 'Categories', path: '/categories' },
+    { label: 'My Tasks', path: '/tasks' },
   ];
 
   bookTaskerClicked() {
-    alert('Show book tasker page');
+    this.headerService.navigateBookTasker();
   }
 
   openNotifications() {
@@ -68,6 +69,10 @@ export class HeaderComponent implements OnInit {
 
   toggleSidePannel() {
     this.headerService.toggleSidebar();
+  }
+
+  navigateProfile() {
+    this.router.navigate(['/profile']);
   }
 
   @HostListener('document:click', ['$event'])

@@ -1,0 +1,98 @@
+<div class="time-place">
+  <app-page-title title="When And Where You Need"></app-page-title>
+
+  <div class="time-place__form-wrapper">
+    <form [formGroup]="whenWhereForm" (ngSubmit)="onSubmit()">
+      <div class="time-place__inputs">
+        <div class="time-place__date-time">
+          <!-- date  -->
+          <app-form-field-wrapper label="Prefred Date">
+            <mat-form-field appearance="outline" class="control">
+              <input
+                matInput
+                [matDatepicker]="picker"
+                placeholder="DD / MM / YYYY"
+                formControlName="date"
+              />
+
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+                class="toggle"
+              ></mat-datepicker-toggle>
+
+              <mat-datepicker #picker></mat-datepicker>
+              @if (dateError) {
+                <mat-error>
+                  <small class="error-text">{{ dateError }}</small>
+                </mat-error>
+              }
+            </mat-form-field>
+            <!-- @if (dateError) {
+              <small class="error-text">{{ dateError }}</small>
+            } -->
+          </app-form-field-wrapper>
+
+          <!-- time  -->
+          <app-form-field-wrapper label="Prefred Time">
+            <mat-form-field appearance="outline" class="control">
+              <input
+                matInput
+                [matTimepicker]="time"
+                formControlName="time"
+                formControlName="time"
+              />
+              <mat-timepicker-toggle matIconSuffix></mat-timepicker-toggle>
+              <mat-timepicker #time></mat-timepicker>
+
+              @if (timeError) {
+                <mat-error>
+                  <small class="error-text">{{ timeError }}</small>
+                </mat-error>
+              }
+            </mat-form-field>
+          </app-form-field-wrapper>
+        </div>
+
+        <!-- city  -->
+        <app-dropdown-field label="City">
+          <app-dropdown
+            formControlName="city"
+            [options]="cities"
+          ></app-dropdown>
+          @if (cityError) {
+            <small class="error-text">{{ cityError }}</small>
+          }
+        </app-dropdown-field>
+
+        <!-- location  -->
+        <div class="location">
+          <app-form-field-wrapper label="Location">
+            <app-button-loading
+              [text]="locationChoosen ? 'Location Added' : 'Choose Location'"
+              [variant]="locationChoosen ? 'success' : 'primary'"
+              (isClicked)="onLocationChoose()"
+            ></app-button-loading>
+          </app-form-field-wrapper>
+          @if (locationError) {
+            <small class="error-text">Location is requred</small>
+          }
+        </div>
+
+        <!-- address  -->
+        <app-text-area-field
+          label="Address"
+          formControlName="address"
+          placeholder="Enter Address"
+        ></app-text-area-field>
+      </div>
+
+      <div class="time-place__actions">
+        <app-button type="button" variant="secondary" (clickEvent)="onPrev()"
+          >Change About Task</app-button
+        >
+        <app-button type="submit">Choose Tasker</app-button>
+      </div>
+    </form>
+  </div>
+</div>

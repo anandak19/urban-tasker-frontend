@@ -1,0 +1,63 @@
+<div class="list-booked-tasks">
+  <app-page-title title="My Booked Tasks"></app-page-title>
+
+  <!-- filters  -->
+  <div class="list-booked-tasks__filters">
+    <div class="list-booked-tasks__filter-strip">
+      <div
+        class="list-booked-tasks__filter list-booked-tasks__filter--selected"
+      >
+        All
+      </div>
+      <div class="list-booked-tasks__filter">Upcoming</div>
+      <div class="list-booked-tasks__filter">In Progress</div>
+      <div class="list-booked-tasks__filter">Completed</div>
+      <div class="list-booked-tasks__filter">Overdue</div>
+    </div>
+  </div>
+
+  <!-- listing wrapper  -->
+  <div class="list-booked-tasks__list-wrapper">
+    @if (bookings()) {
+      @for (booking of bookings(); track $index) {
+        <div class="list-booked-tasks__card">
+          <!-- LEFT : Task info -->
+          <div class="list-booked-tasks__card-left">
+            <div class="list-booked-tasks__image">
+              <img [src]="booking.image" alt="category" />
+            </div>
+
+            <div class="list-booked-tasks__details">
+              <div class="list-booked-tasks__category">
+                {{ booking.categoryName }}
+              </div>
+
+              <div class="list-booked-tasks__tasker">
+                Tasker: {{ booking.taskerFirstName }}
+                {{ booking.taskerLastName }}
+              </div>
+
+              <div class="list-booked-tasks__datetime">
+                <span>{{ booking.date | date }}</span>
+                <span class="list-booked-tasks__dot">•</span>
+                <span>{{ booking.time }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT : Actions -->
+          <div class="list-booked-tasks__card-right">
+            <app-button variant="secondary">Message</app-button>
+            <app-button>View Details</app-button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- paginations  -->
+  <app-pagination
+    [paginationData]="paginationData()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+</div>

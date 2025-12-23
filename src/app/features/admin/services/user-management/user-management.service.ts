@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IOneUserResponse } from '@features/admin/models/user-data.interface';
+import { IUserFilter } from '@features/admin/models/user-filter.model';
 import { buildQuery } from '@shared/helpers/query-builder';
-import { IBaseFilters } from '@shared/models/request-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,22 @@ export class UserManagementService {
   private _apiEndPoint = 'admin/user';
   private _http = inject(HttpClient);
 
-  getAllUsers(query: IBaseFilters) {
-    return this._http.get(this._apiEndPoint, { params: buildQuery(query) });
+  getAllUsers(query: IUserFilter) {
+    const {
+      page,
+      limit,
+      search,
+      ...restFilters // role, isActive, etc.
+    } = query;
+
+    const params = buildQuery({
+      page,
+      limit,
+      search,
+      ...restFilters,
+    });
+
+    return this._http.get(this._apiEndPoint, { params });
   }
 
   getUserById(id: string) {

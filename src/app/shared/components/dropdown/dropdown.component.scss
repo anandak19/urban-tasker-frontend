@@ -27,7 +27,8 @@
     left: 0;
     top: 105%;
     width: 100%;
-    min-height: max-content;
+    min-height: 30px;
+    height: max-content;
     max-height: 300px;
     overflow-y: scroll;
     display: none;
@@ -53,5 +54,23 @@
 
   ::-webkit-scrollbar-track {
     background: $black;
+  }
+
+  @include respond('xs') {
+    min-width: 120px;
+    width: 166px;
+
+    ::ng-deep .mat-horizontal-content-container {
+      padding: 0;
+    }
+
+    &__main,
+    &__options {
+      font-size: $font-size-xs;
+    }
+
+    mat-icon {
+      font-size: $font-size-xl;
+    }
   }
 }

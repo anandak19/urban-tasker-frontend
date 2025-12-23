@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class DropdownFieldComponent {
   @Input() label!: string;
+  @Input() isOptional = false;
 }

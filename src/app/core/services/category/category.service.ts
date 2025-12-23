@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ICategoryData } from '@features/admin/models/category.interface';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
+import { IOptionResponse } from '@shared/models/common-api-responses.model';
 import { IDropdownOption } from '@shared/models/form-inputs.model';
 import { map } from 'rxjs';
 
@@ -25,5 +26,9 @@ export class CategoryService {
           );
         }),
       );
+  }
+
+  getCategoryOptions() {
+    return this._http.get<IOptionResponse>(`${this.apiEndpoint}/options`);
   }
 }

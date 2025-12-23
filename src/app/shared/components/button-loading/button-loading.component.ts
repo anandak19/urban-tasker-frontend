@@ -9,7 +9,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   styleUrl: './button-loading.component.scss',
 })
 export class ButtonLoadingComponent {
-  @Input() variant: 'primary' | 'secondary' | 'danger' = 'primary';
+  @Input() variant: 'primary' | 'secondary' | 'danger' | 'success' = 'primary';
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
 

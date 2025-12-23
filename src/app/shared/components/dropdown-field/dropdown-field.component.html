@@ -1,4 +1,6 @@
 <div class="dropdown-field">
-  <p class="dropdown-field__label">{{ label }}</p>
+  <p class="dropdown-field__label">
+    {{ label }} {{ isOptional ? '(Optional)' : '*' }}
+  </p>
   <ng-content></ng-content>
 </div>

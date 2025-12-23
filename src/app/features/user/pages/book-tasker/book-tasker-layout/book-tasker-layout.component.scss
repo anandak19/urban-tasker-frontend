@@ -1,0 +1,20 @@
+@use 'index' as *;
+
+.book-tasker {
+  ::ng-deep .mat-horizontal-stepper-header-container {
+    display: none !important;
+  }
+
+  mat-horizontal-stepper {
+    margin: 0 auto;
+    padding: $spacing-3;
+    width: 80%;
+  }
+
+  @include respond('xs') {
+    mat-horizontal-stepper {
+      padding: 0;
+      width: 100%;
+    }
+  }
+}
