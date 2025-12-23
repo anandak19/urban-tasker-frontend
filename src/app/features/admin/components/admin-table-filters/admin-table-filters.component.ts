@@ -23,6 +23,7 @@ import { MatIcon } from '@angular/material/icon';
 export class AdminTableFiltersComponent implements OnInit {
   @Input() searchPlaceholder!: string;
   @Output() searchChange = new EventEmitter<string>();
+
   searchForm!: FormGroup;
   private _timerId: ReturnType<typeof setTimeout> | null = null;
 
