@@ -5,7 +5,7 @@
   padding: $spacing-2;
   border-radius: $border-radius-sm;
   background: $background;
-  min-height: 238px;
+  min-height: 254px;
   border: $section-border;
   border-radius: $border-radius-md;
 
@@ -70,15 +70,11 @@
 
   @include respond('xs') {
     padding: $spacing-1;
-    min-height: 208px;
+    min-width: 140px;
     padding: $spacing-3;
 
     &__title {
       font-size: $font-size-sm;
-    }
-
-    &__slot {
-      min-width: 140px;
     }
   }
 }

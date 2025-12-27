@@ -33,8 +33,8 @@ import {
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { AvailabilityService } from '@features/tasker/services/availability/availability.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
-import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
+import { getDayNumber } from '@shared/helpers/convert-day.utitility';
 
 @Component({
   selector: 'app-availabilty-slot-modal',
@@ -67,41 +67,40 @@ export class AvailabiltySlotModalComponent implements OnInit {
     this._dialogRef.close(refresh);
   }
 
-  async onChangeDisableClick() {
-    const updatedIsDisabled = !this._slotData.slot.isDisabled;
-    if (updatedIsDisabled) {
+  async onChangeIsActiveClick() {
+    const isActive =
+      this._slotData.slot && this._slotData.slot.isActive ? true : false;
+    if (isActive) {
       const yes = await this._confirmDialog.ask('Disable this slot');
 
       if (yes) {
-        this.changeIsDisabled(updatedIsDisabled);
+        this.changeIsActive(!isActive);
       }
     } else {
-      this.changeIsDisabled(updatedIsDisabled);
+      this.changeIsActive(!isActive);
     }
   }
 
-  changeIsDisabled(updatedIsDisabled: boolean) {
-    this._availabilityService
-      .changeStatus(
-        this._slotData.availabilityId,
-        this._slotData.slot.id,
-        updatedIsDisabled,
-      )
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.onClose(true);
-          this._snackbar.success('Updated status');
-        },
-        error: (err: IApiResponseError) => {
-          console.log(err);
-          this._snackbar.error(err.message);
-        },
-      });
+  changeIsActive(updatedIsActive: boolean) {
+    if (this._slotData.slot) {
+      this._availabilityService
+        .changeStatus(this._slotData.slot.id, updatedIsActive)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.onClose(true);
+            this._snackbar.success('Updated status');
+          },
+          error: (err: IApiResponseError) => {
+            console.log(err);
+            this._snackbar.error(err.message);
+          },
+        });
+    }
   }
 
-  createSlot(day: WeekDayKeys, newSlot: ISlot) {
-    this._availabilityService.createSlot(day, newSlot).subscribe({
+  createSlot(newSlot: ISlot) {
+    this._availabilityService.createSlot(newSlot).subscribe({
       next: (res) => {
         console.log(res);
         this.onClose(true);
@@ -115,23 +114,21 @@ export class AvailabiltySlotModalComponent implements OnInit {
   }
 
   updateSlot(updatedSlot: ISlot) {
-    this._availabilityService
-      .updateSlot(
-        this._slotData.availabilityId,
-        this._slotData.slot.id,
-        updatedSlot,
-      )
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.onClose(true);
-          this._snackbar.success('Slot updated successfully');
-        },
-        error: (err: IApiResponseError) => {
-          console.log(err);
-          this._snackbar.error(err.message);
-        },
-      });
+    if (this._slotData.slot) {
+      this._availabilityService
+        .updateSlot(this._slotData.slot.id, updatedSlot)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.onClose(true);
+            this._snackbar.success('Slot updated successfully');
+          },
+          error: (err: IApiResponseError) => {
+            console.log(err);
+            this._snackbar.error(err.message);
+          },
+        });
+    }
   }
 
   onFormSubmit() {
@@ -151,6 +148,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
     }
 
     const slotData: ISlot = {
+      day: getDayNumber(this._slotData.day),
       start,
       end,
     };
@@ -160,7 +158,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
       this.updateSlot(slotData);
     } else {
       // if create
-      this.createSlot(this._slotData.day, slotData);
+      this.createSlot(slotData);
     }
   }
 
@@ -179,17 +177,19 @@ export class AvailabiltySlotModalComponent implements OnInit {
   }
 
   async onDeleteClick() {
-    const yes = await this._confirmDialog.ask(
-      'Are you sure to delete remove this slot ?',
-    );
+    if (this._slotData.slot && this._slotData.slot.id) {
+      const yes = await this._confirmDialog.ask(
+        'Are you sure to delete remove this slot ?',
+      );
 
-    if (yes) {
-      this.deleteSlot(this._slotData.availabilityId, this._slotData.slot.id);
+      if (yes) {
+        this.deleteSlot(this._slotData.slot.id);
+      }
     }
   }
 
-  async deleteSlot(availabilityId: string, slotId: string) {
-    this._availabilityService.deleteSlot(availabilityId, slotId).subscribe({
+  async deleteSlot(slotId: string) {
+    this._availabilityService.deleteSlot(slotId).subscribe({
       next: (res) => {
         console.log(res);
         this.onClose(true);
@@ -202,11 +202,14 @@ export class AvailabiltySlotModalComponent implements OnInit {
   }
 
   get disableText() {
-    return this._slotData.slot.isDisabled ? 'Enable Slot' : 'Disable Slot';
+    if (this._slotData.slot) {
+      return this._slotData.slot.isActive ? 'Disable Slot' : 'Enable Slot';
+    }
+    return '';
   }
 
-  get isDisabled() {
-    return this.isEditModal() ? this._slotData.slot.isDisabled : false;
+  get isInactive() {
+    return this.isEditModal() ? !this._slotData?.slot?.isActive : false;
   }
 
   ngOnInit(): void {

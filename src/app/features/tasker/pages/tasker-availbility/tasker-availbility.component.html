@@ -4,10 +4,14 @@
 
   <div class="tasker-availbility__main-content">
     <div class="tasker-availbility__toolbar">
-      <app-button-loading
-        text="Add Defaults"
-        (isClicked)="addDefault()"
-      ></app-button-loading>
+      @if (hasAnySlots()) {
+        <app-button-loading text="Remove All Slots" (isClicked)="onDeleteAllClick()"></app-button-loading>
+      } @else {
+        <app-button-loading
+          text="Add Defaults"
+          (isClicked)="addDefault()"
+        ></app-button-loading>
+      }
     </div>
 
     <div class="tasker-availbility__week">
@@ -16,7 +20,7 @@
         [day]="day"
         [availabilityData]="getOneAvailability(day)"
         (addSlot)="addSlot($event)"
-        (editSlot)="onEditSlot($event.day, $event.availabilityId, $event.slot)"
+        (editSlot)="onEditSlot($event.day, $event.slot)"
       ></app-day-column>
     </div>
   </div>
