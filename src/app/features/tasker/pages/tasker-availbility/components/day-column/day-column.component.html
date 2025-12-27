@@ -8,8 +8,8 @@
       @for (slot of availabilityData.slots; track $index) {
         <div
           class="day__slot"
-          [ngClass]="{ 'day__slot--disabled': slot.isDisabled }"
-          (click)="onEditSlot(day, availabilityData.id, slot)"
+          [ngClass]="{ 'day__slot--disabled': !slot.isActive }"
+          (click)="onEditSlot(day, slot)"
           tabindex="0"
           role="button"
         >

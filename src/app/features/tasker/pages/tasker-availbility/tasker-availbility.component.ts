@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { DayColumnComponent } from './components/day-column/day-column.component';
@@ -14,6 +14,8 @@ import {
   ISlotModalData,
 } from '@features/tasker/modals/availability.modal';
 import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
+import { IApiResponseError } from '@shared/models/api-response.model';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-tasker-availbility',
@@ -30,6 +32,7 @@ export class TaskerAvailbilityComponent implements OnInit {
   private _dialog = inject(Dialog);
   private _confirmDialog = inject(ConfirmDialogService);
   private _availabilityService = inject(AvailabilityService);
+  private _snackbar = inject(SnackbarService);
 
   weekDays: WeekDayKeys[] = [
     'sunday',
@@ -41,10 +44,11 @@ export class TaskerAvailbilityComponent implements OnInit {
     'saturday',
   ];
 
-  availability!: IMappedAvailability;
+  availability = signal<IMappedAvailability>({} as IMappedAvailability);
+  hasAnySlots = computed(() => Object.keys(this.availability()).length);
 
   getOneAvailability(day: WeekDayKeys) {
-    return this.availability?.[day] || null;
+    return this.availability()?.[day] || null;
   }
 
   addSlot(day: WeekDayKeys) {
@@ -63,13 +67,14 @@ export class TaskerAvailbilityComponent implements OnInit {
     });
   }
 
-  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
+  // FIX THIS GO
+  onEditSlot(day: WeekDayKeys, slot: ISlotDoc) {
     const dialogRef = this._dialog.open<
       AvailabiltySlotModalComponent,
       ISlotModalData
     >(AvailabiltySlotModalComponent, {
       disableClose: true,
-      data: { day, availabilityId, slot },
+      data: { day, slot },
     });
 
     dialogRef.closed.subscribe((isRefresh) => {
@@ -82,23 +87,44 @@ export class TaskerAvailbilityComponent implements OnInit {
     const yes = await this._confirmDialog.ask(
       `Are you sure to add default time slots for all days`,
     );
-    console.log(yes);
-    this._availabilityService.createDefault().subscribe({
-      next: (res) => {
-        console.log(res);
-        this.getAvailabilities();
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (yes) {
+      this._availabilityService.createDefault().subscribe({
+        next: (res) => {
+          console.log(res);
+          this.getAvailabilities();
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+          this._snackbar.error(err.message);
+        },
+      });
+    }
+  }
+
+  async onDeleteAllClick() {
+    const yes = await this._confirmDialog.ask(
+      'Are you sure to delete all time slots',
+    );
+
+    if (yes) {
+      this._availabilityService.deleteAllSlots().subscribe({
+        next: (res) => {
+          console.log(res);
+          this._snackbar.success(res.message);
+          this.getAvailabilities();
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbar.error(err.message);
+        },
+      });
+    }
   }
 
   getAvailabilities() {
     this._availabilityService.findTaskerAvailabilities().subscribe({
       next: (res) => {
-        console.log(res.data);
-        this.availability = res.data;
+        this.availability.set(res.data);
+        console.log(this.availability);
       },
       error: (err) => {
         console.error(err);

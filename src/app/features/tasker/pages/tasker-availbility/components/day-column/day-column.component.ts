@@ -2,9 +2,8 @@ import { CommonModule, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 import {
-  IAvailability,
-  ISlotDoc,
-  ISlotModalData,
+  IAvailabilityMap,
+  IAvailabilitySlotData,
 } from '@features/tasker/modals/availability.modal';
 import { toDate } from '@shared/helpers/convert-time.utility';
 
@@ -15,18 +14,23 @@ import { toDate } from '@shared/helpers/convert-time.utility';
   styleUrl: './day-column.component.scss',
 })
 export class DayColumnComponent {
-  @Input() availabilityData!: IAvailability | null;
+  @Input() availabilityData!: IAvailabilityMap | null;
   @Input() day!: WeekDayKeys;
 
   @Output() addSlot = new EventEmitter<WeekDayKeys>();
-  @Output() editSlot = new EventEmitter<ISlotModalData>();
+  @Output() editSlot = new EventEmitter<{
+    day: WeekDayKeys;
+    slot: IAvailabilitySlotData;
+  }>();
+
+  protected MAX_SLOT = 3;
 
   onAddSlot(day: WeekDayKeys) {
     this.addSlot.emit(day);
   }
 
-  onEditSlot(day: WeekDayKeys, availabilityId: string, slot: ISlotDoc) {
-    this.editSlot.emit({ day, availabilityId, slot });
+  onEditSlot(day: WeekDayKeys, slot: IAvailabilitySlotData) {
+    this.editSlot.emit({ day, slot });
   }
 
   to12hr(time: string) {
@@ -39,8 +43,11 @@ export class DayColumnComponent {
   }
 
   get isMaxSlot() {
-    return this.availabilityData && this.availabilityData.slots.length >= 3
-      ? true
-      : false;
+    if (this.availabilityData?.slots) {
+      return this.availabilityData?.slots.length >= this.MAX_SLOT
+        ? true
+        : false;
+    }
+    return false;
   }
 }

@@ -6,7 +6,7 @@ export const WEEK_DAYS = [
   'thursday',
   'friday',
   'saturday',
-] as const;
+];
 
 export const enum WeekDays {
   SUNDAY = 'sunday',

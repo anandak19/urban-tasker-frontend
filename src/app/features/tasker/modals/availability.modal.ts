@@ -1,13 +1,14 @@
 import { WeekDays, WeekDayKeys } from '../constants/week-days.constant';
 
 export interface ISlot {
+  day: number;
   start: string;
   end: string;
 }
 
 export interface ISlotDoc extends ISlot {
   id: string;
-  isDisabled: boolean;
+  isActive: boolean;
 }
 
 export interface ICreateAvailability {
@@ -23,15 +24,27 @@ export interface IAvailability extends Omit<ICreateAvailability, 'slots'> {
   updatedAt?: Date;
 }
 
-// modal
+// modal data shape for add slot
 export interface ISlotModalBase {
   day: WeekDayKeys;
 }
 
-export interface ISlotModalData extends ISlotModalBase {
-  availabilityId: string;
-  slot: ISlotDoc;
+// modal data for edit slot
+export interface ISlotModalData {
+  day: WeekDayKeys;
+  slot?: IAvailabilitySlotData;
+}
+
+export interface IAvailabilitySlotData extends Omit<ISlot, 'taskerId'> {
+  isActive: boolean;
+  id: string;
+}
+
+export interface IAvailabilityMap extends Pick<ISlot, 'day'> {
+  slots: IAvailabilitySlotData[];
 }
 
 // resonse shape
-export type IMappedAvailability = Partial<Record<WeekDayKeys, IAvailability>>;
+export type IMappedAvailability = Partial<
+  Record<WeekDayKeys, IAvailabilityMap>
+>;
