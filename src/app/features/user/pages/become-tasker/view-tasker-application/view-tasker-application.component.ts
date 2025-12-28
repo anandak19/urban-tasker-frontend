@@ -6,6 +6,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { TaskerApplicationDataComponent } from '@shared/components/feature/tasker-application-data/tasker-application-data.component';
 import { Router } from '@angular/router';
 import { ITaskerApplication } from '@shared/models/tasker-applications.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view-tasker-application',
@@ -24,15 +25,18 @@ export class ViewTaskerApplicationComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
 
-    this._taskerApplication.findLoggedInUsersApplication().subscribe({
-      next: (res) => {
-        this.isTaskerApplied.set(true);
-        this.taskerApplicationData.set(res.data);
-      },
-      error: (err: IApiResponseError) => {
-        console.log(err);
-      },
-    });
+    this._taskerApplication
+      .findLoggedInUsersApplication()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          this.isTaskerApplied.set(true);
+          this.taskerApplicationData.set(res.data);
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+        },
+      });
   }
 
   navigateToForm() {

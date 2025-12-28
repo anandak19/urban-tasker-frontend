@@ -26,6 +26,7 @@ import { BackButtonComponent } from '@features/admin/components/back-button/back
 import { ICreateTaskerApplication } from '@features/user/models/tasker-applications/tasker-applications.model';
 import { cities } from '@shared/constants/constants/city.constant';
 import { idCards } from '@shared/constants/constants/id-options.constant';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tasker-application',
@@ -68,11 +69,14 @@ export class TaskerApplicationComponent implements OnInit {
 
   //get catgories
   async getCategoryOptions() {
-    this._categoryService.getAllActiveSubCategories().subscribe({
-      next: (res) => {
-        this.categoriesOptions.set(res);
-      },
-    });
+    this._categoryService
+      .getAllActiveSubCategories()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          this.categoriesOptions.set(res);
+        },
+      });
   }
 
   // add category
@@ -155,7 +159,10 @@ export class TaskerApplicationComponent implements OnInit {
       // call the method here with formData
       this._taskerApplicationService
         .createTaskerApplication(formData)
-        .pipe(finalize(() => this.isLoading.set(false)))
+        .pipe(
+          takeUntilDestroyed(),
+          finalize(() => this.isLoading.set(false)),
+        )
         .subscribe({
           next: (res) => {
             this.resetForm();

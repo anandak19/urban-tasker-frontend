@@ -16,6 +16,7 @@ import {
 import { WeekDayKeys } from '@features/tasker/constants/week-days.constant';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tasker-availbility',
@@ -60,7 +61,7 @@ export class TaskerAvailbilityComponent implements OnInit {
       data: { day },
     });
 
-    dialogRef.closed.subscribe((isRefresh) => {
+    dialogRef.closed.pipe(takeUntilDestroyed()).subscribe((isRefresh) => {
       if (!isRefresh) return;
 
       this.getAvailabilities();
@@ -77,7 +78,7 @@ export class TaskerAvailbilityComponent implements OnInit {
       data: { day, slot },
     });
 
-    dialogRef.closed.subscribe((isRefresh) => {
+    dialogRef.closed.pipe(takeUntilDestroyed()).subscribe((isRefresh) => {
       if (!isRefresh) return;
       this.getAvailabilities();
     });
@@ -88,16 +89,19 @@ export class TaskerAvailbilityComponent implements OnInit {
       `Are you sure to add default time slots for all days`,
     );
     if (yes) {
-      this._availabilityService.createDefault().subscribe({
-        next: (res) => {
-          console.log(res);
-          this.getAvailabilities();
-        },
-        error: (err: IApiResponseError) => {
-          console.log(err);
-          this._snackbar.error(err.message);
-        },
-      });
+      this._availabilityService
+        .createDefault()
+        .pipe(takeUntilDestroyed())
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.getAvailabilities();
+          },
+          error: (err: IApiResponseError) => {
+            console.log(err);
+            this._snackbar.error(err.message);
+          },
+        });
     }
   }
 
@@ -107,29 +111,35 @@ export class TaskerAvailbilityComponent implements OnInit {
     );
 
     if (yes) {
-      this._availabilityService.deleteAllSlots().subscribe({
-        next: (res) => {
-          console.log(res);
-          this._snackbar.success(res.message);
-          this.getAvailabilities();
-        },
-        error: (err: IApiResponseError) => {
-          this._snackbar.error(err.message);
-        },
-      });
+      this._availabilityService
+        .deleteAllSlots()
+        .pipe(takeUntilDestroyed())
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this._snackbar.success(res.message);
+            this.getAvailabilities();
+          },
+          error: (err: IApiResponseError) => {
+            this._snackbar.error(err.message);
+          },
+        });
     }
   }
 
   getAvailabilities() {
-    this._availabilityService.findTaskerAvailabilities().subscribe({
-      next: (res) => {
-        this.availability.set(res.data);
-        console.log(this.availability);
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+    this._availabilityService
+      .findTaskerAvailabilities()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          this.availability.set(res.data);
+          console.log(this.availability);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
   }
 
   ngOnInit(): void {

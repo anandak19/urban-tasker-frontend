@@ -24,6 +24,7 @@
         <app-user-profile-circle
           (logout)="onUserLogout()"
           (clickProfile)="navigateProfile()"
+          [imageUrl]="currentUser()?.profileImageUrl || ''"
         />
       } @else {
         <app-button

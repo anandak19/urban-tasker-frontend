@@ -7,6 +7,7 @@ import { IListBooking } from '@features/user/models/tasker-bookings/tasker-booki
 import { DatePipe } from '@angular/common';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-list-booked-tasks',
@@ -32,16 +33,19 @@ export class ListBookedTasksComponent implements OnInit {
   });
 
   fetchAllBookings() {
-    this._bookingService.getAllBookings(this.filter()).subscribe({
-      next: (res) => {
-        console.log(res.data.documents);
-        this.bookings.set(res.data.documents);
-        this.paginationData.set(res.data.meta);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this._bookingService
+      .getAllBookings(this.filter())
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          console.log(res.data.documents);
+          this.bookings.set(res.data.documents);
+          this.paginationData.set(res.data.meta);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   onPageChange(page: number) {

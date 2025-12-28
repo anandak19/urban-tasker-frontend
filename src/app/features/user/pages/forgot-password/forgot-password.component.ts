@@ -14,6 +14,7 @@ import { FormFieldComponent } from '@shared/components/form-field/form-field.com
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-forgot-password',
@@ -44,7 +45,10 @@ export class ForgotPasswordComponent implements OnInit {
 
       this._passwordService
         .forgotPassword(forgotData)
-        .pipe(finalize(() => this.isLoading.set(false)))
+        .pipe(
+          takeUntilDestroyed(),
+          finalize(() => this.isLoading.set(false)),
+        )
         .subscribe({
           next: (res) => {
             console.log(res);

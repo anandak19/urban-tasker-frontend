@@ -1,4 +1,5 @@
 import { inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
 import { catchError, map, of } from 'rxjs';
@@ -16,8 +17,9 @@ export const isLoginGuard: CanActivateFn = () => {
   }
 
   return _authGuardService.fetchLoginUser().pipe(
+    takeUntilDestroyed(),
     map((res) => {
-      const user = res?.data?.user;
+      const user = res?.data;
       console.log('User in guard after call', user);
 
       if (user && user.email) {
@@ -29,7 +31,6 @@ export const isLoginGuard: CanActivateFn = () => {
     }),
     catchError(() => {
       console.log('error in not login guard');
-
       return of(true);
     }),
   );

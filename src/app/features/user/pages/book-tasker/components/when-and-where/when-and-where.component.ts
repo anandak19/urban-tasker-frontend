@@ -39,6 +39,7 @@ import { ILocationLatLng } from '@features/user/models/book-tasker/location.mode
 import { locationRequiredValidator } from '@shared/validators/location-validators';
 import { noWhitespaceValidator } from '@shared/validators/custom-auth-validators';
 import { BookTaskerService } from '@features/user/services/book-tasker/book-tasker/book-tasker.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-when-and-where',
@@ -98,7 +99,7 @@ export class WhenAndWhereComponent implements OnInit {
       data: this._location,
     });
 
-    locationModal.closed.subscribe((location) => {
+    locationModal.closed.pipe(takeUntilDestroyed()).subscribe((location) => {
       if (location) {
         const cordinates = location as ILocationLatLng;
         this.populateLocationData(cordinates);

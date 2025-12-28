@@ -3,6 +3,7 @@ import { HomeService } from '../../services/home/home.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
 import { PopularCategoriesComponent } from './components/popular-categories/popular-categories.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -16,14 +17,17 @@ export class HomeComponent {
 
   // mocke api call
   getProtectedData() {
-    this._homeService.getProtectedData().subscribe({
-      next: (res) => {
-        console.log(res);
-        this._snackBar.success('Protected data received');
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this._homeService
+      .getProtectedData()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this._snackBar.success('Protected data received');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 }

@@ -29,8 +29,9 @@ export class AuthGuardService {
       .get<IisLoginResponse>(`${this._apiEndPoint}/login-user`)
       .pipe(
         tap((res) => {
-          this.currentUser.set(res.data.user);
+          this.currentUser.set(res.data);
           console.log('current user role: ', this.currentUser()?.userRole);
+          console.log(res);
         }),
         catchError((err) => {
           console.log('faild to fetch login user', err);

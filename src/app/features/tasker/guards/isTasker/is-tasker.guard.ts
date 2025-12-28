@@ -1,4 +1,5 @@
 import { inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
 import { UserRoles } from '@shared/constants/enums/user.enum';
@@ -15,8 +16,9 @@ export const isTaskerGuard: CanActivateFn = () => {
   }
 
   return _authGuardService.fetchLoginUser().pipe(
+    takeUntilDestroyed(),
     map((res) => {
-      const user = res?.data?.user;
+      const user = res?.data;
 
       if (user && user.userRole === UserRoles.TASKER) {
         _authGuardService.currentUser.set(user);

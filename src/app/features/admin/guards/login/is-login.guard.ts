@@ -16,7 +16,7 @@ export const isAdminLoginGuard: CanActivateFn = () => {
 
   return _authGuardService.fetchLoginUser().pipe(
     map((res) => {
-      const user = res?.data.user;
+      const user = res?.data;
 
       if (user && user.userRole === UserRoles.ADMIN) {
         _authGuardService.currentUser.set(user);

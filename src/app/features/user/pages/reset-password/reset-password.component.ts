@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { NewPasswordFormComponent } from '@features/user/components/new-password-form/new-password-form.component';
@@ -39,7 +40,10 @@ export class ResetPasswordComponent implements OnInit {
 
     this._passwordService
       .resetPassword(resetData)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(),
+        finalize(() => this.isLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           console.log(res);

@@ -35,6 +35,7 @@ import { AvailabilityService } from '@features/tasker/services/availability/avai
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
 import { getDayNumber } from '@shared/helpers/convert-day.utitility';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-availabilty-slot-modal',
@@ -85,6 +86,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
     if (this._slotData.slot) {
       this._availabilityService
         .changeStatus(this._slotData.slot.id, updatedIsActive)
+        .pipe(takeUntilDestroyed())
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -100,23 +102,27 @@ export class AvailabiltySlotModalComponent implements OnInit {
   }
 
   createSlot(newSlot: ISlot) {
-    this._availabilityService.createSlot(newSlot).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.onClose(true);
-        this._snackbar.success('Slot added successfully');
-      },
-      error: (err: IApiResponseError) => {
-        console.log(err);
-        this._snackbar.error(err.message);
-      },
-    });
+    this._availabilityService
+      .createSlot(newSlot)
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.onClose(true);
+          this._snackbar.success('Slot added successfully');
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+          this._snackbar.error(err.message);
+        },
+      });
   }
 
   updateSlot(updatedSlot: ISlot) {
     if (this._slotData.slot) {
       this._availabilityService
         .updateSlot(this._slotData.slot.id, updatedSlot)
+        .pipe(takeUntilDestroyed())
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -189,16 +195,19 @@ export class AvailabiltySlotModalComponent implements OnInit {
   }
 
   async deleteSlot(slotId: string) {
-    this._availabilityService.deleteSlot(slotId).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.onClose(true);
-        this._snackbar.success('Succssfully Deleted');
-      },
-      error: (err: IApiResponseError) => {
-        this._snackbar.success(err.message);
-      },
-    });
+    this._availabilityService
+      .deleteSlot(slotId)
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.onClose(true);
+          this._snackbar.success('Succssfully Deleted');
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbar.success(err.message);
+        },
+      });
   }
 
   get disableText() {

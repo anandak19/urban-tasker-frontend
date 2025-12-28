@@ -9,6 +9,7 @@ import { PaginationComponent } from '@features/admin/components/pagination/pagin
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-choose-tasker',
@@ -59,16 +60,19 @@ export class ChooseTaskerComponent {
 
   // book tasker method
   completeBooking() {
-    this._bookTaskerService.bookTasker().subscribe({
-      next: (res) => {
-        console.log(res);
-        this._snackbarService.success(res.message);
-        this._router.navigate(['/tasks']);
-      },
-      error: (err: IApiResponseError) => {
-        console.log(err);
-        this._snackbarService.error(err.message);
-      },
-    });
+    this._bookTaskerService
+      .bookTasker()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this._snackbarService.success(res.message);
+          this._router.navigate(['/tasks']);
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+          this._snackbarService.error(err.message);
+        },
+      });
   }
 }

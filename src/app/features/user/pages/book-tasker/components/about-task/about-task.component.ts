@@ -25,6 +25,7 @@ import { BookTaskerService } from '@features/user/services/book-tasker/book-task
 import { CategoryService } from '@core/services/category/category.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SubCategoryService } from '@core/services/category/sub-category.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-about-task',
@@ -109,6 +110,7 @@ export class AboutTaskComponent implements OnInit {
   onCategorySelect(categoryOption: IDropdownOption) {
     this._subCategoryService
       .getActiveSubcategoriesOptions(categoryOption.id)
+      .pipe(takeUntilDestroyed())
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -121,15 +123,18 @@ export class AboutTaskComponent implements OnInit {
   }
 
   getCategoryOptions() {
-    this._categoryService.getCategoryOptions().subscribe({
-      next: (res) => {
-        console.log(res.data);
-        this.categoryOptions.set(res.data);
-      },
-      error: (err: IApiResponseError) => {
-        console.log(err);
-      },
-    });
+    this._categoryService
+      .getCategoryOptions()
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: (res) => {
+          console.log(res.data);
+          this.categoryOptions.set(res.data);
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+        },
+      });
   }
 
   ngOnInit(): void {

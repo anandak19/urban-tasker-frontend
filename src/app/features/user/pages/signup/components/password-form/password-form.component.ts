@@ -6,6 +6,7 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 import { finalize } from 'rxjs';
 import { IBasicDataResponse } from '@features/user/models/signup/signup-response.model';
 import { NewPasswordFormComponent } from '@features/user/components/new-password-form/new-password-form.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-password-form',
@@ -19,6 +20,7 @@ export class PasswordFormComponent {
   private _snackBar = inject(SnackbarService);
 
   isLoading = signal(false);
+
   @Output() singupCompleted = new EventEmitter<void>();
 
   onNewPassword(password: string) {
@@ -26,7 +28,10 @@ export class PasswordFormComponent {
 
     this._signupService
       .validatePassword(password)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(),
+        finalize(() => this.isLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           console.log(res);

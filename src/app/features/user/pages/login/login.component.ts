@@ -1,4 +1,5 @@
 import { Component, inject, signal, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
@@ -30,20 +31,26 @@ export class LoginComponent {
   onLogin(loginData: ILoginData) {
     this._authServices
       .localLogin(loginData)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(),
+        finalize(() => this.isLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           this.loginFormChild.resetForm();
           const snackRef = this._snackBar.success(res.message);
           this._authGuradService.fetchLoginUser().subscribe();
 
-          snackRef.afterDismissed().subscribe(() => {
-            if (res.data.user.userRole === UserRoles.TASKER) {
-              this._router.navigate(['/tasker']);
-            } else {
-              this._router.navigate(['/']);
-            }
-          });
+          snackRef
+            .afterDismissed()
+            .pipe(takeUntilDestroyed())
+            .subscribe(() => {
+              if (res.data.userRole === UserRoles.TASKER) {
+                this._router.navigate(['/tasker']);
+              } else {
+                this._router.navigate(['/']);
+              }
+            });
         },
         error: (err: IApiResponseError) => {
           this._snackBar.info(err.message);
