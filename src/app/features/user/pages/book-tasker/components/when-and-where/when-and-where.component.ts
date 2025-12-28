@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   EventEmitter,
   inject,
   OnInit,
@@ -73,6 +74,7 @@ export class WhenAndWhereComponent implements OnInit {
   private fb = inject(FormBuilder);
   private dialog = inject(Dialog);
   private _bookTaskerService = inject(BookTaskerService);
+  private _destroyRef = inject(DestroyRef);
 
   private _location: ILocationLatLng | null = null;
 
@@ -99,13 +101,15 @@ export class WhenAndWhereComponent implements OnInit {
       data: this._location,
     });
 
-    locationModal.closed.pipe(takeUntilDestroyed()).subscribe((location) => {
-      if (location) {
-        const cordinates = location as ILocationLatLng;
-        this.populateLocationData(cordinates);
-        console.log(`Loca: ${cordinates.lat} : ${cordinates.lng}`);
-      }
-    });
+    locationModal.closed
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((location) => {
+        if (location) {
+          const cordinates = location as ILocationLatLng;
+          this.populateLocationData(cordinates);
+          console.log(`Loca: ${cordinates.lat} : ${cordinates.lng}`);
+        }
+      });
   }
 
   initForm() {

@@ -9,6 +9,7 @@ import {
   signal,
   Output,
   EventEmitter,
+  DestroyRef,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -43,6 +44,7 @@ export class OtpVarifyComponent implements OnInit {
   private _signupService = inject(SignupService);
   private _timerService = inject(TimerService);
   private _snackBar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   //OTP input configuration
   otpConfig = {
@@ -69,7 +71,7 @@ export class OtpVarifyComponent implements OnInit {
     this._signupService
       .resendOtp()
       .pipe(
-        takeUntilDestroyed(),
+        takeUntilDestroyed(this._destroyRef),
         finalize(() => this.isResendLoading.set(false)),
       )
       .subscribe({
@@ -113,7 +115,7 @@ export class OtpVarifyComponent implements OnInit {
       .validateOtp(this.otpForm.value.otp)
 
       .pipe(
-        takeUntilDestroyed(),
+        takeUntilDestroyed(this._destroyRef),
         finalize(() => this.isLoading.set(false)),
       )
       .subscribe({

@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ILoginData } from '@shared/models/auth.model';
 import { catchError, of, tap } from 'rxjs';
 import { AuthGuardService } from '../auth-guard-service/auth-guard.service';
 import { IisLoginResponse } from '@features/user/models/auth/login.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class AuthService {
   private _http = inject(HttpClient);
   private _router = inject(Router);
   private _authGuardService = inject(AuthGuardService);
+  private _destroyRef = inject(DestroyRef);
 
   googleLogin() {
     window.open('http://localhost:3000/api/auth/google/login', '_self');
@@ -40,7 +42,10 @@ export class AuthService {
       .pipe(
         tap(() => {
           console.log('Token Refreshed');
-          this._authGuardService.fetchLoginUser().subscribe();
+          this._authGuardService
+            .fetchLoginUser()
+            .pipe(takeUntilDestroyed(this._destroyRef))
+            .subscribe();
         }),
         catchError((err) => {
           console.error('Refresh token failed:', err);

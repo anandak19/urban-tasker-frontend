@@ -5,6 +5,7 @@ import {
   signal,
   Output,
   EventEmitter,
+  DestroyRef,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -45,6 +46,7 @@ export class SignupFormComponent implements OnInit {
   private _signupService = inject(SignupService);
   //snackbar
   private _snackbarService = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   basicForm!: FormGroup;
   isLoading = signal(false);
@@ -100,7 +102,7 @@ export class SignupFormComponent implements OnInit {
       this._signupService
         .validateBasicUserData(this.basicForm.value)
         .pipe(
-          takeUntilDestroyed(),
+          takeUntilDestroyed(this._destroyRef),
           finalize(() => this.isLoading.set(false)),
         )
         .subscribe({

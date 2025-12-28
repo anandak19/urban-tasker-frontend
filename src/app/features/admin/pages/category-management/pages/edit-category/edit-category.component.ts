@@ -1,4 +1,11 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
 import { CategoryFormComponent } from '../../components/category-form/category-form.component';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
@@ -7,6 +14,7 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 import { ICategoryData } from '@features/admin/models/category.interface';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-edit-category',
@@ -25,13 +33,17 @@ export class EditCategoryComponent implements OnInit {
 
   private _categoryManagementService = inject(CategoryManagementService);
   private _snackbar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   onFormData(formData: FormData) {
     this.isLoading.set(true);
 
     this._categoryManagementService
       .updateCatgory(this.categoryId, formData)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           this._snackbar.success(res.message);
@@ -46,6 +58,7 @@ export class EditCategoryComponent implements OnInit {
   getCategoryDetails() {
     this._categoryManagementService
       .getCategoryDataById(this.categoryId)
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           this.categoryData.set(res.data);

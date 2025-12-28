@@ -1,4 +1,11 @@
-import { Component, inject, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
@@ -21,22 +28,29 @@ export class AdminLoginComponent {
 
   private _snackbar = inject(SnackbarService);
   private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   onLogin(data: ILoginData) {
     this._authService
       .localLogin(data)
-      .pipe(finalize(() => this.isLoding.set(false)))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isLoding.set(false)),
+      )
       .subscribe({
         next: (res) => {
           console.log(res);
           this.loginFormChild.resetForm();
           const snackbarRef = this._snackbar.success('Login Successfull');
-          snackbarRef.afterDismissed().subscribe(() => {
-            this._router.navigate(['/admin']);
-          });
+          snackbarRef
+            .afterDismissed()
+            .pipe(takeUntilDestroyed(this._destroyRef))
+            .subscribe(() => {
+              this._router.navigate(['/admin']);
+            });
         },
         error: (err: IApiResponseError) => {
-          this._snackbar.success(err.message);
+          this._snackbar.error(err.message);
         },
       });
   }

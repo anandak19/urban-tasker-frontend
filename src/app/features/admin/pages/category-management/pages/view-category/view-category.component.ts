@@ -1,4 +1,11 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
@@ -15,6 +22,7 @@ import { IMatColumns } from '@shared/interfaces/table.interface';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { IBaseFilters } from '@shared/models/request-data.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view-category',
@@ -71,6 +79,7 @@ export class ViewCategoryComponent implements OnInit {
   private _confirmDialog = inject(ConfirmDialogService);
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
+  private _destroyRef = inject(DestroyRef);
   /**
    * TODOS
    * If inavalid id throw error
@@ -103,6 +112,7 @@ export class ViewCategoryComponent implements OnInit {
     if (yes) {
       this._categoryManagementService
         .changeCategoryActiveState(this.categoryId, status)
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -124,6 +134,7 @@ export class ViewCategoryComponent implements OnInit {
     if (yes) {
       this._categoryManagementService
         .deleteCategoryById(this.categoryId)
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -149,6 +160,7 @@ export class ViewCategoryComponent implements OnInit {
   getSubcategories() {
     this._subcategoryService
       .getSubcategories(this.categoryId, this.filter())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log('Success', res);
@@ -166,6 +178,7 @@ export class ViewCategoryComponent implements OnInit {
   getCategoryDetails() {
     this._categoryManagementService
       .getCategoryDataById(this.categoryId)
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           this.categoryData.set(res.data);

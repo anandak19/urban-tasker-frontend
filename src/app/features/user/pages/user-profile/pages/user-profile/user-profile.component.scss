@@ -1,0 +1,10 @@
+@use 'index' as *;
+
+.user-profile {
+  margin: $spacing-6 auto;
+  padding: $spacing-6;
+  &__profile-data-wrapper {
+    margin-top: $spacing-2;
+    @include section-box;
+  }
+}

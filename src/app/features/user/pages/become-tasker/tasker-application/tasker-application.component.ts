@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -54,6 +61,7 @@ export class TaskerApplicationComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
   private _taskerApplicationService = inject(TaskerApplicationsService);
   private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   @ViewChild('imageField') imageField!: ImageUploadFieldComponent;
 
@@ -71,7 +79,7 @@ export class TaskerApplicationComponent implements OnInit {
   async getCategoryOptions() {
     this._categoryService
       .getAllActiveSubCategories()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           this.categoriesOptions.set(res);
@@ -160,7 +168,7 @@ export class TaskerApplicationComponent implements OnInit {
       this._taskerApplicationService
         .createTaskerApplication(formData)
         .pipe(
-          takeUntilDestroyed(),
+          takeUntilDestroyed(this._destroyRef),
           finalize(() => this.isLoading.set(false)),
         )
         .subscribe({

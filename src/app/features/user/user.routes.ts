@@ -5,7 +5,6 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { signupDirtyGuard } from './guards/signup/signup-dirty.guard';
 import { SignupLayoutComponent } from './pages/signup/signup-layout/signup-layout.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { userAuthGuard } from './guards/auth/user-auth.guard';
 import { isLoginGuard } from './guards/login/is-login.guard';
 import { TaskerApplicationComponent } from './pages/become-tasker/tasker-application/tasker-application.component';
@@ -13,6 +12,8 @@ import { ViewTaskerApplicationComponent } from './pages/become-tasker/view-taske
 import { BookTaskerLayoutComponent } from './pages/book-tasker/book-tasker-layout/book-tasker-layout.component';
 import { BookedTasksRoutes } from './pages/booked-tasks/booked-tasks.routes';
 import { BookedTasksLayoutComponent } from './pages/booked-tasks/booked-tasks-layout/booked-tasks-layout.component';
+import { UserProfileRoutes } from './pages/user-profile/user-profile.routes';
+import { UserProfileLayoutComponent } from './pages/user-profile/user-profile-layout/user-profile-layout.component';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -50,8 +51,9 @@ export const userRoutes: Routes = [
   },
   {
     path: 'profile',
+    children: UserProfileRoutes,
     canActivate: [userAuthGuard],
-    component: UserProfileComponent,
+    component: UserProfileLayoutComponent,
   },
   // tasker/application
   {

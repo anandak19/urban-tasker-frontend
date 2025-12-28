@@ -1,21 +1,23 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserService } from '@features/user/services/user/user.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [],
+  imports: [PageTitleComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent implements OnInit {
   private _userService = inject(UserService);
+  private _destroyRef = inject(DestroyRef);
 
-  getUserData() {
+  ngOnInit(): void {
     this._userService
       .getUserData()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log('On get user', res);
@@ -24,9 +26,5 @@ export class UserProfileComponent implements OnInit {
           console.log(err);
         },
       });
-  }
-
-  ngOnInit(): void {
-    this.getUserData();
   }
 }

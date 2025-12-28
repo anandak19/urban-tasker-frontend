@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -34,6 +34,7 @@ export class ForgotPasswordComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _passwordService = inject(PasswordService);
   private _snackbar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   onForgotFormSubmit() {
     if (this.forgotForm.valid) {
@@ -46,7 +47,7 @@ export class ForgotPasswordComponent implements OnInit {
       this._passwordService
         .forgotPassword(forgotData)
         .pipe(
-          takeUntilDestroyed(),
+          takeUntilDestroyed(this._destroyRef),
           finalize(() => this.isLoading.set(false)),
         )
         .subscribe({

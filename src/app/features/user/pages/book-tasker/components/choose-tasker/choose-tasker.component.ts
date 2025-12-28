@@ -1,4 +1,10 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  inject,
+  Output,
+} from '@angular/core';
 // import { IListTasker } from '@features/user/models/tasker/tasker.model';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { TaskerListingCardComponent } from './components/tasker-listing-card/tasker-listing-card.component';
@@ -26,6 +32,7 @@ export class ChooseTaskerComponent {
   private _bookTaskerService = inject(BookTaskerService);
   private _snackbarService = inject(SnackbarService);
   private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   @Output() prev = new EventEmitter();
   // sample addded
@@ -62,7 +69,7 @@ export class ChooseTaskerComponent {
   completeBooking() {
     this._bookTaskerService
       .bookTasker()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res);

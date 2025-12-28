@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { DayColumnComponent } from './components/day-column/day-column.component';
@@ -34,6 +41,7 @@ export class TaskerAvailbilityComponent implements OnInit {
   private _confirmDialog = inject(ConfirmDialogService);
   private _availabilityService = inject(AvailabilityService);
   private _snackbar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   weekDays: WeekDayKeys[] = [
     'sunday',
@@ -61,11 +69,13 @@ export class TaskerAvailbilityComponent implements OnInit {
       data: { day },
     });
 
-    dialogRef.closed.pipe(takeUntilDestroyed()).subscribe((isRefresh) => {
-      if (!isRefresh) return;
+    dialogRef.closed
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((isRefresh) => {
+        if (!isRefresh) return;
 
-      this.getAvailabilities();
-    });
+        this.getAvailabilities();
+      });
   }
 
   // FIX THIS GO
@@ -78,10 +88,12 @@ export class TaskerAvailbilityComponent implements OnInit {
       data: { day, slot },
     });
 
-    dialogRef.closed.pipe(takeUntilDestroyed()).subscribe((isRefresh) => {
-      if (!isRefresh) return;
-      this.getAvailabilities();
-    });
+    dialogRef.closed
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((isRefresh) => {
+        if (!isRefresh) return;
+        this.getAvailabilities();
+      });
   }
 
   async addDefault() {
@@ -91,7 +103,7 @@ export class TaskerAvailbilityComponent implements OnInit {
     if (yes) {
       this._availabilityService
         .createDefault()
-        .pipe(takeUntilDestroyed())
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -113,7 +125,7 @@ export class TaskerAvailbilityComponent implements OnInit {
     if (yes) {
       this._availabilityService
         .deleteAllSlots()
-        .pipe(takeUntilDestroyed())
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -130,7 +142,7 @@ export class TaskerAvailbilityComponent implements OnInit {
   getAvailabilities() {
     this._availabilityService
       .findTaskerAvailabilities()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           this.availability.set(res.data);

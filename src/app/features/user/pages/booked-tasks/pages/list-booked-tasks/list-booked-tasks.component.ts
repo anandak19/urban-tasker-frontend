@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
@@ -17,6 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class ListBookedTasksComponent implements OnInit {
   private _bookingService = inject(BookingService);
+  private _destroyRef = inject(DestroyRef);
 
   bookings = signal<IListBooking[]>([]);
 
@@ -35,7 +36,7 @@ export class ListBookedTasksComponent implements OnInit {
   fetchAllBookings() {
     this._bookingService
       .getAllBookings(this.filter())
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res.data.documents);

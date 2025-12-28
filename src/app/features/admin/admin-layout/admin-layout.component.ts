@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { RouterOutlet } from '@angular/router';
 import { AdminHeaderComponent } from '@shared/layouts/admin-header/admin-header.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ISideNavItem } from '@shared/interfaces/nav-link.interface';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-admin-layout',
@@ -24,6 +25,7 @@ import { ISideNavItem } from '@shared/interfaces/nav-link.interface';
 export class AdminLayoutComponent {
   collapsed = signal(false);
   isHandset = false;
+  private _destroyRef = inject(DestroyRef);
 
   sideMenuItems = signal<ISideNavItem[]>([
     {
@@ -59,9 +61,12 @@ export class AdminLayoutComponent {
   private _breakPoint = inject(BreakpointObserver);
 
   constructor() {
-    this._breakPoint.observe([Breakpoints.Handset]).subscribe((res) => {
-      this.isHandset = res.matches;
-    });
+    this._breakPoint
+      .observe([Breakpoints.Handset])
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((res) => {
+        this.isHandset = res.matches;
+      });
   }
 
   sidenavMode() {

@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   EventEmitter,
   inject,
   OnInit,
@@ -47,6 +48,7 @@ export class AboutTaskComponent implements OnInit {
   private _bookTaskerService = inject(BookTaskerService);
   private _categoryService = inject(CategoryService);
   private _subCategoryService = inject(SubCategoryService);
+  private _destroyRef = inject(DestroyRef);
 
   onNext() {
     this.next.emit();
@@ -110,7 +112,7 @@ export class AboutTaskComponent implements OnInit {
   onCategorySelect(categoryOption: IDropdownOption) {
     this._subCategoryService
       .getActiveSubcategoriesOptions(categoryOption.id)
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -125,7 +127,7 @@ export class AboutTaskComponent implements OnInit {
   getCategoryOptions() {
     this._categoryService
       .getCategoryOptions()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res.data);

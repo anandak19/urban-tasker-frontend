@@ -1,4 +1,11 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
@@ -8,6 +15,7 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 import { CategoryDetailsCardComponent } from '../../components/category-details-card/category-details-card.component';
 import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view-sub-category',
@@ -30,11 +38,13 @@ export class ViewSubCategoryComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
   private _confirmDialog = inject(ConfirmDialogService);
   private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   // Get Sub-category details
   getSubCategoryDetails() {
     this._subcategoryService
       .getOneSubcategoryDetails(this.categoryId, this.subcategoryId)
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res.data);
@@ -60,6 +70,7 @@ export class ViewSubCategoryComponent implements OnInit {
           this.subcategoryId,
           isActive,
         )
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
             this.subcategoryDetails.set(res.data);
@@ -81,6 +92,7 @@ export class ViewSubCategoryComponent implements OnInit {
     if (yes) {
       this._subcategoryService
         .deleteOneSubcategory(this.categoryId, this.subcategoryId)
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
             this._router.navigate([

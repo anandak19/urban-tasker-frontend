@@ -4,6 +4,7 @@ import {
   inject,
   OnInit,
   signal,
+  DestroyRef,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
@@ -63,6 +64,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
   private _availabilityService = inject(AvailabilityService);
   private _confirmDialog = inject(ConfirmDialogService);
+  private _destroyRef = inject(DestroyRef);
 
   onClose(refresh = false) {
     this._dialogRef.close(refresh);
@@ -86,7 +88,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
     if (this._slotData.slot) {
       this._availabilityService
         .changeStatus(this._slotData.slot.id, updatedIsActive)
-        .pipe(takeUntilDestroyed())
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -104,7 +106,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
   createSlot(newSlot: ISlot) {
     this._availabilityService
       .createSlot(newSlot)
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -122,7 +124,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
     if (this._slotData.slot) {
       this._availabilityService
         .updateSlot(this._slotData.slot.id, updatedSlot)
-        .pipe(takeUntilDestroyed())
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -197,7 +199,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
   async deleteSlot(slotId: string) {
     this._availabilityService
       .deleteSlot(slotId)
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res);

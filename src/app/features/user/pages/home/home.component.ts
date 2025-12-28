@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { HomeService } from '../../services/home/home.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
@@ -14,12 +14,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class HomeComponent {
   private _homeService = inject(HomeService);
   private _snackBar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   // mocke api call
   getProtectedData() {
     this._homeService
       .getProtectedData()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res);

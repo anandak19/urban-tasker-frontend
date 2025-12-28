@@ -1,4 +1,11 @@
-import { Component, inject, signal, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  Output,
+  EventEmitter,
+  DestroyRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { SignupService } from '@features/user/services/signup/signup.service';
@@ -18,6 +25,7 @@ export class PasswordFormComponent {
   private _signupService = inject(SignupService);
   private _router = inject(Router);
   private _snackBar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   isLoading = signal(false);
 
@@ -29,7 +37,7 @@ export class PasswordFormComponent {
     this._signupService
       .validatePassword(password)
       .pipe(
-        takeUntilDestroyed(),
+        takeUntilDestroyed(this._destroyRef),
         finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
@@ -39,9 +47,12 @@ export class PasswordFormComponent {
           const result = res as IBasicDataResponse;
           const snackRef = this._snackBar.success(result.message);
 
-          snackRef.afterDismissed().subscribe(() => {
-            this._router.navigate(['/']);
-          });
+          snackRef
+            .afterDismissed()
+            .pipe(takeUntilDestroyed(this._destroyRef))
+            .subscribe(() => {
+              this._router.navigate(['/']);
+            });
         },
 
         error: (err: IApiResponseError) => {

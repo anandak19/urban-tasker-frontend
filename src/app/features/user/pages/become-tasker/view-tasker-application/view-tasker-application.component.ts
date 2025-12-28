@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { TaskerApplicationsService } from '@features/user/services/tasker-applications/tasker-applications.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { ButtonComponent } from '@shared/components/button/button.component';
@@ -17,6 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class ViewTaskerApplicationComponent implements OnInit {
   private _taskerApplication = inject(TaskerApplicationsService);
   private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   taskerApplicationData = signal<ITaskerApplication | null>(null);
 
@@ -27,7 +28,7 @@ export class ViewTaskerApplicationComponent implements OnInit {
 
     this._taskerApplication
       .findLoggedInUsersApplication()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           this.isTaskerApplied.set(true);
