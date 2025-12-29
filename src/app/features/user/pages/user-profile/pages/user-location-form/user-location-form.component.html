@@ -1,0 +1,38 @@
+<div class="location-settings">
+  <div class="location-settings__container">
+    <!-- Header -->
+    <div class="location-settings__header">
+      <h2 class="location-settings__title">Location Settings</h2>
+      <app-back-button></app-back-button>
+    </div>
+
+    <!-- Form -->
+    <form class="location-settings__form">
+      <!-- City -->
+
+      <div class="location-settings__field">
+        <app-form-field-wrapper label="City">
+            <app-dropdown [options]="cities"></app-dropdown>
+        </app-form-field-wrapper>
+      </div>
+
+      <!-- Address -->
+      <div class="location-settings__field">
+        <app-text-area-field
+          label="Address"
+          placeholder="Enter your address"
+        ></app-text-area-field>
+      </div>
+
+      <!-- Map Button -->
+      <div class="location-settings__field">
+        <app-button variant="secondary">Select Location on Map</app-button>
+      </div>
+
+      <!-- Submit -->
+      <div class="location-settings__actions">
+        <app-button-loading text="Save Location"></app-button-loading>
+      </div>
+    </form>
+  </div>
+</div>

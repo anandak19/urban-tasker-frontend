@@ -1,7 +1,53 @@
 <div class="user-profile">
-  <app-page-title title="Profile"></app-page-title>
+  <app-section-title title="User Profile" variant="center"></app-section-title>
 
   <div class="user-profile__profile-data-wrapper">
-    <p>user-profile workseee!</p>
+    <div class="user-profile__left-section">
+      <div class="user-profile__profile-picture">
+        <div class="picture-box">
+          <img
+            [src]="
+              userData()?.profileImageUrl || 'assets/defaults/default-user.png'
+            "
+            alt=""
+          />
+        </div>
+        <div class="picture-change">
+          <app-button size="small">Change Profile Picture</app-button>
+        </div>
+      </div>
+
+      <div class="user-profile__password-actions">
+        <app-button
+          size="small"
+          variant="secondary"
+          (clickEvent)="onChangePasswordBtnClick()"
+          >Change Password</app-button
+        >
+      </div>
+    </div>
+    <div class="user-profile__right-section">
+      <div class="user-profile__data-box">
+        <div class="user-profile__box-title">
+          <h3>Personal Data</h3>
+          <app-button size="small" (clickEvent)="onEditProfileBtnClick()"
+            >Edit</app-button
+          >
+        </div>
+        <app-user-data [userData]="userData()"></app-user-data>
+      </div>
+
+      <div class="user-profile__data-box">
+        <div class="user-profile__box-title">
+          <h3>Home Location</h3>
+          <app-button size="small" (clickEvent)="onHomeAddressBtnClick()"
+            >Add Home Location</app-button
+          >
+        </div>
+        <app-home-location-address
+          [userLocation]="userData()?.homeAddress || null"
+        ></app-home-location-address>
+      </div>
+    </div>
   </div>
 </div>

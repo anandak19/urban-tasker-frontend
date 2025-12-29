@@ -1,0 +1,57 @@
+<div class="person-settings">
+  <div class="person-settings__container">
+    <!-- Header -->
+    <div class="person-settings__header">
+      <h2 class="person-settings__title">Personal Details</h2>
+
+      <app-back-button></app-back-button>
+    </div>
+
+    <!-- Form -->
+    <form
+      class="person-settings__form"
+      [formGroup]="personForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <!-- First Name -->
+      <div class="person-settings__field">
+        <app-form-field
+          label="First Name"
+          placeholder="Enter first name"
+          formControlName="firstName"
+        ></app-form-field>
+      </div>
+
+      <!-- Last Name -->
+      <div class="person-settings__field">
+        <app-form-field
+          label="Last Name"
+          placeholder="Enter last name"
+          formControlName="lastName"
+        ></app-form-field>
+      </div>
+
+      <!-- Phone -->
+      <div class="person-settings__field">
+        <app-form-field
+          label="Phone Number"
+          type="tel"
+          placeholder="Enter phone number"
+          formControlName="phone"
+        ></app-form-field>
+      </div>
+
+      <!-- Gender -->
+      <div class="person-settings__field">
+        <app-form-field-wrapper label="Gender">
+          <app-dropdown [options]="userGender" formControlName="gender"></app-dropdown>
+        </app-form-field-wrapper>
+      </div>
+
+      <!-- Submit -->
+      <div class="person-settings__actions">
+        <app-button-loading text="Update Details"></app-button-loading>
+      </div>
+    </form>
+  </div>
+</div>

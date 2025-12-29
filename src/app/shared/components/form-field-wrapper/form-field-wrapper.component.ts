@@ -9,4 +9,5 @@ import { Component, Input } from '@angular/core';
 export class FormFieldWrapperComponent {
   @Input() label!: string;
   @Input() isOptional = false;
+  @Input() isFormField = true;
 }

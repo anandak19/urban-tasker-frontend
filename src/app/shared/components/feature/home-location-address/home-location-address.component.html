@@ -1,0 +1,22 @@
+<!-- @if (userLocation) { -->
+<div class="home-location">
+  <app-form-field-wrapper label="Location" [isFormField]="false">
+    @if (userLocation?.location?.coordinates?.length) {
+      <p>Coordinates Added</p>
+    }@else {
+      <p>-</p>
+    }
+  </app-form-field-wrapper>
+
+  <app-form-field-wrapper label="City" [isFormField]="false">
+    <p>Kochi</p>
+  </app-form-field-wrapper>
+
+  <app-form-field-wrapper label="Address" [isFormField]="false">
+    <p>
+      Sreevalsom Muthukulam South P O Alappuzha Kerala South India, India. Earth
+      Milky way
+    </p>
+  </app-form-field-wrapper>
+</div>
+<!-- } -->

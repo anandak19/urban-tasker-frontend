@@ -26,6 +26,6 @@ export class AdminHeaderComponent {
   private _router = inject(Router);
 
   onAdminLogut() {
-    this._router.navigate(['/admin/login']);
+    this._router.navigate(['/']);
   }
 }
