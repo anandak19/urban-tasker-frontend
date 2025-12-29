@@ -10,7 +10,7 @@
     <!-- Form -->
     <form
       class="person-settings__form"
-      [formGroup]="personForm"
+      [formGroup]="personalDetails"
       (ngSubmit)="onSubmit()"
     >
       <!-- First Name -->
@@ -44,13 +44,25 @@
       <!-- Gender -->
       <div class="person-settings__field">
         <app-form-field-wrapper label="Gender">
-          <app-dropdown [options]="userGender" formControlName="gender"></app-dropdown>
+          <app-dropdown
+            [options]="userGender"
+            formControlName="gender"
+          ></app-dropdown>
+          @if (getGenderError) {
+            <div class="error-text">
+              <small>{{ getGenderError }}</small>
+            </div>
+          }
         </app-form-field-wrapper>
       </div>
 
       <!-- Submit -->
       <div class="person-settings__actions">
-        <app-button-loading text="Update Details"></app-button-loading>
+        <app-button-loading
+          text="Update Details"
+          type="submit"
+          [isLoading]="isLoading"
+        ></app-button-loading>
       </div>
     </form>
   </div>

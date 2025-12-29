@@ -52,7 +52,7 @@ export const userRoutes: Routes = [
   {
     path: 'profile',
     children: UserProfileRoutes,
-    // canActivate: [userAuthGuard],
+    canActivate: [userAuthGuard],
     component: UserProfileLayoutComponent,
   },
   // tasker/application
