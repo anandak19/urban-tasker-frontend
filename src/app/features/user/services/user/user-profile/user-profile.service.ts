@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
 import {
   IChangePassoword,
+  IHomeAddressPayload,
   IPersonalDetails,
 } from '@features/user/models/profile/profile-details.model';
 import { IBaseApiResponse } from '@shared/models/api-response.model';
@@ -37,4 +38,10 @@ export class UserProfileService {
   }
 
   // method to update home address
+  updateHomeAddress(payload: IHomeAddressPayload) {
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/location`,
+      payload,
+    );
+  }
 }

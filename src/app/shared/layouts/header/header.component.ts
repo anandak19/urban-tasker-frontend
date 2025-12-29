@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onUserLogout() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   //hooks

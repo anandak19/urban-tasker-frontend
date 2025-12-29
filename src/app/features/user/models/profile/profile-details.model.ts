@@ -9,3 +9,10 @@ export interface IChangePassoword {
   oldPassword: string;
   newPassword: string;
 }
+
+export interface IHomeAddressPayload {
+  city: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+}

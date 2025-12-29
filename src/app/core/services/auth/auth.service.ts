@@ -29,11 +29,9 @@ export class AuthService {
   }
 
   logout() {
-    return this._http.post(
-      `${this._apiEndPoint}/logout`,
-      {},
-      { withCredentials: true },
-    );
+    return this._http
+      .post(`${this._apiEndPoint}/logout`, {}, { withCredentials: true })
+      .pipe(tap(() => this._router.navigate(['/'])));
   }
 
   refreshToken() {
