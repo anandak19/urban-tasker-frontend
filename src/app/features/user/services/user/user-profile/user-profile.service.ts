@@ -44,4 +44,11 @@ export class UserProfileService {
       payload,
     );
   }
+
+  updateProfilePicture(payload: FormData) {
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/picture`,
+      payload,
+    );
+  }
 }

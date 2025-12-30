@@ -13,7 +13,16 @@
           />
         </div>
         <div class="picture-change">
-          <app-button size="small">Change Profile Picture</app-button>
+          <input
+            type="file"
+            #fileInput
+            accept="image/*"
+            hidden
+            (change)="onFileSelect($event)"
+          />
+          <app-button size="small" (clickEvent)="fileInput.click()"
+            >Change Profile Picture</app-button
+          >
         </div>
       </div>
 
