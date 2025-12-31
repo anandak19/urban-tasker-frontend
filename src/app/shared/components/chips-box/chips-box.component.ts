@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 
 @Component({
   selector: 'app-chips-box',
@@ -11,7 +11,7 @@ import { IDropdownOption } from '@shared/models/form-inputs.model';
   styleUrl: './chips-box.component.scss',
 })
 export class ChipsBoxComponent {
-  @Input() items = signal<IDropdownOption[]>([]);
+  @Input() items = signal<IOptionData[]>([]);
   @Output() removeItem = new EventEmitter<string | number>();
 
   remove(id: string | number) {

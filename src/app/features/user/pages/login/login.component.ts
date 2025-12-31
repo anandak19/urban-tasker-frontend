@@ -1,4 +1,11 @@
-import { Component, inject, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
@@ -21,6 +28,7 @@ export class LoginComponent {
   private _snackBar = inject(SnackbarService);
   private _router = inject(Router);
   private _authGuradService = inject(AuthGuardService);
+  private _destroyRef = inject(DestroyRef);
 
   @ViewChild(LoginFormComponent) loginFormChild!: LoginFormComponent;
 
@@ -30,20 +38,29 @@ export class LoginComponent {
   onLogin(loginData: ILoginData) {
     this._authServices
       .localLogin(loginData)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           this.loginFormChild.resetForm();
           const snackRef = this._snackBar.success(res.message);
-          this._authGuradService.fetchLoginUser().subscribe();
+          this._authGuradService
+            .fetchLoginUser()
+            .pipe(takeUntilDestroyed(this._destroyRef))
+            .subscribe();
 
-          snackRef.afterDismissed().subscribe(() => {
-            if (res.data.user.userRole === UserRoles.TASKER) {
-              this._router.navigate(['/tasker']);
-            } else {
-              this._router.navigate(['/']);
-            }
-          });
+          snackRef
+            .afterDismissed()
+            .pipe(takeUntilDestroyed(this._destroyRef))
+            .subscribe(() => {
+              if (res.data.userRole === UserRoles.TASKER) {
+                this._router.navigate(['/tasker']);
+              } else {
+                this._router.navigate(['/']);
+              }
+            });
         },
         error: (err: IApiResponseError) => {
           this._snackBar.info(err.message);

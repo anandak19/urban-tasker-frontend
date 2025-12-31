@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { DropdownFieldComponent } from '@shared/components/dropdown-field/dropdown-field.component';
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
@@ -40,7 +40,7 @@ export class StatusModalComponent implements OnInit {
   private data: ITaskerApplication = inject(DIALOG_DATA);
   private _dialog = inject(DialogRef, { optional: true });
 
-  options = signal<IDropdownOption[]>([
+  options = signal<IOptionData[]>([
     {
       id: 'pending',
       label: 'Pending',

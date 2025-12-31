@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '@shared/layouts/sidebar/sidebar.component';
 import { TaskerHeaderComponent } from '../components/feature/tasker-header/tasker-header.component';
@@ -11,6 +11,7 @@ import {
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ISideNavItem } from '@shared/interfaces/nav-link.interface';
 import { MatButtonModule } from '@angular/material/button';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tasker-layout',
@@ -30,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class TaskerLayoutComponent {
   collapsed = signal(false);
   isHandset = false;
+  private _destroyRef = inject(DestroyRef);
 
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '278px'));
   hideText = computed(() => !this.isHandset && this.collapsed());
@@ -60,9 +62,12 @@ export class TaskerLayoutComponent {
   private _breakPoint = inject(BreakpointObserver);
 
   constructor() {
-    this._breakPoint.observe([Breakpoints.Handset]).subscribe((res) => {
-      this.isHandset = res.matches;
-    });
+    this._breakPoint
+      .observe([Breakpoints.Handset])
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((res) => {
+        this.isHandset = res.matches;
+      });
   }
 
   sidenavMode() {

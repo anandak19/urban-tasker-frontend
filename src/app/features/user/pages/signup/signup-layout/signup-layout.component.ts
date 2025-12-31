@@ -33,7 +33,6 @@ export class SignupLayoutComponent
 {
   private _cd = inject(ChangeDetectorRef);
   private _timerService = inject(TimerService);
-
   private _isSignupDirty = false;
 
   initOtpForm(stepper: MatStepper) {

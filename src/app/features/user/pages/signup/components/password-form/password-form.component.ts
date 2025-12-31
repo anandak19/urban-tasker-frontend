@@ -1,4 +1,11 @@
-import { Component, inject, signal, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  Output,
+  EventEmitter,
+  DestroyRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { SignupService } from '@features/user/services/signup/signup.service';
@@ -6,6 +13,7 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 import { finalize } from 'rxjs';
 import { IBasicDataResponse } from '@features/user/models/signup/signup-response.model';
 import { NewPasswordFormComponent } from '@features/user/components/new-password-form/new-password-form.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-password-form',
@@ -17,8 +25,10 @@ export class PasswordFormComponent {
   private _signupService = inject(SignupService);
   private _router = inject(Router);
   private _snackBar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   isLoading = signal(false);
+
   @Output() singupCompleted = new EventEmitter<void>();
 
   onNewPassword(password: string) {
@@ -26,7 +36,10 @@ export class PasswordFormComponent {
 
     this._signupService
       .validatePassword(password)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -34,9 +47,12 @@ export class PasswordFormComponent {
           const result = res as IBasicDataResponse;
           const snackRef = this._snackBar.success(result.message);
 
-          snackRef.afterDismissed().subscribe(() => {
-            this._router.navigate(['/']);
-          });
+          snackRef
+            .afterDismissed()
+            .pipe(takeUntilDestroyed(this._destroyRef))
+            .subscribe(() => {
+              this._router.navigate(['/']);
+            });
         },
 
         error: (err: IApiResponseError) => {

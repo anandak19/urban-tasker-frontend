@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   EventEmitter,
   inject,
   OnInit,
@@ -29,7 +30,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { cities } from '@shared/constants/constants/city.constant';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { IBookTaskerTimePlace } from '@features/user/models/book-tasker/book-tasker.model';
 import { getTime } from '@shared/helpers/convert-time.utility';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
@@ -39,6 +40,7 @@ import { ILocationLatLng } from '@features/user/models/book-tasker/location.mode
 import { locationRequiredValidator } from '@shared/validators/location-validators';
 import { noWhitespaceValidator } from '@shared/validators/custom-auth-validators';
 import { BookTaskerService } from '@features/user/services/book-tasker/book-tasker/book-tasker.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-when-and-where',
@@ -66,12 +68,13 @@ export class WhenAndWhereComponent implements OnInit {
   @Output() prev = new EventEmitter();
 
   whenWhereForm!: FormGroup;
-  cities = signal<IDropdownOption[]>(cities);
+  cities = signal<IOptionData[]>(cities);
   isSubmitted = signal<boolean>(false);
 
   private fb = inject(FormBuilder);
   private dialog = inject(Dialog);
   private _bookTaskerService = inject(BookTaskerService);
+  private _destroyRef = inject(DestroyRef);
 
   private _location: ILocationLatLng | null = null;
 
@@ -98,13 +101,15 @@ export class WhenAndWhereComponent implements OnInit {
       data: this._location,
     });
 
-    locationModal.closed.subscribe((location) => {
-      if (location) {
-        const cordinates = location as ILocationLatLng;
-        this.populateLocationData(cordinates);
-        console.log(`Loca: ${cordinates.lat} : ${cordinates.lng}`);
-      }
-    });
+    locationModal.closed
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((location) => {
+        if (location) {
+          const cordinates = location as ILocationLatLng;
+          this.populateLocationData(cordinates);
+          console.log(`Loca: ${cordinates.lat} : ${cordinates.lng}`);
+        }
+      });
   }
 
   initForm() {

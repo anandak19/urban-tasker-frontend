@@ -11,7 +11,7 @@
   <app-nav-links [links]="links"></app-nav-links>
   <div class="app-header__right-section">
     <!-- button  -->
-    @if (_authGuardService.currentUser()) {
+    @if (currentUser()) {
       <app-button variant="primary" (clickEvent)="bookTaskerClicked()"
         >Book a Tasker</app-button
       >
@@ -24,6 +24,7 @@
         <app-user-profile-circle
           (logout)="onUserLogout()"
           (clickProfile)="navigateProfile()"
+          [imageUrl]="currentUser()?.profileImageUrl || ''"
         />
       } @else {
         <app-button

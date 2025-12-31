@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   EventEmitter,
   inject,
   OnInit,
@@ -18,13 +19,14 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import { DropdownFieldComponent } from '@shared/components/dropdown-field/dropdown-field.component';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { IBookTaskerAboutTask } from '@features/user/models/book-tasker/book-tasker.model';
 import { TaskSize } from '@shared/constants/enums/task-size.enum';
 import { BookTaskerService } from '@features/user/services/book-tasker/book-tasker/book-tasker.service';
 import { CategoryService } from '@core/services/category/category.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SubCategoryService } from '@core/services/category/sub-category.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-about-task',
@@ -46,6 +48,7 @@ export class AboutTaskComponent implements OnInit {
   private _bookTaskerService = inject(BookTaskerService);
   private _categoryService = inject(CategoryService);
   private _subCategoryService = inject(SubCategoryService);
+  private _destroyRef = inject(DestroyRef);
 
   onNext() {
     this.next.emit();
@@ -65,9 +68,9 @@ export class AboutTaskComponent implements OnInit {
     this.aboutTaskForm.get('taskSize')?.markAsTouched();
   }
 
-  categoryOptions = signal<IDropdownOption[]>([]);
-  subCategoryOptions = signal<IDropdownOption[]>([]);
-  sampleOptions = signal<IDropdownOption[]>([
+  categoryOptions = signal<IOptionData[]>([]);
+  subCategoryOptions = signal<IOptionData[]>([]);
+  sampleOptions = signal<IOptionData[]>([
     { id: 'sample1', label: 'Sample Cat' },
   ]);
 
@@ -106,9 +109,10 @@ export class AboutTaskComponent implements OnInit {
     this.submitAboutTask(payload);
   }
 
-  onCategorySelect(categoryOption: IDropdownOption) {
+  onCategorySelect(categoryOption: IOptionData) {
     this._subCategoryService
       .getActiveSubcategoriesOptions(categoryOption.id)
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -121,15 +125,18 @@ export class AboutTaskComponent implements OnInit {
   }
 
   getCategoryOptions() {
-    this._categoryService.getCategoryOptions().subscribe({
-      next: (res) => {
-        console.log(res.data);
-        this.categoryOptions.set(res.data);
-      },
-      error: (err: IApiResponseError) => {
-        console.log(err);
-      },
-    });
+    this._categoryService
+      .getCategoryOptions()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          console.log(res.data);
+          this.categoryOptions.set(res.data);
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+        },
+      });
   }
 
   ngOnInit(): void {

@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -12,7 +19,7 @@ import { LabelDescriptionComponent } from '@shared/components/label-description/
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import { DropdownFieldComponent } from '@shared/components/dropdown-field/dropdown-field.component';
 import { ChipsBoxComponent } from '@shared/components/chips-box/chips-box.component';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { CategoryService } from '@core/services/category/category.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
@@ -26,6 +33,7 @@ import { BackButtonComponent } from '@features/admin/components/back-button/back
 import { ICreateTaskerApplication } from '@features/user/models/tasker-applications/tasker-applications.model';
 import { cities } from '@shared/constants/constants/city.constant';
 import { idCards } from '@shared/constants/constants/id-options.constant';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tasker-application',
@@ -53,6 +61,7 @@ export class TaskerApplicationComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
   private _taskerApplicationService = inject(TaskerApplicationsService);
   private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   @ViewChild('imageField') imageField!: ImageUploadFieldComponent;
 
@@ -61,22 +70,25 @@ export class TaskerApplicationComponent implements OnInit {
   isSubmitted = signal<boolean>(false);
 
   // form input data's
-  idOptions = signal<IDropdownOption[]>(idCards);
-  citiesOptions = signal<IDropdownOption[]>(cities);
-  categoriesOptions = signal<IDropdownOption[]>([]);
-  selectedCategories = signal<IDropdownOption[]>([]);
+  idOptions = signal<IOptionData[]>(idCards);
+  citiesOptions = signal<IOptionData[]>(cities);
+  categoriesOptions = signal<IOptionData[]>([]);
+  selectedCategories = signal<IOptionData[]>([]);
 
   //get catgories
   async getCategoryOptions() {
-    this._categoryService.getAllActiveSubCategories().subscribe({
-      next: (res) => {
-        this.categoriesOptions.set(res);
-      },
-    });
+    this._categoryService
+      .getAllActiveSubCategories()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.categoriesOptions.set(res);
+        },
+      });
   }
 
   // add category
-  onCategorySelect(categoryOption: IDropdownOption) {
+  onCategorySelect(categoryOption: IOptionData) {
     const current = this.selectedCategories();
     if (current.some((c) => c.id === categoryOption.id)) return;
     if (current.length >= this.MAX_CATEGORIES) {
@@ -155,7 +167,10 @@ export class TaskerApplicationComponent implements OnInit {
       // call the method here with formData
       this._taskerApplicationService
         .createTaskerApplication(formData)
-        .pipe(finalize(() => this.isLoading.set(false)))
+        .pipe(
+          takeUntilDestroyed(this._destroyRef),
+          finalize(() => this.isLoading.set(false)),
+        )
         .subscribe({
           next: (res) => {
             this.resetForm();

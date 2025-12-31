@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
@@ -7,6 +7,7 @@ import { IListBooking } from '@features/user/models/tasker-bookings/tasker-booki
 import { DatePipe } from '@angular/common';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-list-booked-tasks',
@@ -16,6 +17,7 @@ import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-req
 })
 export class ListBookedTasksComponent implements OnInit {
   private _bookingService = inject(BookingService);
+  private _destroyRef = inject(DestroyRef);
 
   bookings = signal<IListBooking[]>([]);
 
@@ -32,16 +34,19 @@ export class ListBookedTasksComponent implements OnInit {
   });
 
   fetchAllBookings() {
-    this._bookingService.getAllBookings(this.filter()).subscribe({
-      next: (res) => {
-        console.log(res.data.documents);
-        this.bookings.set(res.data.documents);
-        this.paginationData.set(res.data.meta);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this._bookingService
+      .getAllBookings(this.filter())
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          console.log(res.data.documents);
+          this.bookings.set(res.data.documents);
+          this.paginationData.set(res.data.meta);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 
   onPageChange(page: number) {

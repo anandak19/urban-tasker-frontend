@@ -17,7 +17,7 @@ export const adminAuthGuard: CanActivateFn = () => {
 
   return _authGuardService.fetchLoginUser().pipe(
     map((res) => {
-      const user = res?.data.user;
+      const user = res?.data;
       console.log('Admin auth guard user,', user);
       if (user && user.userRole === UserRoles.ADMIN) {
         return true;

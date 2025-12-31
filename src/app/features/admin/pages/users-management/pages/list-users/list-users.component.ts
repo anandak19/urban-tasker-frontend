@@ -11,7 +11,7 @@ import { TableListingComponent } from '@features/admin/components/table-listing/
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminTableFiltersComponent } from '@features/admin/components/admin-table-filters/admin-table-filters.component';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { UserRoles } from '@shared/constants/enums/user.enum';
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import { IUserFilter } from '@features/admin/models/user-filter.model';
@@ -56,13 +56,13 @@ export class ListUsersComponent implements OnInit {
     { label: 'Tasker Applied', key: 'isTaskerApplied' },
   ] as const;
 
-  userRoleOptions = signal<IDropdownOption[]>([
+  userRoleOptions = signal<IOptionData[]>([
     { id: '', label: 'All' },
     { id: UserRoles.USER, label: 'User' },
     { id: UserRoles.TASKER, label: 'Tasker' },
   ]);
 
-  onOptionSelect(option: IDropdownOption) {
+  onOptionSelect(option: IOptionData) {
     this.filter.update((current) => ({
       ...current,
       role: (option?.id as UserRoles) ? (option.id as UserRoles) : null,

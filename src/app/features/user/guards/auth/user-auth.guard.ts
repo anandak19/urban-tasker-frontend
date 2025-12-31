@@ -1,18 +1,26 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
+import { catchError, map, of } from 'rxjs';
 
 export const userAuthGuard: CanActivateFn = () => {
-  const _router = inject(Router);
-  const _authGuardService = inject(AuthGuardService);
+  const router = inject(Router);
+  const authGuardService = inject(AuthGuardService);
 
-  console.log('Is login guard', _authGuardService.currentUser());
-
-  if (_authGuardService.currentUser()?.email) {
-    console.log('User is ', _authGuardService.currentUser()?.email);
+  if (authGuardService.currentUser()?.email) {
+    console.log('User is logged in');
     return true;
-  } else {
-    console.log('User is Not logged in');
-    return _router.createUrlTree(['/login']);
   }
+
+  return authGuardService.fetchLoginUser().pipe(
+    map((res) => {
+      if (res?.data?.email) {
+        return true;
+      }
+      return router.createUrlTree(['/login']);
+    }),
+    catchError(() => {
+      return of(router.createUrlTree(['/login']));
+    }),
+  );
 };

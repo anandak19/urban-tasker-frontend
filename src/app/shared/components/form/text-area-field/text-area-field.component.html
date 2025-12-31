@@ -11,7 +11,9 @@
     ></textarea>
 
     @if (showError) {
-      <small class="error-text">{{ errorMessage }}</small>
+      <div class="error-text">
+        <small>{{ errorMessage }}</small>
+      </div>
     }
   </app-form-field-wrapper>
 </div>

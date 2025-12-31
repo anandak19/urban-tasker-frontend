@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
   private headerService = inject(HeaderService);
   public _authGuardService = inject(AuthGuardService);
 
+  currentUser = this._authGuardService.currentUser;
   roles = UserRoles;
   isLoginPage = true;
   isSidebarOpen!: WritableSignal<boolean>;
@@ -84,7 +85,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onUserLogout() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   //hooks

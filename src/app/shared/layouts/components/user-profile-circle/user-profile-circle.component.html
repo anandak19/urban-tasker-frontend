@@ -2,9 +2,8 @@
   class="user-profile"
   role="button"
   tabindex="0"
-  [matMenuTriggerFor]="menu"
->
-  <img [src]="imageUrl" alt="User Profile" />
+  [matMenuTriggerFor]="menu">
+  <img [src]="imageUrl || 'assets/defaults/default-user.png'" alt="User" />
 </button>
 
 <mat-menu #menu="matMenu">

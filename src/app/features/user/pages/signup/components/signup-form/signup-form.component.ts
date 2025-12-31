@@ -5,6 +5,7 @@ import {
   signal,
   Output,
   EventEmitter,
+  DestroyRef,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -26,6 +27,7 @@ import {
 } from '@shared/validators/custom-auth-validators';
 import { finalize } from 'rxjs';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-signup-form',
@@ -44,9 +46,11 @@ export class SignupFormComponent implements OnInit {
   private _signupService = inject(SignupService);
   //snackbar
   private _snackbarService = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   basicForm!: FormGroup;
   isLoading = signal(false);
+
   @Output() nextStep = new EventEmitter<void>();
 
   initForm() {
@@ -97,7 +101,10 @@ export class SignupFormComponent implements OnInit {
       this.isLoading.set(true);
       this._signupService
         .validateBasicUserData(this.basicForm.value)
-        .pipe(finalize(() => this.isLoading.set(false)))
+        .pipe(
+          takeUntilDestroyed(this._destroyRef),
+          finalize(() => this.isLoading.set(false)),
+        )
         .subscribe({
           next: (res) => {
             console.log(res);

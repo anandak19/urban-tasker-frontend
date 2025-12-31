@@ -1,4 +1,10 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  inject,
+  Output,
+} from '@angular/core';
 // import { IListTasker } from '@features/user/models/tasker/tasker.model';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { TaskerListingCardComponent } from './components/tasker-listing-card/tasker-listing-card.component';
@@ -9,6 +15,7 @@ import { PaginationComponent } from '@features/admin/components/pagination/pagin
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-choose-tasker',
@@ -25,6 +32,7 @@ export class ChooseTaskerComponent {
   private _bookTaskerService = inject(BookTaskerService);
   private _snackbarService = inject(SnackbarService);
   private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   @Output() prev = new EventEmitter();
   // sample addded
@@ -59,16 +67,19 @@ export class ChooseTaskerComponent {
 
   // book tasker method
   completeBooking() {
-    this._bookTaskerService.bookTasker().subscribe({
-      next: (res) => {
-        console.log(res);
-        this._snackbarService.success(res.message);
-        this._router.navigate(['/tasks']);
-      },
-      error: (err: IApiResponseError) => {
-        console.log(err);
-        this._snackbarService.error(err.message);
-      },
-    });
+    this._bookTaskerService
+      .bookTasker()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this._snackbarService.success(res.message);
+          this._router.navigate(['/tasks']);
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
+          this._snackbarService.error(err.message);
+        },
+      });
   }
 }

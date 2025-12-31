@@ -1,4 +1,11 @@
-import { Component, inject, Input, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
 import { SubcategoryFormComponent } from '../../components/subcategory-form/subcategory-form.component';
@@ -6,6 +13,7 @@ import { SubcategoryManagementService } from '@features/admin/services/category-
 import { finalize } from 'rxjs';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-add-sub-category',
@@ -26,13 +34,17 @@ export class AddSubCategoryComponent {
 
   private _subCategoryservice = inject(SubcategoryManagementService);
   private _snackbar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   onFormSubmit(subcategoryData: FormData) {
     this.isCreating.set(true);
 
     this._subCategoryservice
       .addSubcategory(this.categoryId, subcategoryData)
-      .pipe(finalize(() => this.isCreating.set(false)))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isCreating.set(false)),
+      )
       .subscribe({
         next: (res) => {
           this._snackbar.success(res.message);
