@@ -33,6 +33,11 @@ body {
   font-size: $font-size-sm;
 }
 
+.empty-text {
+  color: gray;
+  font-style: italic;
+}
+
 .mat-stepper-vertical,
 .mat-stepper-horizontal {
   background: $background !important;

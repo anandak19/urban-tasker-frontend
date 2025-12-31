@@ -20,7 +20,7 @@ import { FormFieldComponent } from '@shared/components/form-field/form-field.com
 import { genders } from '@shared/constants/constants/gender-options.constant';
 import { Gender } from '@shared/constants/enums/user.enum';
 import { IApiResponseError } from '@shared/models/api-response.model';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import {
   noWhitespaceValidator,
   phoneNumberValidator,
@@ -50,7 +50,7 @@ export class UpdatePersonalDataComponent implements OnInit {
   private _destroyRef = inject(DestroyRef);
   private _router = inject(Router);
 
-  userGender = signal<IDropdownOption[]>(genders);
+  userGender = signal<IOptionData[]>(genders);
   isSubmitted = signal<boolean>(false);
   isLoading = signal<boolean>(false);
   userData = signal<IUserData | null>(null);

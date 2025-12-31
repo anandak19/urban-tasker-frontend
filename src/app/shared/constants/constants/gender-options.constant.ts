@@ -1,7 +1,7 @@
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { Gender } from '../enums/user.enum';
 
-export const genders: IDropdownOption[] = [
+export const genders: IOptionData[] = [
   {
     id: Gender.MALE,
     label: Gender.MALE,

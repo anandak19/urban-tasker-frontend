@@ -30,7 +30,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { cities } from '@shared/constants/constants/city.constant';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { IBookTaskerTimePlace } from '@features/user/models/book-tasker/book-tasker.model';
 import { getTime } from '@shared/helpers/convert-time.utility';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
@@ -68,7 +68,7 @@ export class WhenAndWhereComponent implements OnInit {
   @Output() prev = new EventEmitter();
 
   whenWhereForm!: FormGroup;
-  cities = signal<IDropdownOption[]>(cities);
+  cities = signal<IOptionData[]>(cities);
   isSubmitted = signal<boolean>(false);
 
   private fb = inject(FormBuilder);

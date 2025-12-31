@@ -5,7 +5,7 @@
 
   <div class="view-application__wrapper">
     <div class="view-application__edit">
-      <app-form-field-wrapper label="User Email">
+      <app-form-field-wrapper label="User Email" [isFormField]="false">
         <p class="value">
           {{ taskerApplicationData()?.email }}
         </p>

@@ -1,6 +1,6 @@
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 
-export const cities: IDropdownOption[] = [
+export const cities: IOptionData[] = [
   { id: 'thiruvananthapuram', label: 'Thiruvananthapuram' },
   { id: 'kochi', label: 'Kochi' },
   { id: 'kozhikode', label: 'Kozhikode' },

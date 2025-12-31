@@ -4,7 +4,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { TextAreaFieldComponent } from '@shared/components/form/text-area-field/text-area-field.component';
 import { cities } from '@shared/constants/constants/city.constant';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import { UserService } from '@features/user/services/user/user.service';
@@ -46,7 +46,7 @@ import { Router } from '@angular/router';
   styleUrl: './user-location-form.component.scss',
 })
 export class UserLocationFormComponent implements OnInit {
-  cities = signal<IDropdownOption[]>(cities);
+  cities = signal<IOptionData[]>(cities);
   isSubmitted = signal<boolean>(false);
   isLoading = signal<boolean>(false);
   userData = signal<IUserData | null>(null);

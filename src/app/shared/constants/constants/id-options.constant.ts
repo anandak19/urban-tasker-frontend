@@ -1,6 +1,6 @@
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 
-export const idCards: IDropdownOption[] = [
+export const idCards: IOptionData[] = [
   {
     id: 'adhaar',
     label: 'Adhaar',

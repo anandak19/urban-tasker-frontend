@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 
 @Component({
   selector: 'app-dropdown',
@@ -21,13 +21,13 @@ import { IDropdownOption } from '@shared/models/form-inputs.model';
 })
 export class DropdownComponent {
   @Input() text = 'Select an option';
-  @Input() options = signal<IDropdownOption[]>([]);
+  @Input() options = signal<IOptionData[]>([]);
   @Input() isSubmitted = signal<boolean>(false);
 
   @Input() isAutoClear = false;
-  @Output() optionSelected = new EventEmitter<IDropdownOption>();
+  @Output() optionSelected = new EventEmitter<IOptionData>();
 
-  selected!: IDropdownOption | null;
+  selected!: IOptionData | null;
 
   isOpen = signal<boolean>(false);
 
@@ -55,7 +55,7 @@ export class DropdownComponent {
     this.isOpen.set(!this.isOpen());
   }
 
-  selectOption(option: IDropdownOption) {
+  selectOption(option: IOptionData) {
     this.optionSelected.emit(option);
 
     this.selected = option;
@@ -78,7 +78,7 @@ export class DropdownComponent {
   //form control methods
 
   // callbacks
-  onChange: (value: IDropdownOption | null) => void = () => {
+  onChange: (value: IOptionData | null) => void = () => {
     //on change
   };
   onTouched: () => void = () => {
@@ -86,11 +86,11 @@ export class DropdownComponent {
   };
 
   // control methods
-  writeValue(value: IDropdownOption | null) {
+  writeValue(value: IOptionData | null) {
     this.selected = value;
   }
 
-  registerOnChange(fn: (value: IDropdownOption | null) => void) {
+  registerOnChange(fn: (value: IOptionData | null) => void) {
     this.onChange = fn;
   }
 

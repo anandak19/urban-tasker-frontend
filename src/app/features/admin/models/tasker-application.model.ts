@@ -1,5 +1,5 @@
 import { TaskerApplicationStatus } from '@shared/constants/enums/application-status.enum';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import {
   IApplicationStatusInfo,
   IBaseTaskerApplication,
@@ -13,5 +13,5 @@ export interface ITaskerApplicationListItem
 
 export interface IApplicationStatusInfoForm
   extends Omit<IApplicationStatusInfo, 'applicationStatus'> {
-  applicationStatus: IDropdownOption;
+  applicationStatus: IOptionData;
 }

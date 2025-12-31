@@ -19,7 +19,7 @@ import { LabelDescriptionComponent } from '@shared/components/label-description/
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import { DropdownFieldComponent } from '@shared/components/dropdown-field/dropdown-field.component';
 import { ChipsBoxComponent } from '@shared/components/chips-box/chips-box.component';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { CategoryService } from '@core/services/category/category.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
@@ -70,10 +70,10 @@ export class TaskerApplicationComponent implements OnInit {
   isSubmitted = signal<boolean>(false);
 
   // form input data's
-  idOptions = signal<IDropdownOption[]>(idCards);
-  citiesOptions = signal<IDropdownOption[]>(cities);
-  categoriesOptions = signal<IDropdownOption[]>([]);
-  selectedCategories = signal<IDropdownOption[]>([]);
+  idOptions = signal<IOptionData[]>(idCards);
+  citiesOptions = signal<IOptionData[]>(cities);
+  categoriesOptions = signal<IOptionData[]>([]);
+  selectedCategories = signal<IOptionData[]>([]);
 
   //get catgories
   async getCategoryOptions() {
@@ -88,7 +88,7 @@ export class TaskerApplicationComponent implements OnInit {
   }
 
   // add category
-  onCategorySelect(categoryOption: IDropdownOption) {
+  onCategorySelect(categoryOption: IOptionData) {
     const current = this.selectedCategories();
     if (current.some((c) => c.id === categoryOption.id)) return;
     if (current.length >= this.MAX_CATEGORIES) {

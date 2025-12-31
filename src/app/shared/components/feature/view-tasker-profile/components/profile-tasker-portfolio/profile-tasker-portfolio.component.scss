@@ -1,0 +1,12 @@
+@use 'index' as *;
+
+.tasker-portfolio {
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-medium;
+    }
+  }
+}

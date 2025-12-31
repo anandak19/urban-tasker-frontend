@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ICategoryData } from '@features/admin/models/category.interface';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
 import { IOptionResponse } from '@shared/models/common-api-responses.model';
-import { IDropdownOption } from '@shared/models/form-inputs.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class CategoryService {
       .pipe(
         map((res) => {
           return res.data.map(
-            (c): IDropdownOption => ({
+            (c): IOptionData => ({
               id: c.id,
               label: c.name,
             }),
