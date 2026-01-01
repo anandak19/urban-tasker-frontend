@@ -154,7 +154,6 @@ export class WhenAndWhereComponent implements OnInit {
       date: dateValue,
       time: time,
       city: formValue.city.id,
-      address: formValue.address,
       location: {
         latitude: formValue.location.latitude,
         longitude: formValue.location.longitude,

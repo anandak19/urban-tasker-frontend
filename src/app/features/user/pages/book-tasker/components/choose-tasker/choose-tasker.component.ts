@@ -3,36 +3,95 @@ import {
   DestroyRef,
   EventEmitter,
   inject,
+  OnInit,
   Output,
+  signal,
 } from '@angular/core';
 // import { IListTasker } from '@features/user/models/tasker/tasker.model';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { TaskerListingCardComponent } from './components/tasker-listing-card/tasker-listing-card.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { IBookTaskerTasker } from '@features/user/models/book-tasker/book-tasker.model';
+import {
+  IBookTaskerTasker,
+  IBookTaskerTimePlace,
+} from '@features/user/models/book-tasker/book-tasker.model';
 import { BookTaskerService } from '@features/user/services/book-tasker/book-tasker/book-tasker.service';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DropdownFieldComponent } from '@shared/components/dropdown-field/dropdown-field.component';
+import { cities } from '@shared/constants/constants/city.constant';
+import { IOptionData } from '@shared/models/form-inputs.model';
+import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
+import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
+import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
+import {
+  MatFormField,
+  MatError,
+  MatInputModule,
+} from '@angular/material/input';
+import {
+  MatDatepickerInput,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  MatTimepicker,
+  MatTimepickerInput,
+} from '@angular/material/timepicker';
+import { Dialog } from '@angular/cdk/dialog';
+import { LocationModalComponent } from './components/location-modal/location-modal.component';
+import { ILocationLatLng } from '@features/user/models/book-tasker/location.model';
+import {
+  AbstractControlOptions,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { locationRequiredValidator } from '@shared/validators/location-validators';
+import { getTime } from '@shared/helpers/convert-time.utility';
 
 @Component({
   selector: 'app-choose-tasker',
   imports: [
+    ReactiveFormsModule,
     PageTitleComponent,
     TaskerListingCardComponent,
     ButtonComponent,
     PaginationComponent,
+    DropdownFieldComponent,
+    DropdownComponent,
+    FormFieldWrapperComponent,
+    ButtonLoadingComponent,
+    MatFormField,
+    MatDatepickerInput,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatError,
+    MatTimepickerInput,
+    MatTimepicker,
   ],
   templateUrl: './choose-tasker.component.html',
   styleUrl: './choose-tasker.component.scss',
 })
-export class ChooseTaskerComponent {
+export class ChooseTaskerComponent implements OnInit {
   private _bookTaskerService = inject(BookTaskerService);
   private _snackbarService = inject(SnackbarService);
   private _router = inject(Router);
   private _destroyRef = inject(DestroyRef);
+  private dialog = inject(Dialog);
+  private fb = inject(FormBuilder);
+
+  private _location: ILocationLatLng | null = null;
+  cities = signal<IOptionData[]>(cities);
+  whenWhereForm!: FormGroup;
+  isSubmitted = signal<boolean>(false);
 
   @Output() prev = new EventEmitter();
   // sample addded
@@ -65,6 +124,47 @@ export class ChooseTaskerComponent {
     // call api to book tasker with the amount// open razorpay
   }
 
+  populateLocationData(coords: ILocationLatLng) {
+    this.whenWhereForm.get('location')?.patchValue({
+      latitude: coords.lat,
+      longitude: coords.lng,
+    });
+
+    this._location = coords;
+  }
+
+  initForm() {
+    this.whenWhereForm = this.fb.group({
+      date: ['', [Validators.required]],
+      time: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      location: this.fb.group(
+        {
+          latitude: [''],
+          longitude: [''],
+        },
+        { validators: [locationRequiredValidator] } as AbstractControlOptions,
+      ),
+    });
+  }
+
+  //keep
+  onLocationChoose() {
+    const locationModal = this.dialog.open(LocationModalComponent, {
+      data: this._location,
+    });
+
+    locationModal.closed
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((location) => {
+        if (location) {
+          const cordinates = location as ILocationLatLng;
+          this.populateLocationData(cordinates);
+          console.log(`Loca: ${cordinates.lat} : ${cordinates.lng}`);
+        }
+      });
+  }
+
   // book tasker method
   completeBooking() {
     this._bookTaskerService
@@ -81,5 +181,74 @@ export class ChooseTaskerComponent {
           this._snackbarService.error(err.message);
         },
       });
+  }
+
+  submitWhenWhereData(payload: IBookTaskerTimePlace) {
+    console.log('Query', payload);
+    this._bookTaskerService.saveWhenWhere(payload);
+    this._bookTaskerService.getAvailbleTaskers();
+  }
+
+  onWhenWhereFormSubmit() {
+    console.log(this.whenWhereForm.value);
+    this.isSubmitted.set(true);
+
+    if (this.whenWhereForm.invalid) {
+      this.whenWhereForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.whenWhereForm.value;
+
+    const dateValue = new Date(formValue.date);
+
+    const time = getTime(formValue.time);
+
+    const timePlaceData: IBookTaskerTimePlace = {
+      date: dateValue,
+      time: time,
+      city: formValue.city.id,
+      location: {
+        latitude: formValue.location.latitude,
+        longitude: formValue.location.longitude,
+      },
+    };
+
+    this.submitWhenWhereData(timePlaceData);
+  }
+
+  //getters
+  get cityError() {
+    return this.isSubmitted() && this.whenWhereForm.get('city')?.invalid
+      ? 'Select a city'
+      : '';
+  }
+
+  get locationChoosen() {
+    return this.whenWhereForm?.get('location')?.valid;
+  }
+
+  get locationError() {
+    return this.isSubmitted() && !this.locationChoosen
+      ? 'Location is requred'
+      : '';
+  }
+
+  get dateError() {
+    return this.whenWhereForm.get('date')?.invalid && this.isSubmitted()
+      ? 'Date is required'
+      : '';
+  }
+
+  get timeError() {
+    return this.whenWhereForm.get('time')?.invalid && this.isSubmitted()
+      ? 'Time is required'
+      : '';
+  }
+
+  // LIFE CYCLES
+  ngOnInit(): void {
+    this.initForm();
+    console.log(this.availableTaskers());
   }
 }
