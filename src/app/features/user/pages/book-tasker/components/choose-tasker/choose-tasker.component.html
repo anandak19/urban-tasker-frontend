@@ -83,7 +83,7 @@
     </form>
 
     <div class="listing-filter">
-      @if (isSubmitted()) {
+      @if (isSubmitted() && whenWhereForm.valid) {
         <p>{{ paginationData().total || 0 }} Tasker available</p>
       }
     </div>
