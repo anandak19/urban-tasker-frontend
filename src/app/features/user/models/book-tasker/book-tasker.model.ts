@@ -11,7 +11,6 @@ export interface IBookTaskerTimePlace {
   date: Date;
   time: string;
   city: string;
-  address: string;
   location: {
     latitude: number;
     longitude: number;

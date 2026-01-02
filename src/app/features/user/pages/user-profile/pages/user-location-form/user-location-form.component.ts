@@ -24,12 +24,12 @@ import {
 import { locationRequiredValidator } from '@shared/validators/location-validators';
 import { IHomeAddressPayload } from '@features/user/models/profile/profile-details.model';
 import { Dialog } from '@angular/cdk/dialog';
-import { LocationModalComponent } from '@features/user/pages/book-tasker/components/when-and-where/components/location-modal/location-modal.component';
 import { ILocationLatLng } from '@features/user/models/book-tasker/location.model';
 import { UserProfileService } from '@features/user/services/user/user-profile/user-profile.service';
 import { finalize } from 'rxjs';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { Router } from '@angular/router';
+import { LocationModalComponent } from '@features/user/pages/book-tasker/components/choose-tasker/components/location-modal/location-modal.component';
 
 @Component({
   selector: 'app-user-location-form',

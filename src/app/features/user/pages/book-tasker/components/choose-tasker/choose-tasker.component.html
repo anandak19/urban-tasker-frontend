@@ -1,11 +1,96 @@
 <div class="choose-tasker">
-  <app-page-title
-    title="Choose a Tasker"
-    [description]="`${paginationData().total} taskers available`"
-  ></app-page-title>
+  <app-page-title title="Choose a Tasker"></app-page-title>
+
+  <!-- filter strip  -->
+  <div class="choose-tasker__filters">
+    <form [formGroup]="whenWhereForm" (ngSubmit)="onWhenWhereFormSubmit()">
+      <!-- city  -->
+      <app-dropdown-field label="City">
+        <app-dropdown [options]="cities" formControlName="city"></app-dropdown>
+        @if (cityError) {
+          <mat-error>
+            <small>{{ cityError }}</small>
+          </mat-error>
+        }
+      </app-dropdown-field>
+
+      <!-- location  -->
+      <div class="location">
+        <app-form-field-wrapper label="Location">
+          <app-button-loading
+            [text]="locationChoosen ? 'Selected' : 'Choose Location'"
+            [variant]="locationChoosen ? 'success' : 'secondary'"
+            (isClicked)="onLocationChoose()"
+          ></app-button-loading>
+        </app-form-field-wrapper>
+        @if (locationError) {
+          <mat-error>
+            <small>{{ locationError }}</small>
+          </mat-error>
+        }
+      </div>
+
+      <!-- date  -->
+      <app-form-field-wrapper label="Prefred Date">
+        <mat-form-field appearance="outline" class="control">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="DD / MM / YYYY"
+            formControlName="date"
+          />
+
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+            class="toggle"
+          ></mat-datepicker-toggle>
+
+          <mat-datepicker #picker></mat-datepicker>
+          @if (dateError) {
+            <mat-error>
+              <small>{{ dateError }}</small>
+            </mat-error>
+          }
+        </mat-form-field>
+        <!-- @if (dateError) {
+              <small class="error-text">{{ dateError }}</small>
+            } -->
+      </app-form-field-wrapper>
+
+      <!-- time  -->
+      <app-form-field-wrapper label="Prefred Time">
+        <mat-form-field appearance="outline" class="control">
+          <input
+            matInput
+            [matTimepicker]="time"
+            formControlName="time"
+            placeholder="HH:MM"
+          />
+          <mat-timepicker-toggle matIconSuffix></mat-timepicker-toggle>
+          <mat-timepicker #time></mat-timepicker>
+
+          @if (timeError) {
+            <mat-error>
+              <small>{{ timeError }}</small>
+            </mat-error>
+          }
+        </mat-form-field>
+      </app-form-field-wrapper>
+
+      <!-- search button  -->
+      <app-button-loading text="Search" type="submit"></app-button-loading>
+    </form>
+
+    <div class="listing-filter">
+      @if (isSubmitted() && whenWhereForm.valid) {
+        <p>{{ paginationData().total || 0 }} Tasker available</p>
+      }
+    </div>
+  </div>
+
   <!-- tasker content  -->
   <div class="choose-tasker__content-wrapper">
-    <div class="choose-tasker__filters"></div>
     <!-- taskers listing  -->
     <div class="choose-tasker__taskers-listing-wrapper">
       @for (tasker of availableTaskers(); track $index) {
@@ -24,7 +109,7 @@
 
     <div class="choose-tasker__actions">
       <app-button type="button" variant="secondary" (clickEvent)="onPrev()"
-        >Chnage Time and Place</app-button
+        >← Edit Task Details</app-button
       >
     </div>
   </div>

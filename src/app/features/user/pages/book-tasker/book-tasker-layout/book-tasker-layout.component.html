@@ -9,14 +9,6 @@
 
     <!-- Step 2 -->
     <mat-step>
-      <app-when-and-where
-        (prev)="stepper.previous()"
-        (next)="stepper.next()"
-      ></app-when-and-where>
-    </mat-step>
-
-    <!-- Step 3: Password -->
-    <mat-step>
       <app-choose-tasker (prev)="stepper.previous()"></app-choose-tasker>
     </mat-step>
   </mat-horizontal-stepper>

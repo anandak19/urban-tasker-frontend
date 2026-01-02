@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
   links: NavLink[] = [
     { label: 'Home', path: '/' },
     { label: 'Categories', path: '/categories' },
-    { label: 'My Tasks', path: '/tasks' },
+    { label: 'My Bookings', path: '/tasks' },
   ];
 
   bookTaskerClicked() {

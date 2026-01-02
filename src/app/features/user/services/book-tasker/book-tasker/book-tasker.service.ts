@@ -138,7 +138,7 @@ export class BookTaskerService {
     this.availTaskers.set(taskers);
   }
 
-  getAvailTaskers() {
+  getTaskers() {
     return this.availTaskers;
   }
 
@@ -151,6 +151,7 @@ export class BookTaskerService {
       time: this.whenWhere.time,
       subcategoryId: this.aboutTask.subcategoryId,
     };
+    console.log('payload in avail taskers ', payload);
 
     this._taskerService.getAvailableTaskers(payload, filter).subscribe({
       next: (res) => {

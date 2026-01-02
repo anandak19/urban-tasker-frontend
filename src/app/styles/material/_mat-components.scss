@@ -69,3 +69,15 @@
     )
   );
 }
+
+//form field
+:root {
+  @include mat.form-field-overrides((
+    container-height: 38px,
+    container-vertical-padding: 4px,
+    outlined-hover-outline-color: white,
+
+    container-text-line-height: 1,
+  ));
+}
+
