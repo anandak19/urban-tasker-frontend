@@ -1,6 +1,8 @@
 import {
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
@@ -9,6 +11,11 @@ import {
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { MatChipListbox, MatChip } from '@angular/material/chips';
 import { ITaskerAbout } from '@shared/models/tasker-data.model';
+import { Dialog } from '@angular/cdk/dialog';
+import { UpdateAboutMeModalComponent } from './components/update-about-me-modal/update-about-me-modal.component';
+import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
+import { UserRoles } from '@shared/constants/enums/user.enum';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-profile-about-tasker',
@@ -20,6 +27,31 @@ export class ProfileAboutTaskerComponent implements OnInit {
   @Input() isEditable = false;
   @Input() taskerAbout = signal<ITaskerAbout | null>(null);
   @Output() getAboutData = new EventEmitter();
+
+  private _dialog = inject(Dialog);
+  private _authGuardService = inject(AuthGuardService);
+  private _destroyRef = inject(DestroyRef);
+
+  currentUser = this._authGuardService.currentUser;
+
+  //open edit modal and update the about data on close
+  onEditAboutClick() {
+    if (this.currentUser()?.userRole === UserRoles.TASKER) {
+      const dialogRef = this._dialog.open(UpdateAboutMeModalComponent, {
+        data: this.taskerAbout,
+      });
+
+      dialogRef.closed.pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
+        next: (res) => {
+          console.log('Voala', res);
+          this.taskerAbout.update((a) => ({
+            ...a,
+            about: res as string,
+          }));
+        },
+      });
+    }
+  }
 
   ngOnInit(): void {
     console.log('About');

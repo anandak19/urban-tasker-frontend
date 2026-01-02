@@ -1,11 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  inject,
-  Input,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { ViewTaskerProfileComponent } from '@shared/components/feature/view-tasker-profile/view-tasker-profile.component';
 import { TaskerProfileService } from '@features/tasker/services/tasker-profile/tasker-profile.service';
@@ -15,6 +8,7 @@ import {
   ITaskerAbout,
   ITaskerCardData,
 } from '@shared/models/tasker-data.model';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-tasker-profile',
@@ -25,9 +19,10 @@ import {
 export class TaskerProfileComponent implements OnInit {
   private _taskerService = inject(TaskerProfileService);
   private _destroyRef = inject(DestroyRef);
+  private _snackbarService = inject(SnackbarService);
 
   taskerCardData = signal<ITaskerCardData | null>(null);
-  @Input() taskerAbout = signal<ITaskerAbout | null>(null);
+  taskerAbout = signal<ITaskerAbout | null>(null);
 
   getCardData() {
     this._taskerService
@@ -53,7 +48,7 @@ export class TaskerProfileComponent implements OnInit {
           this.taskerAbout.set(res.data);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
+          this._snackbarService.error(err.message);
         },
       });
   }

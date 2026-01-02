@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IApiResponseSuccess } from '@shared/models/api-response.model';
+import {
+  IApiResponseSuccess,
+  IBaseApiResponse,
+} from '@shared/models/api-response.model';
 import {
   ITaskerAbout,
   ITaskerCardData,
@@ -22,6 +25,15 @@ export class TaskerProfileService {
   getTaskerAbout() {
     return this._http.get<IApiResponseSuccess<ITaskerAbout>>(
       `${this.API_ENDPOINT}/about`,
+    );
+  }
+
+  // to update tasker about
+  updateTaskerAbout(payload: ITaskerAbout) {
+    console.log('payload', payload);
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/about`,
+      payload,
     );
   }
 }

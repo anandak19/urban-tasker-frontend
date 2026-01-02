@@ -12,7 +12,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ISideNavItem } from '@shared/interfaces/nav-link.interface';
 import { MatButtonModule } from '@angular/material/button';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ButtonComponent } from "@shared/components/button/button.component";
 
 @Component({
   selector: 'app-tasker-layout',
@@ -25,8 +24,7 @@ import { ButtonComponent } from "@shared/components/button/button.component";
     MatSidenav,
     MatSidenavContent,
     MatButtonModule,
-    ButtonComponent
-],
+  ],
   templateUrl: './tasker-layout.component.html',
   styleUrl: './tasker-layout.component.scss',
 })

@@ -1,0 +1,11 @@
+<div class="update-about">
+  <p class="update-about__title">Edit About Me</p>
+  <form [formGroup]="aboutForm" (ngSubmit)="submit()">
+    <app-text-area-field
+      label="About"
+      placeholder="Write about yourself"
+      formControlName="about"
+    ></app-text-area-field>
+    <app-button-loading text="Update" type="submit"></app-button-loading>
+  </form>
+</div>

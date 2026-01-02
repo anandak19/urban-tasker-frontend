@@ -3,7 +3,9 @@
     <div class="section-head">
       <p class="title">About Me</p>
       @if (isEditable) {
-        <app-button size="small">Edit</app-button>
+        <app-button size="small" (clickEvent)="onEditAboutClick()"
+          >Edit</app-button
+        >
       }
     </div>
     <div class="data">
