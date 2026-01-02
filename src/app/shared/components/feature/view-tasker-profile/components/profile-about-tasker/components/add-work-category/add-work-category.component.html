@@ -1,0 +1,21 @@
+<div class="add-work-category">
+  <p class="add-work-category__title">Add Working Category</p>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <app-form-field-wrapper label="Parent Category">
+      <app-dropdown
+        text="Choose a Category"
+        [options]="categoryOptions"
+        (optionSelected)="onCategorySelect($event)"
+      />
+    </app-form-field-wrapper>
+
+    <app-form-field-wrapper label="Category">
+      <app-dropdown
+        text="Choose a Category"
+        [options]="subCategoryOptions"
+        formControlName="category"
+      />
+    </app-form-field-wrapper>
+    <app-button-loading text="Add" type="submit" />
+  </form>
+</div>

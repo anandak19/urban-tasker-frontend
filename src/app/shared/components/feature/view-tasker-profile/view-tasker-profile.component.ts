@@ -14,6 +14,7 @@ import {
   ITaskerAbout,
   ITaskerCardData,
 } from '@shared/models/tasker-data.model';
+import { IOptionData } from '@shared/models/form-inputs.model';
 
 @Component({
   selector: 'app-view-tasker-profile',
@@ -31,6 +32,7 @@ export class ViewTaskerProfileComponent implements OnInit {
 
   @Input() taskerCardData = signal<ITaskerCardData | null>(null);
   @Input() taskerAbout = signal<ITaskerAbout | null>(null);
+  @Input() taskerWorkCategories = signal<IOptionData[]>([]);
 
   @Output() getAboutData = new EventEmitter();
   @Output() getPortfolio = new EventEmitter();

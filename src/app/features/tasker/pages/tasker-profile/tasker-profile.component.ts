@@ -9,6 +9,7 @@ import {
   ITaskerCardData,
 } from '@shared/models/tasker-data.model';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { IOptionData } from '@shared/models/form-inputs.model';
 
 @Component({
   selector: 'app-tasker-profile',
@@ -23,6 +24,7 @@ export class TaskerProfileComponent implements OnInit {
 
   taskerCardData = signal<ITaskerCardData | null>(null);
   taskerAbout = signal<ITaskerAbout | null>(null);
+  taskerWorkCategories = signal<IOptionData[]>([]);
 
   getCardData() {
     this._taskerService
@@ -40,6 +42,11 @@ export class TaskerProfileComponent implements OnInit {
   }
 
   getAboutData() {
+    this.getAbout();
+    this.getTaskerWorkCategories();
+  }
+
+  getAbout() {
     this._taskerService
       .getTaskerAbout()
       .pipe(takeUntilDestroyed(this._destroyRef))
@@ -49,6 +56,21 @@ export class TaskerProfileComponent implements OnInit {
         },
         error: (err: IApiResponseError) => {
           this._snackbarService.error(err.message);
+        },
+      });
+  }
+
+  //
+  getTaskerWorkCategories() {
+    this._taskerService
+      .getTaskerWorkCategories()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.taskerWorkCategories.set(res.data);
+        },
+        error: (err: IApiResponseError) => {
+          console.log(err);
         },
       });
   }

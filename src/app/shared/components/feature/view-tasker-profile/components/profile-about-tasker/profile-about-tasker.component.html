@@ -21,15 +21,16 @@
     <div class="section-head">
       <p class="title">Work Categories</p>
       @if (isEditable) {
-        <app-button size="small">Edit</app-button>
+        <app-button size="small" (clickEvent)="onAddWorkCategoryClick()"
+          >Add</app-button
+        >
       }
     </div>
     <div class="data">
       <mat-chip-listbox>
-        <mat-chip>Plumbing</mat-chip>
-        <mat-chip>Electrical</mat-chip>
-        <mat-chip>Painting</mat-chip>
-        <mat-chip>Cleaning</mat-chip>
+        @for (item of taskerWorkCategories(); track $index) {
+          <mat-chip>{{ item.label }}</mat-chip>
+        }
       </mat-chip-listbox>
     </div>
   </div>

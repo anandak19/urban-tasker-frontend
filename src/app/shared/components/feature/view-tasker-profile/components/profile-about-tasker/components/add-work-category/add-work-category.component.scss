@@ -1,6 +1,6 @@
 @use 'index' as *;
 
-.update-about {
+.add-work-category {
   width: 500px;
   background-color: $background-hover;
   @include section-box();
@@ -14,6 +14,6 @@
   form {
     display: flex;
     flex-direction: column;
-    gap: $spacing-2;
+    gap: $spacing-4;
   }
 }
