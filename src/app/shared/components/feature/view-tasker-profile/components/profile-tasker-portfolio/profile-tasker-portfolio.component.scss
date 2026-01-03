@@ -9,4 +9,38 @@
       font-weight: $font-weight-medium;
     }
   }
+
+  &__data {
+    padding: 1rem;
+  }
+
+  &__gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #f2f2f2;
+    cursor: pointer;
+
+    &:hover {
+      .tasker-portfolio__image {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+  }
 }

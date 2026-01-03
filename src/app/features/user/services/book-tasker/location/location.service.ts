@@ -20,6 +20,11 @@ export class LocationService {
         (err) => {
           reject(err);
         },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0,
+        },
       );
     });
   }

@@ -1,0 +1,19 @@
+@use 'index' as *;
+
+.add-work-category {
+  width: 500px;
+  background-color: $background-hover;
+  @include section-box();
+
+  &__title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+}

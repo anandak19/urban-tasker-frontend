@@ -12,7 +12,6 @@ export interface IChangePassoword {
 
 export interface IHomeAddressPayload {
   city: string;
-  address: string;
   latitude: number;
   longitude: number;
 }

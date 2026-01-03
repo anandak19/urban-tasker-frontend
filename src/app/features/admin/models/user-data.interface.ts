@@ -7,7 +7,7 @@ export interface IGeoLocation {
 }
 
 export interface IHomeAddress {
-  address: string;
+  // address: string;
   city: string;
   location: IGeoLocation;
 }

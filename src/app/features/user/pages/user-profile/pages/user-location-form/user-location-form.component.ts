@@ -2,7 +2,6 @@ import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
-import { TextAreaFieldComponent } from '@shared/components/form/text-area-field/text-area-field.component';
 import { cities } from '@shared/constants/constants/city.constant';
 import { IOptionData } from '@shared/models/form-inputs.model';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
@@ -37,7 +36,6 @@ import { LocationModalComponent } from '@features/user/pages/book-tasker/compone
     BackButtonComponent,
     ButtonComponent,
     ButtonLoadingComponent,
-    TextAreaFieldComponent,
     FormFieldWrapperComponent,
     DropdownComponent,
     ReactiveFormsModule,
@@ -82,7 +80,6 @@ export class UserLocationFormComponent implements OnInit {
   initForm() {
     this.locationForm = this._fb.group({
       city: ['', [Validators.required]],
-      address: ['', [Validators.required]],
       location: this._fb.group(
         {
           latitude: [''],
@@ -101,7 +98,6 @@ export class UserLocationFormComponent implements OnInit {
 
     this.locationForm.patchValue({
       city: homeAddress.city ? this.mapCity(homeAddress.city) : '',
-      address: homeAddress.address ?? '',
       location: {
         latitude: latitude ?? '',
         longitude: longitude ?? '',
@@ -137,7 +133,6 @@ export class UserLocationFormComponent implements OnInit {
 
     const payload: IHomeAddressPayload = {
       city: formValue.city?.id,
-      address: formValue.address,
       latitude: Number(formValue.location.latitude),
       longitude: Number(formValue.location.longitude),
     };

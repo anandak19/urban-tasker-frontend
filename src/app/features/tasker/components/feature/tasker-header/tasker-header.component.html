@@ -3,4 +3,13 @@
     <ng-content></ng-content>
     <app-brand [link]="'tasker'"></app-brand>
   </div>
+
+  <div class="tasker-header__right">
+    <app-button (clickEvent)="leaveDashboard()"
+      >Exit Dashboard&nbsp;
+      <mat-icon class="material-icons-outlined"
+        >exit_to_app</mat-icon
+      ></app-button
+    >
+  </div>
 </div>

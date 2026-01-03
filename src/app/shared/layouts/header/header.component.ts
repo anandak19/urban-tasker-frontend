@@ -4,6 +4,7 @@ import {
   HostListener,
   OnInit,
   WritableSignal,
+  computed,
   inject,
 } from '@angular/core';
 import { BrandComponent } from '../../components/brand/brand.component';
@@ -37,16 +38,24 @@ export class HeaderComponent implements OnInit {
   private headerService = inject(HeaderService);
   public _authGuardService = inject(AuthGuardService);
 
-  currentUser = this._authGuardService.currentUser;
-  roles = UserRoles;
   isLoginPage = true;
   isSidebarOpen!: WritableSignal<boolean>;
+  userRoles = UserRoles;
+  currentUser = this._authGuardService.currentUser;
 
-  links: NavLink[] = [
-    { label: 'Home', path: '/' },
-    { label: 'Categories', path: '/categories' },
-    { label: 'My Bookings', path: '/tasks' },
-  ];
+  links = computed<NavLink[]>(() => {
+    const user = this.currentUser();
+
+    if (!user || user.userRole === this.userRoles.TASKER) {
+      return [{ label: 'Home', path: '/' }];
+    }
+
+    return [
+      { label: 'Home', path: '/' },
+      { label: 'Categories', path: '/categories' },
+      { label: 'My Bookings', path: '/tasks' },
+    ];
+  });
 
   bookTaskerClicked() {
     this.headerService.navigateBookTasker();
@@ -74,6 +83,12 @@ export class HeaderComponent implements OnInit {
 
   navigateProfile() {
     this.router.navigate(['/profile']);
+  }
+
+  navigateTaskerDashboard() {
+    if (this.currentUser()?.userRole === this.userRoles.TASKER) {
+      this.router.navigate(['/tasker']);
+    }
   }
 
   @HostListener('document:click', ['$event'])
