@@ -8,9 +8,8 @@ describe('ProfileTaskerPortfolioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfileTaskerPortfolioComponent]
-    })
-    .compileComponents();
+      imports: [ProfileTaskerPortfolioComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileTaskerPortfolioComponent);
     component = fixture.componentInstance;

@@ -4,8 +4,8 @@
       <p class="title">About Me</p>
       @if (isEditable) {
         <app-button size="small" (clickEvent)="onEditAboutClick()"
-          >Edit</app-button
-        >
+          ><mat-icon class="material-icons-outlined">edit</mat-icon>
+        </app-button>
       }
     </div>
     <div class="data">
@@ -22,7 +22,9 @@
       <p class="title">Work Categories</p>
       @if (isEditable) {
         <app-button size="small" (clickEvent)="onAddWorkCategoryClick()"
-          >Add</app-button
+          ><mat-icon class="material-icons-outlined"
+            >add_2</mat-icon
+          ></app-button
         >
       }
     </div>
@@ -30,6 +32,7 @@
       @if (taskerWorkCategories().length > 0) {
         <app-chips-box
           [items]="taskerWorkCategories"
+          [editable]="isEditable"
           (removeItem)="onRemoveWorkCategory($event)"
         ></app-chips-box>
       } @else {

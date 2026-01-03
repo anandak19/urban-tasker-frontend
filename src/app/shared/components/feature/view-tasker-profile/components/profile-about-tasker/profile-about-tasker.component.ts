@@ -22,10 +22,11 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
 import { ChipsBoxComponent } from '@shared/components/chips-box/chips-box.component';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-profile-about-tasker',
-  imports: [ButtonComponent, ChipsBoxComponent],
+  imports: [ButtonComponent, ChipsBoxComponent, MatIconModule],
   templateUrl: './profile-about-tasker.component.html',
   styleUrl: './profile-about-tasker.component.scss',
 })

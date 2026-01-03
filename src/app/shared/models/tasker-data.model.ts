@@ -13,3 +13,17 @@ export interface ITaskerAbout {
 export interface IWorkCategories {
   workCategories: IOptionData[];
 }
+
+//portfolio
+export interface ICreatePortfolioImage {
+  imageFile: string;
+  caption?: string;
+}
+
+export interface IPortfolioImage
+  extends Omit<ICreatePortfolioImage, 'imageFile'> {
+  id: string;
+  userId: string;
+  taskerId?: string;
+  imageUrl: string;
+}

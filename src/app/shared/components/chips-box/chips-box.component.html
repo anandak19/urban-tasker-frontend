@@ -2,9 +2,11 @@
   <mat-chip-set #chipGrid class="chips-box">
     <mat-chip-row *ngFor="let item of items()" (removed)="remove(item.id)">
       {{ item.label }}
-      <button matChipRemove>
-        <mat-icon class="material-icons-outlined">cancel</mat-icon>
-      </button>
+      @if (editable) {
+        <button matChipRemove>
+          <mat-icon class="material-icons-outlined">cancel</mat-icon>
+        </button>
+      }
     </mat-chip-row>
   </mat-chip-set>
 }
