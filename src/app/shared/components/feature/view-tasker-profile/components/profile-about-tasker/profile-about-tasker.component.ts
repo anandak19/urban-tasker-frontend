@@ -9,7 +9,6 @@ import {
   signal,
 } from '@angular/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { MatChipListbox, MatChip } from '@angular/material/chips';
 import { ITaskerAbout } from '@shared/models/tasker-data.model';
 import { Dialog } from '@angular/cdk/dialog';
 import { UpdateAboutMeModalComponent } from './components/update-about-me-modal/update-about-me-modal.component';
@@ -18,10 +17,15 @@ import { UserRoles } from '@shared/constants/enums/user.enum';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IOptionData } from '@shared/models/form-inputs.model';
 import { AddWorkCategoryComponent } from './components/add-work-category/add-work-category.component';
+import { TaskerProfileService } from '@features/tasker/services/tasker-profile/tasker-profile.service';
+import { IApiResponseError } from '@shared/models/api-response.model';
+import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
+import { ChipsBoxComponent } from '@shared/components/chips-box/chips-box.component';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-profile-about-tasker',
-  imports: [ButtonComponent, MatChipListbox, MatChip],
+  imports: [ButtonComponent, ChipsBoxComponent],
   templateUrl: './profile-about-tasker.component.html',
   styleUrl: './profile-about-tasker.component.scss',
 })
@@ -33,7 +37,10 @@ export class ProfileAboutTaskerComponent implements OnInit {
 
   private _dialog = inject(Dialog);
   private _authGuardService = inject(AuthGuardService);
+  private _taskerProfileService = inject(TaskerProfileService);
   private _destroyRef = inject(DestroyRef);
+  private _confirmDialogService = inject(ConfirmDialogService);
+  private _snackbarService = inject(SnackbarService);
 
   currentUser = this._authGuardService.currentUser;
 
@@ -46,7 +53,6 @@ export class ProfileAboutTaskerComponent implements OnInit {
 
       dialogRef.closed.pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
         next: (res) => {
-          console.log('Voala', res);
           if (!res) return;
           this.taskerAbout.update((a) => ({
             ...a,
@@ -68,6 +74,35 @@ export class ProfileAboutTaskerComponent implements OnInit {
           }
         },
       });
+    }
+  }
+
+  // to remove a working cateogory
+  async onRemoveWorkCategory(categoryId: string) {
+    if (this.currentUser()?.userRole !== UserRoles.TASKER) return;
+
+    const yes = await this._confirmDialogService.ask(
+      'Are you sure to remove this category',
+    );
+
+    if (yes) {
+      // update ui
+      this.taskerWorkCategories.update((list) =>
+        list.filter((c) => c.id !== categoryId),
+      );
+
+      this._taskerProfileService
+        .removeTaskerWorkCategory(categoryId)
+        .pipe(takeUntilDestroyed(this._destroyRef))
+        .subscribe({
+          next: (res) => {
+            this._snackbarService.success(res.message);
+          },
+          error: (err: IApiResponseError) => {
+            this._snackbarService.error(err.message);
+            this.getAboutData.emit();
+          },
+        });
     }
   }
 

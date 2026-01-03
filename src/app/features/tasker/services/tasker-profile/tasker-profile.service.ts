@@ -50,4 +50,10 @@ export class TaskerProfileService {
       { categoryId },
     );
   }
+
+  removeTaskerWorkCategory(categoryId: string) {
+    return this._http.delete<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/work-categories/${categoryId}`,
+    );
+  }
 }

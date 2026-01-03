@@ -26,12 +26,15 @@
         >
       }
     </div>
-    <div class="data">
-      <mat-chip-listbox>
-        @for (item of taskerWorkCategories(); track $index) {
-          <mat-chip>{{ item.label }}</mat-chip>
-        }
-      </mat-chip-listbox>
+    <div class="tasker-profile-about__categories data">
+      @if (taskerWorkCategories().length > 0) {
+        <app-chips-box
+          [items]="taskerWorkCategories"
+          (removeItem)="onRemoveWorkCategory($event)"
+        ></app-chips-box>
+      } @else {
+        <p class="empty-text">No working categories added</p>
+      }
     </div>
   </div>
 </div>

@@ -12,9 +12,9 @@ import { IOptionData } from '@shared/models/form-inputs.model';
 })
 export class ChipsBoxComponent {
   @Input() items = signal<IOptionData[]>([]);
-  @Output() removeItem = new EventEmitter<string | number>();
+  @Output() removeItem = new EventEmitter<string>();
 
-  remove(id: string | number) {
+  remove(id: string) {
     this.removeItem.emit(id);
   }
 }
