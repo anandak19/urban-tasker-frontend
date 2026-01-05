@@ -22,6 +22,11 @@
         >Book a Tasker</app-button
       >
     }
+    @if (currentUser()) {
+      <app-button (clickEvent)="onMesagesClick()"
+        ><mat-icon class="material-icons-outlined">chat</mat-icon></app-button
+      >
+    }
 
     <!-- user options  -->
     <div class="user-options">

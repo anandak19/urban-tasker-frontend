@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-update-work-categories-modal',
   imports: [],
   templateUrl: './update-work-categories-modal.component.html',
-  styleUrl: './update-work-categories-modal.component.scss'
+  styleUrl: './update-work-categories-modal.component.scss',
 })
-export class UpdateWorkCategoriesModalComponent {
-
-}
+export class UpdateWorkCategoriesModalComponent {}

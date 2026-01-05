@@ -7,7 +7,11 @@
     searchPlaceholder="Search user by email"
     (searchChange)="onSearch($event)"
   >
-    <app-dropdown [options]="userRoleOptions" text="Select User Role" (optionSelected)="onOptionSelect($event)"></app-dropdown>
+    <app-dropdown
+      [options]="userRoleOptions"
+      text="Select User Role"
+      (optionSelected)="onOptionSelect($event)"
+    ></app-dropdown>
   </app-admin-table-filters>
 
   <app-table-listing

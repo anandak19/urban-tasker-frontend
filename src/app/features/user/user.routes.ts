@@ -14,6 +14,7 @@ import { BookedTasksRoutes } from './pages/booked-tasks/booked-tasks.routes';
 import { BookedTasksLayoutComponent } from './pages/booked-tasks/booked-tasks-layout/booked-tasks-layout.component';
 import { UserProfileRoutes } from './pages/user-profile/user-profile.routes';
 import { UserProfileLayoutComponent } from './pages/user-profile/user-profile-layout/user-profile-layout.component';
+import { ChatRoutes } from './pages/chat/chat.routes';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -81,5 +82,11 @@ export const userRoutes: Routes = [
     path: 'tasks',
     component: BookedTasksLayoutComponent,
     children: BookedTasksRoutes,
+  },
+
+  // sample chat
+  {
+    path: 'chat',
+    children: ChatRoutes,
   },
 ];
