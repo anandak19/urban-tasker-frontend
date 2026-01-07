@@ -8,7 +8,9 @@
     <div class="view-user__user-data">
       <div class="image">
         <img
-          [src]="userData()?.profileImageUrl || 'assets/defaults/default-user.png'"
+          [src]="
+            userData()?.profileImageUrl || 'assets/defaults/default-user.png'
+          "
           alt="profile picture"
         />
       </div>

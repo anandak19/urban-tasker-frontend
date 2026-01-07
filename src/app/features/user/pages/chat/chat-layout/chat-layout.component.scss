@@ -1,0 +1,78 @@
+@use 'index' as *;
+
+.chat {
+  display: flex;
+  height: calc(100vh - $header-height);
+  background-color: $background;
+
+  &__sidebar {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    background-color: $background;
+    border-right: 1px solid $background-division;
+  }
+
+  &__sidebar-header {
+    padding: 16px;
+    border-bottom: 1px solid $background-division;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $white;
+  }
+
+  &__user-list {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $background-hover;
+    }
+
+    &--active {
+      background-color: $background-active;
+    }
+  }
+
+  &__user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+
+  &__user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: $white;
+  }
+
+  &__window {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: $background;
+    app-chat-box {
+      height: 100%;
+    }
+  }
+
+  .empty-box {
+    margin: auto;
+    color: $background-division;
+  }
+}

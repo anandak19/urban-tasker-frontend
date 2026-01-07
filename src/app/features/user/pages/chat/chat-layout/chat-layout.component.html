@@ -1,0 +1,43 @@
+<div class="chat">
+  <!-- Left: User List -->
+  <aside class="chat__sidebar">
+    <div class="chat__sidebar-header">
+      <h3 class="chat__title">Chats</h3>
+    </div>
+
+    <ul class="chat__user-list">
+      @for (item of chatUsers(); track $index) {
+        <li
+          class="chat__user"
+          [ngClass]="{
+            'chat__user--active': item.id === currentChatUser()?.id,
+          }"
+          (click)="joinChat(item)"
+          tabindex="0"
+          role="button"
+        >
+          <img
+            [src]="'assets/defaults/default-user.png'"
+            alt="User"
+            class="chat__user-avatar"
+          />
+          <span class="chat__user-name">{{ fullName(item) }}</span>
+        </li>
+      }
+    </ul>
+  </aside>
+
+  <!-- Right: Chat Window -->
+  <section class="chat__window">
+    @if (currentChatUser()) {
+      <app-chat-box
+        [currentUserId]="currentChatUser()!.id"
+        [currentUser]="currentChatUser"
+      ></app-chat-box>
+    } @else {
+      <div class="empty-box">
+        <p class="empty-text">Nothing to show</p>
+      </div>
+    }
+  </section>
+</div>

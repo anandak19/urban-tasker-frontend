@@ -69,6 +69,10 @@ export class HeaderComponent implements OnInit {
     alert('Open user options : profile and logout');
   }
 
+  onMesagesClick() {
+    this.router.navigate(['/chat']);
+  }
+
   goToLogin() {
     this.router.navigate(['/login']);
   }
