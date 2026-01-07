@@ -21,7 +21,7 @@
             alt="User"
             class="chat__user-avatar"
           />
-          <span class="chat__user-name">{{ item.name }}</span>
+          <span class="chat__user-name">{{ fullName(item) }}</span>
         </li>
       }
     </ul>
@@ -30,46 +30,10 @@
   <!-- Right: Chat Window -->
   <section class="chat__window">
     @if (currentChatUser()) {
-      <div class="chat__window-header">
-        <div class="chat__window-user">
-          <img
-            [src]="'assets/defaults/default-user.png'"
-            alt="User"
-            class="chat__window-avatar"
-          />
-          <span class="chat__window-name">{{
-            currentChatUser()?.name || 'User'
-          }}</span>
-        </div>
-      </div>
-
-      <div class="chat__messages">
-        @if (messages().length > 0) {
-          @for (userMesage of messages(); track $index) {
-            <div
-              class="chat__message"
-              [ngClass]="{
-                'chat__message--incoming':
-                  userMesage.from === currentChatUser()?.id,
-              }"
-            >
-              <p class="chat__message-text">{{ userMesage.message }}</p>
-            </div>
-          } @empty {
-            <p class="empty-text">Start Messaging</p>
-          }
-        }
-      </div>
-
-      <div class="chat__input">
-        <input
-          type="text"
-          placeholder="Type a message..."
-          class="chat__input-field"
-          [(ngModel)]="message"
-        />
-        <app-button (clickEvent)="sendMessage()">Send</app-button>
-      </div>
+      <app-chat-box
+        [currentUserId]="currentChatUser()!.id"
+        [currentUser]="currentChatUser"
+      ></app-chat-box>
     } @else {
       <div class="empty-box">
         <p class="empty-text">Nothing to show</p>

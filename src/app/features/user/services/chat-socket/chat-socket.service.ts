@@ -2,14 +2,7 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { fromEvent, Observable, share } from 'rxjs';
 import { AuthService } from '@core/services/auth/auth.service';
-import { IMessages } from '@features/user/pages/chat/chat-layout/chat-layout.component';
-
-// interface ChatMessage {
-//   roomId: string;
-//   senderId: string;
-//   message: string;
-//   createdAt: string;
-// }
+import { IMessage } from '@features/user/pages/chat/chat-layout/chat-layout.component';
 
 interface JoinChatResponse {
   roomId: string;
@@ -65,7 +58,7 @@ export class ChatSocketService implements OnDestroy {
       console.warn('[Socket] Disconnected:', reason);
     });
 
-    this.socket.on('auth_error', (err: { message: string }) => {
+    this.socket.on('authError', (err: { message: string }) => {
       console.error('[Socket] Auth error:', err.message);
       this._authService.refreshToken().subscribe({
         next: () => {
@@ -79,13 +72,15 @@ export class ChatSocketService implements OnDestroy {
   /* -------------------- CHAT -------------------- */
 
   joinChat(targetUserId: string): Promise<string> {
+    console.log('Target:', targetUserId);
+
     if (!this.socket) {
       throw new Error('Socket not connected');
     }
 
     return new Promise((resolve, reject) => {
       this.socket!.emit(
-        'join-chat',
+        'joinChat',
         { targetUserId },
         (response: JoinChatResponse) => {
           if (!response?.roomId) {
@@ -94,7 +89,27 @@ export class ChatSocketService implements OnDestroy {
           }
 
           this.currentRoomId = response.roomId;
+          console.log('rrom', this.currentRoomId);
+
           resolve(response.roomId);
+        },
+      );
+    });
+  }
+
+  getMessages(): Promise<IMessage[]> {
+    if (!this.socket || !this.currentRoomId) {
+      console.log('[chat-socket-service]: no socket or roomid');
+      return Promise.resolve([]);
+    }
+
+    return new Promise((resolve, _reject) => {
+      this.socket?.emit(
+        'getAllMessages',
+        { roomId: this.currentRoomId },
+        (messages: IMessage[]) => {
+          console.log(messages);
+          resolve(messages);
         },
       );
     });
@@ -103,20 +118,39 @@ export class ChatSocketService implements OnDestroy {
   sendMessage(message: string): void {
     if (!this.socket || !this.currentRoomId) return;
 
-    this.socket.emit('send-message', {
+    this.socket.emit('sendMessage', {
       roomId: this.currentRoomId,
       message,
     });
   }
 
+  readMessage(senderId: string): void {
+    console.log(`[chat-socket-service] read message ${this.currentRoomId}`);
+
+    if (!this.socket || !this.currentRoomId) return;
+
+    this.socket.emit('readMessage', {
+      roomId: this.currentRoomId,
+      senderId,
+    });
+  }
+
   /* -------------------- LISTENERS -------------------- */
 
-  onMessage(): Observable<IMessages> {
+  onMessage(): Observable<IMessage> {
     if (!this.socket) {
       throw new Error('Socket not connected');
     }
 
-    return fromEvent<IMessages>(this.socket, 'newMessage').pipe(share());
+    return fromEvent<IMessage>(this.socket, 'newMessage').pipe(share());
+  }
+
+  onMessages(): Observable<IMessage[]> {
+    if (!this.socket) {
+      throw new Error('Socket not connected');
+    }
+
+    return fromEvent<IMessage[]>(this.socket, 'messages').pipe(share());
   }
 
   onTyping(): Observable<{ userId: string }> {
