@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-booked-tasks',
@@ -17,6 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class ListBookedTasksComponent implements OnInit {
   private _bookingService = inject(BookingService);
+  private _router = inject(Router);
   private _destroyRef = inject(DestroyRef);
 
   bookings = signal<IListBooking[]>([]);
@@ -55,6 +57,13 @@ export class ListBookedTasksComponent implements OnInit {
       page,
     }));
     this.fetchAllBookings();
+  }
+
+  navigateTaskDetails(id: string) {
+    console.log(id);
+
+    if (!id) return;
+    this._router.navigate(['/tasks', id]);
   }
 
   ngOnInit(): void {

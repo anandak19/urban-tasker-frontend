@@ -2,6 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
 import { IFindAllBookingsResponse } from '@features/user/models/tasker-bookings/api-responses.model';
+import { IBooking } from '@features/user/models/tasker-bookings/tasker-bookings.model';
+import { IApiResponseSuccess } from '@shared/models/api-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +37,11 @@ export class BookingService {
     return this._http.get<IFindAllBookingsResponse>(this.API_ENDPOINT, {
       params,
     });
+  }
+
+  getOneBooking(bookingId: string) {
+    return this._http.get<IApiResponseSuccess<IBooking>>(
+      `${this.API_ENDPOINT}/${bookingId}`,
+    );
   }
 }
