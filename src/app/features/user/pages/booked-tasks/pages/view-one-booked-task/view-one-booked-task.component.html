@@ -69,7 +69,11 @@
             <span class="tasker-details__role">Tasker</span>
           </div>
 
-          <app-button class="tasker-details__chat-btn"> Chat </app-button>
+          <app-button-loading
+            text="Chat"
+            (isClicked)="onChatWithTaskerClick()"
+            [isLoading]="isChatLoading"
+          ></app-button-loading>
         </div>
 
         <!-- Timings -->

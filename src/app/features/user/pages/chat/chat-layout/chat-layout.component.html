@@ -10,18 +10,18 @@
         <li
           class="chat__user"
           [ngClass]="{
-            'chat__user--active': item.id === currentChatUser()?.id,
+            'chat__user--active': item.partner.id === currentChatUser()?.id,
           }"
           (click)="joinChat(item)"
           tabindex="0"
           role="button"
         >
           <img
-            [src]="'assets/defaults/default-user.png'"
+            [src]="item.partner.image || 'assets/defaults/default-user.png'"
             alt="User"
             class="chat__user-avatar"
           />
-          <span class="chat__user-name">{{ fullName(item) }}</span>
+          <span class="chat__user-name">{{ item.partner.name }}</span>
         </li>
       }
     </ul>
@@ -35,9 +35,10 @@
         [currentUser]="currentChatUser"
       ></app-chat-box>
     } @else {
-      <div class="empty-box">
+      <app-empty-chat-box></app-empty-chat-box>
+      <!-- <div class="empty-box">
         <p class="empty-text">Nothing to show</p>
-      </div>
+      </div> -->
     }
   </section>
 </div>

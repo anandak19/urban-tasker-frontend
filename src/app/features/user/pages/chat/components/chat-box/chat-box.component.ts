@@ -44,16 +44,14 @@ export class ChatBoxComponent implements OnInit {
     this.currentChatUser.set(this.currentUser());
   }
 
-  fullName(user: IChatUsers) {
-    return `${user.firstName} ${user.lastName}`;
-  }
-
   onEnter() {
     this.sendMessage();
   }
   // events
   sendMessage() {
-    this._chatSocket.sendMessage(this.message);
+    const text = this.message.trim();
+    if (!text) return;
+    this._chatSocket.sendMessage(text);
     this.message = '';
   }
 

@@ -6,4 +6,8 @@ export const ChatRoutes: Routes = [
     path: '',
     component: ChatLayoutComponent,
   },
+  {
+    path: ':roomId',
+    component: ChatLayoutComponent,
+  },
 ];
