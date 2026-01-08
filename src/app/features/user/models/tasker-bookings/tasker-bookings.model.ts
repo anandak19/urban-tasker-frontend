@@ -18,3 +18,28 @@ export interface IBooking extends IListBooking {
   city: string;
   taskStatus: TaskStatus;
 }
+
+export interface IBookingDetails {
+  id: string;
+
+  categoryName: string;
+  subcategoryId: string;
+  image: string;
+
+  date: string;
+  time: string;
+
+  taskStatus: TaskStatus;
+  isAccepted: boolean;
+
+  city: string;
+  description: string;
+
+  taskSize: TaskSize;
+
+  taskerId: string;
+  taskerName: string;
+
+  userIdId: string;
+  userName: string;
+}

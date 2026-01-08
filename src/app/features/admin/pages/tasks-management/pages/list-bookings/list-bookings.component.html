@@ -1,0 +1,18 @@
+<div class="list-bookings">
+  <app-admin-page-title title="Bookings"></app-admin-page-title>
+  <div class="list-bookings__listing-wrapper">
+    <app-table-listing
+      [dataSource]="bookings"
+      [columns]="bookingsColumns"
+      [editable]="false"
+      (viewClicked)="onViewClick($event)"
+    >
+    </app-table-listing>
+
+    <app-pagination
+      [paginationData]="pagination()"
+      (pageChange)="onPageChange($event)"
+    >
+    </app-pagination>
+  </div>
+</div>

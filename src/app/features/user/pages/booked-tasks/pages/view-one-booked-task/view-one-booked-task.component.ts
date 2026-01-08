@@ -7,9 +7,9 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IBooking } from '@features/user/models/tasker-bookings/tasker-bookings.model';
+import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { BookingService } from '@features/user/services/bookings/booking.service';
-import { TaskSize, TaskStatus } from '@shared/constants/enums/task-size.enum';
+import { TaskStatus } from '@shared/constants/enums/task-size.enum';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
@@ -37,7 +37,7 @@ export class ViewOneBookedTaskComponent implements OnInit {
   @Input() taskId!: string;
 
   isChatLoading = signal<boolean>(false);
-  bookingDetails = signal<IBooking | null>(null);
+  bookingDetails = signal<IBookingDetails | null>(null);
 
   private _bookingService = inject(BookingService);
   private _chatService = inject(ChatService);
@@ -59,23 +59,6 @@ export class ViewOneBookedTaskComponent implements OnInit {
         },
       });
   }
-
-  sampleBooking: IBooking = {
-    categoryName: 'Cleaning',
-    city: 'kochi',
-    date: '2026-01-08T18:30:00.000Z',
-    time: '09:30',
-    description: 'Need a experienced worker to clen my dishes',
-    subcategoryId: '6920af181b0733a42ffac2d7',
-    id: '695e8b5deb1f0469910c02c9',
-    taskerFirstName: 'Sharon',
-    taskerLastName: 'M',
-    taskSize: TaskSize.SMALL,
-    taskStatus: TaskStatus.PENDING,
-    taskerId: '695e8838eb1f0469910c020a',
-    image:
-      'https://www.ricoh-imaging.co.jp/english/products/q-s1/ex/img/bod_mainImg_01.jpg',
-  };
 
   statusOptions = signal<IOptionData[]>([
     {

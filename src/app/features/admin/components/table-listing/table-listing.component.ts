@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { IMatColumns } from '@shared/interfaces/table.interface';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-table-listing',
-  imports: [MatTableModule, ButtonComponent, CommonModule],
+  imports: [MatTableModule, ButtonComponent, CommonModule, DatePipe],
   templateUrl: './table-listing.component.html',
   styleUrl: './table-listing.component.scss',
 })
@@ -24,6 +24,13 @@ export class TableListingComponent<T> {
 
   onViewBtnClick(id: string) {
     this.viewClicked.emit(id);
+  }
+
+  isDate(value: unknown): boolean {
+    return (
+      value instanceof Date ||
+      (typeof value === 'string' && !isNaN(Date.parse(value)))
+    );
   }
 
   onEditBtnClick(id: string) {

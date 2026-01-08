@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
 import { IFindAllBookingsResponse } from '@features/user/models/tasker-bookings/api-responses.model';
-import { IBooking } from '@features/user/models/tasker-bookings/tasker-bookings.model';
+import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class BookingService {
   }
 
   getOneBooking(bookingId: string) {
-    return this._http.get<IApiResponseSuccess<IBooking>>(
+    return this._http.get<IApiResponseSuccess<IBookingDetails>>(
       `${this.API_ENDPOINT}/${bookingId}`,
     );
   }
