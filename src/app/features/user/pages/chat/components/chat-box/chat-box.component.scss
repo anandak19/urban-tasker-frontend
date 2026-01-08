@@ -104,4 +104,66 @@
       box-shadow: 0 0 0 1px $primary-color;
     }
   }
+
+  @include respond('xs') {
+    height: 100vh;
+
+    /* HEADER */
+    &__window-header {
+      height: 56px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+    }
+
+    &__window-avatar {
+      width: 32px;
+      height: 32px;
+      margin-right: 8px;
+    }
+
+    &__window-name {
+      font-size: 14px;
+    }
+
+    /* MESSAGES */
+    &__messages {
+      padding: 12px;
+      gap: 8px;
+    }
+
+    &__message {
+      max-width: 85%;
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    &__message-text {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    &__message-status {
+      margin-top: 2px;
+
+      small {
+        font-size: 10px;
+      }
+    }
+
+    /* INPUT */
+    &__input {
+      height: 56px;
+      padding: 8px;
+      gap: 6px;
+    }
+
+    &__input-field {
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 18px;
+    }
+  }
 }

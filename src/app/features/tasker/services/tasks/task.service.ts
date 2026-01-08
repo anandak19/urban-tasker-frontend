@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ITaskerTasksResponse } from '@features/tasker/modals/api-response.modal';
+import { IBaseApiResponse } from '@shared/models/api-response.model';
 import { ITaskFilter } from '@shared/models/request-data.model';
 
 @Injectable({
@@ -14,6 +15,20 @@ export class TaskService {
     return this._http.get<ITaskerTasksResponse>(`${this.API_ENDPOINT}`, {
       params: this.getTasksFilterParam(filter),
     });
+  }
+
+  acceptTask(taskId: string) {
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/${taskId}/accept`,
+      {},
+    );
+  }
+
+  rejectTask(taskId: string) {
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/${taskId}/reject`,
+      {},
+    );
   }
 
   private getTasksFilterParam(filter: ITaskFilter) {

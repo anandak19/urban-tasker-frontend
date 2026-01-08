@@ -2,7 +2,7 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { fromEvent, Observable, share } from 'rxjs';
 import { AuthService } from '@core/services/auth/auth.service';
-import { IMessage } from '@features/user/pages/chat/chat-layout/chat-layout.component';
+import { IMessage } from '@features/user/models/chat/chat.model';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IChatUsers } from '@features/user/pages/chat/chat-layout/chat-layout.component';
+import { IChatUsers } from '@features/user/models/chat/chat.model';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
 
 @Injectable({

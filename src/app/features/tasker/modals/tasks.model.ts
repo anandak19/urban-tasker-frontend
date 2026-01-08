@@ -15,6 +15,7 @@ export interface ITaskerTask {
   time: string;
 
   taskStatus: TaskStatus;
+  isAccepted: boolean;
 
   image: string;
 }

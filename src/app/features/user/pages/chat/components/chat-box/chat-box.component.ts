@@ -1,10 +1,18 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IChatUsers, IMessage } from '../../chat-layout/chat-layout.component';
 import { ChatSocketService } from '@features/user/services/chat-socket/chat-socket.service';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
+import { IChatUsers, IMessage } from '@features/user/models/chat/chat.model';
 
 @Component({
   selector: 'app-chat-box',
@@ -28,6 +36,8 @@ export class ChatBoxComponent implements OnInit {
   }
   //remove this one later
   @Input() currentUser = signal<IChatUsers | null>(null);
+  @Output() closeChat = new EventEmitter();
+  @Input() isMobileScreen = true;
 
   //socket
   private _chatSocket = inject(ChatSocketService);

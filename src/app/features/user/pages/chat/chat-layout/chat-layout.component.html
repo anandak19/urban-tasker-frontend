@@ -1,6 +1,9 @@
 <div class="chat">
   <!-- Left: User List -->
-  <aside class="chat__sidebar">
+  <aside
+    class="chat__sidebar"
+    [ngClass]="{ 'closed-sidbar': currentChatUser() }"
+  >
     <div class="chat__sidebar-header">
       <h3 class="chat__title">Chats</h3>
     </div>
@@ -28,17 +31,19 @@
   </aside>
 
   <!-- Right: Chat Window -->
-  <section class="chat__window">
+  <section
+    class="chat__window"
+    [ngClass]="{ 'closed-chat-widnow': !currentChatUser() }"
+  >
     @if (currentChatUser()) {
       <app-chat-box
+        (closeChat)="onCloseChat()"
         [currentUserId]="currentChatUser()!.id"
         [currentUser]="currentChatUser"
+        [isMobileScreen]="isMobile"
       ></app-chat-box>
     } @else {
       <app-empty-chat-box></app-empty-chat-box>
-      <!-- <div class="empty-box">
-        <p class="empty-text">Nothing to show</p>
-      </div> -->
     }
   </section>
 </div>

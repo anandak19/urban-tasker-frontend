@@ -17,23 +17,8 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmptyChatBoxComponent } from '../components/empty-chat-box/empty-chat-box.component';
-
-export interface IChatUsers {
-  id: string;
-  partner: {
-    name: string;
-    id: string;
-    image?: string;
-  };
-}
-
-export interface IMessage {
-  senderId: string;
-  roomId: string;
-  text: string;
-  isRead: boolean;
-  id: string;
-}
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { IChatUsers } from '@features/user/models/chat/chat.model';
 
 @Component({
   selector: 'app-chat-layout',
@@ -44,6 +29,7 @@ export interface IMessage {
 export class ChatLayoutComponent implements OnInit, OnDestroy {
   //from param
   @Input() roomId!: string;
+  isMobile = false;
   private readonly _currentChatUser = signal<IChatUsers | null>(null);
 
   @Input()
@@ -59,6 +45,7 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
   private _snackbar = inject(SnackbarService);
   private _router = inject(Router);
   private route = inject(ActivatedRoute);
+  private breakpointObserver = inject(BreakpointObserver);
 
   chatUsers = signal<IChatUsers[]>([]);
 
@@ -116,10 +103,23 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
     }
   }
 
+  observerBreakpoint() {
+    this.breakpointObserver
+      .observe([Breakpoints.Handset])
+      .subscribe((result) => {
+        this.isMobile = result.matches;
+      });
+  }
+
+  onCloseChat() {
+    this.currentChatUser.set(null);
+  }
+
   // -- call method to get chating users
   // on init connect to the socket server
   ngOnInit(): void {
     console.log('cha');
+    this.observerBreakpoint();
     this._chatSocket.connect();
     this._chatSocket.onConnect(() => {
       console.log('Socket connected');

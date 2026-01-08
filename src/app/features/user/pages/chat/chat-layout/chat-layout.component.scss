@@ -66,7 +66,8 @@
     display: flex;
     flex-direction: column;
     background-color: $background;
-    app-chat-box, app-empty-chat-box {
+    app-chat-box,
+    app-empty-chat-box {
       height: 100%;
     }
   }
@@ -74,5 +75,16 @@
   .empty-box {
     margin: auto;
     color: $background-division;
+  }
+
+  @include respond('xs') {
+    height: auto;
+    .closed-sidbar {
+      display: none;
+    }
+
+    .closed-chat-widnow {
+      display: none;
+    }
   }
 }
