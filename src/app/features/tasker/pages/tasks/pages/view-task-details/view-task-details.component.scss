@@ -1,0 +1,105 @@
+@use 'index' as *;
+
+.view-tasks-details {
+  padding: 16px;
+
+  &__filter {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  &__filter-btn {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid #dcdcdc;
+    background-color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #f1f1f1;
+    }
+
+    &--active {
+      background-color: #000;
+      color: #fff;
+      border-color: #000;
+    }
+  }
+
+  &__tasks-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* Task Card */
+
+.task-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+
+  &__info {
+    flex: 1;
+  }
+
+  &__name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #222;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 12px;
+  }
+
+  &__date,
+  &__time {
+    display: inline-block;
+  }
+
+  &__view-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: none;
+    background-color: #ffd000;
+    color: #000;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #f5c400;
+    }
+  }
+
+  &__image {
+    width: 120px;
+    height: 80px;
+    margin-left: 16px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

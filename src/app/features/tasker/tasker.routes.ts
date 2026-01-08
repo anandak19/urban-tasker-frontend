@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
-import { TasksComponent } from './pages/tasks/tasks.component';
 import { TaskerAvailbilityComponent } from './pages/tasker-availbility/tasker-availbility.component';
 import { TaskerProfileComponent } from './pages/tasker-profile/tasker-profile.component';
 import { EarningsComponent } from './pages/earnings/earnings.component';
+import { TasksLayoutComponent } from './pages/tasks/tasks-layout/tasks-layout.component';
+import { TasksRoutes } from './pages/tasks/tasks.routes';
 
 export const taskerRoutes: Routes = [
   {
@@ -12,7 +13,8 @@ export const taskerRoutes: Routes = [
   },
   {
     path: 'tasks',
-    component: TasksComponent,
+    component: TasksLayoutComponent,
+    children: TasksRoutes,
   },
   {
     path: 'availability',

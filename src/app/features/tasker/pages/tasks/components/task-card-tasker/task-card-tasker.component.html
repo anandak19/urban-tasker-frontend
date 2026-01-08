@@ -1,0 +1,21 @@
+<div class="task-card">
+  <div class="task-card__image">
+    <img [src]="taskData.image || ''" alt="Task Image" />
+  </div>
+
+  <div class="task-card__info">
+    <h3 class="task-card__name">{{ taskData.categoryName }}</h3>
+
+    <div class="task-card__meta">
+      <span class="task-card__date">{{ taskData.date | date }}</span>
+      <span class="task-card__time">{{ taskData.time }}</span>
+    </div>
+
+    <button class="task-card__view-btn">View Details</button>
+  </div>
+
+  <div class="task-card__options">
+    <app-button variant="danger">Reject</app-button>
+    <app-button>Accept</app-button>
+  </div>
+</div>

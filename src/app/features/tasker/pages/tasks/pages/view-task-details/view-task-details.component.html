@@ -1,0 +1,39 @@
+<div class="view-tasks-details">
+  <app-page-title title="Task Details"></app-page-title>
+
+  <!-- Filter -->
+  <div class="view-tasks-details__filter">
+    <button class="view-tasks-details__filter-btn view-tasks-details__filter-btn--active">
+      All
+    </button>
+    <button class="view-tasks-details__filter-btn">Upcoming</button>
+    <button class="view-tasks-details__filter-btn">Completed</button>
+    <button class="view-tasks-details__filter-btn">Overdue</button>
+  </div>
+
+  <!-- Task List -->
+  <div class="view-tasks-details__tasks-wrapper">
+    <div class="task-card">
+      <div class="task-card__info">
+        <h3 class="task-card__name">Fix Kitchen Sink</h3>
+
+        <div class="task-card__meta">
+          <span class="task-card__date">12 Jan 2026</span>
+          <span class="task-card__time">10:30 AM</span>
+        </div>
+
+        <button class="task-card__view-btn">
+          View Details
+        </button>
+      </div>
+
+      <div class="task-card__image">
+        <img src="https://via.placeholder.com/120" alt="Task Image" />
+      </div>
+    </div>
+
+
+
+    <!-- Repeat task-card for each task -->
+  </div>
+</div>

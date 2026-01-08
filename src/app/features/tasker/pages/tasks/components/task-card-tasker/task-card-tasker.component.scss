@@ -1,0 +1,71 @@
+@use 'index' as *;
+
+.task-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+  border-radius: 12px;
+  @include section-box();
+  padding: $spacing-3;
+
+  &__image {
+    width: 120px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #7b7777;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__options{
+    display: flex;
+    gap: $spacing-3;
+  }
+
+  &__name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: $white;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 12px;
+  }
+
+  &__date,
+  &__time {
+    display: inline-block;
+  }
+
+  &__view-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: none;
+    background-color: #ffd000;
+    color: #000;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #f5c400;
+    }
+  }
+}
