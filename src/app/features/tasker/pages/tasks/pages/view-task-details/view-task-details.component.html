@@ -1,39 +1,104 @@
-<div class="view-tasks-details">
+<div class="booking-details">
   <app-page-title title="Task Details"></app-page-title>
 
-  <!-- Filter -->
-  <div class="view-tasks-details__filter">
-    <button class="view-tasks-details__filter-btn view-tasks-details__filter-btn--active">
-      All
-    </button>
-    <button class="view-tasks-details__filter-btn">Upcoming</button>
-    <button class="view-tasks-details__filter-btn">Completed</button>
-    <button class="view-tasks-details__filter-btn">Overdue</button>
-  </div>
+  @if (bookingDetails()) {
+    <div class="booking-details__wrapper">
+      <!-- LEFT SIDE -->
+      <div class="booking-details__left">
+        <!-- Task Status -->
+        <div class="booking-details__task-status section-box">
+          <div class="booking-details__task-status-header">
+            <h4 class="booking-details__task-status-title">Task Status</h4>
 
-  <!-- Task List -->
-  <div class="view-tasks-details__tasks-wrapper">
-    <div class="task-card">
-      <div class="task-card__info">
-        <h3 class="task-card__name">Fix Kitchen Sink</h3>
-
-        <div class="task-card__meta">
-          <span class="task-card__date">12 Jan 2026</span>
-          <span class="task-card__time">10:30 AM</span>
+            <span
+              class="booking-details__task-status-chip booking-details__task-status-chip--active"
+            >
+              {{ bookingDetails()?.taskStatus }}
+            </span>
+          </div>
         </div>
 
-        <button class="task-card__view-btn">
-          View Details
-        </button>
+        <!-- Task Details -->
+        <div class="booking-details__task-info section-box">
+          <div class="booking-details__task-info-description">
+            {{ bookingDetails()?.description }}
+          </div>
+
+          <div class="booking-details__task-info-item">
+            <span class="booking-details__task-info-label">City</span>
+            <span class="booking-details__task-info-value">{{
+              bookingDetails()?.city | titlecase
+            }}</span>
+          </div>
+
+          <div class="booking-details__task-info-item">
+            <span class="booking-details__task-info-label">Task Size</span>
+            <span class="booking-details__task-info-value">{{
+              bookingDetails()?.taskStatus | titlecase
+            }}</span>
+          </div>
+
+          <div class="booking-details__task-info-item">
+            <span class="booking-details__task-info-label">Category</span>
+            <span class="booking-details__task-info-value">{{
+              bookingDetails()?.categoryName
+            }}</span>
+          </div>
+
+          <!-- <div class="booking-details__task-info-item">
+            <span class="booking-details__task-info-label">Location</span>
+            <span class="booking-details__task-info-value">Indiranagar</span>
+          </div> -->
+        </div>
       </div>
 
-      <div class="task-card__image">
-        <img src="https://via.placeholder.com/120" alt="Task Image" />
+      <!-- RIGHT SIDE -->
+      <div class="booking-details__right">
+        <!-- Tasker Details -->
+        <div class="tasker-details section-box">
+          <div class="tasker-details__info">
+            <p class="tasker-details__name">
+              {{ bookingDetails()?.userName }}
+            </p>
+            <span class="tasker-details__role">User</span>
+          </div>
+
+          <app-button-loading
+            text="Chat"
+            (isClicked)="onChatWithTaskerClick()"
+            [isLoading]="isChatLoading"
+          ></app-button-loading>
+        </div>
+
+        <!-- Timings -->
+        <div class="timings section-box">
+          <div class="timings__row">
+            <span class="timings__label">Start Time</span>
+            <span class="timings__value">-</span>
+          </div>
+
+          <div class="timings__row">
+            <span class="timings__label">End Time</span>
+            <span class="timings__value">-</span>
+          </div>
+
+          <div class="timings__row">
+            <span class="timings__label">Date</span>
+            <span class="timings__value">{{
+              bookingDetails()?.date | date
+            }}</span>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="payment section-box">
+          <div class="payment__row">
+            <span>Total Amount</span>
+            <span class="payment__total">-</span>
+          </div>
+        </div>
       </div>
     </div>
-
-
-
-    <!-- Repeat task-card for each task -->
-  </div>
+  }
 </div>
+

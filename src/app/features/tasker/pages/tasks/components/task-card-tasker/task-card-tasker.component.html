@@ -11,14 +11,15 @@
       <span class="task-card__time">{{ taskData.time }}</span>
     </div>
 
-    <button class="task-card__view-btn">View Details</button>
+    <button class="task-card__view-btn" (click)="viewClick.emit()">
+      View Details
+    </button>
   </div>
 
   @if (taskData.taskStatus === taskStatus.REJECTED) {
     <p class="task-status task-status--rejected">Rejected</p>
   } @else if (taskData.isAccepted) {
     <p class="task-status task-status--accepted">Accepted</p>
-
   } @else {
     <div class="task-card__options">
       <app-button variant="danger" (clickEvent)="rejectTask(taskData.id)"

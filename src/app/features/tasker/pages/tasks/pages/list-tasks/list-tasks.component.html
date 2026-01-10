@@ -59,7 +59,10 @@
   <!-- Task List -->
   <div class="list-tasks__tasks-wrapper">
     @for (task of tasks(); track $index) {
-      <app-task-card-tasker [taskData]="task"></app-task-card-tasker>
+      <app-task-card-tasker
+        [taskData]="task"
+        (viewClick)="onViewClick($event)"
+      ></app-task-card-tasker>
     } @empty {
       <p class="empty-text">Nothing to show</p>
     }

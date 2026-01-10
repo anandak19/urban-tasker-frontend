@@ -1,5 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, DestroyRef, inject, Input } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { ITaskerTask } from '@features/tasker/modals/tasks.model';
@@ -16,6 +23,7 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 })
 export class TaskCardTaskerComponent {
   @Input() taskData!: ITaskerTask;
+  @Output() viewClick = new EventEmitter();
   taskStatus = TaskStatus;
 
   private _taskService = inject(TaskService);

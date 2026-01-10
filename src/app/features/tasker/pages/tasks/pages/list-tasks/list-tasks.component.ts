@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { ITaskerTask } from '@features/tasker/modals/tasks.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-tasks',
@@ -43,6 +44,8 @@ export class ListTasksComponent implements OnInit {
   private _taskService = inject(TaskService);
   private _destroyRef = inject(DestroyRef);
   private _snackbar = inject(SnackbarService);
+  private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
 
   onChangeStatusFilter(selectedStatus?: TaskStatus) {
     this.filter.update((current) => {
@@ -80,6 +83,10 @@ export class ListTasksComponent implements OnInit {
           this._snackbar.error(err.message);
         },
       });
+  }
+
+  onViewClick(id: string) {
+    this._router.navigate([`${id}`], { relativeTo: this._route });
   }
 
   ngOnInit(): void {

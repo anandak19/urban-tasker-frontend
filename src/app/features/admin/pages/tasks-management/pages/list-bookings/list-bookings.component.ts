@@ -72,14 +72,16 @@ export class ListBookingsComponent implements OnInit {
       });
   }
 
-  onViewClick(id: string) {
-    console.log(id);
-    //
+  onViewClicked(id: string) {
+    this._router.navigate([`${id}`], { relativeTo: this._route });
   }
 
   onPageChange(page: number) {
-    console.log(page);
-    //
+    this.filter.update((val) => ({
+      ...val,
+      page,
+    }));
+    this.getBookings();
   }
 
   ngOnInit(): void {

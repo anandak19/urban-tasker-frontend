@@ -1,4 +1,99 @@
 <div class="booking-details">
-  <app-admin-page-title title="Booking Details"></app-admin-page-title>
-  <div class="booking-details__wrapper"></div>
+  <app-admin-page-title title="Booking Details">
+    <app-back-button></app-back-button>
+  </app-admin-page-title>
+
+  @if (bookingDetails()) {
+    <div class="booking-details__wrapper">
+      <!-- LEFT SIDE -->
+      <div class="booking-details__left">
+        <!-- Task Status -->
+        <div class="booking-details__task-status section-box">
+          <div class="booking-details__task-status-header">
+            <h4 class="booking-details__task-status-title">Task Status</h4>
+
+            <span
+              class="booking-details__task-status-chip booking-details__task-status-chip--active"
+            >
+              {{ bookingDetails()?.taskStatus }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Task Details -->
+        <div class="booking-details__task-info section-box">
+          <div class="booking-details__task-info-description">
+            {{ bookingDetails()?.description }}
+          </div>
+
+          <div class="booking-details__task-info-item">
+            <span class="booking-details__task-info-label">City</span>
+            <span class="booking-details__task-info-value">{{
+              bookingDetails()?.city | titlecase
+            }}</span>
+          </div>
+
+          <div class="booking-details__task-info-item">
+            <span class="booking-details__task-info-label">Task Size</span>
+            <span class="booking-details__task-info-value">{{
+              bookingDetails()?.taskStatus | titlecase
+            }}</span>
+          </div>
+
+          <div class="booking-details__task-info-item">
+            <span class="booking-details__task-info-label">Category</span>
+            <span class="booking-details__task-info-value">{{
+              bookingDetails()?.categoryName
+            }}</span>
+          </div>
+
+          <!-- <div class="booking-details__task-info-item">
+            <span class="booking-details__task-info-label">Location</span>
+            <span class="booking-details__task-info-value">Indiranagar</span>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="booking-details__right">
+        <!-- Tasker Details -->
+        <div class="tasker-details section-box">
+          <div class="tasker-details__info">
+            <p class="tasker-details__name">
+              {{ bookingDetails()?.taskerName }}
+            </p>
+            <span class="tasker-details__role">Tasker</span>
+          </div>
+        </div>
+
+        <!-- Timings -->
+        <div class="timings section-box">
+          <div class="timings__row">
+            <span class="timings__label">Start Time</span>
+            <span class="timings__value">-</span>
+          </div>
+
+          <div class="timings__row">
+            <span class="timings__label">End Time</span>
+            <span class="timings__value">-</span>
+          </div>
+
+          <div class="timings__row">
+            <span class="timings__label">Date</span>
+            <span class="timings__value">{{
+              bookingDetails()?.date | date
+            }}</span>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="payment section-box">
+          <div class="payment__row">
+            <span>Total Amount</span>
+            <span class="payment__total">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
 </div>
