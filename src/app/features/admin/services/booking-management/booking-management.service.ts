@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IFindAllBookingsResponse } from '@features/admin/models/api-response.model';
-import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
-import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
+import { IBookingDetails } from '@shared/models/booking.model';
+import { ITaskFilter } from '@shared/models/request-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class BookingManagementService {
 
   private _http = inject(HttpClient);
 
-  getAllBookings(filter?: IListBookingQuery) {
+  getAllBookings(filter?: ITaskFilter) {
     let params = new HttpParams();
 
     if (filter) {

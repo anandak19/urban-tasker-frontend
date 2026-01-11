@@ -12,8 +12,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
 import { BookingManagementService } from '@features/admin/services/booking-management/booking-management.service';
-import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
+import { IBookingDetails } from '@shared/models/booking.model';
 
 @Component({
   selector: 'app-booking-details',

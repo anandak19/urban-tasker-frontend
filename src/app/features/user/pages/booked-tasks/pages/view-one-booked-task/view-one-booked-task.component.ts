@@ -7,7 +7,6 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { BookingService } from '@features/user/services/bookings/booking.service';
 import { TaskStatus } from '@shared/constants/enums/task-size.enum';
 import { IApiResponseError } from '@shared/models/api-response.model';
@@ -20,6 +19,7 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
+import { IBookingDetails } from '@shared/models/booking.model';
 
 @Component({
   selector: 'app-view-one-booked-task',

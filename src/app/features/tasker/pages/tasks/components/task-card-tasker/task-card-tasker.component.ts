@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
-import { ITaskerTask } from '@features/tasker/modals/tasks.model';
 import { TaskService } from '@features/tasker/services/tasks/task.service';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { TaskStatus } from '@shared/constants/enums/task-size.enum';
 import { IApiResponseError } from '@shared/models/api-response.model';
+import { IBookingListing } from '@shared/models/booking.model';
 
 @Component({
   selector: 'app-task-card-tasker',
@@ -22,7 +22,7 @@ import { IApiResponseError } from '@shared/models/api-response.model';
   styleUrl: './task-card-tasker.component.scss',
 })
 export class TaskCardTaskerComponent {
-  @Input() taskData!: ITaskerTask;
+  @Input() taskData!: IBookingListing;
   @Output() viewClick = new EventEmitter();
   taskStatus = TaskStatus;
 

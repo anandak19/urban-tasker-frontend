@@ -4,7 +4,7 @@ import {
 } from '@shared/models/api-response.model';
 import { ICategoryData } from './category.interface';
 import { ITaskerApplicationListItem } from './tasker-application.model';
-import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
+import { IBookingListing } from '@shared/models/booking.model';
 
 // Find All Categories API Response
 export type IFindAllCategoriesResponse = IApiResponseSuccess<
@@ -19,5 +19,5 @@ export type IFindAllTaskerApplicationsResponse = IApiResponseSuccess<
 >;
 
 export type IFindAllBookingsResponse = IApiResponseSuccess<
-  IFindAllResponseData<IBookingDetails>
+  IFindAllResponseData<IBookingListing>
 >;

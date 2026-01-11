@@ -10,8 +10,8 @@ import { TaskService } from '@features/tasker/services/tasks/task.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
-import { ITaskerTask } from '@features/tasker/modals/tasks.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IBookingListing } from '@shared/models/booking.model';
 
 @Component({
   selector: 'app-list-tasks',
@@ -32,7 +32,7 @@ export class ListTasksComponent implements OnInit {
   // });
   filter = signal<ITaskFilter>({});
 
-  tasks = signal<ITaskerTask[]>([]);
+  tasks = signal<IBookingListing[]>([]);
 
   pagination = signal<IPaginationMeta>({
     limit: 0,

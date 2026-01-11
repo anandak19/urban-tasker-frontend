@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { TaskService } from '@features/tasker/services/tasks/task.service';
-import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { BookingService } from '@features/user/services/bookings/booking.service';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
@@ -18,6 +17,7 @@ import { finalize } from 'rxjs';
 import { ChatService } from '@features/user/services/chat/chat.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { Router } from '@angular/router';
+import { IBookingDetails } from '@shared/models/booking.model';
 
 @Component({
   selector: 'app-view-task-details',

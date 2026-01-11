@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
+import { inject, Injectable } from '@angular/core';
 import { IFindAllBookingsResponse } from '@features/user/models/tasker-bookings/api-responses.model';
-import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
+import { IBookingDetails } from '@shared/models/booking.model';
+import { ITaskFilter } from '@shared/models/request-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,13 +13,7 @@ export class BookingService {
 
   private _http = inject(HttpClient);
 
-  filter = signal<IListBookingQuery>({
-    page: 1,
-    limit: 10,
-    taskStatus: undefined,
-  });
-
-  getAllBookings(filter: IListBookingQuery = { page: 1 }) {
+  getAllBookings(filter: ITaskFilter = { page: 1 }) {
     let params = new HttpParams();
 
     if (filter.page) {

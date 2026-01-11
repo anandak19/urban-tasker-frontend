@@ -8,9 +8,9 @@ import { TableListingComponent } from '@features/admin/components/table-listing/
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { BookingManagementService } from '@features/admin/services/booking-management/booking-management.service';
 import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
-import { IBookingDetails } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { IMatColumns } from '@shared/interfaces/table.interface';
 import { IApiResponseError } from '@shared/models/api-response.model';
+import { IBookingListing } from '@shared/models/booking.model';
 
 @Component({
   selector: 'app-list-bookings',
@@ -35,7 +35,7 @@ export class ListBookingsComponent implements OnInit {
     limit: 2,
   });
 
-  bookings!: IBookingDetails[];
+  bookings!: IBookingListing[];
 
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
