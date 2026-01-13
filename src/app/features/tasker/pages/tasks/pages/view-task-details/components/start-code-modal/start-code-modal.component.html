@@ -1,0 +1,48 @@
+<div class="start-code-modal">
+  <div class="start-code-modal__container">
+    <!-- Header -->
+    <h2 class="start-code-modal__title">Start the Task</h2>
+
+    <form [formGroup]="startCodeForm" (ngSubmit)="onSubmit()">
+      <!-- Content -->
+      <div class="start-code-modal__content">
+        <p class="start-code-modal__description">
+          Enter the start code you received from the client to begin the work.
+        </p>
+
+        <div class="start-code-modal__field">
+          <label class="start-code-modal__label" for="startCode">
+            Start Code
+          </label>
+          <input
+            id="startCode"
+            type="text"
+            placeholder="Enter start code"
+            formControlName="startCode"
+            class="start-code-modal__input"
+            [class.start-code-modal__input--error]="isCodeInvalid"
+          />
+
+          @if (isCodeInvalid) {
+            <div class="error-text">
+              <small>
+                {{ errorText }}
+              </small>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="start-code-modal__footer">
+        <app-button type="button" variant="secondary" (clickEvent)="close()"
+          >Close</app-button
+        >
+        <app-button-loading
+          text="Start Task"
+          type="submit"
+        ></app-button-loading>
+      </div>
+    </form>
+  </div>
+</div>

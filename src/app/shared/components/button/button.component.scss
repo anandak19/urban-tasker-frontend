@@ -98,6 +98,7 @@
 
   &--success {
     background-color: $success-green;
+    color: $white;
   }
 
   @include respond('xs') {

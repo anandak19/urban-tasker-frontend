@@ -33,8 +33,7 @@
               </div>
 
               <div class="list-booked-tasks__tasker">
-                Tasker: {{ booking.taskerFirstName }}
-                {{ booking.taskerLastName }}
+                Tasker: {{ booking.taskerName }}
               </div>
 
               <div class="list-booked-tasks__datetime">
@@ -48,7 +47,9 @@
           <!-- RIGHT : Actions -->
           <div class="list-booked-tasks__card-right">
             <app-button variant="secondary">Message</app-button>
-            <app-button>View Details</app-button>
+            <app-button (clickEvent)="navigateTaskDetails(booking.id)"
+              >View Details</app-button
+            >
           </div>
         </div>
       }

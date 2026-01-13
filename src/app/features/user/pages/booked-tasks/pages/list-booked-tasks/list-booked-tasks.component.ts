@@ -3,11 +3,12 @@ import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { BookingService } from '@features/user/services/bookings/booking.service';
-import { IListBooking } from '@features/user/models/tasker-bookings/tasker-bookings.model';
 import { DatePipe } from '@angular/common';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
-import { IListBookingQuery } from '@features/user/models/tasker-bookings/api-requests.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { IBookingListing } from '@shared/models/booking.model';
+import { ITaskFilter } from '@shared/models/request-data.model';
 
 @Component({
   selector: 'app-list-booked-tasks',
@@ -17,9 +18,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class ListBookedTasksComponent implements OnInit {
   private _bookingService = inject(BookingService);
+  private _router = inject(Router);
   private _destroyRef = inject(DestroyRef);
 
-  bookings = signal<IListBooking[]>([]);
+  bookings = signal<IBookingListing[]>([]);
 
   paginationData = signal<IPaginationMeta>({
     total: 0,
@@ -28,7 +30,7 @@ export class ListBookedTasksComponent implements OnInit {
     pages: 0,
   });
 
-  filter = signal<IListBookingQuery>({
+  filter = signal<ITaskFilter>({
     page: 1,
     limit: 1,
   });
@@ -55,6 +57,13 @@ export class ListBookedTasksComponent implements OnInit {
       page,
     }));
     this.fetchAllBookings();
+  }
+
+  navigateTaskDetails(id: string) {
+    console.log(id);
+
+    if (!id) return;
+    this._router.navigate(['/tasks', id]);
   }
 
   ngOnInit(): void {

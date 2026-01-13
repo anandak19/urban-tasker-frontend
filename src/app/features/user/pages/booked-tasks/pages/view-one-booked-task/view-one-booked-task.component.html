@@ -1,1 +1,56 @@
-<p>view-one-booked-task works!</p>
+<div class="booking-details">
+  <app-page-title title="Task Details"></app-page-title>
+
+  @if (bookingDetails()) {
+    <div class="booking-details__wrapper">
+      <!-- LEFT SIDE -->
+      <div class="booking-details__left">
+        <!-- Task Status -->
+        <app-task-status-box
+          [taskStatus]="bookingDetails()?.taskStatus ?? null"
+        >
+          <div class="actions">
+            @if (bookingDetails()?.taskStatus === status.PENDING) {
+              <app-button size="small" (clickEvent)="onStartCode()"
+                >Get Start Code</app-button
+              >
+            }
+          </div>
+        </app-task-status-box>
+
+        <!-- Task Details -->
+        <app-task-info-box [taskInfo]="bookingDetails()"> </app-task-info-box>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="booking-details__right">
+        <!-- Tasker Details -->
+        <app-related-user-box
+          [title]="bookingDetails()?.taskerName || null"
+          label="Tasker"
+        >
+          <app-button-loading
+            text="Chat"
+            (isClicked)="onChatWithTaskerClick()"
+            [isLoading]="isChatLoading"
+          ></app-button-loading>
+        </app-related-user-box>
+
+        <!-- Timings -->
+        <app-task-timings-box
+          [taskData]="bookingDetails()"
+        ></app-task-timings-box>
+
+        <!-- Payment -->
+        <app-payment-details-box [payment]="bookingDetails()?.payment || null">
+          @if (
+            bookingDetails()?.payment?.paymentStatus ||
+            null === status.COMPLETED
+          ) {
+            <app-button (clickEvent)="onPay()">Pay</app-button>
+          }
+        </app-payment-details-box>
+      </div>
+    </div>
+  }
+</div>

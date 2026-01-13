@@ -1,0 +1,31 @@
+<div class="task-card">
+  <div class="task-card__image">
+    <img [src]="taskData.image || ''" alt="Task Image" />
+  </div>
+
+  <div class="task-card__info">
+    <h3 class="task-card__name">{{ taskData.categoryName }}</h3>
+
+    <div class="task-card__meta">
+      <span class="task-card__date">{{ taskData.date | date }}</span>
+      <span class="task-card__time">{{ taskData.time }}</span>
+    </div>
+
+    <button class="task-card__view-btn" (click)="onViewBtnClick(taskData.id)">
+      View Details
+    </button>
+  </div>
+
+  @if (taskData.taskStatus === taskStatus.REJECTED) {
+    <p class="task-status task-status--rejected">Rejected</p>
+  } @else if (taskData.isAccepted) {
+    <p class="task-status task-status--accepted">Accepted</p>
+  } @else {
+    <div class="task-card__options">
+      <app-button variant="danger" (clickEvent)="rejectTask(taskData.id)"
+        >Reject</app-button
+      >
+      <app-button (clickEvent)="acceptTask(taskData.id)">Accept</app-button>
+    </div>
+  }
+</div>

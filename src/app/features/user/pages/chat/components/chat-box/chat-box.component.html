@@ -2,14 +2,22 @@
   <div class="chat-box__window-header">
     <div class="chat-box__window-user">
       <img
-        [src]="'assets/defaults/default-user.png'"
+        [src]="
+          currentChatUser()?.partner?.image
+            ? currentChatUser()!.partner!.image
+            : 'assets/defaults/default-user.png'
+        "
         alt="User"
         class="chat-box__window-avatar"
       />
       <span class="chat-box__window-name">{{
-        currentUser() ? fullName(currentUser()!) : 'User'
+        currentUser()?.partner?.name || 'User'
       }}</span>
     </div>
+
+    @if (isMobileScreen) {
+      <app-button size="small" (clickEvent)="closeChat.emit()">Back</app-button>
+    }
   </div>
 
   <div class="chat-box__messages">

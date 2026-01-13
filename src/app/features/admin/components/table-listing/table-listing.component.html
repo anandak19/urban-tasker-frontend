@@ -17,6 +17,8 @@
                 </div>
               } @else if (typeof element[item.key] === 'boolean') {
                 {{ element[item.key] ? 'Yes' : 'No' }}
+              } @else if (isDate(element[item.key])) {
+                {{ element[item.key] | date }}
               } @else {
                 {{ element[item.key] }}
               }

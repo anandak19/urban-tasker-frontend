@@ -1,0 +1,77 @@
+<div class="list-tasks">
+  <app-page-title title="Tasks"></app-page-title>
+
+  <div class="list-tasks__in-progress"></div>
+
+  <!-- Filter -->
+  <div class="list-tasks__filter">
+    <button
+      class="list-tasks__filter-btn"
+      [ngClass]="{
+        'list-tasks__filter-btn--active': !filter().taskStatus,
+      }"
+      (click)="onChangeStatusFilter()"
+    >
+      All
+    </button>
+    <button
+      class="list-tasks__filter-btn"
+      [ngClass]="{
+        'list-tasks__filter-btn--active':
+          filter().taskStatus === status.IN_PROGRESS,
+      }"
+      (click)="onChangeStatusFilter(status.IN_PROGRESS)"
+    >
+      In Progress
+    </button>
+    <button
+      class="list-tasks__filter-btn"
+      [ngClass]="{
+        'list-tasks__filter-btn--active':
+          filter().taskStatus === status.PENDING,
+      }"
+      (click)="onChangeStatusFilter(status.PENDING)"
+    >
+      Upcoming
+    </button>
+    <button
+      class="list-tasks__filter-btn"
+      [ngClass]="{
+        'list-tasks__filter-btn--active':
+          filter().taskStatus === status.COMPLETED,
+      }"
+      (click)="onChangeStatusFilter(status.COMPLETED)"
+    >
+      Completed
+    </button>
+    <button
+      class="list-tasks__filter-btn"
+      [ngClass]="{
+        'list-tasks__filter-btn--active':
+          filter().taskStatus === status.OVERDUE,
+      }"
+      (click)="onChangeStatusFilter(status.OVERDUE)"
+    >
+      Overdue
+    </button>
+  </div>
+
+  <!-- Task List -->
+  <div class="list-tasks__tasks-wrapper">
+    @for (task of tasks(); track $index) {
+      <app-task-card-tasker
+        [taskData]="task"
+        (viewClick)="onViewClick($event)"
+      ></app-task-card-tasker>
+    } @empty {
+      <p class="empty-text">Nothing to show</p>
+    }
+
+    <!-- Repeat task-card for each task -->
+  </div>
+
+  <app-pagination
+    [paginationData]="pagination()"
+    (pageChange)="handlePageChange($event)"
+  ></app-pagination>
+</div>

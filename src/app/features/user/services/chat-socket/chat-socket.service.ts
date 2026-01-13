@@ -2,11 +2,7 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { fromEvent, Observable, share } from 'rxjs';
 import { AuthService } from '@core/services/auth/auth.service';
-import { IMessage } from '@features/user/pages/chat/chat-layout/chat-layout.component';
-
-interface JoinChatResponse {
-  roomId: string;
-}
+import { IMessage } from '@features/user/models/chat/chat.model';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +29,10 @@ export class ChatSocketService implements OnDestroy {
     });
 
     this.registerCoreListeners();
+  }
+
+  onConnect(cb: () => void) {
+    this.socket?.on('connect', cb);
   }
 
   disconnect(): void {
@@ -71,27 +71,26 @@ export class ChatSocketService implements OnDestroy {
 
   /* -------------------- CHAT -------------------- */
 
-  joinChat(targetUserId: string): Promise<string> {
-    console.log('Target:', targetUserId);
+  joinChat(roomId: string): Promise<void> {
+    if (this.currentRoomId === roomId) {
+      return Promise.resolve();
+    }
 
-    if (!this.socket) {
-      throw new Error('Socket not connected');
+    if (!this.socket || !this.socket.connected) {
+      return Promise.reject(new Error('Socket not connected'));
     }
 
     return new Promise((resolve, reject) => {
       this.socket!.emit(
         'joinChat',
-        { targetUserId },
-        (response: JoinChatResponse) => {
-          if (!response?.roomId) {
-            reject('Failed to join chat');
-            return;
+        { roomId },
+        (ack?: { success?: boolean }) => {
+          if (ack?.success === false) {
+            return reject(new Error('Failed to join chat'));
           }
 
-          this.currentRoomId = response.roomId;
-          console.log('rrom', this.currentRoomId);
-
-          resolve(response.roomId);
+          this.currentRoomId = roomId;
+          resolve();
         },
       );
     });
@@ -103,7 +102,7 @@ export class ChatSocketService implements OnDestroy {
       return Promise.resolve([]);
     }
 
-    return new Promise((resolve, _reject) => {
+    return new Promise((resolve) => {
       this.socket?.emit(
         'getAllMessages',
         { roomId: this.currentRoomId },

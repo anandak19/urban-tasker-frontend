@@ -27,6 +27,8 @@ export class LocationModalComponent
   private _dialogRef = inject(DialogRef);
   private _data: ILocationLatLng = inject(DIALOG_DATA);
 
+  isReadOnly = false;
+
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   private map!: L.Map;
   private marker!: L.Marker;
@@ -38,7 +40,9 @@ export class LocationModalComponent
   // set location cords in marker
   setMarkerLocation(lat: number, lng: number) {
     if (!this.marker) {
-      this.marker = L.marker([lat, lng], { draggable: true }).addTo(this.map);
+      this.marker = L.marker([lat, lng], { draggable: !this.isReadOnly }).addTo(
+        this.map,
+      );
       return;
     }
     this.marker.setLatLng({ lat, lng });
@@ -46,10 +50,16 @@ export class LocationModalComponent
 
   // get and use current user location
   useCurrLocation() {
+    if (!this.isReadOnly) return;
     this._locationService.getCurrLocation().then((cordinates) => {
       this.map.setView([cordinates.lat, cordinates.lng]);
       this.setMarkerLocation(cordinates.lat, cordinates.lng);
     });
+  }
+
+  openGoogleMapNavigation() {
+    const url = `https://www.google.com/maps/search/?api=1&query=${this._data.lat},${this._data.lng}`;
+    window.open(url, '_blank');
   }
 
   // initilaize the map
@@ -75,6 +85,7 @@ export class LocationModalComponent
   ngOnInit(): void {
     if (this._data) {
       this.DEFAULT_POS = [this._data.lat, this._data.lng];
+      this.isReadOnly = this._data.isReadOnly ?? false;
     }
   }
 
