@@ -11,7 +11,7 @@
       <span class="task-card__time">{{ taskData.time }}</span>
     </div>
 
-    <button class="task-card__view-btn" (click)="viewClick.emit()">
+    <button class="task-card__view-btn" (click)="onViewBtnClick(taskData.id)">
       View Details
     </button>
   </div>

@@ -31,6 +31,36 @@ export class TaskService {
     );
   }
 
+  startTask(taskId: string, startCode: string) {
+    return this._http.post<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/${taskId}/start`,
+      {
+        code: startCode,
+      },
+    );
+  }
+
+  takeBreak(taskId: string) {
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/${taskId}/break`,
+      {},
+    );
+  }
+
+  resumeTask(taskId: string) {
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/${taskId}/resume`,
+      {},
+    );
+  }
+
+  finishTask(taskId: string) {
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/${taskId}/finish`,
+      {},
+    );
+  }
+
   private getTasksFilterParam(filter: ITaskFilter) {
     console.log(filter);
 

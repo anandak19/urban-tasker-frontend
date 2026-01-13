@@ -23,12 +23,16 @@ import { IBookingListing } from '@shared/models/booking.model';
 })
 export class TaskCardTaskerComponent {
   @Input() taskData!: IBookingListing;
-  @Output() viewClick = new EventEmitter();
+  @Output() viewClick = new EventEmitter<string>();
   taskStatus = TaskStatus;
 
   private _taskService = inject(TaskService);
   private _destroyRef = inject(DestroyRef);
   private _snackbar = inject(SnackbarService);
+
+  onViewBtnClick(id: string) {
+    this.viewClick.emit(id);
+  }
 
   rejectTask(taskId: string) {
     this._taskService

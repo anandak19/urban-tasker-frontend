@@ -1,104 +1,75 @@
 <div class="booking-details">
-  <app-page-title title="Task Details"></app-page-title>
+  <app-page-title title="Task Details">
+    <app-back-button size="small">Back</app-back-button>
+  </app-page-title>
 
   @if (bookingDetails()) {
     <div class="booking-details__wrapper">
       <!-- LEFT SIDE -->
       <div class="booking-details__left">
         <!-- Task Status -->
-        <div class="booking-details__task-status section-box">
-          <div class="booking-details__task-status-header">
-            <h4 class="booking-details__task-status-title">Task Status</h4>
-
-            <span
-              class="booking-details__task-status-chip booking-details__task-status-chip--active"
-            >
-              {{ bookingDetails()?.taskStatus }}
-            </span>
+        <app-task-status-box
+          [taskStatus]="bookingDetails()?.taskStatus ?? null"
+        >
+          <div class="actions">
+            <!-- when task is pending (not yet started) -->
+            @if (bookingDetails()?.taskStatus === status.PENDING) {
+              <app-button (clickEvent)="onStartTaskClick()" size="small"
+                >Start Task</app-button
+              >
+            }
+            <!-- when the task is started (in progress)  -->
+            @else if (bookingDetails()?.taskStatus === status.IN_PROGRESS) {
+              <!-- if the task is on break  -->
+              @if (bookingDetails()?.isOnBreak) {
+                <app-button size="small" (clickEvent)="resumeTask()"
+                  >Resume</app-button
+                >
+              }
+              <!-- if the task is not on break  -->
+              @else {
+                <app-button size="small" (clickEvent)="takeBreak()"
+                  >Take Break</app-button
+                >
+                <app-button
+                  size="small"
+                  variant="success"
+                  (clickEvent)="onFinish()"
+                  >Finish Task</app-button
+                >
+              }
+            }
           </div>
-        </div>
+        </app-task-status-box>
 
         <!-- Task Details -->
-        <div class="booking-details__task-info section-box">
-          <div class="booking-details__task-info-description">
-            {{ bookingDetails()?.description }}
-          </div>
-
-          <div class="booking-details__task-info-item">
-            <span class="booking-details__task-info-label">City</span>
-            <span class="booking-details__task-info-value">{{
-              bookingDetails()?.city | titlecase
-            }}</span>
-          </div>
-
-          <div class="booking-details__task-info-item">
-            <span class="booking-details__task-info-label">Task Size</span>
-            <span class="booking-details__task-info-value">{{
-              bookingDetails()?.taskStatus | titlecase
-            }}</span>
-          </div>
-
-          <div class="booking-details__task-info-item">
-            <span class="booking-details__task-info-label">Category</span>
-            <span class="booking-details__task-info-value">{{
-              bookingDetails()?.categoryName
-            }}</span>
-          </div>
-
-          <!-- <div class="booking-details__task-info-item">
-            <span class="booking-details__task-info-label">Location</span>
-            <span class="booking-details__task-info-value">Indiranagar</span>
-          </div> -->
-        </div>
+        <app-task-info-box [taskInfo]="bookingDetails()"> </app-task-info-box>
       </div>
 
       <!-- RIGHT SIDE -->
       <div class="booking-details__right">
-        <!-- Tasker Details -->
-        <div class="tasker-details section-box">
-          <div class="tasker-details__info">
-            <p class="tasker-details__name">
-              {{ bookingDetails()?.userName }}
-            </p>
-            <span class="tasker-details__role">User</span>
-          </div>
-
+        <!-- User Details -->
+        <app-related-user-box
+          [title]="bookingDetails()?.userName || null"
+          label="Client"
+        >
           <app-button-loading
             text="Chat"
-            (isClicked)="onChatWithTaskerClick()"
+            (isClicked)="onChatWithUserClick()"
             [isLoading]="isChatLoading"
           ></app-button-loading>
-        </div>
+        </app-related-user-box>
 
         <!-- Timings -->
-        <div class="timings section-box">
-          <div class="timings__row">
-            <span class="timings__label">Start Time</span>
-            <span class="timings__value">-</span>
-          </div>
-
-          <div class="timings__row">
-            <span class="timings__label">End Time</span>
-            <span class="timings__value">-</span>
-          </div>
-
-          <div class="timings__row">
-            <span class="timings__label">Date</span>
-            <span class="timings__value">{{
-              bookingDetails()?.date | date
-            }}</span>
-          </div>
-        </div>
+        <app-task-timings-box
+          [taskData]="bookingDetails()"
+        ></app-task-timings-box>
 
         <!-- Payment -->
-        <div class="payment section-box">
-          <div class="payment__row">
-            <span>Total Amount</span>
-            <span class="payment__total">-</span>
-          </div>
-        </div>
+        <app-payment-details-box
+          [payment]="bookingDetails()?.payment || null"
+        ></app-payment-details-box>
       </div>
     </div>
   }
 </div>
-

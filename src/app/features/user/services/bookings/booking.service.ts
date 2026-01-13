@@ -38,4 +38,10 @@ export class BookingService {
       `${this.API_ENDPOINT}/${bookingId}`,
     );
   }
+
+  getStartCode(bookingId: string) {
+    return this._http.get<IApiResponseSuccess<{ code: string }>>(
+      `${this.API_ENDPOINT}/${bookingId}/start-code`,
+    );
+  }
 }
