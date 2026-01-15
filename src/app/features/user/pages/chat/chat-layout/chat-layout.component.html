@@ -1,9 +1,6 @@
 <div class="chat">
   <!-- Left: User List -->
-  <aside
-    class="chat__sidebar"
-    [ngClass]="{ 'closed-sidbar': currentChatUser() }"
-  >
+  <aside class="chat__sidebar" [ngClass]="{ 'closed-sidbar': currentChat() }">
     <div class="chat__sidebar-header">
       <h3 class="chat__title">Chats</h3>
     </div>
@@ -13,7 +10,8 @@
         <li
           class="chat__user"
           [ngClass]="{
-            'chat__user--active': item.partner.id === currentChatUser()?.id,
+            'chat__user--active':
+              item.partner.id === currentChat()?.partner?.id,
           }"
           (click)="joinChat(item)"
           tabindex="0"
@@ -25,6 +23,11 @@
             class="chat__user-avatar"
           />
           <span class="chat__user-name">{{ item.partner.name }}</span>
+          @if (item.unReadMessageCount) {
+            <span class="chat__message-count">{{
+              item.unReadMessageCount || 0
+            }}</span>
+          }
         </li>
       }
     </ul>
@@ -33,13 +36,13 @@
   <!-- Right: Chat Window -->
   <section
     class="chat__window"
-    [ngClass]="{ 'closed-chat-widnow': !currentChatUser() }"
+    [ngClass]="{ 'closed-chat-widnow': !currentChat() }"
   >
-    @if (currentChatUser()) {
+    @if (currentChat()) {
       <app-chat-box
         (closeChat)="onCloseChat()"
-        [currentUserId]="currentChatUser()!.id"
-        [currentUser]="currentChatUser"
+        [currentUserId]="currentChat()!.partner.id"
+        [currentUser]="currentChat"
         [isMobileScreen]="isMobile"
       ></app-chat-box>
     } @else {

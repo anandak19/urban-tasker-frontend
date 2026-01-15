@@ -31,10 +31,9 @@ export class AuthGuardService {
         tap((res) => {
           this.currentUser.set(res.data);
           console.log('current user role: ', this.currentUser()?.userRole);
-          console.log(res);
         }),
-        catchError((err) => {
-          console.log('faild to fetch login user', err);
+        catchError(() => {
+          console.log('faild to fetch login user');
           this.currentUser.set(null);
           return of(null);
         }),

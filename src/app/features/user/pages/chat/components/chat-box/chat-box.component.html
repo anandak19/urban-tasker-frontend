@@ -30,10 +30,26 @@
               userMesage.senderId !== loggedInUser()?.id,
           }"
         >
-          <p class="chat-box__message-text">{{ userMesage.text }}</p>
+          <!-- check type and if hte image type show image else show the txt  -->
+          @if (userMesage.type === messageType.IMAGE) {
+            <div
+              class="image-message"
+              (click)="openImagePreview(userMesage.imageUrl)"
+              role="button"
+              tabindex="0"
+            >
+              <img [src]="userMesage.imageUrl" alt="" loading="lazy"/>
+            </div>
+          } @else {
+            <p class="chat-box__message-text">{{ userMesage.text }}</p>
+          }
+
           @if (userMesage.senderId === loggedInUser()?.id) {
             <div class="chat-box__message-status">
-              <small>{{ userMesage.isRead ? 'seen' : 'sent' }}</small>
+              <small>
+                {{ userMesage.time | date: 'hh:mm a' }}&nbsp;
+                {{ userMesage.isRead ? 'seen' : 'sent' }}
+              </small>
             </div>
           }
         </div>
@@ -44,6 +60,21 @@
   </div>
 
   <div class="chat-box__input">
+    <label class="chat-box__image-upload">
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onImageSelect($event)"
+        hidden
+      />
+
+      <span class="chat-box__image-icon"
+        ><mat-icon class="material-icons-outlined"
+          >add_photo_alternate</mat-icon
+        ></span
+      >
+    </label>
+
     <input
       type="text"
       placeholder="Type a message..."
