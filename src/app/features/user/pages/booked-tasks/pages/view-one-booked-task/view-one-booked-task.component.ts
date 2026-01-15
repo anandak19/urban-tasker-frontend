@@ -14,7 +14,7 @@ import { ChatService } from '@features/user/services/chat/chat.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { finalize } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IBookingDetails } from '@shared/models/booking.model';
 import { TaskInfoBoxComponent } from '@shared/components/feature/booking-details/task-info-box/task-info-box.component';
 import { TaskStatusBoxComponent } from '@shared/components/feature/booking-details/task-status-box/task-status-box.component';
@@ -55,6 +55,7 @@ export class ViewOneBookedTaskComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
   private _destroyRef = inject(DestroyRef);
   private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
   private _dialog = inject(Dialog);
 
   getBookingDetails() {
@@ -109,9 +110,12 @@ export class ViewOneBookedTaskComponent implements OnInit {
     alert('Method not implemented');
   }
 
+  raiseComplaintClicked() {
+    this._router.navigate(['complaint'], { relativeTo: this._route });
+  }
+
   ngOnInit(): void {
     console.log(this.taskId);
     this.getBookingDetails();
-    // this.bookingDetails.set(this.sampleBooking);
   }
 }

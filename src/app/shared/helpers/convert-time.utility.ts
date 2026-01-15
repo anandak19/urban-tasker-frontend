@@ -19,3 +19,11 @@ export const toDate = (time: string): Date | null => {
   const [h, m] = time.split(':').map(Number);
   return new Date(1970, 0, 1, h, m);
 };
+
+export const toDateStringFormat = (date: Date): string => {
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, '0'),
+    String(date.getDate()).padStart(2, '0'),
+  ].join('-');
+};

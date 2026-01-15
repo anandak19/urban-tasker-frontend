@@ -100,7 +100,7 @@ export class BookTaskerService {
 
   filter = signal<IBaseFilters>({
     page: 1,
-    limit: 1,
+    limit: 5,
   });
 
   private _taskerService = inject(TaskerService);
@@ -145,7 +145,7 @@ export class BookTaskerService {
   getAvailbleTaskers(filter: IBaseFilters = this.filter()) {
     const payload: IGetAvailTaskers = {
       city: this.whenWhere.city,
-      date: this.whenWhere.date.toISOString().split('T')[0],
+      date: this.whenWhere.date,
       latitude: this.whenWhere.location.latitude,
       longitude: this.whenWhere.location.longitude,
       time: this.whenWhere.time,

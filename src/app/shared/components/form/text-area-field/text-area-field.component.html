@@ -6,7 +6,7 @@
       [disabled]="disabled"
       (input)="handleInput($event)"
       (blur)="onTouched()"
-      rows="2"
+      [rows]="rows"
       [class.error-input]="showError"
     ></textarea>
 

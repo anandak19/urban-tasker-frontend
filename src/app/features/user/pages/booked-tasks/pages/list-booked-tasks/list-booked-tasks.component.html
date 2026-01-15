@@ -2,18 +2,56 @@
   <app-page-title title="My Booked Tasks"></app-page-title>
 
   <!-- filters  -->
-  <div class="list-booked-tasks__filters">
-    <div class="list-booked-tasks__filter-strip">
-      <div
-        class="list-booked-tasks__filter list-booked-tasks__filter--selected"
-      >
-        All
-      </div>
-      <div class="list-booked-tasks__filter">Upcoming</div>
-      <div class="list-booked-tasks__filter">In Progress</div>
-      <div class="list-booked-tasks__filter">Completed</div>
-      <div class="list-booked-tasks__filter">Overdue</div>
-    </div>
+  <div class="list-booked-tasks__filter">
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active': !filter().taskStatus,
+      }"
+      (click)="onChangeStatusFilter()"
+    >
+      All
+    </button>
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active':
+          filter().taskStatus === status.IN_PROGRESS,
+      }"
+      (click)="onChangeStatusFilter(status.IN_PROGRESS)"
+    >
+      In Progress
+    </button>
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active':
+          filter().taskStatus === status.PENDING,
+      }"
+      (click)="onChangeStatusFilter(status.PENDING)"
+    >
+      Upcoming
+    </button>
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active':
+          filter().taskStatus === status.COMPLETED,
+      }"
+      (click)="onChangeStatusFilter(status.COMPLETED)"
+    >
+      Completed
+    </button>
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active':
+          filter().taskStatus === status.OVERDUE,
+      }"
+      (click)="onChangeStatusFilter(status.OVERDUE)"
+    >
+      Overdue
+    </button>
   </div>
 
   <!-- listing wrapper  -->
@@ -46,12 +84,14 @@
 
           <!-- RIGHT : Actions -->
           <div class="list-booked-tasks__card-right">
-            <app-button variant="secondary">Message</app-button>
+            <!-- <app-button variant="secondary">Message</app-button> -->
             <app-button (clickEvent)="navigateTaskDetails(booking.id)"
               >View Details</app-button
             >
           </div>
         </div>
+      } @empty {
+        <p class="empty-text">No bookings yet</p>
       }
     }
   </div>

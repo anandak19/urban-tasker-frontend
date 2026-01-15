@@ -1,0 +1,43 @@
+<div class="complaint-details">
+  <app-page-title title="Complaint Details"></app-page-title>
+
+  <div>
+    <ng-content></ng-content>
+  </div>
+  <!-- complaint status  -->
+  <div class="complaint-details__complaint-status">
+    <span class="label">Complaint Status</span>
+
+    <span class="badge" [ngClass]="'badge--' + status">
+      {{ status | titlecase }}
+    </span>
+  </div>
+
+  <!-- admin-feedback  -->
+  <app-info-panel title="Admin Feedback" description="chumma"></app-info-panel>
+
+  <!-- complaint details  -->
+  <div class="complaint-details__data">
+    <!-- Complaint text -->
+    <div class="row">
+      <div class="label">Complaint</div>
+      <div class="value">
+        The worker arrived late and did not complete the task as discussed. The
+        overall experience was unsatisfactory.
+      </div>
+    </div>
+
+    <!-- Complaint images -->
+    <div class="images">
+      <div
+        class="image"
+        *ngFor="let img of images"
+        (click)="onImageView(img)"
+        role="button"
+        tabindex="0"
+      >
+        <img [src]="img" alt="complaint image" />
+      </div>
+    </div>
+  </div>
+</div>

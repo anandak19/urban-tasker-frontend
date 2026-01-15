@@ -53,7 +53,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { locationRequiredValidator } from '@shared/validators/location-validators';
-import { getTime } from '@shared/helpers/convert-time.utility';
+import {
+  getTime,
+  toDateStringFormat,
+} from '@shared/helpers/convert-time.utility';
 
 @Component({
   selector: 'app-choose-tasker',
@@ -90,7 +93,7 @@ export class ChooseTaskerComponent implements OnInit {
 
   private _location: ILocationLatLng | null = null;
   cities = signal<IOptionData[]>(cities);
-  whenWhereForm!: FormGroup;
+  chooseTaskerForm!: FormGroup;
   isSubmitted = signal<boolean>(false);
 
   @Output() prev = new EventEmitter();
@@ -125,7 +128,7 @@ export class ChooseTaskerComponent implements OnInit {
   }
 
   populateLocationData(coords: ILocationLatLng) {
-    this.whenWhereForm.get('location')?.patchValue({
+    this.chooseTaskerForm.get('location')?.patchValue({
       latitude: coords.lat,
       longitude: coords.lng,
     });
@@ -134,7 +137,7 @@ export class ChooseTaskerComponent implements OnInit {
   }
 
   initForm() {
-    this.whenWhereForm = this.fb.group({
+    this.chooseTaskerForm = this.fb.group({
       date: ['', [Validators.required]],
       time: ['', [Validators.required]],
       city: ['', [Validators.required]],
@@ -163,6 +166,8 @@ export class ChooseTaskerComponent implements OnInit {
           console.log(`Loca: ${cordinates.lat} : ${cordinates.lng}`);
         }
       });
+
+    // call the get taskers
   }
 
   // book tasker method
@@ -183,29 +188,30 @@ export class ChooseTaskerComponent implements OnInit {
       });
   }
 
-  submitWhenWhereData(payload: IBookTaskerTimePlace) {
+  submitChooseTaskersData(payload: IBookTaskerTimePlace) {
     console.log('Query', payload);
     this._bookTaskerService.saveWhenWhere(payload);
     this._bookTaskerService.getAvailbleTaskers();
   }
 
-  onWhenWhereFormSubmit() {
-    console.log(this.whenWhereForm.value);
+  onchooseTaskerFormSubmit() {
+    console.log(this.chooseTaskerForm.value);
     this.isSubmitted.set(true);
 
-    if (this.whenWhereForm.invalid) {
-      this.whenWhereForm.markAllAsTouched();
+    if (this.chooseTaskerForm.invalid) {
+      this.chooseTaskerForm.markAllAsTouched();
       return;
     }
 
-    const formValue = this.whenWhereForm.value;
+    const formValue = this.chooseTaskerForm.value;
 
-    const dateValue = new Date(formValue.date);
+    // const dateValue = new Date(formValue.date).toISOString();
+    const formDate = toDateStringFormat(formValue.date);
 
     const time = getTime(formValue.time);
 
     const timePlaceData: IBookTaskerTimePlace = {
-      date: dateValue,
+      date: formDate,
       time: time,
       city: formValue.city.id,
       location: {
@@ -214,18 +220,20 @@ export class ChooseTaskerComponent implements OnInit {
       },
     };
 
-    this.submitWhenWhereData(timePlaceData);
+    console.log('Cleanded payload', timePlaceData);
+
+    this.submitChooseTaskersData(timePlaceData);
   }
 
   //getters
   get cityError() {
-    return this.isSubmitted() && this.whenWhereForm.get('city')?.invalid
+    return this.isSubmitted() && this.chooseTaskerForm.get('city')?.invalid
       ? 'Select a city'
       : '';
   }
 
   get locationChoosen() {
-    return this.whenWhereForm?.get('location')?.valid;
+    return this.chooseTaskerForm?.get('location')?.valid;
   }
 
   get locationError() {
@@ -235,13 +243,13 @@ export class ChooseTaskerComponent implements OnInit {
   }
 
   get dateError() {
-    return this.whenWhereForm.get('date')?.invalid && this.isSubmitted()
+    return this.chooseTaskerForm.get('date')?.invalid && this.isSubmitted()
       ? 'Date is required'
       : '';
   }
 
   get timeError() {
-    return this.whenWhereForm.get('time')?.invalid && this.isSubmitted()
+    return this.chooseTaskerForm.get('time')?.invalid && this.isSubmitted()
       ? 'Time is required'
       : '';
   }
