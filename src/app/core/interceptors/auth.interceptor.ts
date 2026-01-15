@@ -28,7 +28,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           }),
           catchError((e) => {
             console.log('[Interceptor]: Refresh token expired or malformed');
-            console.log(e);
 
             // logout user here
             // redirect user to login

@@ -30,14 +30,14 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
   //from param
   @Input() roomId!: string;
   isMobile = false;
-  private readonly _currentChatUser = signal<IChatUsers | null>(null);
+  private readonly _currentChat = signal<IChatUsers | null>(null);
 
   @Input()
   set chatUser(value: IChatUsers | null) {
-    this._currentChatUser.set(value);
+    this._currentChat.set(value);
   }
 
-  readonly currentChatUser = this._currentChatUser;
+  readonly currentChat = this._currentChat;
 
   private _chatSocket = inject(ChatSocketService);
   private _chatService = inject(ChatService);
@@ -50,12 +50,15 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
   chatUsers = signal<IChatUsers[]>([]);
 
   async joinChat(chat: IChatUsers) {
+    console.log(chat);
+
     await this._chatSocket.joinChat(chat.id);
     this.updateChatUrl(chat.id);
-    this.currentChatUser.set(chat);
+    this.currentChat.set(chat);
   }
 
   updateChatUrl(chatId: string) {
+    if (!this.roomId) return;
     this._router.navigate(['../', chatId], {
       relativeTo: this.route,
       replaceUrl: true,
@@ -70,8 +73,7 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log('selected user', res.data);
-          this.currentChatUser.set(res.data);
+          this.currentChat.set(res.data);
         },
         error: (err: IApiResponseError) => {
           this._snackbar.error(err.message);
@@ -112,13 +114,12 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
   }
 
   onCloseChat() {
-    this.currentChatUser.set(null);
+    this.currentChat.set(null);
   }
 
   // -- call method to get chating users
   // on init connect to the socket server
   ngOnInit(): void {
-    console.log('cha');
     this.observerBreakpoint();
     this._chatSocket.connect();
     this._chatSocket.onConnect(() => {

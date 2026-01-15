@@ -34,4 +34,11 @@ export class ChatService {
       `${this.API_ENDPOINT}/${roomId}`,
     );
   }
+
+  uploadImage(formData: FormData) {
+    return this._http.post<IApiResponseSuccess<{ publicKey: string }>>(
+      `${this.API_ENDPOINT}/image`,
+      formData,
+    );
+  }
 }
