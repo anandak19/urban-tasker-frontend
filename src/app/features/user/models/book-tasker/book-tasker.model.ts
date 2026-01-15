@@ -8,7 +8,7 @@ export interface IBookTaskerAboutTask {
 }
 
 export interface IBookTaskerTimePlace {
-  date: Date;
+  date: string;
   time: string;
   city: string;
   location: {

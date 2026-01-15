@@ -3,7 +3,10 @@
 
   <!-- filter strip  -->
   <div class="choose-tasker__filters">
-    <form [formGroup]="whenWhereForm" (ngSubmit)="onWhenWhereFormSubmit()">
+    <form
+      [formGroup]="chooseTaskerForm"
+      (ngSubmit)="onchooseTaskerFormSubmit()"
+    >
       <!-- city  -->
       <app-dropdown-field label="City">
         <app-dropdown [options]="cities" formControlName="city"></app-dropdown>
@@ -83,7 +86,7 @@
     </form>
 
     <div class="listing-filter">
-      @if (isSubmitted() && whenWhereForm.valid) {
+      @if (isSubmitted() && chooseTaskerForm.valid) {
         <p>{{ paginationData().total || 0 }} Tasker available</p>
       }
     </div>

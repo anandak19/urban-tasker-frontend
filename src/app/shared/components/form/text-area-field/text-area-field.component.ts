@@ -18,6 +18,7 @@ export class TextAreaFieldComponent implements ControlValueAccessor {
   @Input() label!: string;
   @Input() placeholder!: string;
   @Input() isOptional = false;
+  @Input() rows = 2;
 
   constructor() {
     if (this.ngControl) {

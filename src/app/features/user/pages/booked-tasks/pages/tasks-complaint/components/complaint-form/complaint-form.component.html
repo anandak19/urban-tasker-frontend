@@ -1,0 +1,51 @@
+<div class="complaint-form">
+  <app-page-title title="Raise a complaint"></app-page-title>
+
+  <div class="complaint-form__form-wrapper">
+    <form>
+      <app-text-area-field
+        [rows]="5"
+        label="Complaint"
+        placeholder="explain your issue"
+      ></app-text-area-field>
+      <app-form-field-wrapper
+        [label]="`Add images - ${MAX_IMAGES - images.length} remaining`"
+        [isOptional]="true"
+      >
+        <div class="complaint-form__image-fields">
+          <!-- Add image box -->
+          @if (images.length < MAX_IMAGES) {
+            <label class="image-upload-box">
+              <input
+                type="file"
+                accept="image/*"
+                hidden
+                (change)="onImageSelect($event)"
+                [disabled]="images.length >= MAX_IMAGES"
+              />
+              <span>
+                <mat-icon
+                  class="upload-icon material-icons-outlined"
+                  fontIcon="cloud_upload"
+                ></mat-icon
+              ></span>
+            </label>
+          }
+
+          <!-- Preview images -->
+          <div class="image-preview">
+            <div
+              class="image-preview__item"
+              *ngFor="let img of images; let i = index"
+            >
+              <img [src]="img" alt="complaint image" />
+              <button type="button" (click)="removeImage(i)">×</button>
+            </div>
+          </div>
+        </div>
+      </app-form-field-wrapper>
+
+      <app-button-loading text="Submit"></app-button-loading>
+    </form>
+  </div>
+</div>

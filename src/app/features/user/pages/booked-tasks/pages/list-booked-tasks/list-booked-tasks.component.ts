@@ -3,16 +3,23 @@ import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { BookingService } from '@features/user/services/bookings/booking.service';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { IBookingListing } from '@shared/models/booking.model';
 import { ITaskFilter } from '@shared/models/request-data.model';
+import { TaskStatus } from '@shared/constants/enums/task-size.enum';
 
 @Component({
   selector: 'app-list-booked-tasks',
-  imports: [PageTitleComponent, ButtonComponent, PaginationComponent, DatePipe],
+  imports: [
+    PageTitleComponent,
+    ButtonComponent,
+    PaginationComponent,
+    DatePipe,
+    CommonModule,
+  ],
   templateUrl: './list-booked-tasks.component.html',
   styleUrl: './list-booked-tasks.component.scss',
 })
@@ -30,10 +37,27 @@ export class ListBookedTasksComponent implements OnInit {
     pages: 0,
   });
 
+  status = TaskStatus;
   filter = signal<ITaskFilter>({
     page: 1,
-    limit: 1,
+    limit: 5,
   });
+
+  onChangeStatusFilter(selectedStatus?: TaskStatus) {
+    this.filter.update((current) => {
+      const updated = { ...current };
+
+      if (!selectedStatus) {
+        delete updated.taskStatus;
+        return updated;
+      }
+
+      updated.taskStatus = selectedStatus;
+      return updated;
+    });
+
+    this.fetchAllBookings();
+  }
 
   fetchAllBookings() {
     this._bookingService

@@ -19,7 +19,14 @@
         </app-task-status-box>
 
         <!-- Task Details -->
-        <app-task-info-box [taskInfo]="bookingDetails()"> </app-task-info-box>
+        <app-task-info-box [taskInfo]="bookingDetails()">
+          <div class="actions actions--info">
+            @if (bookingDetails()?.taskStatus === status.COMPLETED) {
+              <app-button size="small" variant="danger" (clickEvent)="raiseComplaintClicked()">Raise a Complaint</app-button>
+              <app-button size="small" variant="primary">Add Review</app-button>
+            }
+          </div>
+        </app-task-info-box>
       </div>
 
       <!-- RIGHT SIDE -->

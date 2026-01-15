@@ -23,7 +23,6 @@
     width: 30%;
   }
 
-
   /* ---------------- Shared ---------------- */
 
   .section-box {
@@ -33,5 +32,10 @@
   .actions {
     display: flex;
     justify-content: space-between;
+
+    &--info {
+      padding-top: $spacing-4;
+      border-top: 1px solid $background-division;
+    }
   }
 }
