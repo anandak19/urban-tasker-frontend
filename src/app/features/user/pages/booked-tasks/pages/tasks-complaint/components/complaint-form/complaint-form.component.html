@@ -1,15 +1,18 @@
 <div class="complaint-form">
-  <app-page-title title="Raise a complaint"></app-page-title>
+  <app-page-title title="Raise a complaint">
+    <app-back-button></app-back-button>
+  </app-page-title>
 
   <div class="complaint-form__form-wrapper">
-    <form>
+    <form [formGroup]="complaintForm" (ngSubmit)="submitComplaint()">
       <app-text-area-field
         [rows]="5"
         label="Complaint"
+        formControlName="complaint"
         placeholder="explain your issue"
       ></app-text-area-field>
       <app-form-field-wrapper
-        [label]="`Add images - ${MAX_IMAGES - images.length} remaining`"
+        [label]="`Proof images - ${MAX_IMAGES - images.length} remaining`"
         [isOptional]="true"
       >
         <div class="complaint-form__image-fields">
@@ -45,7 +48,11 @@
         </div>
       </app-form-field-wrapper>
 
-      <app-button-loading text="Submit"></app-button-loading>
+      <app-button-loading
+        text="Submit"
+        type="submit"
+        [isLoading]="isLoading"
+      ></app-button-loading>
     </form>
   </div>
 </div>
