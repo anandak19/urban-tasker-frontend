@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IFindAllComplaintsResponse } from '@features/admin/models/api-response.model';
+import { IChangeComplaintStatus } from '@features/admin/models/complaint.model';
 import { buildQuery } from '@shared/helpers/query-builder';
-import { IApiResponseSuccess } from '@shared/models/api-response.model';
+import {
+  IApiResponseSuccess,
+  IBaseApiResponse,
+} from '@shared/models/api-response.model';
 import { IComplaintDetails } from '@shared/models/complaint/complaint.model';
 import { IBaseFilters } from '@shared/models/request-data.model';
 
@@ -22,6 +26,13 @@ export class ComplaintManagementService {
   findOneComplaintById(id: string) {
     return this._http.get<IApiResponseSuccess<IComplaintDetails>>(
       `${this.API_ENDPOINT}/${id}`,
+    );
+  }
+
+  changeStatus(complaintId: string, update: IChangeComplaintStatus) {
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/${complaintId}/status`,
+      update,
     );
   }
 }

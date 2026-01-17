@@ -1,0 +1,9 @@
+@use 'index' as *;
+
+.complaint-details{
+    .actions{
+        display: flex;
+        justify-content: space-between;
+        margin: $spacing-2 0;
+    }
+}

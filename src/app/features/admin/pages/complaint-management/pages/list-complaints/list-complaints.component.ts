@@ -11,6 +11,7 @@ import { AdminTableFiltersComponent } from '@features/admin/components/admin-tab
 import { TableListingComponent } from '@features/admin/components/table-listing/table-listing.component';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
 import { IMatColumns } from '@shared/interfaces/table.interface';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-complaints',
@@ -49,6 +50,8 @@ export class ListComplaintsComponent implements OnInit {
   private _complaintManagementService = inject(ComplaintManagementService);
   private _destroyRef = inject(DestroyRef);
   private _snackbar = inject(SnackbarService);
+  private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
 
   findAllComplaints() {
     this._complaintManagementService
@@ -72,6 +75,10 @@ export class ListComplaintsComponent implements OnInit {
       page,
     }));
     this.findAllComplaints();
+  }
+
+  viewComplaint(complaintId: string) {
+    return this._router.navigate([complaintId], { relativeTo: this._route });
   }
 
   ngOnInit(): void {

@@ -5,7 +5,12 @@
     <!-- other filters goes here -->
   </app-admin-table-filters>
 
-  <app-table-listing [dataSource]="complaints()" [columns]="complaintsColumns">
+  <app-table-listing
+    [dataSource]="complaints()"
+    [columns]="complaintsColumns"
+    [editable]="false"
+    (viewClicked)="viewComplaint($event)"
+  >
   </app-table-listing>
 
   <app-pagination

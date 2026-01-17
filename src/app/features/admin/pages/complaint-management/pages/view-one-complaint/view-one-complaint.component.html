@@ -1,1 +1,10 @@
-<p>view-one-complaint works!</p>
+<div class="complaint-details">
+  <app-complaint-details [complaintDetails]="complaintDetails()">
+    <div class="actions">
+      <app-button size="small">View Task</app-button>
+      <app-button size="small" (clickEvent)="onChangeStatusClick()"
+        >Change Status</app-button
+      >
+    </div>
+  </app-complaint-details>
+</div>
