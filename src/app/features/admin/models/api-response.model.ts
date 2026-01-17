@@ -5,6 +5,7 @@ import {
 import { ICategoryData } from './category.interface';
 import { ITaskerApplicationListItem } from './tasker-application.model';
 import { IBookingListing } from '@shared/models/booking.model';
+import { IListComplaint } from '@shared/models/complaint/complaint.model';
 
 // Find All Categories API Response
 export type IFindAllCategoriesResponse = IApiResponseSuccess<
@@ -20,4 +21,8 @@ export type IFindAllTaskerApplicationsResponse = IApiResponseSuccess<
 
 export type IFindAllBookingsResponse = IApiResponseSuccess<
   IFindAllResponseData<IBookingListing>
+>;
+
+export type IFindAllComplaintsResponse = IApiResponseSuccess<
+  IFindAllResponseData<IListComplaint>
 >;

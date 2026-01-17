@@ -53,6 +53,11 @@ export class AdminLayoutComponent {
       label: 'Tasker Applications',
       route: 'tasker-applications',
     },
+    {
+      icon: 'report',
+      label: 'Complaints Management',
+      route: 'complaints-management',
+    },
   ]);
 
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '278px'));

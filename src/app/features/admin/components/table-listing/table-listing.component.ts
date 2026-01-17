@@ -27,10 +27,19 @@ export class TableListingComponent<T> {
   }
 
   isDate(value: unknown): boolean {
-    return (
-      value instanceof Date ||
-      (typeof value === 'string' && !isNaN(Date.parse(value)))
-    );
+    if (value instanceof Date) {
+      return !isNaN(value.getTime());
+    }
+
+    if (typeof value === 'string') {
+      // strict ISO format check
+      const isoRegex = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d+)?Z)?$/;
+      if (!isoRegex.test(value)) return false;
+
+      const date = new Date(value);
+      return !isNaN(date.getTime());
+    }
+    return false;
   }
 
   onEditBtnClick(id: string) {

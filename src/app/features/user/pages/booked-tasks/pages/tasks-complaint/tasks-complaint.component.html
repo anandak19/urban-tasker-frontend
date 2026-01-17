@@ -1,5 +1,16 @@
 <div class="complaint">
-  <!-- <app-complaint-form></app-complaint-form> -->
-
-  <app-complaint-details> </app-complaint-details>
+  @if (isComplaintLoading()) {
+    <app-loading-complaint></app-loading-complaint>
+  } @else {
+    @if (isComplaintRaised() && complaintDetails()) {
+      <app-complaint-details
+        [complaintDetails]="complaintDetails()"
+      ></app-complaint-details>
+    } @else {
+      <app-complaint-form
+        [taskId]="taskId"
+        (isComplaintCreated)="findTaskComplaint()"
+      ></app-complaint-form>
+    }
+  }
 </div>

@@ -8,6 +8,8 @@ import { UsersManagementLayoutComponent } from './pages/users-management/users-m
 import { UserManagementRoutes } from './pages/users-management/users-management.routes';
 import { TaskManagementLayoutComponent } from './pages/tasks-management/task-management-layout/task-management-layout.component';
 import { taskManagementRoutes } from './pages/tasks-management/task-management.routes';
+import { ComplaintManagementLayoutComponent } from './pages/complaint-management/complaint-management-layout/complaint-management-layout.component';
+import { ComplaintManagementRoutes } from './pages/complaint-management/complaint-management.routes';
 
 export const adminRoutes: Routes = [
   {
@@ -38,5 +40,10 @@ export const adminRoutes: Routes = [
     path: 'tasker-applications',
     component: TaskerApplicationsLayoutComponent,
     children: TaskerApplicationRoutes,
+  },
+  {
+    path: 'complaints-management',
+    component: ComplaintManagementLayoutComponent,
+    children: ComplaintManagementRoutes,
   },
 ];
