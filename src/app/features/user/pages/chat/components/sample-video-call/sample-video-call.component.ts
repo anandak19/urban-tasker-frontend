@@ -56,6 +56,7 @@ export class SampleVideoCallComponent implements OnInit {
   private _videoCallService = inject(VideoCallService);
   private _pcService = inject(PcService);
 
+  // handle local ice candidates
   handleLocalIceCandidates(event: RTCPeerConnectionIceEvent) {
     if (event.candidate) {
       const payload: IIceCandidatePayload = {
@@ -68,12 +69,62 @@ export class SampleVideoCallComponent implements OnInit {
     }
   }
 
+  // handle remote ice candidate emits
+  onRemoteIceCandidates() {
+    this._videoCallService.onIceCandidates().subscribe({
+      next: (res) => {
+        console.log('Ice candidated from remote is recived');
+        this._pcService.addRemoteIceCandidates(res.candidate);
+      },
+    });
+  }
+
+  // listen to answer event
+  onAnswer() {
+    this._videoCallService.onAnswer().subscribe({
+      next: (res) => {
+        console.log('Got anser from ', res.from);
+        this._pcService.handleAnswer(res.answer);
+      },
+    });
+  }
+
+  onOffer() {
+    this._videoCallService.onOffer().subscribe({
+      next: async (offerData) => {
+        console.log('Offer Arrived from : ', offerData.from);
+        this.initPc();
+
+        // get my media and add track
+        await this.getLocalStrem();
+
+        const answer = await this._pcService.handleOffer(offerData.offer);
+
+        // send answer
+        const answerPayload: IAnswerPayload = {
+          answer,
+          to: offerData.from,
+        };
+        this._videoCallService.sendAnswer(answerPayload);
+      },
+    });
+  }
+
   gotRemoteStream(e: RTCTrackEvent) {
     if (this.remoteVideo.nativeElement.srcObject !== e.streams[0]) {
       console.log('Received remote stream');
       this.remoteVideo.nativeElement.srcObject = e.streams[0];
       console.log('showing remote stream');
     }
+  }
+
+  onRemoteStrem() {
+    this._pcService.gotRemoteStream.subscribe((stream) => {
+      if (this.remoteVideo.nativeElement.srcObject !== stream) {
+        console.log('Caller attaching remote stream');
+        this.remoteVideo.nativeElement.srcObject = stream;
+      }
+    });
   }
 
   initPc() {
@@ -84,13 +135,7 @@ export class SampleVideoCallComponent implements OnInit {
       this.handleLocalIceCandidates(c),
     );
 
-    // when got Track add that to remote strem
-    this._pcService.gotRemoteStream.subscribe((stream) => {
-      if (this.remoteVideo.nativeElement.srcObject !== stream) {
-        console.log('Caller attaching remote stream');
-        this.remoteVideo.nativeElement.srcObject = stream;
-      }
-    });
+    this.onRemoteIceCandidates();
   }
 
   showLocalStrem(stream: MediaStream) {
@@ -117,26 +162,13 @@ export class SampleVideoCallComponent implements OnInit {
 
   async startCall() {
     console.log(`Calling user with user id: ${this.toUserId}`);
+    // 1
     this.initPc();
 
-    // set remote ice/ remote ice candidates event
-    this._videoCallService.onIceCandidates().subscribe({
-      next: (res) => {
-        console.log('Got ICe from remote');
-        this._pcService.addRemoteIceCandidates(res.candidate);
-      },
-    });
-
-    // listen to answer
-    this._videoCallService.onAnswer().subscribe({
-      next: (res) => {
-        console.log('Got anser from ', res.from);
-        this._pcService.handleAnswer(res.answer);
-      },
-    });
-
+    // 2
     await this.getLocalStrem(); // audio/video
 
+    // 3
     const offer = await this._pcService.createOffer();
     console.log('Offer created is');
     console.log(offer);
@@ -144,7 +176,6 @@ export class SampleVideoCallComponent implements OnInit {
       to: this.toUserId,
       offer,
     };
-
     this._videoCallService.sendOffer(offerData);
   }
 
@@ -153,50 +184,26 @@ export class SampleVideoCallComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('init');
     // listen to offer
-    this._videoCallService.onOffer().subscribe({
-      next: async (offerData) => {
-        console.log('Offer Arrived from : ', offerData.from);
-        this._pcService.init(); // initialze RTC intance
-        //local ice candidates
-        this._pcService.onIceCandidate.subscribe((c) =>
-          this.handleLocalIceCandidates(c),
-        );
-
-        // get my media and add track
-        await this.getLocalStrem();
-
-        const answer = await this._pcService.handleOffer(offerData.offer);
-
-        // send answer
-        const answerPayload: IAnswerPayload = {
-          answer,
-          to: offerData.from,
-        };
-        this._videoCallService.sendAnswer(answerPayload);
-      },
-    });
-
-    // this.initLocalMedia();
-    // if (this.peerConnection) {
-    //   this.initSocketEvents();
-    //   this.startCall();
-    // }
-    this._videoCallService.onIceCandidates().subscribe({
-      next: (res) => {
-        console.log('Ice candidated from remote is recived');
-        this._pcService.addRemoteIceCandidates(res.candidate);
-      },
-    });
-
-    this._pcService.gotRemoteStream.subscribe((stream) => {
-      if (this.remoteVideo.nativeElement.srcObject !== stream) {
-        console.log('Attaching remote stream');
-        this.remoteVideo.nativeElement.srcObject = stream;
-      }
-    });
+    this.onOffer();
+    this.onAnswer();
+    this.onRemoteStrem();
   }
+
+  /**
+   * START CALL METHODS
+   * 1. call initPc
+   * 2. call onRemoteIceCandidates
+   * 3. call onAnswer
+   * 4. call getLocalStrem (await)
+   * 5. create offer -> offer payload. Send offer
+   */
+
+  /**
+   * NG ON INIT METHODS
+   * 1. call onRemoteIceCandidates
+   * 2. call handleRemoteStrem
+   */
 
   /**
    * New Plan

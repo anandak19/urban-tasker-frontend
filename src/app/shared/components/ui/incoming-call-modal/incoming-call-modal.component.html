@@ -1,0 +1,31 @@
+<div class="incoming-call">
+  <div class="incoming-call__overlay"></div>
+
+  <div class="incoming-call__modal">
+    <div class="incoming-call__avatar">
+      <span>👤</span>
+    </div>
+
+    <h2 class="incoming-call__title">Incoming Call</h2>
+
+    <p class="incoming-call__username">
+      <strong>John Doe</strong> is calling you: id: {{ _data.from }}
+    </p>
+
+    <div class="incoming-call__actions">
+      <button
+        class="incoming-call__btn incoming-call__btn--reject"
+        (click)="reject()"
+      >
+        Reject
+      </button>
+
+      <button
+        class="incoming-call__btn incoming-call__btn--accept"
+        (click)="accept()"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>

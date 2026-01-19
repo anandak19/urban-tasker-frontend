@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { SocketManagerService } from '../socket-manager/socket-manager.service';
 import {
   IAnswerPayload,
@@ -15,10 +15,14 @@ import {
 export class VideoCallService {
   private _socketManger = inject(SocketManagerService);
 
+  isIncomingCall = signal<boolean>(false);
+
   peerConnection!: RTCPeerConnection;
 
   // send offer: start call
   sendOffer(offerData: IOfferPayload) {
+    console.log('sending offer ');
+
     this._socketManger.emit('offer', offerData);
   }
 
@@ -44,5 +48,13 @@ export class VideoCallService {
 
   sendAnswer(answer: IAnswerPayload) {
     this._socketManger.emit('answer', answer);
+  }
+
+  listenToIncomingOffer() {
+    this.onOffer().subscribe({
+      next: (offerData) => {
+        console.log('Incoming offer from ', offerData.from);
+      },
+    });
   }
 }

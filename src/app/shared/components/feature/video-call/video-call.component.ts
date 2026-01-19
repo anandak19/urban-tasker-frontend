@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-video-call',
   imports: [],
   templateUrl: './video-call.component.html',
-  styleUrl: './video-call.component.scss'
+  styleUrl: './video-call.component.scss',
 })
-export class VideoCallComponent {
-
-}
+export class VideoCallComponent {}

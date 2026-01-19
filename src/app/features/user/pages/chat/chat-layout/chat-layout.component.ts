@@ -4,7 +4,6 @@ import {
   DestroyRef,
   inject,
   Input,
-  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
@@ -20,6 +19,7 @@ import { EmptyChatBoxComponent } from '../components/empty-chat-box/empty-chat-b
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { IChatUsers } from '@features/user/models/chat/chat.model';
 import { SampleVideoCallComponent } from '../components/sample-video-call/sample-video-call.component';
+import { SocketManagerService } from '@core/services/socket-manager/socket-manager.service';
 
 @Component({
   selector: 'app-chat-layout',
@@ -33,7 +33,7 @@ import { SampleVideoCallComponent } from '../components/sample-video-call/sample
   templateUrl: './chat-layout.component.html',
   styleUrl: './chat-layout.component.scss',
 })
-export class ChatLayoutComponent implements OnInit, OnDestroy {
+export class ChatLayoutComponent implements OnInit {
   //from param
   @Input() roomId!: string;
   isMobile = false;
@@ -58,6 +58,7 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
 
   readonly currentChat = this._currentChat;
 
+  private _socketManagerService = inject(SocketManagerService);
   private _chatSocket = inject(ChatSocketService);
   private _chatService = inject(ChatService);
   private _destroyRef = inject(DestroyRef);
@@ -140,14 +141,12 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
   // on init connect to the socket server
   ngOnInit(): void {
     this.observerBreakpoint();
-    this._chatSocket.connect();
-    this._chatSocket.onConnect(() => {
-      console.log('Socket connected');
+    if (this._socketManagerService.isConnected()) {
+      console.log('socekt is connecte now');
       this.afterSocketConnected();
-    });
-  }
-
-  ngOnDestroy(): void {
-    this._chatSocket.disconnect();
+    } else {
+      this._socketManagerService.connect();
+      this._socketManagerService.onConnect(() => this.afterSocketConnected());
+    }
   }
 }

@@ -20,6 +20,9 @@ import { firstValueFrom, map } from 'rxjs';
 import { MessageType } from '@shared/constants/enums/message-type.enum';
 import { Dialog } from '@angular/cdk/dialog';
 import { ImagePreviewModalComponent } from '@shared/components/ui/image-preview-modal/image-preview-modal.component';
+import { VideoCallService } from '@core/services/video-call/video-call.service';
+import { CallStateService } from '@core/services/video-call/call-state.service';
+import { Router } from '@angular/router';
 
 export type TImageFile = string | number | null | undefined;
 
@@ -57,17 +60,19 @@ export class ChatBoxComponent implements OnInit {
   // video call
   @Output() vcToUser = new EventEmitter<string>();
 
-  videoCall() {
-    this.vcToUser.emit(this._currentUserId);
-  }
   // video call
 
   //socket
   private _chatSocket = inject(ChatSocketService);
   private _chatService = inject(ChatService);
+  private _videoCallService = inject(VideoCallService);
   private _destroyRef = inject(DestroyRef);
+  private _callState = inject(CallStateService);
+  private _router = inject(Router);
   messages = signal<IMessage[]>([]);
   message = '';
+
+  isIncomingCall = signal<boolean>(false);
 
   messageType = MessageType;
 
@@ -76,6 +81,12 @@ export class ChatBoxComponent implements OnInit {
   private _authGuardService = inject(AuthGuardService);
   private _dialog = inject(Dialog);
   loggedInUser = this._authGuardService.currentUser;
+
+  videoCall() {
+    // this.vcToUser.emit(this._currentUserId);
+    this._callState.setCaller(this._currentUserId);
+    this._router.navigate(['/chat/call/video']);
+  }
 
   loadUserDetails() {
     this.currentChatUser.set(this.currentUser());
@@ -149,7 +160,25 @@ export class ChatBoxComponent implements OnInit {
     });
   }
 
+  // listen to offer in this component
+  listenOffer() {
+    this._videoCallService.onOffer().subscribe({
+      next: (res) => {
+        console.log('Offer came');
+        console.log(res.from);
+        console.log(this._currentUserId);
+
+        if (res.from === this._currentUserId) {
+          this.isIncomingCall.set(true);
+        }
+      },
+    });
+  }
+
+  // when the offer arrives pass the offer data to service
+
   ngOnInit(): void {
     this.listenToMsg();
+    // this.listenOffer();
   }
 }
