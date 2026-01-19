@@ -19,10 +19,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmptyChatBoxComponent } from '../components/empty-chat-box/empty-chat-box.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { IChatUsers } from '@features/user/models/chat/chat.model';
+import { SampleVideoCallComponent } from '../components/sample-video-call/sample-video-call.component';
 
 @Component({
   selector: 'app-chat-layout',
-  imports: [CommonModule, FormsModule, ChatBoxComponent, EmptyChatBoxComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ChatBoxComponent,
+    EmptyChatBoxComponent,
+    SampleVideoCallComponent,
+  ],
   templateUrl: './chat-layout.component.html',
   styleUrl: './chat-layout.component.scss',
 })
@@ -36,6 +43,18 @@ export class ChatLayoutComponent implements OnInit, OnDestroy {
   set chatUser(value: IChatUsers | null) {
     this._currentChat.set(value);
   }
+
+  // video call
+  isVideoCall = signal<boolean>(false);
+  vcToUserId = signal<string>('');
+
+  startVideoCall(toUserId: string) {
+    this.vcToUserId.set(toUserId);
+    this.isVideoCall.set(true);
+
+    //logic to start video call
+  }
+  // video call
 
   readonly currentChat = this._currentChat;
 

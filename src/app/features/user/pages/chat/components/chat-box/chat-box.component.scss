@@ -15,6 +15,10 @@
     background-color: $background;
 
     flex-shrink: 0;
+    //newly added for videocall
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   &__window-user {

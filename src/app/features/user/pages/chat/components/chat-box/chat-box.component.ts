@@ -54,6 +54,14 @@ export class ChatBoxComponent implements OnInit {
   @Output() closeChat = new EventEmitter();
   @Input() isMobileScreen = true;
 
+  // video call
+  @Output() vcToUser = new EventEmitter<string>();
+
+  videoCall() {
+    this.vcToUser.emit(this._currentUserId);
+  }
+  // video call
+
   //socket
   private _chatSocket = inject(ChatSocketService);
   private _chatService = inject(ChatService);
