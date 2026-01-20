@@ -67,4 +67,8 @@ export class VideoCallService {
   onCallHangup() {
     return this._socketManger.listen<ICallHangupFrom>('callHangup');
   }
+
+  onUserBusy() {
+    return this._socketManger.listen('userBusy');
+  }
 }

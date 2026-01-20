@@ -99,6 +99,15 @@ export class VideoCallComponent implements OnInit {
     });
   }
 
+  onUserBusy() {
+    this._videoCallService.onUserBusy().subscribe({
+      next: () => {
+        this.cleanup();
+        this._snackbar.info('User is busy');
+      },
+    });
+  }
+
   cleanup() {
     this._router.navigate(['/chat']);
     this._pcService.cleanup();
@@ -205,6 +214,7 @@ export class VideoCallComponent implements OnInit {
     };
     this._videoCallService.sendOffer(offerData);
 
+    this.onUserBusy();
     this.onCallReject();
   }
 
