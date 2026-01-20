@@ -18,18 +18,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmptyChatBoxComponent } from '../components/empty-chat-box/empty-chat-box.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { IChatUsers } from '@features/user/models/chat/chat.model';
-import { SampleVideoCallComponent } from '../components/sample-video-call/sample-video-call.component';
 import { SocketManagerService } from '@core/services/socket-manager/socket-manager.service';
 
 @Component({
   selector: 'app-chat-layout',
-  imports: [
-    CommonModule,
-    FormsModule,
-    ChatBoxComponent,
-    EmptyChatBoxComponent,
-    SampleVideoCallComponent,
-  ],
+  imports: [CommonModule, FormsModule, ChatBoxComponent, EmptyChatBoxComponent],
   templateUrl: './chat-layout.component.html',
   styleUrl: './chat-layout.component.scss',
 })

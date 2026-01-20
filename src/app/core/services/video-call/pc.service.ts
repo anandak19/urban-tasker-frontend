@@ -57,6 +57,11 @@ export class PcService {
     };
   }
 
+  cleanup() {
+    this.pc.getSenders().forEach((s) => this.pc.removeTrack(s));
+    this.pc.close();
+  }
+
   // Add Track
   public addTrack(stream: MediaStream): void {
     console.log('adding track ');

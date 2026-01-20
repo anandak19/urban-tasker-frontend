@@ -168,7 +168,7 @@ export class ChatBoxComponent implements OnInit {
         console.log(res.from);
         console.log(this._currentUserId);
 
-        if (res.from === this._currentUserId) {
+        if (res.from.id === this._currentUserId) {
           this.isIncomingCall.set(true);
         }
       },

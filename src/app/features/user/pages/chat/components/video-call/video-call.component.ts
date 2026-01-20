@@ -8,13 +8,14 @@ import {
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { CallStateService } from '@core/services/video-call/call-state.service';
 import { PcService } from '@core/services/video-call/pc.service';
 import { VideoCallService } from '@core/services/video-call/video-call.service';
 import {
   IAnswerPayload,
   IIceCandidatePayload,
-  IOfferPayload,
+  IOfferTo,
 } from '@features/user/models/chat/video-chat.model';
 import { ButtonComponent } from '@shared/components/button/button.component';
 
@@ -27,10 +28,16 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 })
 export class VideoCallComponent implements OnInit {
   @ViewChild('localVideo') localVideo!: ElementRef;
+  private _remoteVideoEl?: HTMLVideoElement;
+
   @ViewChild('remoteVideo')
   set remoteVideoSetter(el: ElementRef<HTMLVideoElement>) {
-    if (el && this.remoteStream) {
-      el.nativeElement.srcObject = this.remoteStream;
+    if (!el) return;
+
+    this._remoteVideoEl = el.nativeElement;
+
+    if (this.remoteStream) {
+      this._remoteVideoEl.srcObject = this.remoteStream;
     }
   }
 
@@ -43,6 +50,7 @@ export class VideoCallComponent implements OnInit {
   private _videoCallService = inject(VideoCallService);
   private _callStateService = inject(CallStateService);
   private _router = inject(Router);
+  private _snackbar = inject(SnackbarService);
 
   // handle local ice candidates
   handleLocalIceCandidates(event: RTCPeerConnectionIceEvent) {
@@ -81,6 +89,27 @@ export class VideoCallComponent implements OnInit {
     });
   }
 
+  onCallReject() {
+    this._videoCallService.onCallReject().subscribe({
+      next: (from) => {
+        console.log('call rejected by user with id ', from);
+        this.cleanup();
+        this._snackbar.info('Call is rejected');
+      },
+    });
+  }
+
+  cleanup() {
+    this._router.navigate(['/chat']);
+    this._pcService.cleanup();
+    this.localStrem.getTracks().forEach((t) => t.stop());
+
+    if (this._remoteVideoEl) {
+      this._remoteVideoEl.srcObject = null;
+    }
+    this.localVideo.nativeElement.srcObject = null;
+  }
+
   // on offer
   onOffer() {
     this._videoCallService.onOffer().subscribe({
@@ -96,7 +125,7 @@ export class VideoCallComponent implements OnInit {
         // send answer
         const answerPayload: IAnswerPayload = {
           answer,
-          to: offerData.from,
+          to: offerData.from.id,
         };
         this._videoCallService.sendAnswer(answerPayload);
       },
@@ -145,7 +174,22 @@ export class VideoCallComponent implements OnInit {
   }
 
   hangup() {
+    this._videoCallService.sendCallHangup({
+      to: { id: this._callStateService.toUserId! },
+    });
+    this.cleanup();
     this._pcService.close();
+    this._snackbar.info('Call ended');
+  }
+
+  onCallHangup() {
+    this._videoCallService.onCallHangup().subscribe({
+      next: (data) => {
+        this.cleanup();
+        this._pcService.close();
+        this._snackbar.info(`Call disconneted by ${data.from.name || 'User'}`);
+      },
+    });
   }
 
   async startAsCaller() {
@@ -155,11 +199,13 @@ export class VideoCallComponent implements OnInit {
     await this.getLocalStrem();
 
     const offer = await this._pcService.createOffer();
-    const offerData: IOfferPayload = {
-      to: this._callStateService.toUserId!,
+    const offerData: IOfferTo = {
+      to: { id: this._callStateService.toUserId! },
       offer,
     };
     this._videoCallService.sendOffer(offerData);
+
+    this.onCallReject();
   }
 
   async startAsCalee() {
@@ -184,6 +230,7 @@ export class VideoCallComponent implements OnInit {
     // this.onOffer();
     this.onAnswer();
     this.onRemoteStrem();
+    this.onCallHangup();
     if (this._callStateService.mode === 'caller') {
       console.log('to caller details');
       console.log(this._callStateService.toUserId);

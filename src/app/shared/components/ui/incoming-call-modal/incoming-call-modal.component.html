@@ -9,7 +9,7 @@
     <h2 class="incoming-call__title">Incoming Call</h2>
 
     <p class="incoming-call__username">
-      <strong>John Doe</strong> is calling you: id: {{ _data.from }}
+      <strong>{{ _data.from.name || 'A User' }}</strong> is calling you
     </p>
 
     <div class="incoming-call__actions">

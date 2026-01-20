@@ -4,9 +4,9 @@ import { VideoCallService } from '../video-call/video-call.service';
 // import { Dialog } from '@angular/cdk/dialog';
 import { IncomingCallModalComponent } from '@shared/components/ui/incoming-call-modal/incoming-call-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { IOfferResponse } from '@features/user/models/chat/video-chat.model';
 import { CallStateService } from '../video-call/call-state.service';
 import { Router } from '@angular/router';
+import { IOfferFrom } from '@features/user/models/chat/video-chat.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +18,10 @@ export class SignalingService {
   private _dialog = inject(MatDialog);
   private _router = inject(Router);
 
-  showIncomingcallModal(data: IOfferResponse) {
+  showIncomingcallModal(data: IOfferFrom) {
     const dialogRef = this._dialog.open<
       IncomingCallModalComponent,
-      IOfferResponse,
+      IOfferFrom,
       boolean
     >(IncomingCallModalComponent, {
       data,
@@ -35,6 +35,7 @@ export class SignalingService {
         this._router.navigate(['/chat/call/video']);
       } else {
         console.log('call rejected');
+        this._videoCallService.sendCallReject(data.from.id);
       }
     });
   }

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IOfferResponse } from '@features/user/models/chat/video-chat.model';
+import { IOfferFrom } from '@features/user/models/chat/video-chat.model';
 
 @Component({
   selector: 'app-incoming-call-modal',
@@ -9,7 +9,7 @@ import { IOfferResponse } from '@features/user/models/chat/video-chat.model';
   styleUrl: './incoming-call-modal.component.scss',
 })
 export class IncomingCallModalComponent {
-  _data: IOfferResponse = inject(MAT_DIALOG_DATA);
+  _data: IOfferFrom = inject(MAT_DIALOG_DATA);
   private _dialogRef = inject(
     MatDialogRef<IncomingCallModalComponent, boolean>,
   );

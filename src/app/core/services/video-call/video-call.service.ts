@@ -3,11 +3,13 @@ import { SocketManagerService } from '../socket-manager/socket-manager.service';
 import {
   IAnswerPayload,
   IAnswerResponse,
+  ICallHangupFrom,
+  ICallHangupTo,
   IIceCandidatePayload,
   IIceCandidateResponse,
-  IOfferPayload,
-  IOfferResponse,
-} from '@features/user/pages/chat/components/sample-video-call/sample-video-call.component';
+  IOfferFrom,
+  IOfferTo,
+} from '@features/user/models/chat/video-chat.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,7 @@ export class VideoCallService {
   peerConnection!: RTCPeerConnection;
 
   // send offer: start call
-  sendOffer(offerData: IOfferPayload) {
+  sendOffer(offerData: IOfferTo) {
     console.log('sending offer ');
 
     this._socketManger.emit('offer', offerData);
@@ -28,7 +30,7 @@ export class VideoCallService {
 
   // listen for offer event (incomming call)
   onOffer() {
-    return this._socketManger.listen<IOfferResponse>('offer');
+    return this._socketManger.listen<IOfferFrom>('offer');
   }
 
   // listen for anser event (call accepted)
@@ -50,11 +52,19 @@ export class VideoCallService {
     this._socketManger.emit('answer', answer);
   }
 
-  listenToIncomingOffer() {
-    this.onOffer().subscribe({
-      next: (offerData) => {
-        console.log('Incoming offer from ', offerData.from);
-      },
-    });
+  sendCallReject(to: string) {
+    this._socketManger.emit('callReject', { to });
+  }
+
+  onCallReject() {
+    return this._socketManger.listen<{ from: string }>('callReject');
+  }
+
+  sendCallHangup(payload: ICallHangupTo) {
+    this._socketManger.emit('callHangup', payload);
+  }
+
+  onCallHangup() {
+    return this._socketManger.listen<ICallHangupFrom>('callHangup');
   }
 }

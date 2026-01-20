@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IOfferResponse } from '@features/user/models/chat/video-chat.model';
+import { IOfferFrom } from '@features/user/models/chat/video-chat.model';
 
 type TCallMode = 'caller' | 'callee';
 
@@ -16,9 +16,9 @@ export class CallStateService {
     this.toUserId = toUserId;
   }
 
-  setCallee(offerPayload: IOfferResponse) {
+  setCallee(offerPayload: IOfferFrom) {
     this.mode = 'callee';
     this.offer = offerPayload.offer;
-    this.toUserId = offerPayload.from;
+    this.toUserId = offerPayload.from.id;
   }
 }

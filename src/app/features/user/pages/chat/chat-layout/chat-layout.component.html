@@ -1,57 +1,53 @@
 <div class="chat">
-  @if (isVideoCall()) {
-    <app-sample-video-call [toUserId]="vcToUserId()"></app-sample-video-call>
-  } @else {
-    <!-- Left: User List -->
-    <aside class="chat__sidebar" [ngClass]="{ 'closed-sidbar': currentChat() }">
-      <div class="chat__sidebar-header">
-        <h3 class="chat__title">Chats</h3>
-      </div>
+  <!-- Left: User List -->
+  <aside class="chat__sidebar" [ngClass]="{ 'closed-sidbar': currentChat() }">
+    <div class="chat__sidebar-header">
+      <h3 class="chat__title">Chats</h3>
+    </div>
 
-      <ul class="chat__user-list">
-        @for (item of chatUsers(); track $index) {
-          <li
-            class="chat__user"
-            [ngClass]="{
-              'chat__user--active':
-                item.partner.id === currentChat()?.partner?.id,
-            }"
-            (click)="joinChat(item)"
-            tabindex="0"
-            role="button"
-          >
-            <img
-              [src]="item.partner.image || 'assets/defaults/default-user.png'"
-              alt="User"
-              class="chat__user-avatar"
-            />
-            <span class="chat__user-name">{{ item.partner.name }}</span>
-            @if (item.unReadMessageCount) {
-              <span class="chat__message-count">{{
-                item.unReadMessageCount || 0
-              }}</span>
-            }
-          </li>
-        }
-      </ul>
-    </aside>
-
-    <!-- Right: Chat Window -->
-    <section
-      class="chat__window"
-      [ngClass]="{ 'closed-chat-widnow': !currentChat() }"
-    >
-      @if (currentChat()) {
-        <app-chat-box
-          (closeChat)="onCloseChat()"
-          (vcToUser)="startVideoCall($event)"
-          [currentUserId]="currentChat()!.partner.id"
-          [currentUser]="currentChat"
-          [isMobileScreen]="isMobile"
-        ></app-chat-box>
-      } @else {
-        <app-empty-chat-box></app-empty-chat-box>
+    <ul class="chat__user-list">
+      @for (item of chatUsers(); track $index) {
+        <li
+          class="chat__user"
+          [ngClass]="{
+            'chat__user--active':
+              item.partner.id === currentChat()?.partner?.id,
+          }"
+          (click)="joinChat(item)"
+          tabindex="0"
+          role="button"
+        >
+          <img
+            [src]="item.partner.image || 'assets/defaults/default-user.png'"
+            alt="User"
+            class="chat__user-avatar"
+          />
+          <span class="chat__user-name">{{ item.partner.name }}</span>
+          @if (item.unReadMessageCount) {
+            <span class="chat__message-count">{{
+              item.unReadMessageCount || 0
+            }}</span>
+          }
+        </li>
       }
-    </section>
-  }
+    </ul>
+  </aside>
+
+  <!-- Right: Chat Window -->
+  <section
+    class="chat__window"
+    [ngClass]="{ 'closed-chat-widnow': !currentChat() }"
+  >
+    @if (currentChat()) {
+      <app-chat-box
+        (closeChat)="onCloseChat()"
+        (vcToUser)="startVideoCall($event)"
+        [currentUserId]="currentChat()!.partner.id"
+        [currentUser]="currentChat"
+        [isMobileScreen]="isMobile"
+      ></app-chat-box>
+    } @else {
+      <app-empty-chat-box></app-empty-chat-box>
+    }
+  </section>
 </div>
