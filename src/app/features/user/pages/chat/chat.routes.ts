@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ChatLayoutComponent } from './chat-layout/chat-layout.component';
+import { VideoCallComponent } from './components/video-call/video-call.component';
 
 export const ChatRoutes: Routes = [
   {
@@ -9,5 +10,9 @@ export const ChatRoutes: Routes = [
   {
     path: ':roomId',
     component: ChatLayoutComponent,
+  },
+  {
+    path: 'call/video',
+    component: VideoCallComponent,
   },
 ];

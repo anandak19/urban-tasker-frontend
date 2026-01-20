@@ -47,6 +47,10 @@ export class SocketManagerService implements OnDestroy {
     this.socket?.on('connect', cb);
   }
 
+  isConnected() {
+    return this.socket?.connected ? true : false;
+  }
+
   /** Disconnect socket */
   disconnect(): void {
     if (this.socket) {

@@ -41,6 +41,7 @@
     @if (currentChat()) {
       <app-chat-box
         (closeChat)="onCloseChat()"
+        (vcToUser)="startVideoCall($event)"
         [currentUserId]="currentChat()!.partner.id"
         [currentUser]="currentChat"
         [isMobileScreen]="isMobile"

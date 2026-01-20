@@ -1,0 +1,86 @@
+.incoming-call {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+  }
+
+  &__modal {
+    position: relative;
+    width: 320px;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__avatar {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: #f1f1f1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+  }
+
+  &__title {
+    margin: 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+  }
+
+  &__username {
+    margin-bottom: 24px;
+    color: #555;
+    font-size: 15px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &__btn {
+    flex: 1;
+    padding: 12px 0;
+    border: none;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:active {
+      transform: scale(0.96);
+    }
+
+    &--reject {
+      background: #f44336;
+      color: #fff;
+      box-shadow: 0 6px 12px rgba(244, 67, 54, 0.3);
+    }
+
+    &--accept {
+      background: #4caf50;
+      color: #fff;
+      box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+    }
+  }
+}

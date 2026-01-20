@@ -15,10 +15,30 @@
       }}</span>
     </div>
 
+    <app-button size="small" (clickEvent)="videoCall()">Vide Call</app-button>
+
     @if (isMobileScreen) {
       <app-button size="small" (clickEvent)="closeChat.emit()">Back</app-button>
     }
   </div>
+
+  @if (isIncomingCall()) {
+    <div class="chat-box__video-call">
+      <div class="user-text">
+        <p>INCOMING VIDEO CALL...</p>
+      </div>
+      <div class="actions">
+        <app-button variant="success"
+          ><mat-icon class="material-icons-outlined">videocam</mat-icon>
+          &nbsp;Accept</app-button
+        >
+        <app-button variant="danger"
+          ><mat-icon class="material-icons-outlined">call_end</mat-icon>
+          &nbsp;Reject</app-button
+        >
+      </div>
+    </div>
+  }
 
   <div class="chat-box__messages">
     @if (messages().length > 0) {
@@ -38,7 +58,7 @@
               role="button"
               tabindex="0"
             >
-              <img [src]="userMesage.imageUrl" alt="" loading="lazy"/>
+              <img [src]="userMesage.imageUrl" alt="" loading="lazy" />
             </div>
           } @else {
             <p class="chat-box__message-text">{{ userMesage.text }}</p>

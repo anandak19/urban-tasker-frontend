@@ -3,7 +3,6 @@
 .chat-box {
   display: flex;
   flex-direction: column;
-  background-color: $background;
   overflow: hidden;
   height: 100%;
 
@@ -15,6 +14,10 @@
     background-color: $background;
 
     flex-shrink: 0;
+    //newly added for videocall
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   &__window-user {
@@ -122,6 +125,21 @@
     &:hover .chat-box__image-icon {
       background-color: $primary-color;
       color: black;
+    }
+  }
+
+  //video call
+  &__video-call {
+    background-color: $background-hover;
+    border: 1px solid wheat;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-2 $spacing-4;
+
+    .actions{
+      display: flex;
+      gap: $spacing-2;
     }
   }
 

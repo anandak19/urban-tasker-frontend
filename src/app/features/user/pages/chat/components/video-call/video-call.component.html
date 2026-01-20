@@ -1,0 +1,43 @@
+<div class="video-call">
+  <div class="video-call__remote-wrapper">
+    <div class="video-call__remote">
+      @if (isConnected()) {
+        <video
+          #remoteVideo
+          autoplay
+          playsinline
+          class="video-call__remote-video"
+        ></video>
+      } @else {
+        <div class="video-call__connecting">
+          <p>Connecting...</p>
+        </div>
+      }
+
+      <div class="video-call__label video-call__label--remote">
+        Incoming User
+      </div>
+    </div>
+  </div>
+
+  <div class="video-call__local">
+    <video
+      #localVideo
+      autoplay
+      playsinline
+      [muted]="true"
+      class="video-call__local-video"
+    ></video>
+
+    <div class="video-call__label video-call__label--local">You</div>
+  </div>
+
+  <div class="video-call__controls">
+    <!-- <button class="video-call__hangup">
+      <mat-icon class="material-icons-outlined">call_end</mat-icon>
+    </button> -->
+    <app-button size="large" variant="danger" (clickEvent)="hangup()"
+      ><mat-icon class="material-icons-outlined">call_end</mat-icon></app-button
+    >
+  </div>
+</div>
