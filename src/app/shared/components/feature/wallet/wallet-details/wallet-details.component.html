@@ -1,0 +1,36 @@
+<div class="wallet-summary">
+  <div class="wallet-summary__item">
+    <p class="wallet-summary__label">Current Balance</p>
+    <p class="wallet-summary__value">
+      ₹{{ walletDetails?.currentBalance ?? 0 }}
+    </p>
+  </div>
+
+  <div class="wallet-summary__item">
+    <p class="wallet-summary__label">Total Earnings</p>
+    <p class="wallet-summary__value">
+      ₹{{ walletDetails?.totalEarnings ?? 0 }}
+    </p>
+  </div>
+
+  <div class="wallet-summary__item">
+    <p class="wallet-summary__label">Total Withdrawn</p>
+    <p class="wallet-summary__value">
+      ₹{{ walletDetails?.totalWithdrawn ?? 0 }}
+    </p>
+  </div>
+
+  <div class="wallet-summary__item">
+    <p class="wallet-summary__label">Last Credit</p>
+    <p class="wallet-summary__value">
+      ₹{{ walletDetails?.lastCreditAmount ?? 0 }}
+    </p>
+  </div>
+
+  <div class="wallet-summary__item">
+    <p class="wallet-summary__label">Last Debit</p>
+    <p class="wallet-summary__value">
+      ₹{{ walletDetails?.lastDebitAmount ?? 0 }}
+    </p>
+  </div>
+</div>

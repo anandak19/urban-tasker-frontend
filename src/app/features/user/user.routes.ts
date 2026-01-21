@@ -15,6 +15,7 @@ import { BookedTasksLayoutComponent } from './pages/booked-tasks/booked-tasks-la
 import { UserProfileRoutes } from './pages/user-profile/user-profile.routes';
 import { UserProfileLayoutComponent } from './pages/user-profile/user-profile-layout/user-profile-layout.component';
 import { ChatRoutes } from './pages/chat/chat.routes';
+import { WalletComponent } from './pages/wallet/wallet/wallet.component';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -88,5 +89,10 @@ export const userRoutes: Routes = [
   {
     path: 'chat',
     children: ChatRoutes,
+  },
+  // wallet
+  {
+    path: 'wallet',
+    component: WalletComponent,
   },
 ];

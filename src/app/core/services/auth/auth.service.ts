@@ -6,6 +6,8 @@ import { catchError, of, tap } from 'rxjs';
 import { AuthGuardService } from '../auth-guard-service/auth-guard.service';
 import { IisLoginResponse } from '@features/user/models/auth/login.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SignalingService } from '../signaling/signaling.service';
+import { SocketManagerService } from '../socket-manager/socket-manager.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +20,9 @@ export class AuthService {
   private _authGuardService = inject(AuthGuardService);
   private _destroyRef = inject(DestroyRef);
 
+  private _socektService = inject(SocketManagerService);
+  private _signalingService = inject(SignalingService);
+
   googleLogin() {
     window.open('http://localhost:3000/api/auth/google/login', '_self');
   }
@@ -25,21 +30,38 @@ export class AuthService {
   localLogin(loginData: ILoginData) {
     return this._http
       .post<IisLoginResponse>(`${this._apiEndPoint}/login`, loginData)
-      .pipe(tap(() => this._authGuardService.fetchLoginUser()));
+      .pipe(
+        tap(() => {
+          this._socektService.connect();
+          this._signalingService.listenToEvents();
+          this._authGuardService.fetchLoginUser();
+        }),
+      );
   }
 
   logout() {
     return this._http
       .post(`${this._apiEndPoint}/logout`, {}, { withCredentials: true })
-      .pipe(tap(() => this._router.navigate(['/'])));
+      .pipe(
+        tap(() => {
+          this._socektService.disconnect();
+          this._router.navigate(['/']);
+        }),
+      );
   }
 
+  // listen socket auth errors here
+
   refreshToken() {
+    console.log('[refreshToken] method');
+
     return this._http
       .post(`${this._apiEndPoint}/refresh`, {}, { withCredentials: true })
       .pipe(
         tap(() => {
-          console.log('Token Refreshed');
+          this._socektService.connect();
+          this._signalingService.listenToEvents();
+
           this._authGuardService
             .fetchLoginUser()
             .pipe(takeUntilDestroyed(this._destroyRef))

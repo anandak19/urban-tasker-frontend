@@ -1,0 +1,46 @@
+<div class="wallet-transactions">
+  @if (transactions.length === 0) {
+    <p class="wallet-transactions__empty">No transactions found</p>
+  } @else {
+    <div
+      class="wallet-transactions__item"
+      *ngFor="let tx of transactions"
+      [class.wallet-transactions__item--credit]="
+        tx.type === transactionType.CREDIT
+      "
+      [class.wallet-transactions__item--debit]="
+        tx.type === transactionType.DEBIT
+      "
+    >
+      <div class="wallet-transactions__left">
+        <span class="wallet-transactions__type">
+          {{ tx.type }}
+        </span>
+
+        <span class="wallet-transactions__source">
+          {{ tx.source }}
+        </span>
+      </div>
+
+      <div class="wallet-transactions__center">
+        <span class="wallet-transactions__amount"> ₹{{ tx.amount }} </span>
+
+        @if (tx.balanceAfter !== undefined) {
+          <span class="wallet-transactions__balance">
+            Balance: ₹{{ tx.balanceAfter }}
+          </span>
+        }
+      </div>
+
+      <div class="wallet-transactions__right">
+        <span
+          class="wallet-transactions__status"
+          [class.wallet-transactions__status--success]="tx.isSuccess"
+          [class.wallet-transactions__status--failed]="!tx.isSuccess"
+        >
+          {{ tx.isSuccess ? 'Success' : 'Failed' }}
+        </span>
+      </div>
+    </div>
+  }
+</div>

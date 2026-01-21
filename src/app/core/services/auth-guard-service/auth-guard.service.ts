@@ -30,10 +30,13 @@ export class AuthGuardService {
       .pipe(
         tap((res) => {
           this.currentUser.set(res.data);
-          console.log('current user role: ', this.currentUser()?.userRole);
+          console.log(
+            '[fetchLoginUser] current user role: ',
+            this.currentUser()?.userRole,
+          );
         }),
         catchError(() => {
-          console.log('faild to fetch login user');
+          console.log('[fetchLoginUser] faild to fetch login user');
           this.currentUser.set(null);
           return of(null);
         }),
