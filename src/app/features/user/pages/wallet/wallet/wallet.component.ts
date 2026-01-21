@@ -1,29 +1,29 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { SnackbarService } from '@core/services/snackbar/snackbar.service';
-import { IPaginationMeta } from '@features/admin/models/common.interface';
-import { WalletService } from '@features/user/services/wallet/wallet.service';
-import { IApiResponseError } from '@shared/models/api-response.model';
-import { IBaseFilters } from '@shared/models/request-data.model';
-import { IListWalletTransaction } from '@shared/models/wallet/wallet-transaction.model';
-import { IWalletDetails } from '@shared/models/wallet/wallet.model';
-import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { WalletDetailsComponent } from '@shared/components/feature/wallet/wallet-details/wallet-details.component';
+import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 import { WalletTransactionsListingComponent } from '@shared/components/feature/wallet/wallet-transactions-listing/wallet-transactions-listing.component';
 import { PaginationComponent } from '@features/admin/components/pagination/pagination.component';
+import { IPaginationMeta } from '@features/admin/models/common.interface';
+import { IWalletDetails } from '@shared/models/wallet/wallet.model';
+import { IListWalletTransaction } from '@shared/models/wallet/wallet-transaction.model';
+import { IBaseFilters } from '@shared/models/request-data.model';
+import { WalletService } from '@features/user/services/wallet/wallet.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { IApiResponseError } from '@shared/models/api-response.model';
 
 @Component({
-  selector: 'app-earnings',
+  selector: 'app-wallet',
   imports: [
     PageTitleComponent,
     WalletDetailsComponent,
     WalletTransactionsListingComponent,
     PaginationComponent,
   ],
-  templateUrl: './earnings.component.html',
-  styleUrl: './earnings.component.scss',
+  templateUrl: './wallet.component.html',
+  styleUrl: './wallet.component.scss',
 })
-export class EarningsComponent {
+export class WalletComponent implements OnInit {
   pagination = signal<IPaginationMeta>({
     limit: 0,
     page: 1,

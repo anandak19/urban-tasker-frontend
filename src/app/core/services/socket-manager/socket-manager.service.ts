@@ -1,6 +1,5 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
 
 export interface ISocketExeption {
@@ -24,8 +23,6 @@ export class SocketManagerService implements OnDestroy {
 
   private refreshInProgress = false;
   private refreshPromise?: Promise<void>;
-
-  private _authService = inject(AuthService);
 
   /* -------------------- CONNECTION -------------------- */
   // call on login or anywhere
@@ -130,18 +127,19 @@ export class SocketManagerService implements OnDestroy {
     if (!this.refreshInProgress) {
       this.refreshInProgress = true;
 
-      this.refreshPromise = new Promise<void>((resolve, reject) => {
-        this._authService.refreshToken().subscribe({
-          next: () => {
-            this.refreshInProgress = false;
-            resolve();
-          },
-          error: (err) => {
-            this.refreshInProgress = false;
-            this._authService.logout();
-            reject(err);
-          },
-        });
+      this.refreshPromise = new Promise<void>((resolve) => {
+        resolve();
+        // this._authService.refreshToken().subscribe({
+        //   next: () => {
+        //     this.refreshInProgress = false;
+        //     resolve();
+        //   },
+        //   error: (err) => {
+        //     this.refreshInProgress = false;
+        //     this._authService.logout();
+        //     reject(err);
+        //   },
+        // });
       });
     }
 
@@ -171,11 +169,11 @@ export class SocketManagerService implements OnDestroy {
       console.error('[Socket] Auth error:', err.code);
 
       if (err.code === 'NO_ACCESS_TOKEN' || err.code === 'INVALID_TOKEN') {
-        this._authService.refreshToken().subscribe({
-          next: () => {
-            this.connect();
-          },
-        });
+        // this._authService.refreshToken().subscribe({
+        //   next: () => {
+        //     this.connect();
+        //   },
+        // });
         this.disconnect();
       }
     });

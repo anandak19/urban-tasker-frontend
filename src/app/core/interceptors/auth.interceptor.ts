@@ -10,12 +10,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const _authService = inject(AuthService);
 
   if (req.url.includes('/auth/refresh')) {
+    console.log('[Interceptor]: Refresh request going out');
     return next(req);
   }
 
   return next(req).pipe(
     catchError((err: IApiResponseError) => {
       console.log('[Interceptor]: Error occured in api call');
+      console.log(`Code: ${err.statusCode}`);
+
       // error is unautherized 401
       if (err.statusCode === 401) {
         console.log('[Interceptor]: Access token expired');
