@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,8 @@ import { NgControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './form-field.component.scss',
 })
 export class FormFieldComponent {
+  @ViewChild('inputField') inputField!: ElementRef<HTMLInputElement>;
+
   ngControl = inject(NgControl, { optional: true, self: true });
 
   @Input() label!: string; // Label for input *
@@ -66,6 +68,7 @@ export class FormFieldComponent {
       this.value = '';
       this.onChange(this.value);
       this.control.markAsUntouched();
+      this.inputField?.nativeElement.blur();
     }
   }
 

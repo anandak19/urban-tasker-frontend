@@ -3,28 +3,33 @@
     <h4 class="task-info-box__title">Task Information</h4>
     <div class="task-info-box__info-wrapper">
       <app-form-field-wrapper [isFormField]="false" label="Discription">
-        fix chair and ....
+        {{ taskInfo.description }}
       </app-form-field-wrapper>
 
-      <app-form-field-wrapper [isFormField]="false" label="Category"
-        >Carpentry Work</app-form-field-wrapper
-      >
+      <app-form-field-wrapper [isFormField]="false" label="Category">{{
+        taskInfo.categoryName
+      }}</app-form-field-wrapper>
 
-      <app-form-field-wrapper [isFormField]="false" label="City"
-        >Kochi</app-form-field-wrapper
-      >
+      <app-form-field-wrapper [isFormField]="false" label="City">{{
+        taskInfo.city
+      }}</app-form-field-wrapper>
 
-      <app-form-field-wrapper [isFormField]="false" label="Task Size"
-        >Medium</app-form-field-wrapper
-      >
+      <app-form-field-wrapper [isFormField]="false" label="Task Size">{{
+        taskInfo.taskSize
+      }}</app-form-field-wrapper>
 
-      <app-form-field-wrapper [isFormField]="false" label="Is Tasker Accepted"
-        >Not Accepted</app-form-field-wrapper
+      <app-form-field-wrapper
+        [isFormField]="false"
+        label="Is Tasker Accepted"
+        >{{ taskInfo.isAccepted ? 'Yes' : 'No' }}</app-form-field-wrapper
       >
 
       <app-form-field-wrapper [isFormField]="false" label="Location">
         <div class="task-info-box__button-wrapper">
-          <app-button size="small" variant="secondary" (clickEvent)="onViewLocation()"
+          <app-button
+            size="small"
+            variant="secondary"
+            (clickEvent)="onViewLocation()"
             >View Location</app-button
           >
         </div>

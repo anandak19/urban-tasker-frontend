@@ -26,6 +26,8 @@ import { StartCodeModalComponent } from './components/start-code-modal/start-cod
 import { MatDialogModule } from '@angular/material/dialog';
 import { TaskStatus } from '@shared/constants/enums/task-size.enum';
 import { PaymentDetailsBoxComponent } from '@shared/components/feature/booking-details/payment-details-box/payment-details-box.component';
+import { PaymentStatus } from '@shared/constants/enums/payment-status.enum';
+import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-view-one-booked-task',
@@ -39,6 +41,7 @@ import { PaymentDetailsBoxComponent } from '@shared/components/feature/booking-d
     RelatedUserBoxComponent,
     MatDialogModule,
     PaymentDetailsBoxComponent,
+    BackButtonComponent,
   ],
   templateUrl: './view-one-booked-task.component.html',
   styleUrl: './view-one-booked-task.component.scss',
@@ -48,7 +51,8 @@ export class ViewOneBookedTaskComponent implements OnInit {
 
   isChatLoading = signal<boolean>(false);
   bookingDetails = signal<IBookingDetails | null>(null);
-  status = TaskStatus;
+  taskStatus = TaskStatus;
+  paymentStatus = PaymentStatus;
 
   private _bookingService = inject(BookingService);
   private _chatService = inject(ChatService);
@@ -107,7 +111,7 @@ export class ViewOneBookedTaskComponent implements OnInit {
   }
 
   onPay() {
-    alert('Method not implemented');
+    this._router.navigate(['payment'], { relativeTo: this._route });
   }
 
   raiseComplaintClicked() {
