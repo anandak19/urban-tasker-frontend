@@ -12,7 +12,10 @@
           [taskStatus]="bookingDetails()?.taskStatus ?? null"
         >
           <div class="actions">
-            @if (bookingDetails()?.taskStatus === taskStatus.PENDING) {
+            @if (
+              bookingDetails()?.taskStatus === taskStatus.PENDING &&
+              bookingDetails()?.isAccepted
+            ) {
               <app-button size="small" (clickEvent)="onStartCode()"
                 >Get Start Code</app-button
               >

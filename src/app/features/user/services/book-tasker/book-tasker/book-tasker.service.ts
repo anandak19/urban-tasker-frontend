@@ -106,6 +106,16 @@ export class BookTaskerService {
   private _taskerService = inject(TaskerService);
   private _http = inject(HttpClient);
 
+  resetBookingState() {
+    this.aboutTask = {} as IBookTaskerAboutTask;
+    this.whenWhere = {} as IBookTaskerTimePlace;
+    this.taskerData = {} as IBookTaskerTasker;
+    this.bookingData = {} as IBookTasker;
+    this.availTaskers.set([]);
+    this.paginationData.set({} as IPaginationMeta);
+    this.filter.set({ page: 1, limit: 5 });
+  }
+
   saveAboutTask(aboutTaskData: IBookTaskerAboutTask) {
     this.aboutTask = aboutTaskData;
   }

@@ -12,6 +12,7 @@
   // filter
   &__filters {
     margin-top: $spacing-3;
+    @include section-box;
     form {
       display: flex;
       justify-content: space-between;
