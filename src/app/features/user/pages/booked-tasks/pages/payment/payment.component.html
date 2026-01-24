@@ -97,6 +97,20 @@
         </div>
 
         <div class="payment-row">
+          <span class="payment-row__label">Platform Fee</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.platFormFee || 0
+          }}</span>
+        </div>
+
+        <div class="payment-row">
+          <span class="payment-row__label">Sub Total</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.subTotal || 0
+          }}</span>
+        </div>
+
+        <div class="payment-row">
           <span class="payment-row__label">Tip Amount</span>
           <span class="payment-row__value">{{
             paymentInfo()?.tipAmount || 0

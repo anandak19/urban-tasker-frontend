@@ -55,8 +55,13 @@ export class AdminLayoutComponent {
     },
     {
       icon: 'report',
-      label: 'Complaints Management',
+      label: 'Complaints',
       route: 'complaints-management',
+    },
+    {
+      icon: 'currency_rupee',
+      label: 'Payments',
+      route: 'payments-management',
     },
   ]);
 

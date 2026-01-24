@@ -85,7 +85,7 @@ export class PaymentComponent implements OnInit {
     const amount = Math.floor(
       (percentage / 100) * this.realPaymentInfo()!.serviceFee,
     );
-    const newTotalPayable = this.realPaymentInfo()!.serviceFee + amount;
+    const newTotalPayable = this.realPaymentInfo()!.subTotal + amount;
     this.tipAmount.set(amount); // save tip amount
     this.paymentInfo.update(
       (curr) =>
@@ -122,7 +122,7 @@ export class PaymentComponent implements OnInit {
     const tip = this.tipForm.get('tipAmount')?.value;
     this.tipAmount.set(tip); // update tip amount
     const newTotalPayable = tip
-      ? this.realPaymentInfo()!.serviceFee + Number(tip)
+      ? this.realPaymentInfo()!.subTotal + Number(tip)
       : this.realPaymentInfo()!.totalPayable;
 
     // update tip in payment info
