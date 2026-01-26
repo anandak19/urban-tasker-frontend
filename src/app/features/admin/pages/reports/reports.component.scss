@@ -1,0 +1,66 @@
+@use 'index' as *;
+
+.reports {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  .reports-summary {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+
+    &__item {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      text-align: center;
+    }
+
+    &__label {
+      display: block;
+      font-size: 0.875rem;
+      color: #000000;
+      margin-bottom: 0.5rem;
+    }
+
+    &__value {
+      font-size: 1.375rem;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__section {
+    @include section-box;
+  }
+
+  &__section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__section-title {
+    font-size: $font-size-xl-sm;
+    line-height: $line-height-lg;
+    padding-bottom: $spacing-2;
+  }
+
+  .bookings-summery {
+    &__group-by {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+    }
+  }
+}
