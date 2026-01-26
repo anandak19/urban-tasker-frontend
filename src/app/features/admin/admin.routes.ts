@@ -10,6 +10,8 @@ import { TaskManagementLayoutComponent } from './pages/tasks-management/task-man
 import { taskManagementRoutes } from './pages/tasks-management/task-management.routes';
 import { ComplaintManagementLayoutComponent } from './pages/complaint-management/complaint-management-layout/complaint-management-layout.component';
 import { ComplaintManagementRoutes } from './pages/complaint-management/complaint-management.routes';
+import { PaymentManagementLayoutComponent } from './pages/payment-management/payment-management-layout/payment-management-layout.component';
+import { paymentRoutes } from './pages/payment-management/payment.routes';
 
 export const adminRoutes: Routes = [
   {
@@ -45,5 +47,10 @@ export const adminRoutes: Routes = [
     path: 'complaints-management',
     component: ComplaintManagementLayoutComponent,
     children: ComplaintManagementRoutes,
+  },
+  {
+    path: 'payments-management',
+    component: PaymentManagementLayoutComponent,
+    children: paymentRoutes,
   },
 ];

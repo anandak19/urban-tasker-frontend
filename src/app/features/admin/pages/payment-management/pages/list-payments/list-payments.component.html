@@ -1,0 +1,36 @@
+<div class="payments-listing">
+  <app-admin-page-title title="Payments Management"></app-admin-page-title>
+
+  <app-admin-table-filters searchPlaceholder="Search by Receipt-Id">
+    <!-- other filters goes here -->
+
+    <div class="payment-filter">
+      <select
+        id="status"
+        class="payment-filter__select"
+        [(ngModel)]="selectedStatus"
+        (change)="onStatusChange()"
+      >
+        <option value="" selected>All</option>
+        <option [value]="paymentStatus.CREATED">Created</option>
+        <option [value]="paymentStatus.ATTEMPTED">Attempted</option>
+        <option [value]="paymentStatus.PAID">Paid</option>
+        <option [value]="paymentStatus.FAILD">Faild</option>
+        <option [value]="paymentStatus.PENDING">Pending</option>
+      </select>
+    </div>
+  </app-admin-table-filters>
+
+  <app-table-listing
+    [dataSource]="payments()"
+    [columns]="paymentsColumns"
+    [editable]="false"
+    (viewClicked)="viewPayment($event)"
+  >
+  </app-table-listing>
+
+  <app-pagination
+    [paginationData]="pagination()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+</div>

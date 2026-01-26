@@ -1,0 +1,48 @@
+<section class="payment-details">
+  <app-admin-page-title title="Payment Details">
+    <app-back-button></app-back-button>
+  </app-admin-page-title>
+
+  <div class="payment-details__card">
+    @if (payment) {
+      <div class="payment-details__list">
+        <div class="payment-details__row">
+          <span class="payment-details__label">Receipt ID</span>
+          <span class="payment-details__value">{{ payment.receiptId }}</span>
+        </div>
+
+        <div class="payment-details__row">
+          <span class="payment-details__label">Payment ID</span>
+          <span class="payment-details__value">{{ payment.paymentId }}</span>
+        </div>
+
+        <div class="payment-details__row">
+          <span class="payment-details__label">Amount</span>
+          <span class="payment-details__value">
+            ₹{{ payment.amount | number: '1.2-2' }}
+          </span>
+        </div>
+
+        <div class="payment-details__row">
+          <span class="payment-details__label">Sender</span>
+          <span class="payment-details__value">{{ payment.sender }}</span>
+        </div>
+
+        <div class="payment-details__row">
+          <span class="payment-details__label">Receiver</span>
+          <span class="payment-details__value">{{ payment.receiver }}</span>
+        </div>
+
+        <div class="payment-details__row">
+          <span class="payment-details__label">Payment Status</span>
+          <span
+            class="payment-details__status"
+            [ngClass]="'payment-details__status--' + payment.status"
+          >
+            {{ payment.status | titlecase }}
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,96 @@
+@use 'index' as *;
+
+.payment {
+  width: 80%;
+
+  &__container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: $spacing-4;
+    max-width: 1100px;
+    margin: $spacing-4 auto;
+    min-height: calc(100vh - $header-height);
+  }
+
+  &__left,
+  &__right {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+  }
+}
+
+/* Card */
+.payment-card {
+  @include section-box;
+
+  &__title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+}
+
+/* Rows */
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+
+  &__value {
+    font-weight: 500;
+  }
+
+  &--total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+
+    .payment-row__label,
+    .payment-row__value {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+  }
+}
+
+/* Tip options */
+.tip-options {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  &__btn {
+    flex: 1;
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid $primary-color;
+    background-color: $background;
+    color: $white;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $primary-color-hover;
+      color: $primary-color-hover;
+    }
+
+    &--selected-btn {
+      background-color: $primary-color;
+      color: $black;
+      &:hover {
+        background-color: $primary-color;
+        color: $black;
+      }
+    }
+  }
+}
+
+.tip-custom {
+  form {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+}

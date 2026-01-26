@@ -13,7 +13,10 @@
         >
           <div class="actions">
             <!-- when task is pending (not yet started) -->
-            @if (bookingDetails()?.taskStatus === status.PENDING) {
+            @if (
+              bookingDetails()?.taskStatus === status.PENDING &&
+              bookingDetails()?.isAccepted
+            ) {
               <app-button (clickEvent)="onStartTaskClick()" size="small"
                 >Start Task</app-button
               >
@@ -23,7 +26,7 @@
               <!-- if the task is on break  -->
               @if (bookingDetails()?.isOnBreak) {
                 <app-button size="small" (clickEvent)="resumeTask()"
-                  >Resume</app-button
+                  >Resume Task</app-button
                 >
               }
               <!-- if the task is not on break  -->

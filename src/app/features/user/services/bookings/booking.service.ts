@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IFindAllBookingsResponse } from '@features/user/models/tasker-bookings/api-responses.model';
+import { PaymentStatus } from '@shared/constants/enums/payment-status.enum';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
 import { IBookingDetails } from '@shared/models/booking.model';
 import { ITaskFilter } from '@shared/models/request-data.model';
@@ -43,5 +44,11 @@ export class BookingService {
     return this._http.get<IApiResponseSuccess<{ code: string }>>(
       `${this.API_ENDPOINT}/${bookingId}/start-code`,
     );
+  }
+
+  getTaskPaymentStatus(taskId: string) {
+    return this._http.get<
+      IApiResponseSuccess<{ paymentStatus: PaymentStatus }>
+    >(`${this.API_ENDPOINT}/${taskId}/status`);
   }
 }

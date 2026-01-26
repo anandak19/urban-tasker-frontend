@@ -18,6 +18,8 @@ export class WalletService {
   }
 
   getTransactionHistory(walletId: string) {
+    console.log('called');
+
     return this._http.get<IFindAllWalletTransactionResponse>(
       `${this.API_ENDPOINT}/${walletId}`,
     );

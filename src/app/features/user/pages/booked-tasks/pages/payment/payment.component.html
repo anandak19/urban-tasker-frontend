@@ -1,0 +1,134 @@
+<div class="payment container">
+  <app-page-title title="Payment"
+    ><app-back-button></app-back-button>
+  </app-page-title>
+  <div class="payment__container">
+    <!-- LEFT SIDE -->
+    <div class="payment__left">
+      <!-- Service Summary -->
+      <div class="payment-card payment-card--service">
+        <h2 class="payment-card__title">Service Summary</h2>
+
+        <div class="payment-row">
+          <span class="payment-row__label">Total Work Hours</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.totalWorkHours
+          }}</span>
+        </div>
+
+        <div class="payment-row">
+          <span class="payment-row__label">Hourly Rate</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.hourlyRate | currency: 'INR'
+          }}</span>
+        </div>
+
+        <div class="payment-row">
+          <span class="payment-row__label">Total Service Fee</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.serviceFee | currency: 'INR'
+          }}</span>
+        </div>
+      </div>
+
+      <!-- Tip Section -->
+      <div class="payment-card payment-card--tip">
+        <h2 class="payment-card__title">Add a Tip</h2>
+
+        <div class="tip-options">
+          <button
+            class="tip-options__btn"
+            [ngClass]="{
+              'tip-options__btn--selected-btn': tipPercentage() === 10,
+            }"
+            (click)="addTipPercentage(10)"
+          >
+            10%
+          </button>
+          <button
+            class="tip-options__btn"
+            [ngClass]="{
+              'tip-options__btn--selected-btn': tipPercentage() === 15,
+            }"
+            (click)="addTipPercentage(15)"
+          >
+            15%
+          </button>
+
+          <button
+            class="tip-options__btn"
+            [ngClass]="{
+              'tip-options__btn--selected-btn': tipPercentage() === 20,
+            }"
+            (click)="addTipPercentage(20)"
+          >
+            20%
+          </button>
+        </div>
+
+        <div class="tip-custom">
+          <form [formGroup]="tipForm" (ngSubmit)="submitCustomTip()">
+            <app-form-field
+              #tipInput
+              label="Custom Tip Amount"
+              formControlName="tipAmount"
+              type="number"
+            ></app-form-field>
+
+            <app-button-loading
+              text="Add Tip"
+              type="submit"
+            ></app-button-loading>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="payment__right">
+      <div class="payment-card payment-card--summary">
+        <h2 class="payment-card__title">Payment Summary</h2>
+
+        <div class="payment-row">
+          <span class="payment-row__label">Service Fee</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.serviceFee | currency: 'INR'
+          }}</span>
+        </div>
+
+        <div class="payment-row">
+          <span class="payment-row__label">Platform Fee</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.platFormFee || 0
+          }}</span>
+        </div>
+
+        <div class="payment-row">
+          <span class="payment-row__label">Sub Total</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.subTotal || 0
+          }}</span>
+        </div>
+
+        <div class="payment-row">
+          <span class="payment-row__label">Tip Amount</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.tipAmount || 0
+          }}</span>
+        </div>
+
+        <div class="payment-row payment-row--total">
+          <span class="payment-row__label">Total Payable</span>
+          <span class="payment-row__value">{{
+            paymentInfo()?.totalPayable
+          }}</span>
+        </div>
+
+        <app-button-loading
+          text="Pay Now"
+          (isClicked)="onPayClicked()"
+        ></app-button-loading>
+      </div>
+    </div>
+  </div>
+</div>

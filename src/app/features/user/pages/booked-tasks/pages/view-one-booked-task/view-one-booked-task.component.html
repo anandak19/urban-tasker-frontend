@@ -1,5 +1,7 @@
 <div class="booking-details">
-  <app-page-title title="Task Details"></app-page-title>
+  <app-page-title title="Task Details">
+    <app-back-button></app-back-button>
+  </app-page-title>
 
   @if (bookingDetails()) {
     <div class="booking-details__wrapper">
@@ -10,7 +12,10 @@
           [taskStatus]="bookingDetails()?.taskStatus ?? null"
         >
           <div class="actions">
-            @if (bookingDetails()?.taskStatus === status.PENDING) {
+            @if (
+              bookingDetails()?.taskStatus === taskStatus.PENDING &&
+              bookingDetails()?.isAccepted
+            ) {
               <app-button size="small" (clickEvent)="onStartCode()"
                 >Get Start Code</app-button
               >
@@ -21,8 +26,13 @@
         <!-- Task Details -->
         <app-task-info-box [taskInfo]="bookingDetails()">
           <div class="actions actions--info">
-            @if (bookingDetails()?.taskStatus === status.COMPLETED) {
-              <app-button size="small" variant="danger" (clickEvent)="raiseComplaintClicked()">Raise a Complaint</app-button>
+            @if (bookingDetails()?.taskStatus === taskStatus.COMPLETED) {
+              <app-button
+                size="small"
+                variant="danger"
+                (clickEvent)="raiseComplaintClicked()"
+                >Raise a Complaint</app-button
+              >
               <app-button size="small" variant="primary">Add Review</app-button>
             }
           </div>
@@ -50,11 +60,12 @@
 
         <!-- Payment -->
         <app-payment-details-box [payment]="bookingDetails()?.payment || null">
-          @if (
-            bookingDetails()?.payment?.paymentStatus ||
-            null === status.COMPLETED
-          ) {
-            <app-button (clickEvent)="onPay()">Pay</app-button>
+          @if (bookingDetails()?.taskStatus === taskStatus.COMPLETED) {
+            @if (
+              bookingDetails()?.payment?.paymentStatus !== paymentStatus.PAID
+            ) {
+              <app-button (clickEvent)="onPay()">Pay</app-button>
+            }
           }
         </app-payment-details-box>
       </div>

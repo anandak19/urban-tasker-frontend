@@ -179,6 +179,7 @@ export class ChooseTaskerComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this._snackbarService.success(res.message);
+          this._bookTaskerService.resetBookingState();
           this._router.navigate(['/tasks']);
         },
         error: (err: IApiResponseError) => {
