@@ -13,7 +13,6 @@ import {
   IListPaymentsQuery,
 } from '@features/admin/models/payment.model';
 import { PaymentManagementService } from '@features/admin/services/payment/payment-management.service';
-import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import { PaymentStatus } from '@shared/constants/enums/payment-status.enum';
 import { IMatColumns } from '@shared/interfaces/table.interface';
 import { IApiResponseError } from '@shared/models/api-response.model';
@@ -25,7 +24,6 @@ import { IApiResponseError } from '@shared/models/api-response.model';
     PaginationComponent,
     AdminTableFiltersComponent,
     AdminPageTitleComponent,
-    DropdownComponent,
     FormsModule,
   ],
   templateUrl: './list-payments.component.html',

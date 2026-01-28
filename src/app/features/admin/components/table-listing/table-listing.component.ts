@@ -14,12 +14,18 @@ export class TableListingComponent<T> {
   @Input() columns!: IMatColumns[]; // array of object containing column info
   @Input() dataSource: T[] = []; // array of data to show in table
   @Input() editable = true;
+  @Input() showActions = true;
 
   @Output() viewClicked = new EventEmitter<string>();
   @Output() editClicked = new EventEmitter<string>();
 
   get displayedColumns(): string[] {
-    return [...this.columns.map((c) => c.key as string), 'actions'];
+    const cols = [...this.columns.map((c) => c.key as string)];
+    if (this.showActions) {
+      cols.push('actions');
+    }
+
+    return cols;
   }
 
   onViewBtnClick(id: string) {

@@ -1,1 +1,71 @@
-<p>reports works!</p>
+<div class="reports">
+  <app-admin-page-title title="Reports"></app-admin-page-title>
+
+  <div class="reports-summary">
+    <div class="reports-summary__item">
+      <span class="reports-summary__label">Total Earnings</span>
+      <span class="reports-summary__value">{{
+        summeryData()?.totalEarnings ?? 0 | currency: 'INR'
+      }}</span>
+    </div>
+
+    <div class="reports-summary__item">
+      <span class="reports-summary__label">Total Incoming Amount</span>
+      <span class="reports-summary__value">{{
+        summeryData()?.totalIncomingAmount ?? 0 | currency: 'INR'
+      }}</span>
+    </div>
+
+    <div class="reports-summary__item">
+      <span class="reports-summary__label">Total Tasks Completed</span>
+      <span class="reports-summary__value">{{
+        summeryData()?.totalTasksCompleted ?? 0
+      }}</span>
+    </div>
+
+    <div class="reports-summary__item">
+      <span class="reports-summary__label">Total Users</span>
+      <span class="reports-summary__value">{{
+        summeryData()?.totalUsers ?? 0
+      }}</span>
+    </div>
+
+    <div class="reports-summary__item">
+      <span class="reports-summary__label">Total Taskers</span>
+      <span class="reports-summary__value">{{
+        summeryData()?.totalTaskers ?? 0
+      }}</span>
+    </div>
+  </div>
+
+  <div class="reports__section">
+    <app-graph-visualization></app-graph-visualization>
+  </div>
+
+  <div class="reports__section bookings-summery">
+    <div class="reports__section-head">
+      <p class="reports__section-title">Bookings Summery</p>
+      <div class="bookings-summery__group-by">
+        <label for="">Group By:</label>
+        <app-dropdown
+          [text]="filter().groupBy"
+          [options]="groupByOption"
+          (optionSelected)="onGroupByOptionChange($event)"
+        ></app-dropdown>
+      </div>
+    </div>
+
+    <app-table-listing
+      [columns]="bookingsTableColumns()"
+      [dataSource]="bookingSummeryData()"
+      [showActions]="false"
+    ></app-table-listing>
+
+    @if (pagination().pages > 1) {
+      <app-pagination
+        [paginationData]="pagination()"
+        (pageChange)="onBookingSummeryPageChange($event)"
+      ></app-pagination>
+    }
+  </div>
+</div>

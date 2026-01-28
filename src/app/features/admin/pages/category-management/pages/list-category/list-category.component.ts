@@ -40,7 +40,6 @@ export class ListCategoryComponent implements OnInit {
 
   filter = signal<IBaseFilters>({
     page: 1,
-    limit: 2, // -----------REMOVE THIS LATER
   });
 
   categories: ICategoryData[] = [];

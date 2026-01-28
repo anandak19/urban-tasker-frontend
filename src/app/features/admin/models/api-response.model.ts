@@ -7,6 +7,7 @@ import { ITaskerApplicationListItem } from './tasker-application.model';
 import { IBookingListing } from '@shared/models/booking.model';
 import { IListComplaint } from '@shared/models/complaint/complaint.model';
 import { IListPayment } from './payment.model';
+import { IBookingSummaryListItem } from './reports.mode';
 
 // Find All Categories API Response
 export type IFindAllCategoriesResponse = IApiResponseSuccess<
@@ -30,4 +31,8 @@ export type IFindAllComplaintsResponse = IApiResponseSuccess<
 
 export type IFindAllPaymentsResponse = IApiResponseSuccess<
   IFindAllResponseData<IListPayment>
+>;
+
+export type IFindAllBookingSummery = IApiResponseSuccess<
+  IFindAllResponseData<IBookingSummaryListItem>
 >;
