@@ -1,0 +1,44 @@
+<div class="review-wrapper">
+  <div class="review-card">
+    <app-page-title title="Add Your Review">
+      <app-back-button size="small"></app-back-button>
+    </app-page-title>
+
+    <form [formGroup]="reviewForm" (ngSubmit)="submit()">
+      <!--  Star Rating -->
+      <div class="rating">
+        <span
+          *ngFor="let star of [1, 2, 3, 4, 5]"
+          (click)="setRating(star)"
+          role="button"
+          tabindex="0"
+          [class.active]="star <= selectedRating()"
+        >
+          ★
+        </span>
+      </div>
+
+      @if (
+        reviewForm.controls.rating.touched && reviewForm.controls.rating.invalid
+      ) {
+        <div class="error-text">
+          <small>Please Add Rating</small>
+        </div>
+      }
+
+      <!-- Comment -->
+      <app-text-area-field
+        label="Comment"
+        [isOptional]="true"
+        [rows]="4"
+        placeholder="Write a comment"
+        formControlName="comment"
+      ></app-text-area-field>
+
+      <!--  Submit -->
+      <div class="action">
+        <app-button-loading type="submit" text="Submit"></app-button-loading>
+      </div>
+    </form>
+  </div>
+</div>
