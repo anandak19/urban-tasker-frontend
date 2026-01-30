@@ -4,6 +4,7 @@ import { ViewOneBookedTaskComponent } from './pages/view-one-booked-task/view-on
 import { TasksComplaintComponent } from './pages/tasks-complaint/tasks-complaint.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { isTaskNotPaidGuard } from '@features/user/guards/tasks/is-task-not-paid.guard';
+import { AddReviewComponent } from './pages/add-review/add-review.component';
 
 export const BookedTasksRoutes: Routes = [
   {
@@ -22,5 +23,9 @@ export const BookedTasksRoutes: Routes = [
   {
     path: ':taskId/complaint',
     component: TasksComplaintComponent,
+  },
+  {
+    path: ':taskId/review',
+    component: AddReviewComponent,
   },
 ];

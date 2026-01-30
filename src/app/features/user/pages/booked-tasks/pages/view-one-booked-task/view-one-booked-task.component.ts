@@ -102,6 +102,10 @@ export class ViewOneBookedTaskComponent implements OnInit {
     }
   }
 
+  onAddReview() {
+    this._router.navigate(['review'], { relativeTo: this._route });
+  }
+
   onStartCode() {
     this._dialog.open(StartCodeModalComponent, {
       data: {

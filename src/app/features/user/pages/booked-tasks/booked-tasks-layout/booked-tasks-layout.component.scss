@@ -2,4 +2,5 @@
 
 .booked-tasks {
   margin: $spacing-7 0;
+  min-height: calc(100vh - $header-height);
 }
