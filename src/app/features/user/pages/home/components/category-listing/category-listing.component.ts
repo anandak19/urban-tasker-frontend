@@ -4,6 +4,7 @@ import {
   ICategory,
 } from '@features/user/components/categorey-card/categorey-card.component';
 
+// this is a categories showing compoent only
 @Component({
   selector: 'app-category-listing',
   imports: [CategoreyCardComponent],

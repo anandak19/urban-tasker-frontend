@@ -1,9 +1,5 @@
 @use 'index' as *;
 
 .home {
-  height: calc(100vh - $header-height);
-
-  app-popular-categories {
-    margin: 0 $spacing-3;
-  }
+  min-height: calc(100vh - $header-height);
 }

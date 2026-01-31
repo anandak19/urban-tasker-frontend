@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderService } from './service/header.service';
 import { NavLinksComponent } from '../components/nav-links/nav-links.component';
-import { NotificationComponent } from '../components/notification/notification.component';
+// import { NotificationComponent } from '../components/notification/notification.component';
 import { UserProfileCircleComponent } from '../components/user-profile-circle/user-profile-circle.component';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
 import { UserRoles } from '@shared/constants/enums/user.enum';
@@ -25,7 +25,6 @@ import { UserRoles } from '@shared/constants/enums/user.enum';
     BrandComponent,
     NavLinksComponent,
     ButtonComponent,
-    NotificationComponent,
     UserProfileCircleComponent,
     MatIconModule,
   ],

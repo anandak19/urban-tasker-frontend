@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { MatStep } from '@angular/material/stepper';
+import { Component, ViewChild } from '@angular/core';
+import { MatStep, MatStepper } from '@angular/material/stepper';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ChooseTaskerComponent } from '../components/choose-tasker/choose-tasker.component';
 import { AboutTaskComponent } from '../components/about-task/about-task.component';
@@ -15,9 +15,16 @@ import { AboutTaskComponent } from '../components/about-task/about-task.componen
   templateUrl: './book-tasker-layout.component.html',
   styleUrl: './book-tasker-layout.component.scss',
 })
-export class BookTaskerLayoutComponent implements OnDestroy {
-  ngOnDestroy(): void {
-    //
-    console.log('Distroy ');
+export class BookTaskerLayoutComponent {
+  @ViewChild('stepper') stepper!: MatStepper;
+
+  onNextPage() {
+    window.scroll(0, 0);
+    this.stepper.next();
+  }
+
+  onPrevPage() {
+    window.scroll(0, 0);
+    this.stepper.previous();
   }
 }

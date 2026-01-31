@@ -44,7 +44,7 @@ export class SignalingService {
     this._socketManager.onConnect(() => {
       console.log('Listening to after connect events');
 
-      // offer event
+      // offer event (Incomming call envent)
       this._videoCallService.onOffer().subscribe({
         next: (offerData) => {
           this.showIncomingcallModal(offerData);

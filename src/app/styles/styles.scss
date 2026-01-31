@@ -5,12 +5,17 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  // outline: 1px solid red;
+  // &:hover {
+  //   outline: 1px solid rgb(178, 218, 0);
+  // }
 }
 
 html,
 body {
   background-color: $background;
   color: $white;
+  height: 100%;
 }
 
 .container {
@@ -26,6 +31,7 @@ body {
 
 .main-content {
   padding-top: $header-height;
+  min-height: calc(100% - $header-height);
 }
 
 .error-text {
@@ -58,7 +64,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: $background;
+  background: $background-hover;
 }
 
 ::-webkit-scrollbar-thumb {

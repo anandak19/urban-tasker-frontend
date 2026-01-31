@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="dropdown" [ngClass]="size ? `dropdown--${size}` : ''">
   <div
     class="dropdown__main"
     (click)="toggleOption()"

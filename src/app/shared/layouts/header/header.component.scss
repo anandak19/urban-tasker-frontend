@@ -47,5 +47,12 @@
         gap: $spacing-2;
       }
     }
+
+    &__icon {
+      font-size: $font-size-lg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

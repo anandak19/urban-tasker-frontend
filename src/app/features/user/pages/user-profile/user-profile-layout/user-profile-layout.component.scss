@@ -2,4 +2,8 @@
 
 .user-profile-layout {
   padding: 0 $spacing-10;
+
+  @include respond('xs'){
+    padding: 0;
+  }
 }

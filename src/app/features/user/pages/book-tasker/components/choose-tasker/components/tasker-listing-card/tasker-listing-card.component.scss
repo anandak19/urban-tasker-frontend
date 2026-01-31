@@ -107,4 +107,56 @@
   &__select-btn {
     margin-top: auto;
   }
+
+  @include respond('xs') {
+    align-items: flex-start;
+    gap: $spacing-2;
+
+    &__profile {
+      min-width: 90px;
+    }
+
+    &__avatar {
+      width: 60px;
+      height: 60px;
+    }
+
+    &__profile-link {
+      font-size: $font-size-sm;
+    }
+
+    &__details {
+      flex: 1;
+    }
+
+    &__name {
+      font-size: $font-size-md;
+    }
+
+    &__rating {
+      font-size: $font-size-sm;
+    }
+
+    &__rating-star {
+      font-size: $font-size-lg;
+    }
+
+    &__bio {
+      font-size: $font-size-sm;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    &__actions {
+      gap: $spacing-4;
+      min-width: max-content;
+    }
+
+    &__rate {
+      font-size: $font-size-lg;
+    }
+  }
 }

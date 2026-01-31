@@ -7,9 +7,11 @@
   border: none;
   width: 100%;
   cursor: pointer;
-  display: inline-flex;
+
+  display: flex;
   align-items: center;
   justify-content: center;
+
   transition: all 0.2s ease-in-out;
   outline: none;
   font-weight: $font-weight-medium;

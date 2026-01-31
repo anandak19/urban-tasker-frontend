@@ -10,7 +10,8 @@
   overflow: hidden;
   width: 100%;
   max-width: 600px;
-  height: 140px;
+  min-width: 380px;
+  height: 160px;
 
   &__image-section {
     width: 40%;
