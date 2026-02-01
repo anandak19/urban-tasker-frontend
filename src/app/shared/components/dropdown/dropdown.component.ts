@@ -23,6 +23,7 @@ export class DropdownComponent {
   @Input() text = 'Select an option';
   @Input() options = signal<IOptionData[]>([]);
   @Input() isSubmitted = signal<boolean>(false);
+  @Input() size!: 'small' | 'large';
 
   @Input() isAutoClear = false;
   @Output() optionSelected = new EventEmitter<IOptionData>();

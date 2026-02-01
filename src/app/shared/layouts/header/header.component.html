@@ -8,7 +8,10 @@
     </mat-icon>
     <app-brand></app-brand>
   </div>
-  <app-nav-links [links]="links()"></app-nav-links>
+  <app-nav-links
+    [links]="links()"
+    (isLinkClicked)="toggleSidePannel()"
+  ></app-nav-links>
   <div class="app-header__right-section">
     <!-- button  -->
     @if (currentUser()?.userRole === userRoles.TASKER) {
@@ -19,19 +22,21 @@
       currentUser()?.email && currentUser()?.userRole !== userRoles.TASKER
     ) {
       <app-button variant="primary" (clickEvent)="bookTaskerClicked()"
-        >Book a Tasker</app-button
+        >Book Tasker</app-button
       >
     }
     @if (currentUser()) {
       <app-button (clickEvent)="onMesagesClick()"
-        ><mat-icon class="material-icons-outlined">chat</mat-icon></app-button
+        ><mat-icon class="material-icons-outlined app-header__icon"
+          >chat</mat-icon
+        ></app-button
       >
     }
 
     <!-- user options  -->
     <div class="user-options">
       @if (_authGuardService.currentUser()?.email) {
-        <app-notification (isnoficationClicked)="openNotifications()" />
+        <!-- <app-notification (isnoficationClicked)="openNotifications()" /> -->
         <app-user-profile-circle
           (logout)="onUserLogout()"
           (clickProfile)="navigateProfile()"

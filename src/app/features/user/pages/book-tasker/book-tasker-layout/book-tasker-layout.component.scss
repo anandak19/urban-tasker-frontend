@@ -1,6 +1,9 @@
 @use 'index' as *;
 
 .book-tasker {
+  min-height: calc(100vh - $header-height);
+  @include center-div;
+  
   ::ng-deep .mat-horizontal-stepper-header-container {
     display: none !important;
   }
@@ -8,7 +11,7 @@
   mat-horizontal-stepper {
     margin: 0 auto;
     padding: $spacing-3;
-    width: 80%;
+    width: 90%;
   }
 
   @include respond('xs') {

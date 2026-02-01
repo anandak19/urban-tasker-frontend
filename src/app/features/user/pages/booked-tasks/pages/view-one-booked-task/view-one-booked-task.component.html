@@ -23,6 +23,19 @@
           </div>
         </app-task-status-box>
 
+        <!-- Tasker Details mobile -->
+        <app-related-user-box
+          [title]="bookingDetails()?.taskerName || null"
+          label="Tasker"
+          class="tasker-details tasker-details--mobile"
+        >
+          <app-button-loading
+            text="Chat"
+            (isClicked)="onChatWithTaskerClick()"
+            [isLoading]="isChatLoading"
+          ></app-button-loading>
+        </app-related-user-box>
+
         <!-- Task Details -->
         <app-task-info-box [taskInfo]="bookingDetails()">
           <div class="actions actions--info">
@@ -31,7 +44,8 @@
                 size="small"
                 variant="danger"
                 (clickEvent)="raiseComplaintClicked()"
-                >Raise a Complaint</app-button>
+                >Raise a Complaint</app-button
+              >
               <app-button
                 size="small"
                 variant="primary"
@@ -45,10 +59,11 @@
 
       <!-- RIGHT SIDE -->
       <div class="booking-details__right">
-        <!-- Tasker Details -->
+        <!-- Tasker Details desktop -->
         <app-related-user-box
           [title]="bookingDetails()?.taskerName || null"
           label="Tasker"
+          class="tasker-details tasker-details--desktop"
         >
           <app-button-loading
             text="Chat"

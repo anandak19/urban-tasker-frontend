@@ -133,6 +133,7 @@ export class ChatLayoutComponent implements OnInit {
   // -- call method to get chating users
   // on init connect to the socket server
   ngOnInit(): void {
+    window.scroll(0, 0);
     this.observerBreakpoint();
     if (this._socketManagerService.isConnected()) {
       console.log('socekt is connecte now');

@@ -2,8 +2,8 @@
 
 .chat {
   display: flex;
-  height: calc(100vh - $header-height);
   background-color: $background;
+  height: calc(100vh - $header-height);
 
   &__sidebar {
     width: 340px;
@@ -83,11 +83,11 @@
 
   &__window {
     flex: 1;
+    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: $background;
-    app-chat-box,
-    app-empty-chat-box {
+    app-empty-chat-box, app-chat-box{
       height: 100%;
     }
   }
@@ -98,13 +98,25 @@
   }
 
   @include respond('xs') {
-    height: auto;
+    height: calc(100vh - $header-height);
     .closed-sidbar {
       display: none;
     }
 
+    &__sidebar {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: $background;
+      border: none;
+    }
+
     .closed-chat-widnow {
       display: none;
+    }
+
+    &__window {
+      flex: 1;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SectionTitleComponent } from '@features/user/components/section-title/section-title.component';
 import { CategoryListingComponent } from '../category-listing/category-listing.component';
 
@@ -8,4 +8,12 @@ import { CategoryListingComponent } from '../category-listing/category-listing.c
   templateUrl: './popular-categories.component.html',
   styleUrl: './popular-categories.component.scss',
 })
-export class PopularCategoriesComponent {}
+export class PopularCategoriesComponent implements OnInit {
+  getPopularCategories() {
+    // get method
+  }
+
+  ngOnInit(): void {
+    this.getPopularCategories();
+  }
+}

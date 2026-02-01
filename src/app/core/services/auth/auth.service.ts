@@ -33,6 +33,7 @@ export class AuthService {
       .pipe(
         tap(() => {
           this._socektService.connect();
+          this.listenTokenExpiredError();
           this._signalingService.listenToEvents();
           this._authGuardService.fetchLoginUser();
         }),
@@ -50,6 +51,27 @@ export class AuthService {
       );
   }
 
+  listenTokenExpiredError() {
+    this._socektService.onConnect(() => {
+      this._socektService.onAccessTokenExpired().subscribe({
+        next: () => {
+          this._socektService.updateRefreshingState(true);
+          this.refreshToken().subscribe({
+            next: () => {
+              this._socektService.updateRefreshingState(false);
+            },
+            error: () => {
+              this.logout().subscribe();
+            },
+          });
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    });
+  }
+
   // listen socket auth errors here
 
   refreshToken() {
@@ -60,6 +82,7 @@ export class AuthService {
       .pipe(
         tap(() => {
           this._socektService.connect();
+          this.listenTokenExpiredError();
           this._signalingService.listenToEvents();
 
           this._authGuardService

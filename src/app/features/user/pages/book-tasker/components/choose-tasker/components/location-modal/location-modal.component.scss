@@ -31,4 +31,8 @@
   app-button {
     margin-top: $spacing-3;
   }
+
+  @include respond('xs') {
+    width: 90vw;
+  }
 }

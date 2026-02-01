@@ -22,24 +22,6 @@
     }
   </div>
 
-  @if (isIncomingCall()) {
-    <div class="chat-box__video-call">
-      <div class="user-text">
-        <p>INCOMING VIDEO CALL...</p>
-      </div>
-      <div class="actions">
-        <app-button variant="success"
-          ><mat-icon class="material-icons-outlined">videocam</mat-icon>
-          &nbsp;Accept</app-button
-        >
-        <app-button variant="danger"
-          ><mat-icon class="material-icons-outlined">call_end</mat-icon>
-          &nbsp;Reject</app-button
-        >
-      </div>
-    </div>
-  }
-
   <div class="chat-box__messages">
     @if (messages().length > 0) {
       @for (userMesage of messages(); track $index) {
@@ -50,7 +32,6 @@
               userMesage.senderId !== loggedInUser()?.id,
           }"
         >
-          <!-- check type and if hte image type show image else show the txt  -->
           @if (userMesage.type === messageType.IMAGE) {
             <div
               class="image-message"

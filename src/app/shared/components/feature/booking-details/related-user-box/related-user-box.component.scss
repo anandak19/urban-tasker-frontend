@@ -1,9 +1,11 @@
 @use 'index' as *;
 
 .related-user-box {
+  border: 1px solid red;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   @include section-box;
 
   &__title {
@@ -28,5 +30,9 @@
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+
+  @include respond('xs') {
+    padding: $spacing-4;
   }
 }

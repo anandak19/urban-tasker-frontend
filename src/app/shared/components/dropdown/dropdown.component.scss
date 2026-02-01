@@ -3,6 +3,7 @@
 .dropdown {
   position: relative;
   min-width: 300px;
+  white-space: nowrap;
   &__main,
   &__options {
     border: $input-border;
@@ -56,9 +57,17 @@
     background: $black;
   }
 
+  &--small {
+    width: 150px;
+  }
+
+  &--large {
+    width: 300px;
+  }
+
   @include respond('xs') {
     min-width: 120px;
-    width: 166px;
+    flex-wrap: wrap;
 
     ::ng-deep .mat-horizontal-content-container {
       padding: 0;

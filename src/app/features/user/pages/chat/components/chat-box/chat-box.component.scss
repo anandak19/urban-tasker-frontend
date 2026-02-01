@@ -3,17 +3,14 @@
 .chat-box {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   height: 100%;
 
   /* HEADER */
   &__window-header {
-    padding: 12px 16px;
-    height: 60px;
+    padding: 0 16px;
+    height: $header-height;
     border-bottom: 1px solid $background-division;
     background-color: $background;
-
-    flex-shrink: 0;
     //newly added for videocall
     display: flex;
     justify-content: space-between;
@@ -86,7 +83,6 @@
   &__input {
     display: flex;
     height: 64px;
-    flex-shrink: 0;
     gap: 8px;
     padding: 12px;
     bottom: 0;
@@ -128,21 +124,6 @@
     }
   }
 
-  //video call
-  &__video-call {
-    background-color: $background-hover;
-    border: 1px solid wheat;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: $spacing-2 $spacing-4;
-
-    .actions{
-      display: flex;
-      gap: $spacing-2;
-    }
-  }
-
   .image-message {
     width: auto;
     height: 140px;
@@ -158,15 +139,12 @@
   }
 
   @include respond('xs') {
-    height: 100vh;
-
     /* HEADER */
     &__window-header {
       height: 56px;
       padding: 10px 12px;
       display: flex;
       justify-content: space-between;
-      flex-direction: row;
     }
 
     &__window-avatar {

@@ -31,6 +31,7 @@ export class BookTaskerService {
   //     userId: '6931d20a32022e46aec1be72',
   //     firstName: 'Arjun',
   //     lastName: 'Menon',
+  //     bio: 'sdf sdfsd sdfsd sdfds sf sfsdf sdfd sdfsdf aa dd ffff asd dsd dddd',
   //     hourlyRate: 500,
   //     rating: 4.5,
   //   },
@@ -91,6 +92,7 @@ export class BookTaskerService {
   //     rating: 4.0,
   //   },
   // ]);
+
   paginationData = signal<IPaginationMeta>({
     total: 0,
     page: 1,

@@ -1,18 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
-
-export interface ISocketExeption {
-  code: string;
-  message: string;
-}
-
-export interface SocketAck<T = unknown> {
-  success: boolean;
-  data?: T;
-  code?: 'TOKEN_EXPIRED' | 'FORBIDDEN';
-  message?: string;
-}
+import {
+  ISocketEvent,
+  ISocketExeption,
+  SocketAck,
+} from '@shared/models/socket/socket.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +15,15 @@ export class SocketManagerService implements OnDestroy {
   private readonly SOCKET_URL = 'http://localhost:3000';
 
   private refreshInProgress = false;
+  // eventQueue: Array<() => void> = [];
+
   private refreshPromise?: Promise<void>;
+  private currentEvent!: ISocketEvent | null;
+
+  /**
+   * Todo
+   * write a queue to store the events
+   */
 
   /* -------------------- CONNECTION -------------------- */
   // call on login or anywhere
@@ -67,15 +68,21 @@ export class SocketManagerService implements OnDestroy {
     this.socket.emit(event, payload);
   }
 
-  // for Auth events
+  // for protected events
   // whenever the socket action depends on authentication
   async safeEmit<TPayload = unknown, TAckData = unknown>(
     event: string,
     payload: TPayload,
   ): Promise<TAckData> {
     try {
+      if (this.refreshInProgress) {
+        this.currentEvent = { event, payload };
+      }
+
       return await this.emitWithAck<TPayload, TAckData>(event, payload);
     } catch (err: unknown) {
+      // on error, push the event&payload to queue
+
       const error = err as ISocketExeption;
       if (error.code === 'TOKEN_EXPIRED') {
         return this.refreshWithRetry<TPayload, TAckData>(event, payload);
@@ -164,18 +171,34 @@ export class SocketManagerService implements OnDestroy {
         console.log('Server disconnected the socket');
       }
     });
+  }
 
-    this.socket.on('authError', (err: { code: string }) => {
-      console.error('[Socket] Auth error:', err.code);
+  // other listners
 
-      if (err.code === 'NO_ACCESS_TOKEN' || err.code === 'INVALID_TOKEN') {
-        // this._authService.refreshToken().subscribe({
-        //   next: () => {
-        //     this.connect();
-        //   },
-        // });
-        this.disconnect();
+  //   this.socket?.on('authError', (err: { code: string }) => {
+  //   console.error('[Socket] Auth error:', err.code);
+
+  //   if (err.code === 'NO_ACCESS_TOKEN' || err.code === 'INVALID_TOKEN') {
+  //     // this._authService.refreshToken().subscribe({
+  //     //   next: () => {
+  //     //     this.connect();
+  //     //   },
+  //     // });
+  //     this.disconnect();
+  //   }
+  // });
+
+  updateRefreshingState(isUpdating: boolean) {
+    this.refreshInProgress = isUpdating;
+    if (!isUpdating) {
+      if (this.currentEvent) {
+        this.emitWithAck(this.currentEvent.event, this.currentEvent.payload);
+        this.currentEvent = null;
       }
-    });
+    }
+  }
+
+  onAccessTokenExpired() {
+    return this.listen<{ code: string }>('accessTokenExpired');
   }
 }

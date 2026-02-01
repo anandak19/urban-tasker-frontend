@@ -3,24 +3,27 @@
 .category-listing {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: $spacing-2;
+  overflow-x: scroll;
+  gap: $spacing-3;
   height: auto;
   align-items: flex-start;
+  padding-bottom: $spacing-6;
+  padding-left: $spacing-8;
 
-  app-categorey-card {
-    width: 320px;
-    height: 110px;
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $secondary-color-hover;
   }
 
   @include respond('sm') {
-    gap: $spacing-3;
     padding: 0 $spacing-4;
     height: fit-content;
 
-    app-categorey-card {
-      width: 100%;
-      height: fit-content;
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 }
