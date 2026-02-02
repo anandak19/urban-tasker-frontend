@@ -36,7 +36,10 @@
       <mat-tab label="Portfolio">
         <ng-template matTabContent>
           <div class="tab-content">
-            <app-profile-tasker-portfolio></app-profile-tasker-portfolio>
+            <app-profile-tasker-portfolio
+              [isEditable]="isEditable"
+              (isAddClicked)="isAddPortfolioClicked.emit()"
+            ></app-profile-tasker-portfolio>
           </div>
         </ng-template>
       </mat-tab>
@@ -44,7 +47,13 @@
       <mat-tab label="Reviews">
         <ng-template matTabContent>
           <div class="tab-content">
-            <app-profile-tasker-reviews></app-profile-tasker-reviews>
+            <app-profile-tasker-reviews
+              (getReviewsCalled)="ongetReviews($event)"
+              (getAvarageRatingCalled)="onGetAvarageRating()"
+              [avarageRating]="avarageRating"
+              [allReviews]="allReviews"
+              [reviewsPagination]="reviewsPagination"
+            ></app-profile-tasker-reviews>
           </div>
         </ng-template>
       </mat-tab>

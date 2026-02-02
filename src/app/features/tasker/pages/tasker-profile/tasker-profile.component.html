@@ -1,9 +1,17 @@
 <div class="tasker-profile">
   <app-page-title title="Tasker Profile"></app-page-title>
   <app-view-tasker-profile
+    [isEditable]="true"
     [taskerCardData]="taskerCardData"
     [taskerAbout]="taskerAbout"
     [taskerWorkCategories]="taskerWorkCategories"
     (getAboutData)="getAboutData()"
+    (isAddPortfolioClicked)="onAddPortfolio()"
+    (getPortfolio)="getAllPortfolioImages()"
+    (getReviewsCalled)="getAllReviews($event)"
+    (getAvarageRatingCalled)="getAvarageRating()"
+    [avarageRating]="avarageRating"
+    [allReviews]="allReviews"
+    [reviewsPagination]="reviewsPagination"
   ></app-view-tasker-profile>
 </div>

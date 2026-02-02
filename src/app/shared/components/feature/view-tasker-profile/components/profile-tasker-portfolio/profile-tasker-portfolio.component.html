@@ -1,9 +1,11 @@
 <div class="tasker-portfolio">
   <div class="tasker-portfolio__head">
     <p class="title">My Works</p>
-    <app-button size="small"
-      ><mat-icon class="material-icons-outlined">add</mat-icon>
-    </app-button>
+    @if (isEditable) {
+      <app-button size="small" (clickEvent)="onAddClick()"
+        ><mat-icon class="material-icons-outlined">add</mat-icon>
+      </app-button>
+    }
   </div>
 
   <div class="tasker-portfolio__data">

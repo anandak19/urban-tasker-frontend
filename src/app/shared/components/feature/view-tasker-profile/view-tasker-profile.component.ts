@@ -15,6 +15,12 @@ import {
   ITaskerCardData,
 } from '@shared/models/tasker-data.model';
 import { IOptionData } from '@shared/models/form-inputs.model';
+import { IBaseFilters } from '@shared/models/request-data.model';
+import {
+  IAverageRating,
+  IReviews,
+} from '@shared/models/reviews/reviews.interface';
+import { IPaginationMeta } from '@features/admin/models/common.interface';
 
 @Component({
   selector: 'app-view-tasker-profile',
@@ -34,20 +40,31 @@ export class ViewTaskerProfileComponent implements OnInit {
   @Input() taskerAbout = signal<ITaskerAbout | null>(null);
   @Input() taskerWorkCategories = signal<IOptionData[]>([]);
 
+  @Input() allReviews = signal<IReviews[]>([]);
+  @Input() avarageRating = signal<IAverageRating>({} as IAverageRating);
+  @Input() reviewsPagination = signal<IPaginationMeta>({} as IPaginationMeta);
+
   @Output() getAboutData = new EventEmitter();
   @Output() getPortfolio = new EventEmitter();
-  @Output() getReviews = new EventEmitter();
+  @Output() getReviewsCalled = new EventEmitter<IBaseFilters>();
+  @Output() getAvarageRatingCalled = new EventEmitter();
+
+  @Output() isAddPortfolioClicked = new EventEmitter();
 
   onGetAboutData() {
     this.getAboutData.emit();
+  }
+
+  onGetAvarageRating() {
+    this.getAvarageRatingCalled.emit();
   }
 
   ongetPortfolio() {
     this.getPortfolio.emit();
   }
 
-  ongetReviews() {
-    this.getReviews.emit();
+  ongetReviews(filter: IBaseFilters) {
+    this.getReviewsCalled.emit(filter);
   }
 
   get fullName() {

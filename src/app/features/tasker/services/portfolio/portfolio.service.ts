@@ -14,7 +14,11 @@ export class PortfolioService {
     return this._http.post<IBaseApiResponse>(`${this.API_ENDPOINT}`, payload);
   }
 
-  // not implemented
+  getAllTaskerPortfolioImages() {
+    // method to get all portofolio image of logged in tasker
+  }
+
+  // not implemented in backend
   removePortfolioImage(imageId: string) {
     return this._http.delete<IBaseApiResponse>(
       `${this.API_ENDPOINT}/${imageId}`,

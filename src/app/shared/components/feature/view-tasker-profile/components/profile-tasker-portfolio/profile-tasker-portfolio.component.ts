@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ButtonComponent } from '@shared/components/button/button.component';
 
@@ -10,7 +17,16 @@ import { ButtonComponent } from '@shared/components/button/button.component';
   styleUrl: './profile-tasker-portfolio.component.scss',
 })
 export class ProfileTaskerPortfolioComponent implements OnInit {
+  @Input() isEditable = false;
+  @Output() isAddClicked = new EventEmitter();
+
   gallaryImages = signal<string[]>([]);
+
+  onAddClick() {
+    if (!this.isEditable) return;
+    this.isAddClicked.emit();
+  }
+
   ngOnInit(): void {
     console.log('Portfolio');
 
