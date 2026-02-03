@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { IListTasker } from '@features/user/models/tasker/tasker.model';
 import { ButtonComponent } from '@shared/components/button/button.component';
 
@@ -15,8 +16,14 @@ export class TaskerListingCardComponent {
     taskerId: string;
   }>();
 
+  private _router = inject(Router);
+
   // on choosing tasker
   onChoosingTasker(taskerId: string) {
     this.chooseTasker.emit({ taskerId });
+  }
+
+  viewProfile(taskerId: string) {
+    this._router.navigate([`tasker/${taskerId}/profile`]);
   }
 }

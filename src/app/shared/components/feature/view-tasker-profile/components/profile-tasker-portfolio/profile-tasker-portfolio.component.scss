@@ -25,13 +25,32 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: 12px;
+    border: 1px solid $black;
     overflow: hidden;
     background-color: #f2f2f2;
     cursor: pointer;
 
     &:hover {
-      .tasker-portfolio__image {
-        transform: scale(1.05);
+      border: 1px solid $primary-color;
+    }
+
+    .delete-btn {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      @include center-div;
+      padding: $spacing-1;
+      border-radius: 100%;
+      color: $white;
+      border: none;
+      background-color: #0000009f;
+      mat-icon {
+        @include center-div;
+        font-size: $font-size-lg;
+      }
+
+      &:hover {
+        background-color: #000000;
       }
     }
   }

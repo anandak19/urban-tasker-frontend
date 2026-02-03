@@ -14,7 +14,7 @@ import {
   providedIn: 'root',
 })
 export class TaskerProfileService {
-  private API_ENDPOINT = 'tasker/account';
+  private API_ENDPOINT = 'tasker/account/profile';
   private _http = inject(HttpClient);
 
   getTaskerCardData() {

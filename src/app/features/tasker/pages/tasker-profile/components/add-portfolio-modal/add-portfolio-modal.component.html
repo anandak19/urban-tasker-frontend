@@ -1,0 +1,35 @@
+<div class="add-portfolio">
+  <div class="add-portfolio__head" mat-dialog-title>
+    <p>Porfolio Adding</p>
+  </div>
+  <div class="add-portfolio__body">
+    <form [formGroup]="portfolioForm" (ngSubmit)="onSubmit()">
+      <div class="image">
+        <app-form-field-wrapper label="Image">
+          <app-image-upload-field
+            formControlName="image"
+            #image
+          ></app-image-upload-field>
+        </app-form-field-wrapper>
+      </div>
+
+      <app-text-area-field
+        label="Caption"
+        [isOptional]="true"
+        placeholder="Caption..."
+        formControlName="caption"
+      ></app-text-area-field>
+
+      <div class="actions">
+        <app-button variant="secondary" (clickEvent)="onClose()"
+          >Close</app-button
+        >
+        <app-button-loading
+          text="Save"
+          type="submit"
+          [isLoading]="isAddingLoading"
+        ></app-button-loading>
+      </div>
+    </form>
+  </div>
+</div>

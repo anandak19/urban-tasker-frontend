@@ -1,5 +1,46 @@
 <div class="tasker-reviews">
+  <!-- Header -->
   <div class="tasker-reviews__head">
     <p class="title">Reviews</p>
   </div>
+
+  <!-- Aggregated rating -->
+  <div class="tasker-reviews__summary">
+    <div class="rating">
+      <span class="rating-value">{{ avarageRating().rating || 0 }}</span>
+      <span class="stars">★</span>
+    </div>
+    @if (avarageRating().totalRatings > 0) {
+      <p class="review-count">
+        Based on {{ avarageRating().totalRatings }} reviews
+      </p>
+    }
+  </div>
+
+  <!-- Review cards -->
+  <div class="tasker-reviews__list">
+    @for (review of allReviews(); track review.id) {
+      <!-- card  -->
+      <div class="review-card">
+        <div class="review-card__head">
+          <p class="name">{{ review.userName }}</p>
+          <div class="rating">
+            <span class="rating-value">{{ review.rating }}</span>
+            <span class="stars">★</span>
+          </div>
+        </div>
+        @if (review.comment) {
+          <p class="comment">
+            {{ review.comment }}
+          </p>
+        }
+      </div>
+      <!-- card end  -->
+    }
+  </div>
+
+  <app-pagination
+    [paginationData]="reviewsPagination()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 </div>

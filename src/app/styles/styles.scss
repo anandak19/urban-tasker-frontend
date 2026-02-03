@@ -1,4 +1,5 @@
 @use 'index' as *;
+@use '@angular/material' as mat;
 
 * {
   padding: 0;
@@ -74,4 +75,12 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: $secondary-color-hover;
+}
+
+.modal-dialog {
+  @include mat.dialog-overrides(
+    (
+      container-color: $modal-background,
+    )
+  );
 }

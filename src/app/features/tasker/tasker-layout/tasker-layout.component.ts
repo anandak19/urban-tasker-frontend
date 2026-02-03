@@ -45,7 +45,7 @@ export class TaskerLayoutComponent {
     {
       icon: 'account_circle',
       label: 'Tasker Profile',
-      route: 'tasker-profile',
+      route: 'profile',
     },
     {
       icon: 'payments',
