@@ -21,7 +21,7 @@ export const taskerRoutes: Routes = [
     component: TaskerAvailbilityComponent,
   },
   {
-    path: 'tasker-profile',
+    path: 'profile',
     component: TaskerProfileComponent,
   },
   {

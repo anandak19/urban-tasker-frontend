@@ -38,7 +38,7 @@ export class ReviewService {
 
   findTaskerAverageRating(taskerId: string) {
     return this._http.get<IApiResponseSuccess<IAverageRating>>(
-      `${this.API_ENDPOINT}/${taskerId}/average`,
+      `${this.API_ENDPOINT}/tasker/${taskerId}/average`,
     );
   }
 }

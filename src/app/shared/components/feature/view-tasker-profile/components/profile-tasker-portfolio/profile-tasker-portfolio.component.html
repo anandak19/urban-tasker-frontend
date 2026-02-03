@@ -10,16 +10,28 @@
 
   <div class="tasker-portfolio__data">
     <div class="tasker-portfolio__gallery">
-      @for (image of gallaryImages(); track $index) {
+      @for (imageDoc of allPortfolioImages(); track $index) {
         <div class="tasker-portfolio__image-wrapper">
+          @if (isEditable) {
+            <button class="delete-btn" (click)="onDeleteImage(imageDoc.id)">
+              <mat-icon class="material-icons-outlined">delete</mat-icon>
+            </button>
+          }
           <img
             class="tasker-portfolio__image"
-            [src]="image"
+            [src]="imageDoc.imageUrl"
             alt="Tasker work image"
             loading="lazy"
           />
         </div>
       }
     </div>
+    @if (allPortfolioImages().length === 0) {
+      <p class="empty-text">No works added yet</p>
+    }
+    <app-pagination
+      [paginationData]="portfolioPagination()"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
   </div>
 </div>

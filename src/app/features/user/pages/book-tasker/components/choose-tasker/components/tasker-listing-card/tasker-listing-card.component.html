@@ -10,7 +10,13 @@
           alt="Tasker profile picture"
         />
       </div>
-      <a class="tasker-card__profile-link" href="#"> View Profile </a>
+      <a
+        class="tasker-card__profile-link"
+        (click)="viewProfile(taskerData.userId)"
+        role="button"
+        tabindex="0"
+        >View Profile
+      </a>
     </div>
 
     <!--  Tasker details -->

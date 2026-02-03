@@ -11,6 +11,7 @@ import { ProfileAboutTaskerComponent } from './components/profile-about-tasker/p
 import { ProfileTaskerPortfolioComponent } from './components/profile-tasker-portfolio/profile-tasker-portfolio.component';
 import { ProfileTaskerReviewsComponent } from './components/profile-tasker-reviews/profile-tasker-reviews.component';
 import {
+  IPortfolioImage,
   ITaskerAbout,
   ITaskerCardData,
 } from '@shared/models/tasker-data.model';
@@ -21,6 +22,7 @@ import {
   IReviews,
 } from '@shared/models/reviews/reviews.interface';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
+import { IDeletePortfolioData } from '@shared/models/tasker-profile/tasker-profile.model';
 
 @Component({
   selector: 'app-view-tasker-profile',
@@ -44,12 +46,16 @@ export class ViewTaskerProfileComponent implements OnInit {
   @Input() avarageRating = signal<IAverageRating>({} as IAverageRating);
   @Input() reviewsPagination = signal<IPaginationMeta>({} as IPaginationMeta);
 
+  @Input() allPortfolioImages = signal<IPortfolioImage[]>([]);
+  @Input() portfolioPagination = signal<IPaginationMeta>({} as IPaginationMeta);
+
   @Output() getAboutData = new EventEmitter();
-  @Output() getPortfolio = new EventEmitter();
+  @Output() getPortfolio = new EventEmitter<IBaseFilters>();
   @Output() getReviewsCalled = new EventEmitter<IBaseFilters>();
   @Output() getAvarageRatingCalled = new EventEmitter();
 
   @Output() isAddPortfolioClicked = new EventEmitter();
+  @Output() isDeletePortfolioClicked = new EventEmitter<IDeletePortfolioData>();
 
   onGetAboutData() {
     this.getAboutData.emit();
@@ -59,8 +65,12 @@ export class ViewTaskerProfileComponent implements OnInit {
     this.getAvarageRatingCalled.emit();
   }
 
-  ongetPortfolio() {
-    this.getPortfolio.emit();
+  ongetPortfolio(filter: IBaseFilters) {
+    this.getPortfolio.emit(filter);
+  }
+
+  onDeletePortfolio(data: IDeletePortfolioData) {
+    this.isDeletePortfolioClicked.emit(data);
   }
 
   ongetReviews(filter: IBaseFilters) {

@@ -3,6 +3,7 @@ import {
   DestroyRef,
   inject,
   OnInit,
+  signal,
   ViewChild,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +24,7 @@ import { PortfolioService } from '@features/tasker/services/portfolio/portfolio.
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { IPortfolioFormVal } from '@shared/models/tasker-profile/tasker-profile.model';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-add-portfolio-modal',
@@ -50,6 +52,7 @@ export class AddPortfolioModalComponent implements OnInit {
 
   portfolioForm!: FormGroup;
   selectedImage!: File;
+  isAddingLoading = signal<boolean>(false);
 
   @ViewChild('image') image!: ImageUploadFieldComponent;
 
@@ -58,9 +61,13 @@ export class AddPortfolioModalComponent implements OnInit {
   }
 
   addPortfolio(data: FormData) {
+    this.isAddingLoading.set(true);
     this._portfolioService
       .addPortfolioImage(data)
-      .pipe(takeUntilDestroyed(this._destroyRef))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isAddingLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           this._snackBar.success(res.message);

@@ -38,7 +38,11 @@
           <div class="tab-content">
             <app-profile-tasker-portfolio
               [isEditable]="isEditable"
+              [allPortfolioImages]="allPortfolioImages"
+              [portfolioPagination]="portfolioPagination"
               (isAddClicked)="isAddPortfolioClicked.emit()"
+              (getPortfolio)="ongetPortfolio($event)"
+              (isDeleteClicked)="onDeletePortfolio($event)"
             ></app-profile-tasker-portfolio>
           </div>
         </ng-template>

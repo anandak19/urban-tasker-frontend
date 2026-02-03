@@ -5,6 +5,7 @@ import { TaskerProfileService } from '@features/tasker/services/tasker-profile/t
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import {
+  IPortfolioImage,
   ITaskerAbout,
   ITaskerCardData,
 } from '@shared/models/tasker-data.model';
@@ -19,6 +20,8 @@ import {
   IReviews,
 } from '@shared/models/reviews/reviews.interface';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
+import { PortfolioService } from '@features/tasker/services/portfolio/portfolio.service';
+import { IDeletePortfolioData } from '@shared/models/tasker-profile/tasker-profile.model';
 
 @Component({
   selector: 'app-tasker-profile',
@@ -32,14 +35,22 @@ export class TaskerProfileComponent implements OnInit {
   private _snackbarService = inject(SnackbarService);
   private _matDialog = inject(MatDialog);
   private _taskerReviewService = inject(TaskerReviewsService);
+  private _portfolioService = inject(PortfolioService);
 
   taskerCardData = signal<ITaskerCardData | null>(null);
   taskerAbout = signal<ITaskerAbout | null>(null);
   taskerWorkCategories = signal<IOptionData[]>([]);
 
+  allReviews = signal<IReviews[]>([]);
+  avarageRating = signal<IAverageRating>({} as IAverageRating);
+  reviewsPagination = signal<IPaginationMeta>({} as IPaginationMeta);
+
+  allPortfolioImages = signal<IPortfolioImage[]>([]);
+  portfolioPagination = signal<IPaginationMeta>({} as IPaginationMeta);
+
   /**
    * TODOS
-   * 1. create method to all profile pic images (paginated)
+   * 1. create method to all portfolio images (paginated)
    * 2. pass the returned data to show dynamically
    * 3. Add method to delete one image
    */
@@ -59,15 +70,24 @@ export class TaskerProfileComponent implements OnInit {
       });
   }
 
-  getAllPortfolioImages() {
-    // not implemented, start with shape
+  getAllPortfolioImages(filter: IBaseFilters = {}) {
+    console.log('called get portfolio');
+
+    this._portfolioService
+      .getAllTaskerPortfolioImages(filter)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.allPortfolioImages.set(res.data.documents);
+          this.portfolioPagination.set(res.data.meta);
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbarService.error(err.message);
+        },
+      });
   }
 
-  allReviews = signal<IReviews[]>([]);
-  avarageRating = signal<IAverageRating>({} as IAverageRating);
-  reviewsPagination = signal<IPaginationMeta>({} as IPaginationMeta);
-
-  getAllReviews(filter: IBaseFilters) {
+  getAllReviews(filter: IBaseFilters = {}) {
     this._taskerReviewService.getMyReviews(filter).subscribe({
       next: (res) => {
         this.allReviews.set(res.data.documents);
@@ -77,6 +97,21 @@ export class TaskerProfileComponent implements OnInit {
         this._snackbarService.error(err.message);
       },
     });
+  }
+
+  deletePortfolioItem(data: IDeletePortfolioData) {
+    this._portfolioService
+      .removePortfolioImage(data.portfolioId)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this._snackbarService.success(res.message);
+          this.getAllPortfolioImages(data.filter);
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbarService.error(err.message);
+        },
+      });
   }
 
   getAvarageRating() {
@@ -115,7 +150,9 @@ export class TaskerProfileComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res?.isRefresh);
+          if (res?.isRefresh) {
+            this.getAllPortfolioImages();
+          }
         },
       });
   }

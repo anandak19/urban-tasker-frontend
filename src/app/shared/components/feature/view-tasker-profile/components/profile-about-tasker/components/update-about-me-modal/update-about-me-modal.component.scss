@@ -16,4 +16,8 @@
     flex-direction: column;
     gap: $spacing-2;
   }
+
+  @include respond('xs'){
+    width: 400px;
+  }
 }

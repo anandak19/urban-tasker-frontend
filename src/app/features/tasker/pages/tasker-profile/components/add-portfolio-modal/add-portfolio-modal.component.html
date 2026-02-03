@@ -24,7 +24,11 @@
         <app-button variant="secondary" (clickEvent)="onClose()"
           >Close</app-button
         >
-        <app-button-loading text="Save" type="submit"></app-button-loading>
+        <app-button-loading
+          text="Save"
+          type="submit"
+          [isLoading]="isAddingLoading"
+        ></app-button-loading>
       </div>
     </form>
   </div>
