@@ -1,0 +1,58 @@
+@use 'index' as *;
+@use '@angular/material' as mat;
+
+.graph {
+  width: 90%;
+  margin: 0 auto;
+
+  &__head {
+    padding-bottom: $spacing-3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2 {
+      font-size: $font-size-lg;
+    }
+  }
+
+  &__filter {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    .date-input {
+      outline: none;
+      padding: 6px 8px;
+      font-size: 14px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      min-width: 160px;
+    }
+  }
+
+  &__body {
+    background-color: #d5d1c6;
+    height: 300px;
+  }
+
+  @include respond('xs') {
+    width: 100%;
+
+    &__head {
+      h2 {
+        font-size: $font-size-md;
+      }
+    }
+
+    &__filter {
+      gap: $spacing-2;
+
+      .date-input {
+        padding: 4px 6px;
+        width: 120px;
+      }
+    }
+  }
+}

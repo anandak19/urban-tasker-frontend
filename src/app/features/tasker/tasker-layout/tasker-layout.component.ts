@@ -57,6 +57,11 @@ export class TaskerLayoutComponent {
       label: 'Availability',
       route: 'availability',
     },
+    {
+      icon: 'bar_chart',
+      label: 'Analytics',
+      route: 'analytics',
+    },
   ]);
 
   private _breakPoint = inject(BreakpointObserver);
