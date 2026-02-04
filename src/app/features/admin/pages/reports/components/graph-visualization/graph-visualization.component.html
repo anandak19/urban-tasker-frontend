@@ -1,3 +1,29 @@
 <div class="graph">
+  <div class="graph__head">
+    <h2>Monthly Earnings</h2>
+    <div class="graph__filter">
+      <app-form-field-wrapper [isFormField]="false" label="Start Date">
+        <input
+          type="date"
+          class="date-input"
+          (change)="onStartDateChange()"
+          [(ngModel)]="startDate"
+          placeholder="Start Date"
+        />
+      </app-form-field-wrapper>
+
+      <app-form-field-wrapper [isFormField]="false" label="End Date">
+        <input
+          type="date"
+          class="date-input"
+          (change)="onEndDateChange()"
+          [(ngModel)]="endDate"
+          placeholder="End Date"
+        />
+      </app-form-field-wrapper>
+    </div>
+  </div>
+  <div class="graph__body">
     <canvas id="earnings-chart"></canvas>
+  </div>
 </div>

@@ -15,6 +15,7 @@ export interface IBookingSummaryListItem {
   earnings: number;
 }
 
+// move this to shared folder later
 export interface IGraphDataItem {
   totalEarnings: number;
   month: string;
@@ -23,4 +24,13 @@ export interface IGraphDataItem {
 export interface INgxGraphDataItem {
   name: string;
   value: number;
+}
+
+export interface IStatusGraphData {
+  pending: number;
+  inProgress: number;
+  completed: number;
+  rejected: number;
+  cancelled: number;
+  overdue: number;
 }

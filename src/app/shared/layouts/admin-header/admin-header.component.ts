@@ -3,7 +3,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BrandComponent } from '@shared/components/brand/brand.component';
-import { NotificationComponent } from '../components/notification/notification.component';
 import { UserProfileCircleComponent } from '../components/user-profile-circle/user-profile-circle.component';
 import { Router } from '@angular/router';
 
@@ -14,7 +13,6 @@ import { Router } from '@angular/router';
     MatButtonModule,
     MatIconModule,
     BrandComponent,
-    NotificationComponent,
     UserProfileCircleComponent,
   ],
   templateUrl: './admin-header.component.html',
