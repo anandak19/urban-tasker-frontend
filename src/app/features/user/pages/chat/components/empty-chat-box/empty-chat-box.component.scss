@@ -8,8 +8,6 @@
   background:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url('/assets/images/chat-bg.png') center/cover no-repeat;
-  
-  border: 1px solid red;
 
   &__content {
     text-align: center;
@@ -17,7 +15,6 @@
     padding: 24px;
     border-radius: 10%;
     background-color: $background;
-
   }
 
   &__icon {
