@@ -9,42 +9,40 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
-import {
-  IGraphDataItem,
-  INgxGraphDataItem,
-} from '@features/admin/models/reports.mode';
-import { ReportsService } from '@features/admin/services/reports/reports.service';
+import { IGraphDataItem } from '@features/admin/models/reports.mode';
+import { TaskerReportsService } from '@features/tasker/services/reports/tasker-reports.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { IReportFilter } from '@shared/models/report/query-filter.model';
-import { Chart } from 'chart.js/auto';
-
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { FormsModule } from '@angular/forms';
+import { Chart } from 'chart.js';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-graph-visualization',
-  imports: [
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    FormsModule,
-    FormFieldWrapperComponent,
-  ],
-  templateUrl: './graph-visualization.component.html',
-  styleUrl: './graph-visualization.component.scss',
+  selector: 'app-analytics',
+  imports: [FormFieldWrapperComponent, FormsModule],
+  templateUrl: './analytics.component.html',
+  styleUrl: './analytics.component.scss',
 })
-export class GraphVisualizationComponent implements OnInit, AfterViewInit {
-  private _reportsService = inject(ReportsService);
+export class AnalyticsComponent implements OnInit, AfterViewInit {
+  // injections
+  private _reportsService = inject(TaskerReportsService);
   private _destroyRef = inject(DestroyRef);
   private _snackbar = inject(SnackbarService);
-
+  // variables
+  private chart!: Chart;
+  startDate!: string | null;
+  endDate!: string | null;
   reportFilter = signal<IReportFilter>({});
+  // signals
+  graphDataResponse = signal<IGraphDataItem[]>([]);
+  chartLabels = computed<string[]>(() => {
+    return this.graphDataResponse().map((l) => l.month);
+  });
 
+  data = computed<number[]>(() => {
+    return this.graphDataResponse().map((l) => l.totalEarnings);
+  });
+  // methods
   onStartDateChange() {
     if (this.startDate) {
       this.reportFilter.update((curr) => ({
@@ -71,34 +69,13 @@ export class GraphVisualizationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  graphDataResponse = signal<IGraphDataItem[]>([]);
-  ngxGraphData = computed<INgxGraphDataItem[]>(() => {
-    return this.graphDataResponse().map((item) => ({
-      name: item.month,
-      value: item.totalEarnings,
-    }));
-  });
-
-  private chart!: Chart;
-  startDate!: string | null;
-  endDate!: string | null;
-
-  chartLabels = computed<string[]>(() => {
-    return this.graphDataResponse().map((l) => l.month);
-  });
-
-  data = computed<number[]>(() => {
-    return this.graphDataResponse().map((l) => l.totalEarnings);
-  });
-
   getGraphData() {
     this._reportsService
-      .getGraphData(this.reportFilter())
+      .getEarningsReportData(this.reportFilter())
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           this.graphDataResponse.set(res.data);
-          console.log(this.ngxGraphData());
 
           this.chart.data.labels = this.chartLabels();
           this.chart.data.datasets[0].data = this.data();
@@ -110,10 +87,7 @@ export class GraphVisualizationComponent implements OnInit, AfterViewInit {
       });
   }
 
-  /**
-   * create filter signal
-   * on any of the filter value update (startdate, enddate) update the signal
-   */
+  // lifecycle
 
   ngOnInit(): void {
     this.getGraphData();
@@ -121,7 +95,7 @@ export class GraphVisualizationComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.chart = new Chart('earnings-chart', {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: [],
         datasets: [
@@ -131,7 +105,6 @@ export class GraphVisualizationComponent implements OnInit, AfterViewInit {
             backgroundColor: '#4f46e5',
             borderColor: '#4338ca',
             borderWidth: 1,
-            borderRadius: 6,
           },
         ],
       },

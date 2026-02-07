@@ -42,7 +42,6 @@ export class ListUsersComponent implements OnInit {
 
   filter = signal<IUserFilter>({
     page: 1,
-    limit: 2, // -----------REMOVE THIS LATER
     role: null,
   });
 

@@ -4,9 +4,11 @@ import { IFindAllBookingSummery } from '@features/admin/models/api-response.mode
 import {
   IDashboardSummary,
   IGraphDataItem,
+  IStatusGraphData,
 } from '@features/admin/models/reports.mode';
 import { IBookingSummeryFilter } from '@features/admin/pages/reports/reports.component';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
+import { IReportFilter } from '@shared/models/report/query-filter.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,9 +36,19 @@ export class ReportsService {
     );
   }
 
-  getGraphData() {
+  getGraphData(filter: IReportFilter) {
+    const params = new HttpParams({
+      fromObject: { ...filter },
+    });
     return this._http.get<IApiResponseSuccess<IGraphDataItem[]>>(
       `${this.API_ENDPOINT}/graph-data`,
+      { params },
+    );
+  }
+
+  getStatusGraphData() {
+    return this._http.get<IApiResponseSuccess<IStatusGraphData>>(
+      `${this.API_ENDPOINT}/status-graph`,
     );
   }
 }

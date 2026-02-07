@@ -4,6 +4,7 @@ import { TaskerProfileComponent } from './pages/tasker-profile/tasker-profile.co
 import { EarningsComponent } from './pages/earnings/earnings.component';
 import { TasksLayoutComponent } from './pages/tasks/tasks-layout/tasks-layout.component';
 import { TasksRoutes } from './pages/tasks/tasks.routes';
+import { AnalyticsComponent } from './pages/analytics/analytics.component';
 
 export const taskerRoutes: Routes = [
   {
@@ -27,5 +28,9 @@ export const taskerRoutes: Routes = [
   {
     path: 'earnings',
     component: EarningsComponent,
+  },
+  {
+    path: 'analytics',
+    component: AnalyticsComponent,
   },
 ];

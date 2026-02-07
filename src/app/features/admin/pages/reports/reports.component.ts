@@ -25,6 +25,7 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 import { IOptionData } from '@shared/models/form-inputs.model';
 import { IBaseFilters } from '@shared/models/request-data.model';
 import { GraphVisualizationComponent } from './components/graph-visualization/graph-visualization.component';
+import { StatusBasedBookingDoughnutGraphComponent } from './components/status-based-booking-doughnut-graph/status-based-booking-doughnut-graph.component';
 
 export interface IBookingSummeryFilter extends IBaseFilters {
   groupBy: BookingGroupBy;
@@ -39,6 +40,7 @@ export interface IBookingSummeryFilter extends IBaseFilters {
     TableListingComponent,
     PaginationComponent,
     GraphVisualizationComponent,
+    StatusBasedBookingDoughnutGraphComponent,
   ],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss',
