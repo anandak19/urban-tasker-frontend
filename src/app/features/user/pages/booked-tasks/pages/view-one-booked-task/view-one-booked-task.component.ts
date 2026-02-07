@@ -28,6 +28,7 @@ import { TaskStatus } from '@shared/constants/enums/task-size.enum';
 import { PaymentDetailsBoxComponent } from '@shared/components/feature/booking-details/payment-details-box/payment-details-box.component';
 import { PaymentStatus } from '@shared/constants/enums/payment-status.enum';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
+import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
 
 @Component({
   selector: 'app-view-one-booked-task',
@@ -50,6 +51,8 @@ export class ViewOneBookedTaskComponent implements OnInit {
   @Input() taskId!: string;
 
   isChatLoading = signal<boolean>(false);
+  isCancelLoading = signal<boolean>(false);
+
   bookingDetails = signal<IBookingDetails | null>(null);
   taskStatus = TaskStatus;
   paymentStatus = PaymentStatus;
@@ -61,6 +64,7 @@ export class ViewOneBookedTaskComponent implements OnInit {
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
   private _dialog = inject(Dialog);
+  private _confirmDialog = inject(ConfirmDialogService);
 
   getBookingDetails() {
     this._bookingService
@@ -104,6 +108,28 @@ export class ViewOneBookedTaskComponent implements OnInit {
 
   onAddReview() {
     this._router.navigate(['review'], { relativeTo: this._route });
+  }
+
+  async onCancelBookging() {
+    const yes = await this._confirmDialog.ask('Cancel this booking?');
+    if (yes) {
+      this.isCancelLoading.set(true);
+      this._bookingService
+        .cancelBooking(this.taskId)
+        .pipe(
+          finalize(() => this.isCancelLoading.set(false)),
+          takeUntilDestroyed(this._destroyRef),
+        )
+        .subscribe({
+          next: (res) => {
+            this._snackbar.success(res.message);
+            this.getBookingDetails();
+          },
+          error: (err: IApiResponseError) => {
+            this._snackbar.error(err.message);
+          },
+        });
+    }
   }
 
   onStartCode() {

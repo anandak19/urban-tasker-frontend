@@ -53,6 +53,19 @@
                 >Review Tasker</app-button
               >
             }
+            @if (
+              bookingDetails()?.taskStatus !== taskStatus.OVERDUE &&
+              bookingDetails()?.taskStatus !== taskStatus.COMPLETED &&
+              bookingDetails()?.taskStatus !== taskStatus.IN_PROGRESS &&
+              bookingDetails()?.taskStatus !== taskStatus.CANCELLED
+            ) {
+              <app-button-loading
+                text="Cancel Booking"
+                variant="danger"
+                [isLoading]="isCancelLoading"
+                (isClicked)="onCancelBookging()"
+              ></app-button-loading>
+            }
           </div>
         </app-task-info-box>
       </div>
