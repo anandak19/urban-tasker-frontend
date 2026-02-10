@@ -16,7 +16,9 @@
     </button>
   </div>
 
-  @if (taskData.taskStatus === taskStatus.REJECTED) {
+  @if (taskData.taskStatus === taskStatus.CANCELLED) {
+    <p class="task-status task-status--rejected">Cancelled</p>
+  } @else if (taskData.taskStatus === taskStatus.REJECTED) {
     <p class="task-status task-status--rejected">Rejected</p>
   } @else if (taskData.isAccepted) {
     <p class="task-status task-status--accepted">Accepted</p>
