@@ -1,0 +1,112 @@
+<div class="tasker-application container">
+  <div class="tasker-application__wrapper">
+    <div class="title">
+      <div class="content">
+        <h2>Become a Tasker</h2>
+        <p>Join our community and start earning money on your own schedule</p>
+      </div>
+      <app-back-button></app-back-button>
+    </div>
+
+    <form [formGroup]="taskerApplication" (ngSubmit)="submitApplication()">
+      <!-- basic user data  -->
+      <div class="tasker-application__basics">
+        <app-form-field
+          label="First Name"
+          placeholder="Your First Name"
+          id="firstName"
+          formControlName="firstName"
+        ></app-form-field>
+
+        <app-form-field
+          label="Last Name"
+          placeholder="Your Last Name"
+          id="lastName"
+          formControlName="lastName"
+        ></app-form-field>
+
+        <app-form-field
+          label="Hourly Rate"
+          placeholder="Your Hourly Rate"
+          id="hourlyRate"
+          type="number"
+          formControlName="hourlyRate"
+        ></app-form-field>
+
+        <!-- city field  -->
+        <app-dropdown-field label="City">
+          <app-dropdown
+            [isSubmitted]="isSubmitted"
+            [options]="citiesOptions"
+            formControlName="city"
+            text="Select Your City"
+          ></app-dropdown>
+        </app-dropdown-field>
+      </div>
+
+      <!-- work categories  -->
+      <div class="tasker-application__work-categories">
+        <app-label-description
+          label="Work Categories"
+          description="Add at least one category you are interested in working. Add upto 5 categories (You can update this later)"
+        ></app-label-description>
+        <div class="categories-box">
+          <!-- a box that contains the selected categories chips -->
+          <app-chips-box
+            [items]="selectedCategories"
+            (removeItem)="onItemRemove($event)"
+          ></app-chips-box>
+        </div>
+        <!-- categories dropdown -->
+        <div class="tasker-application__dropdown-wrapper">
+          <app-dropdown
+            [options]="categoriesOptions"
+            text="Add Categories"
+            [isAutoClear]="true"
+            (optionSelected)="onCategorySelect($event)"
+          ></app-dropdown>
+          @if (hasCategoryError) {
+            <div class="error-text">
+              <small>{{ categoryError }}</small>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="tasker-application__id-proof" formGroupName="idProof">
+        <app-label-description
+          label="ID Proof"
+          description="Please provide a valid form of identification."
+        />
+
+        <div class="tasker-application__dropdown-wrapper">
+          <app-dropdown-field label="ID Type">
+            <app-dropdown
+              [isSubmitted]="isSubmitted"
+              [options]="idOptions"
+              formControlName="idProofType"
+              text="Select Id Type"
+            ></app-dropdown>
+          </app-dropdown-field>
+        </div>
+
+        <div class="images-wrapper">
+          <app-form-field-wrapper label="Front Side">
+            <app-image-upload-field formControlName="frontImage" #imageField />
+          </app-form-field-wrapper>
+          <app-form-field-wrapper label="Back Side">
+            <app-image-upload-field formControlName="backImage" #imageField />
+          </app-form-field-wrapper>
+        </div>
+      </div>
+
+      <div class="tasker-application__submit-btn">
+        <app-button-loading
+          [isLoading]="isLoading"
+          text="Submit Application"
+          (isClicked)="submitApplication()"
+        ></app-button-loading>
+      </div>
+    </form>
+  </div>
+</div>

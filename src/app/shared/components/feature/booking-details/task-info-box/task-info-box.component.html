@@ -1,0 +1,40 @@
+@if (taskInfo) {
+  <div class="task-info-box">
+    <h4 class="task-info-box__title">Task Information</h4>
+    <div class="task-info-box__info-wrapper">
+      <app-form-field-wrapper [isFormField]="false" label="Discription">
+        {{ taskInfo.description }}
+      </app-form-field-wrapper>
+
+      <app-form-field-wrapper [isFormField]="false" label="Category">{{
+        taskInfo.categoryName
+      }}</app-form-field-wrapper>
+
+      <app-form-field-wrapper [isFormField]="false" label="City">{{
+        taskInfo.city
+      }}</app-form-field-wrapper>
+
+      <app-form-field-wrapper [isFormField]="false" label="Task Size">{{
+        taskInfo.taskSize
+      }}</app-form-field-wrapper>
+
+      <app-form-field-wrapper
+        [isFormField]="false"
+        label="Is Tasker Accepted"
+        >{{ taskInfo.isAccepted ? 'Yes' : 'No' }}</app-form-field-wrapper
+      >
+
+      <app-form-field-wrapper [isFormField]="false" label="Location">
+        <div class="task-info-box__button-wrapper">
+          <app-button
+            size="small"
+            variant="secondary"
+            (clickEvent)="onViewLocation()"
+            >View Location</app-button
+          >
+        </div>
+      </app-form-field-wrapper>
+    </div>
+    <ng-content></ng-content>
+  </div>
+}

@@ -6,28 +6,28 @@
   align-items: center;
   height: calc(100vh - $header-height);
 
-  @include respond('xs') {
-    flex-direction: column;
-    justify-content: flex-start;
-    height: auto;
-    padding-top: $spacing-8;
-  }
-
-  .login-form-wrapper {
+  &__wrapper {
     padding: $spacing-2;
     border-radius: $border-radius-md;
     background-color: $background;
     width: 80%;
     max-width: 400px;
+    h2 {
+      text-align: center;
+      margin-bottom: $spacing-3;
+      color: $white;
+    }
   }
 
-  h2 {
-    text-align: center;
-    margin-bottom: $spacing-3;
-    color: $white;
-
-    @include respond('xs') {
-      font-size: $font-size-lg;
+  @include respond('xs') {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    padding-top: $spacing-8;
+    &__wrapper {
+      h2 {
+        font-size: $font-size-lg;
+      }
     }
   }
 }

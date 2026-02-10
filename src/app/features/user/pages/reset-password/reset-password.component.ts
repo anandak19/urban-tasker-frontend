@@ -1,5 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { NewPasswordFormComponent } from '@features/user/components/new-password-form/new-password-form.component';
@@ -24,6 +24,7 @@ export class ResetPasswordComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
   private _route = inject(ActivatedRoute);
   private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   onNewPassword(password: string) {
     this.isLoading.set(true);
@@ -40,20 +41,25 @@ export class ResetPasswordComponent implements OnInit {
 
     this._passwordService
       .resetPassword(resetData)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           console.log(res);
           const result = res as IBasicDataResponse;
           this.isFormReset.set(true);
           const snackbarRef = this._snackbar.success(result.message);
-          snackbarRef.afterDismissed().subscribe(() => {
-            this._router.navigate(['/login']);
-          });
+          snackbarRef
+            .afterDismissed()
+            .pipe(takeUntilDestroyed(this._destroyRef))
+            .subscribe(() => {
+              this._router.navigate(['/login']);
+            });
         },
-        error: (err: HttpErrorResponse) => {
-          const error = err.error as IApiResponseError;
-          this._snackbar.error(error.message);
+        error: (err: IApiResponseError) => {
+          this._snackbar.error(err.message);
         },
       });
   }

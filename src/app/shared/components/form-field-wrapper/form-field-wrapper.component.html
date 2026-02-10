@@ -1,0 +1,13 @@
+<!-- <div class="form-field-wrapper">
+  <p class="form-field-wrapper__label">
+    {{ label }} {{ isOptional ? '(Optional)' : '*' }}
+  </p>
+  <ng-content></ng-content>
+</div> -->
+
+<div class="form-field-wrapper">
+  <p class="form-field-wrapper__label">
+    {{ label }} {{ isOptional ? '(Optional)' : isFormField ? '*' : '' }}
+  </p>
+  <ng-content></ng-content>
+</div>

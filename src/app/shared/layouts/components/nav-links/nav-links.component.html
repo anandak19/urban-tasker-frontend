@@ -4,7 +4,8 @@
       [routerLink]="link.path"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="nav-item"
+      class="nav-links__nav-item"
+      (click)="onLinkClick()"
       >{{ link.label }}</a
     >
   }

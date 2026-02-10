@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { NgControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -9,9 +9,11 @@ import { NgControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './form-field.component.scss',
 })
 export class FormFieldComponent {
+  @ViewChild('inputField') inputField!: ElementRef<HTMLInputElement>;
+
   ngControl = inject(NgControl, { optional: true, self: true });
 
-  @Input() label!: string; // Label for input
+  @Input() label!: string; // Label for input *
   @Input() type = 'text'; // input type
   @Input() placeholder = ''; // placeholder
   @Input() id = ''; // optional id
@@ -27,10 +29,10 @@ export class FormFieldComponent {
 
   // Callbacks
   onChange: (value: string) => void = () => {
-    console.log('Value changed');
+    // on value change
   };
   onTouched: () => void = () => {
-    console.log('Control touched');
+    // on touched
   };
 
   // Write value from parent form
@@ -57,23 +59,32 @@ export class FormFieldComponent {
     this.onChange(val);
   }
 
+  /**
+   * To reset from control from parent
+   */
   resetControl(): void {
     if (this.control) {
       this.control.reset();
       this.value = '';
       this.onChange(this.value);
       this.control.markAsUntouched();
+      this.inputField?.nativeElement.blur();
     }
   }
 
+  // --- Getters
+
+  // control getter
   get control() {
     return this.ngControl?.control;
   }
 
+  // returns true if control has error
   get showError() {
     return this.control?.touched && this.control.invalid;
   }
 
+  // return error message if control has error
   get errorMessage() {
     if (!this.control || !this.control.errors) return null;
     const errors = this.control.errors;

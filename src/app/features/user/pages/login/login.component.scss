@@ -13,7 +13,7 @@
     padding-top: $spacing-8;
   }
 
-  .login-form {
+  &__login-form {
     padding: $spacing-2;
     border-radius: $border-radius-md;
     background-color: $background;
@@ -54,54 +54,54 @@
         }
       }
     }
+  }
 
-    .login-option {
-      margin-top: $spacing-4;
-      display: flex;
-      justify-content: center;
+  &__nav-option {
+    margin-top: $spacing-4;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    @include respond('xs') {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-2;
+    }
 
-      // style it later
-      .google-btn {
-        padding: 0.6rem 1rem;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        background-color: #fff;
-        cursor: pointer;
-        font-weight: 500;
-        transition:
-          background-color 0.2s,
-          border-color 0.2s;
+    small {
+      color: $background-text;
+
+      a {
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: $font-weight-regular;
 
         &:hover {
-          background-color: #f0f0f0;
-          border-color: #999;
+          text-decoration: underline;
         }
       }
     }
+  }
 
-    .nav-option {
-      margin-top: $spacing-4;
-      display: flex;
-      justify-content: space-between;
-      text-align: center;
-      @include respond('xs') {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: $spacing-2;
-      }
+  &__login-option {
+    margin-top: $spacing-4;
+    display: flex;
+    justify-content: center;
 
-      small {
-        color: $background-text;
+    // style it later
+    .google-btn {
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #fff;
+      cursor: pointer;
+      font-weight: 500;
+      transition:
+        background-color 0.2s,
+        border-color 0.2s;
 
-        a {
-          color: $primary-color;
-          text-decoration: none;
-          font-weight: $font-weight-regular;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+      &:hover {
+        background-color: #f0f0f0;
+        border-color: #999;
       }
     }
   }

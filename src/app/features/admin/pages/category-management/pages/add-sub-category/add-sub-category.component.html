@@ -1,0 +1,14 @@
+<div class="add-subcategory">
+  <app-admin-page-title title="Add New Sub-Category">
+    <!-- back button  -->
+    <app-back-button />
+  </app-admin-page-title>
+
+  <div class="add-subcategory__form">
+    <app-subcategory-form
+      #subcategoryForm
+      (subcategoryFormData)="onFormSubmit($event)"
+      [loading]="isCreating()"
+    ></app-subcategory-form>
+  </div>
+</div>

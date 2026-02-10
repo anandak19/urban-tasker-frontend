@@ -4,89 +4,95 @@
   background-color: $black;
   color: #fff;
   padding: 40px 0 20px;
+  z-index: 10;
 
   .container {
     max-width: 1200px;
   }
 
-  .footer-content {
+  &__content {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: 20px;
+  }
 
-    .footer-logo {
-      flex: 1 1 300px;
-      margin-bottom: 20px;
+  &__links {
+    flex: 1 1 200px;
+    margin-bottom: 20px;
 
-      h2 {
-        margin: 0 0 10px;
-        font-size: 24px;
-      }
-
-      p {
-        margin: 0;
-        font-size: 14px;
-      }
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
     }
 
-    .footer-links {
-      flex: 1 1 200px;
-      margin-bottom: 20px;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
 
-      h3 {
-        margin: 0 0 10px;
-        font-size: 18px;
-      }
-
-      ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        li {
-          margin-bottom: 8px;
-
-          a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-    }
-
-    .footer-social {
-      flex: 1 1 200px;
-      margin-bottom: 20px;
-
-      h3 {
-        margin: 0 0 10px;
-        font-size: 18px;
-      }
-
-      .social-icons {
-        display: flex;
-        gap: 15px;
+      li {
+        margin-bottom: 8px;
 
         a {
           color: #fff;
-          font-size: 20px;
           text-decoration: none;
+          font-size: 14px;
 
           &:hover {
-            color: #ccc;
+            text-decoration: underline;
           }
         }
       }
     }
   }
 
-  .footer-bottom {
+  &__logo {
+    flex: 1 1 300px;
+    margin-bottom: 20px;
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .tasker-btn {
+      margin-top: $spacing-4;
+      width: 300px;
+    }
+  }
+
+  &__social {
+    flex: 1 1 200px;
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+
+      a {
+        color: #fff;
+        font-size: 20px;
+        text-decoration: none;
+
+        &:hover {
+          color: #ccc;
+        }
+      }
+    }
+  }
+
+  &__bottom {
     text-align: center;
     border-top: 1px solid #444;
     padding-top: 20px;

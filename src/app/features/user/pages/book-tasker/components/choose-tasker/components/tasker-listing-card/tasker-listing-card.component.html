@@ -1,0 +1,57 @@
+@if (taskerData) {
+  <div class="tasker-card">
+    <!-- Profile image -->
+    <div class="tasker-card__profile">
+      <div class="tasker-card__avatar">
+        <img
+          [src]="
+            taskerData.profileImageUrl || 'assets/defaults/default-user.png'
+          "
+          alt="Tasker profile picture"
+        />
+      </div>
+      <a
+        class="tasker-card__profile-link"
+        (click)="viewProfile(taskerData.userId)"
+        role="button"
+        tabindex="0"
+        >View Profile
+      </a>
+    </div>
+
+    <!--  Tasker details -->
+    <div class="tasker-card__details">
+      <h4 class="tasker-card__name">
+        {{ taskerData.firstName }} {{ taskerData.lastName }}
+      </h4>
+
+      <div class="tasker-card__rating">
+        <span class="tasker-card__rating-star">★</span>
+        <span class="tasker-card__rating-value">
+          {{ taskerData.rating }}
+        </span>
+      </div>
+
+      @if (taskerData.bio) {
+        <p class="tasker-card__bio">
+          {{ taskerData.bio }}
+        </p>
+      }
+    </div>
+
+    <!--  Price & action -->
+    <div class="tasker-card__actions">
+      <div class="tasker-card__rate">
+        ₹{{ taskerData.hourlyRate }}
+        <span class="tasker-card__rate-unit">/hr</span>
+      </div>
+
+      <app-button
+        class="tasker-card__select-btn"
+        (clickEvent)="onChoosingTasker(taskerData.userId)"
+      >
+        Book
+      </app-button>
+    </div>
+  </div>
+}

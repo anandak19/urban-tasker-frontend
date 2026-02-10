@@ -1,16 +1,22 @@
 @use 'index' as *;
+@use '@angular/material' as mat;
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  // outline: 1px solid red;
+  // &:hover {
+  //   outline: 1px solid rgb(178, 218, 0);
+  // }
 }
 
 html,
 body {
   background-color: $background;
   color: $white;
+  height: 100%;
 }
 
 .container {
@@ -26,6 +32,17 @@ body {
 
 .main-content {
   padding-top: $header-height;
+  min-height: calc(100% - $header-height);
+}
+
+.error-text {
+  color: $red;
+  font-size: $font-size-sm;
+}
+
+.empty-text {
+  color: gray;
+  font-style: italic;
 }
 
 .mat-stepper-vertical,
@@ -42,4 +59,28 @@ body {
   background-color: transparent !important;
 }
 
-// html, body { height: 100%; }
+// scroll bar styles
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $background-hover;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $secondary-color;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $secondary-color-hover;
+}
+
+.modal-dialog {
+  @include mat.dialog-overrides(
+    (
+      container-color: $modal-background,
+    )
+  );
+}

@@ -1,0 +1,18 @@
+<div class="table-filter">
+  <div class="table-filter__search-form">
+    <form [formGroup]="searchForm">
+      <mat-icon class="table-filter__search-icon material-icons-outlined"
+        >search</mat-icon
+      >
+      <input
+        type="text"
+        formControlName="search"
+        (input)="onFormSubmit()"
+        [placeholder]="searchPlaceholder"
+      />
+    </form>
+  </div>
+  <div class="table-filter__filters">
+    <ng-content></ng-content>
+  </div>
+</div>

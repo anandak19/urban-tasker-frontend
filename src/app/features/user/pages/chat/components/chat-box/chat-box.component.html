@@ -1,0 +1,88 @@
+<div class="chat-box">
+  <div class="chat-box__window-header">
+    <div class="chat-box__window-user">
+      <img
+        [src]="
+          currentChatUser()?.partner?.image
+            ? currentChatUser()!.partner!.image
+            : 'assets/defaults/default-user.png'
+        "
+        alt="User"
+        class="chat-box__window-avatar"
+      />
+      <span class="chat-box__window-name">{{
+        currentUser()?.partner?.name || 'User'
+      }}</span>
+    </div>
+
+    <app-button size="small" (clickEvent)="videoCall()">Vide Call</app-button>
+
+    @if (isMobileScreen) {
+      <app-button size="small" (clickEvent)="closeChat.emit()">Back</app-button>
+    }
+  </div>
+
+  <div class="chat-box__messages">
+    @if (messages().length > 0) {
+      @for (userMesage of messages(); track $index) {
+        <div
+          class="chat-box__message"
+          [ngClass]="{
+            'chat-box__message--incoming':
+              userMesage.senderId !== loggedInUser()?.id,
+          }"
+        >
+          @if (userMesage.type === messageType.IMAGE) {
+            <div
+              class="image-message"
+              (click)="openImagePreview(userMesage.imageUrl)"
+              role="button"
+              tabindex="0"
+            >
+              <img [src]="userMesage.imageUrl" alt="" loading="lazy" />
+            </div>
+          } @else {
+            <p class="chat-box__message-text">{{ userMesage.text }}</p>
+          }
+
+          @if (userMesage.senderId === loggedInUser()?.id) {
+            <div class="chat-box__message-status">
+              <small>
+                {{ userMesage.time | date: 'hh:mm a' }}&nbsp;
+                {{ userMesage.isRead ? 'seen' : 'sent' }}
+              </small>
+            </div>
+          }
+        </div>
+      } @empty {
+        <p class="empty-text">Start Messaging</p>
+      }
+    }
+  </div>
+
+  <div class="chat-box__input">
+    <label class="chat-box__image-upload">
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onImageSelect($event)"
+        hidden
+      />
+
+      <span class="chat-box__image-icon"
+        ><mat-icon class="material-icons-outlined"
+          >add_photo_alternate</mat-icon
+        ></span
+      >
+    </label>
+
+    <input
+      type="text"
+      placeholder="Type a message..."
+      class="chat-box__input-field"
+      [(ngModel)]="message"
+      (keydown.enter)="onEnter()"
+    />
+    <app-button (clickEvent)="sendMessage()">Send</app-button>
+  </div>
+</div>

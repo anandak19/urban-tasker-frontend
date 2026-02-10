@@ -1,0 +1,102 @@
+@use 'index' as *;
+
+.start-code-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 360px;
+
+    background-color: $modal-background;
+    border-radius: 12px;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* HEADER */
+  &__header {
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $modal-background-text;
+  }
+
+  &__close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  &__description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 16px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  &__input {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+
+    &:focus {
+      outline: none;
+      border-color: #f4b400; // yellow accent
+    }
+
+    &--error {
+      border-color: #e53935;
+    }
+  }
+
+  /* FOOTER */
+  &__footer {
+    padding: 16px 0;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  app-button,
+  app-button-loading {
+    flex: 1;
+  }
+}

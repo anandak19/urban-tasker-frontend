@@ -1,0 +1,65 @@
+@use 'index' as *;
+
+.tasker-portfolio {
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__data {
+    padding: 1rem;
+  }
+
+  &__gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    border: 1px solid $black;
+    overflow: hidden;
+    background-color: #f2f2f2;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid $primary-color;
+    }
+
+    .delete-btn {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      @include center-div;
+      padding: $spacing-1;
+      border-radius: 100%;
+      color: $white;
+      border: none;
+      background-color: #0000009f;
+      mat-icon {
+        @include center-div;
+        font-size: $font-size-lg;
+      }
+
+      &:hover {
+        background-color: #000000;
+      }
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+}

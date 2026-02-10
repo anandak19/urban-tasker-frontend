@@ -1,0 +1,57 @@
+<div class="complaint-details">
+  <app-page-title title="Complaint Details">
+    <app-back-button></app-back-button>
+  </app-page-title>
+
+  <div>
+    <ng-content></ng-content>
+  </div>
+  <!-- complaint status  -->
+  <div class="complaint-details__complaint-status">
+    <span class="label">Complaint Status</span>
+
+    <span
+      class="badge"
+      [ngClass]="'badge--' + complaintDetails?.complaintStatus"
+    >
+      {{ complaintDetails?.complaintStatus | titlecase }}
+    </span>
+  </div>
+
+  <!-- admin-feedback  -->
+  @if (complaintDetails?.adminFeedback) {
+    <app-info-panel
+      title="Admin Feedback"
+      [description]="complaintDetails?.adminFeedback || ''"
+    ></app-info-panel>
+  }
+
+  <!-- complaint details  -->
+  <div class="complaint-details__data">
+    <!-- Complaint text -->
+    <div class="row">
+      <div class="label">Complaint ID:&nbsp; {{ complaintDetails?.cmpId }}</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Complaint</div>
+      <div class="value">
+        {{ complaintDetails?.complaint }}
+      </div>
+    </div>
+
+    <!-- Complaint images -->
+    <div class="images">
+      @for (image of complaintDetails?.imageUrls; track $index) {
+        <div
+          class="image"
+          (click)="onImageView(image)"
+          role="button"
+          tabindex="0"
+        >
+          <img [src]="image" alt="complaint" />
+        </div>
+      }
+    </div>
+  </div>
+</div>

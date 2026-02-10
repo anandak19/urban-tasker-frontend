@@ -1,0 +1,64 @@
+@use 'index' as *;
+
+.table-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__search-form {
+    form {
+      display: flex;
+      align-items: center;
+      background-color: $inputs;
+      border: $input-border;
+      border-radius: $border-radius-sm;
+      padding: $spacing-1 $spacing-2;
+      transition: all 0.2s ease-in-out;
+
+      input[type='text'] {
+        border: none;
+        outline: none;
+        color: $white;
+        background: transparent;
+        font-size: $font-size-sm;
+        width: 220px;
+        padding: $spacing-1 $spacing-2;
+
+        &::placeholder {
+          color: $background-text;
+        }
+      }
+
+      &:focus-within {
+        border: $input-border-hover;
+      }
+    }
+  }
+
+  &__search-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $background-text;
+    margin-right: $spacing-2;
+    font-size: $font-size-lg;
+  }
+
+  @include respond('xs') {
+    &__search-form {
+      form {
+        padding: $spacing-1;
+
+        input[type='text'] {
+          width: 194px;
+          padding: $spacing-1;
+        }
+      }
+    }
+
+    &__search-icon {
+      margin-right: 0;
+      font-size: $font-size-md;
+    }
+  }
+}

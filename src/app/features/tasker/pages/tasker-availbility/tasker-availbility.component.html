@@ -1,0 +1,30 @@
+<div class="tasker-availbility">
+  <app-page-title title="Availabilty" description="Set your weekly availabilty">
+  </app-page-title>
+
+  <div class="tasker-availbility__main-content">
+    <div class="tasker-availbility__toolbar">
+      @if (hasAnySlots()) {
+        <app-button-loading
+          text="Remove All Slots"
+          (isClicked)="onDeleteAllClick()"
+        ></app-button-loading>
+      } @else {
+        <app-button-loading
+          text="Add Defaults"
+          (isClicked)="addDefault()"
+        ></app-button-loading>
+      }
+    </div>
+
+    <div class="tasker-availbility__week">
+      <app-day-column
+        *ngFor="let day of weekDays; let i = index"
+        [day]="day"
+        [availabilityData]="getOneAvailability(day)"
+        (addSlot)="addSlot($event)"
+        (editSlot)="onEditSlot($event.day, $event.slot)"
+      ></app-day-column>
+    </div>
+  </div>
+</div>

@@ -5,9 +5,18 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { signupDirtyGuard } from './guards/signup/signup-dirty.guard';
 import { SignupLayoutComponent } from './pages/signup/signup-layout/signup-layout.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { userAuthGuard } from './guards/auth/user-auth.guard';
 import { isLoginGuard } from './guards/login/is-login.guard';
+import { TaskerApplicationComponent } from './pages/become-tasker/tasker-application/tasker-application.component';
+import { ViewTaskerApplicationComponent } from './pages/become-tasker/view-tasker-application/view-tasker-application.component';
+import { BookTaskerLayoutComponent } from './pages/book-tasker/book-tasker-layout/book-tasker-layout.component';
+import { BookedTasksRoutes } from './pages/booked-tasks/booked-tasks.routes';
+import { BookedTasksLayoutComponent } from './pages/booked-tasks/booked-tasks-layout/booked-tasks-layout.component';
+import { UserProfileRoutes } from './pages/user-profile/user-profile.routes';
+import { UserProfileLayoutComponent } from './pages/user-profile/user-profile-layout/user-profile-layout.component';
+import { ChatRoutes } from './pages/chat/chat.routes';
+import { WalletComponent } from './pages/wallet/wallet/wallet.component';
+import { UserViewTaskerProfileComponent } from './pages/user-view-tasker-profile/user-view-tasker-profile.component';
 
 export const SIGNUP_FEATURE_KEY = 'signup';
 
@@ -45,7 +54,50 @@ export const userRoutes: Routes = [
   },
   {
     path: 'profile',
+    children: UserProfileRoutes,
     canActivate: [userAuthGuard],
-    component: UserProfileComponent,
+    component: UserProfileLayoutComponent,
+  },
+  // tasker/application
+  {
+    path: 'tasker/application',
+    children: [
+      {
+        path: '',
+        component: ViewTaskerApplicationComponent,
+      },
+      {
+        path: 'apply',
+        component: TaskerApplicationComponent,
+      },
+    ],
+  },
+
+  // book tasker
+  {
+    path: 'book-tasker',
+    component: BookTaskerLayoutComponent,
+  },
+
+  // list tasks
+  {
+    path: 'tasks',
+    component: BookedTasksLayoutComponent,
+    children: BookedTasksRoutes,
+  },
+
+  // sample chat
+  {
+    path: 'chat',
+    children: ChatRoutes,
+  },
+  // wallet
+  {
+    path: 'wallet',
+    component: WalletComponent,
+  },
+  {
+    path: 'tasker/:taskerId/profile',
+    component: UserViewTaskerProfileComponent,
   },
 ];

@@ -1,0 +1,67 @@
+<div class="location-settings">
+  <div class="location-settings__container">
+    <!-- Header -->
+    <div class="location-settings__header">
+      <h2 class="location-settings__title">Location Settings</h2>
+      <app-back-button></app-back-button>
+    </div>
+
+    <!-- Form -->
+    <form
+      class="location-settings__form"
+      [formGroup]="locationForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <!-- City -->
+
+      <div class="location-settings__field">
+        <app-form-field-wrapper label="City">
+          <app-dropdown
+            [options]="cities"
+            formControlName="city"
+          ></app-dropdown>
+          @if (cityError) {
+            <div class="error-text">
+              <small>{{ cityError }}</small>
+            </div>
+          }
+        </app-form-field-wrapper>
+      </div>
+
+      <!-- Address -->
+      <!-- <div class="location-settings__field">
+        <app-text-area-field
+          label="Address"
+          placeholder="Enter your address"
+          formControlName="address"
+        ></app-text-area-field>
+      </div> -->
+
+      <!-- Map Button -->
+      <div class="location-settings__field">
+        <app-button
+          variant="secondary"
+          [variant]="locationChoosen ? 'success' : 'secondary'"
+          (clickEvent)="openLocationModal()"
+          >{{
+            locationChoosen ? 'Location Added' : 'Choose Location'
+          }}</app-button
+        >
+        @if (locationError) {
+          <div class="error-text">
+            <small>Location is requred</small>
+          </div>
+        }
+      </div>
+
+      <!-- Submit -->
+      <div class="location-settings__actions">
+        <app-button-loading
+          text="Save Location"
+          type="submit"
+          [isLoading]="isLoading"
+        ></app-button-loading>
+      </div>
+    </form>
+  </div>
+</div>

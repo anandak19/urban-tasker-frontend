@@ -1,0 +1,54 @@
+@if (payment) {
+  <div class="payment-details-box">
+    <h4 class="payment-details-box__title">Payment</h4>
+
+    <div class="payment-details-box__details">
+      <!-- Service Charge -->
+      <div class="payment-details-box__row">
+        <span class="payment-details-box__label">Service Charge</span>
+        <span class="payment-details-box__value">
+          {{ payment.totalAmount || 0 | currency: 'INR' : 'symbol' : '1.2-2' }}
+        </span>
+      </div>
+
+      <!-- Tip -->
+      <div class="payment-details-box__row">
+        <span class="payment-details-box__label">Tip</span>
+        <span class="payment-details-box__value">
+          {{ payment.tipAmount || 0 | currency: 'INR' : 'symbol' : '1.2-2' }}
+        </span>
+      </div>
+
+      <!-- Payment Status -->
+      <div class="payment-details-box__row">
+        <span class="payment-details-box__label">Payment Status</span>
+        <span
+          class="payment-details-box__status"
+          [class.payment-details-box__status--paid]="
+            payment.paymentStatus === paymentStatus.PAID
+          "
+          [class.payment-details-box__status--pending]="
+            payment.paymentStatus === paymentStatus.PENDING
+          "
+        >
+          {{ payment.paymentStatus }}
+        </span>
+      </div>
+
+      <!-- Divider -->
+      <div class="payment-details-box__divider"></div>
+
+      <!-- Total Payable -->
+      <div class="payment-details-box__row payment-details-box__row--total">
+        <span class="payment-details-box__label">Total Amount</span>
+        <span class="payment-details-box__value">
+          {{ payment.payableAmount | currency: 'INR' : 'symbol' : '1.2-2' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <ng-content></ng-content>
+    </div>
+  </div>
+}

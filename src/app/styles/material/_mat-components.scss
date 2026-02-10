@@ -43,3 +43,43 @@
   width: 22px !important;
   height: 22px !important;
 }
+
+// tab
+:root {
+  @include mat.tabs-overrides(
+    (
+      active-label-text-color: $primary-color-active,
+      inactive-label-text-color: $background-text,
+      inactive-hover-label-text-color: $white,
+      active-focus-label-text-color: $primary-color-hover,
+      active-hover-label-text-color: $primary-color-active,
+      active-indicator-height: 4px,
+    )
+  );
+}
+
+//chips
+:root {
+  @include mat.chips-overrides(
+    (
+      label-text-color: $primary-color,
+      outline-color: $primary-color,
+      disabled-label-text-color: gray,
+      selected-label-text-color: white,
+    )
+  );
+}
+
+//form field
+:root {
+  @include mat.form-field-overrides(
+    (
+      container-height: 38px,
+      container-vertical-padding: 4px,
+      outlined-hover-outline-color: white,
+
+      container-text-line-height: 1,
+    )
+  );
+}
+

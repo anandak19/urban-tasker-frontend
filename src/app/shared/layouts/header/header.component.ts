@@ -4,6 +4,7 @@ import {
   HostListener,
   OnInit,
   WritableSignal,
+  computed,
   inject,
 } from '@angular/core';
 import { BrandComponent } from '../../components/brand/brand.component';
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderService } from './service/header.service';
 import { NavLinksComponent } from '../components/nav-links/nav-links.component';
-import { NotificationComponent } from '../components/notification/notification.component';
+// import { NotificationComponent } from '../components/notification/notification.component';
 import { UserProfileCircleComponent } from '../components/user-profile-circle/user-profile-circle.component';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
 import { UserRoles } from '@shared/constants/enums/user.enum';
@@ -24,7 +25,6 @@ import { UserRoles } from '@shared/constants/enums/user.enum';
     BrandComponent,
     NavLinksComponent,
     ButtonComponent,
-    NotificationComponent,
     UserProfileCircleComponent,
     MatIconModule,
   ],
@@ -37,17 +37,28 @@ export class HeaderComponent implements OnInit {
   private headerService = inject(HeaderService);
   public _authGuardService = inject(AuthGuardService);
 
-  roles = UserRoles;
   isLoginPage = true;
   isSidebarOpen!: WritableSignal<boolean>;
+  userRoles = UserRoles;
+  currentUser = this._authGuardService.currentUser;
 
-  links: NavLink[] = [
-    { label: 'Home', path: '/' },
-    { label: 'Categories', path: '/categories' },
-  ];
+  links = computed<NavLink[]>(() => {
+    const user = this.currentUser();
+
+    if (!user || user.userRole === this.userRoles.TASKER) {
+      return [{ label: 'Home', path: '/' }];
+    }
+
+    return [
+      { label: 'Home', path: '/' },
+      // { label: 'Categories', path: '/categories' },
+      { label: 'My Bookings', path: '/tasks' },
+      { label: 'My Wallet', path: '/wallet' },
+    ];
+  });
 
   bookTaskerClicked() {
-    alert('Show book tasker page');
+    this.headerService.navigateBookTasker();
   }
 
   openNotifications() {
@@ -56,6 +67,10 @@ export class HeaderComponent implements OnInit {
 
   openUserOptions() {
     alert('Open user options : profile and logout');
+  }
+
+  onMesagesClick() {
+    this.router.navigate(['/chat']);
   }
 
   goToLogin() {
@@ -70,6 +85,16 @@ export class HeaderComponent implements OnInit {
     this.headerService.toggleSidebar();
   }
 
+  navigateProfile() {
+    this.router.navigate(['/profile']);
+  }
+
+  navigateTaskerDashboard() {
+    if (this.currentUser()?.userRole === this.userRoles.TASKER) {
+      this.router.navigate(['/tasker']);
+    }
+  }
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     const clickedInside = this.el.nativeElement.contains(event.target);
@@ -79,7 +104,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onUserLogout() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   //hooks

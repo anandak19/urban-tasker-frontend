@@ -1,5 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -15,6 +14,7 @@ import { FormFieldComponent } from '@shared/components/form-field/form-field.com
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-forgot-password',
@@ -34,6 +34,7 @@ export class ForgotPasswordComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _passwordService = inject(PasswordService);
   private _snackbar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   onForgotFormSubmit() {
     if (this.forgotForm.valid) {
@@ -45,7 +46,10 @@ export class ForgotPasswordComponent implements OnInit {
 
       this._passwordService
         .forgotPassword(forgotData)
-        .pipe(finalize(() => this.isLoading.set(false)))
+        .pipe(
+          takeUntilDestroyed(this._destroyRef),
+          finalize(() => this.isLoading.set(false)),
+        )
         .subscribe({
           next: (res) => {
             console.log(res);
@@ -55,9 +59,8 @@ export class ForgotPasswordComponent implements OnInit {
               this.forgotForm.reset();
             });
           },
-          error: (err: HttpErrorResponse) => {
-            const error = err.error as IApiResponseError;
-            this._snackbar.info(error.message);
+          error: (err: IApiResponseError) => {
+            this._snackbar.info(err.message);
           },
         });
     } else {

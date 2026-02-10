@@ -13,7 +13,7 @@
   right: 0;
   z-index: 100;
 
-  .left-section {
+  &__left-section {
     display: flex;
     align-items: center;
     gap: $spacing-2;
@@ -23,7 +23,7 @@
     }
   }
 
-  .right-section {
+  &__right-section {
     display: flex;
     align-items: center;
     gap: $spacing-4;
@@ -35,16 +35,24 @@
   }
 
   @include respond('xs') {
-    .left-section {
+    &__left-section {
       .menu-option {
         display: block;
       }
     }
-    .right-section {
+
+    &__right-section {
       gap: $spacing-3;
       .user-options {
         gap: $spacing-2;
       }
+    }
+
+    &__icon {
+      font-size: $font-size-lg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

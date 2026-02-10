@@ -1,0 +1,16 @@
+@use 'index' as *;
+
+.view-category {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  &__sub-categories {
+    padding: $spacing-4;
+    border: $section-border;
+    border-radius: $border-radius-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+}

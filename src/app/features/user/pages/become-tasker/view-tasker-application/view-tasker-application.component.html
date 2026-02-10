@@ -1,0 +1,26 @@
+<div class="view-tasker-application">
+  <div class="view-tasker-application__wrapper">
+    @if (isTaskerApplied()) {
+      <div class="title">
+        <h2>Tasker Application Status</h2>
+        <p>Here are the details of your submitted application</p>
+      </div>
+
+      <app-tasker-application-data
+        [taskerApplicationData]="taskerApplicationData"
+      ></app-tasker-application-data>
+    } @else {
+      <div class="view-tasker-application__tasker-apply">
+        <div class="title" style="text-align: center">
+          <h2>Become a Tasker</h2>
+          <p>
+            Earn money by completing tasks in your area. Set your own work
+            hours, choose the work you love
+          </p>
+        </div>
+
+        <app-button (clickEvent)="navigateToForm()">Apply Now</app-button>
+      </div>
+    }
+  </div>
+</div>

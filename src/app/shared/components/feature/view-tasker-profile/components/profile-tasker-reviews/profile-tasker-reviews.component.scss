@@ -1,0 +1,77 @@
+@use 'index' as *;
+
+.tasker-reviews {
+  // Header
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  /* Summary */
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rating-value {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .stars {
+      font-size: $font-size-xxl;
+    }
+
+    .review-count {
+      font-size: 14px;
+    }
+  }
+
+  /* Review list */
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    /* Review card */
+    .review-card {
+      @include section-box;
+
+      &__head {
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px;
+
+        .name {
+          font-weight: 600;
+          font-size: $font-size-md;
+        }
+
+        .rating{
+          margin-left: $spacing-4;
+          .rating-value{
+            font-size: $font-size-sm;
+          }
+        }
+      }
+      .comment {
+        font-size: $font-size-sm;
+      }
+    }
+  }
+
+  .stars {
+    color: $primary-color;
+  }
+}

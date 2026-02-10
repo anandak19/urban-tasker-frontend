@@ -1,0 +1,20 @@
+<div class="complaints-listing">
+  <app-admin-page-title title="Complaints Management"></app-admin-page-title>
+
+  <app-admin-table-filters searchPlaceholder="Search by CMP ID">
+    <!-- other filters goes here -->
+  </app-admin-table-filters>
+
+  <app-table-listing
+    [dataSource]="complaints()"
+    [columns]="complaintsColumns"
+    [editable]="false"
+    (viewClicked)="viewComplaint($event)"
+  >
+  </app-table-listing>
+
+  <app-pagination
+    [paginationData]="pagination()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+</div>

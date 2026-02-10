@@ -1,0 +1,7 @@
+@use 'index' as *;
+
+.users-listing {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}

@@ -1,0 +1,41 @@
+<div class="view-user">
+  <app-admin-page-title title="User Details">
+    <!-- add button and filters goes here  -->
+    <app-back-button></app-back-button>
+  </app-admin-page-title>
+
+  <div class="view-user__user-info">
+    <div class="view-user__user-data">
+      <div class="image">
+        <img
+          [src]="
+            userData()?.profileImageUrl || 'assets/defaults/default-user.png'
+          "
+          alt="profile picture"
+        />
+      </div>
+      <div class="name-role">
+        <p>{{ fullName }}</p>
+        <span>{{ userData()?.userRole | titlecase }}</span>
+      </div>
+    </div>
+
+    <app-user-data [userData]="userData()"></app-user-data>
+
+    <div class="view-user__status">
+      @if (userData()?.isSuspended && userData()?.suspendedReason) {
+        <app-info-panel
+          title="User is suspended for the reason"
+          [description]="userData()?.suspendedReason ?? 'Not available'"
+        ></app-info-panel>
+      }
+      <div class="button">
+        <app-button-loading
+          [text]="userData()?.isSuspended ? 'Unsuspend user' : 'Suspend User'"
+          (isClicked)="onSuspendBtnClick()"
+          [isLoading]="isSuspendLoading"
+        ></app-button-loading>
+      </div>
+    </div>
+  </div>
+</div>

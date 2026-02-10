@@ -1,0 +1,13 @@
+<div class="book-tasker">
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <!-- Step 1-->
+    <mat-step>
+      <app-about-task (next)="onNextPage()"></app-about-task>
+    </mat-step>
+
+    <!-- Step 2 -->
+    <mat-step>
+      <app-choose-tasker (prev)="onPrevPage()"></app-choose-tasker>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

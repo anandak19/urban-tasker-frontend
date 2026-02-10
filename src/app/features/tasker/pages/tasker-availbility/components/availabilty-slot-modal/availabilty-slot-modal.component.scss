@@ -1,0 +1,61 @@
+@use 'index' as *;
+
+.availabilty-slot-modal {
+  background-color: $background-hover;
+  @include section-box;
+  position: relative;
+  width: 550px;
+
+  &__close-btn {
+    @include center-div;
+    border: none;
+    border-radius: $border-radius-full;
+    padding: $spacing-1;
+    position: absolute;
+    background-color: transparent;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: $red;
+      color: $white;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: $spacing-3;
+  }
+
+  &__form-wrapper {
+    form {
+      margin-bottom: $spacing-3;
+      .inputs {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-2;
+  }
+
+  @include respond('xs') {
+    width: 90%;
+    margin: 0 auto;
+
+    &__form-wrapper {
+      form {
+        .inputs {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

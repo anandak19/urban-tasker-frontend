@@ -18,13 +18,13 @@
     color: $primary-color-hover;
   }
 
-  .mat-icon {
+  mat-icon {
     font-size: $font-size-xxl;
     height: 33px;
     width: 33px;
   }
 
-  .dot {
+  &__dot {
     position: absolute;
     top: 4px;
     right: 5px;
@@ -43,7 +43,7 @@
       width: 27px;
     }
 
-    .dot {
+    &__dot {
       width: 6px;
       height: 6px;
       border-radius: $border-radius-full;

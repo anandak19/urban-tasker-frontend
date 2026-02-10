@@ -1,0 +1,78 @@
+@use 'index' as *;
+
+.start-code-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 360px;
+
+    background-color: $modal-background;
+    border-radius: 12px;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $modal-background-text;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 14px;
+    color: $modal-background-text;
+    line-height: 1.4;
+  }
+
+  &__code-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px dashed #d1d5db;
+    background-color: #f9fafb;
+  }
+
+  &__code {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 6px;
+    color: $black;
+  }
+
+  &__copy {
+    cursor: pointer;
+    font-size: 18px;
+    color: #6b7280;
+
+    &:hover {
+      color: #111827;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  app-button, app-button-loading{
+    flex: 1;
+  }
+}

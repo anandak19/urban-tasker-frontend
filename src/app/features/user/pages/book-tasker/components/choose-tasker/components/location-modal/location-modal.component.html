@@ -1,0 +1,21 @@
+<div class="location-modal">
+  <p class="location-modal__title">
+    {{ !isReadOnly ? 'Drag & Select The Location' : 'Location' }}
+  </p>
+  <div #mapContainer class="map"></div>
+  <div class="location-modal__actions">
+    @if (isReadOnly) {
+      <app-button
+        variant="primary"
+        size="small"
+        (clickEvent)="openGoogleMapNavigation()"
+        >See in Google map</app-button
+      >
+    } @else {
+      <app-button variant="secondary" (clickEvent)="useCurrLocation()"
+        >Current Location</app-button
+      >
+      <app-button (clickEvent)="setLocation()">Set Location</app-button>
+    }
+  </div>
+</div>

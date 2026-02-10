@@ -1,0 +1,31 @@
+import { Routes } from '@angular/router';
+import { ListBookedTasksComponent } from './pages/list-booked-tasks/list-booked-tasks.component';
+import { ViewOneBookedTaskComponent } from './pages/view-one-booked-task/view-one-booked-task.component';
+import { TasksComplaintComponent } from './pages/tasks-complaint/tasks-complaint.component';
+import { PaymentComponent } from './pages/payment/payment.component';
+import { isTaskNotPaidGuard } from '@features/user/guards/tasks/is-task-not-paid.guard';
+import { AddReviewComponent } from './pages/add-review/add-review.component';
+
+export const BookedTasksRoutes: Routes = [
+  {
+    path: '',
+    component: ListBookedTasksComponent,
+  },
+  {
+    path: ':taskId',
+    component: ViewOneBookedTaskComponent,
+  },
+  {
+    path: ':taskId/payment',
+    component: PaymentComponent,
+    canActivate: [isTaskNotPaidGuard],
+  },
+  {
+    path: ':taskId/complaint',
+    component: TasksComplaintComponent,
+  },
+  {
+    path: ':taskId/review',
+    component: AddReviewComponent,
+  },
+];

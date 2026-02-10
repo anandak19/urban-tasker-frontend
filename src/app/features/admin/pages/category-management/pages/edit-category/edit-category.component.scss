@@ -1,0 +1,23 @@
+@use 'index' as *;
+
+.edit-category {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+  &__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    app-category-form {
+      width: 50%;
+    }
+  }
+
+  @include respond('xs') {
+    &__form {
+      app-category-form {
+        width: 100%;
+      }
+    }
+  }
+}

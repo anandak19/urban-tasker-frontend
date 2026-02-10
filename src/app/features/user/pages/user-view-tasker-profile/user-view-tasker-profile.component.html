@@ -1,0 +1,18 @@
+<div class="tasker-profile container">
+  <app-page-title title="Tasker Profile"></app-page-title>
+  <app-view-tasker-profile
+    [isEditable]="false"
+    [taskerCardData]="taskerCardData"
+    [taskerAbout]="taskerAbout"
+    [taskerWorkCategories]="taskerWorkCategories"
+    [allReviews]="allReviews"
+    [reviewsPagination]="reviewsPagination"
+    [avarageRating]="avarageRating"
+    [allPortfolioImages]="allPortfolioImages"
+    [portfolioPagination]="portfolioPagination"
+    (getAboutData)="onGetAboutData()"
+    (getPortfolio)="onGetPortfolio($event)"
+    (getReviewsCalled)="onGetReviews($event)"
+    (getAvarageRatingCalled)="onGetAverageRating()"
+  ></app-view-tasker-profile>
+</div>

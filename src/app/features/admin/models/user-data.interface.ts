@@ -1,4 +1,16 @@
+import { Gender } from '@shared/constants/enums/user.enum';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
+
+export interface IGeoLocation {
+  type: 'Point';
+  coordinates: [number, number]; // [longitude, latitude]
+}
+
+export interface IHomeAddress {
+  // address: string;
+  city: string;
+  location: IGeoLocation;
+}
 
 export interface IUserData {
   id: string;
@@ -8,6 +20,11 @@ export interface IUserData {
   phone: string;
   userRole: string;
   isTaskerApplied: string;
+  isSuspended: boolean;
+  suspendedReason: string;
+  profileImageUrl?: string;
+  gender?: Gender;
+  homeAddress?: IHomeAddress;
 }
 
 export interface IPaginationMetadata {
@@ -23,3 +40,4 @@ export interface IGetAllUsersData {
 }
 
 export type IGetAllUsersSuccessResponse = IApiResponseSuccess<IGetAllUsersData>;
+export type IOneUserResponse = IApiResponseSuccess<IUserData>;

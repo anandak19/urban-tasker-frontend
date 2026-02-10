@@ -1,0 +1,69 @@
+@use 'index' as *;
+
+.payment-details-box {
+  display: flex;
+  flex-direction: column;
+  @include section-box;
+
+  &__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: $white;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+
+    &--total {
+      font-size: $font-size-lg;
+      font-weight: 600;
+
+      .payment-details-box__value {
+        font-weight: 700;
+        color: $primary-color;
+      }
+    }
+  }
+
+  // &__label {
+
+  // }
+
+  &__value {
+    color: $white;
+    font-weight: 500;
+  }
+
+  &__divider {
+    height: 1px;
+    background: $background-division;
+    margin: 6px 0;
+  }
+
+  &__status {
+    font-weight: 600;
+    text-transform: capitalize;
+
+    &--paid {
+      color: #2e7d32;
+    }
+
+    &--pending {
+      color: #f9a825;
+    }
+  }
+
+  .actions {
+    margin-top: 6px;
+  }
+}

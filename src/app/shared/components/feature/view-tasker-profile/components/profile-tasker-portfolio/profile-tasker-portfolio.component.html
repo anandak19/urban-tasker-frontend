@@ -1,0 +1,37 @@
+<div class="tasker-portfolio">
+  <div class="tasker-portfolio__head">
+    <p class="title">My Works</p>
+    @if (isEditable) {
+      <app-button size="small" (clickEvent)="onAddClick()"
+        ><mat-icon class="material-icons-outlined">add</mat-icon>
+      </app-button>
+    }
+  </div>
+
+  <div class="tasker-portfolio__data">
+    <div class="tasker-portfolio__gallery">
+      @for (imageDoc of allPortfolioImages(); track $index) {
+        <div class="tasker-portfolio__image-wrapper">
+          @if (isEditable) {
+            <button class="delete-btn" (click)="onDeleteImage(imageDoc.id)">
+              <mat-icon class="material-icons-outlined">delete</mat-icon>
+            </button>
+          }
+          <img
+            class="tasker-portfolio__image"
+            [src]="imageDoc.imageUrl"
+            alt="Tasker work image"
+            loading="lazy"
+          />
+        </div>
+      }
+    </div>
+    @if (allPortfolioImages().length === 0) {
+      <p class="empty-text">No works added yet</p>
+    }
+    <app-pagination
+      [paginationData]="portfolioPagination()"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
+  </div>
+</div>

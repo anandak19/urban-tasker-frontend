@@ -1,0 +1,104 @@
+<div class="list-booked-tasks">
+  <app-page-title title="My Booked Tasks"></app-page-title>
+
+  <!-- filters  -->
+  <div class="list-booked-tasks__filter">
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active': !filter().taskStatus,
+      }"
+      (click)="onChangeStatusFilter()"
+    >
+      All
+    </button>
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active':
+          filter().taskStatus === status.IN_PROGRESS,
+      }"
+      (click)="onChangeStatusFilter(status.IN_PROGRESS)"
+    >
+      In Progress
+    </button>
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active':
+          filter().taskStatus === status.PENDING,
+      }"
+      (click)="onChangeStatusFilter(status.PENDING)"
+    >
+      Upcoming
+    </button>
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active':
+          filter().taskStatus === status.COMPLETED,
+      }"
+      (click)="onChangeStatusFilter(status.COMPLETED)"
+    >
+      Completed
+    </button>
+    <button
+      class="list-booked-tasks__filter-btn"
+      [ngClass]="{
+        'list-booked-tasks__filter-btn--active':
+          filter().taskStatus === status.OVERDUE,
+      }"
+      (click)="onChangeStatusFilter(status.OVERDUE)"
+    >
+      Overdue
+    </button>
+  </div>
+
+  <!-- listing wrapper  -->
+  <div class="list-booked-tasks__list-wrapper">
+    @if (bookings()) {
+      @for (booking of bookings(); track $index) {
+        <div class="list-booked-tasks__card">
+          <!-- LEFT : Task info -->
+          <div class="list-booked-tasks__card-left">
+            <div class="list-booked-tasks__image">
+              <img [src]="booking.image" alt="category" />
+            </div>
+
+            <div class="list-booked-tasks__details">
+              <div class="list-booked-tasks__category">
+                {{ booking.categoryName }}
+              </div>
+
+              <div class="list-booked-tasks__tasker">
+                Tasker: {{ booking.taskerName }}
+              </div>
+
+              <div class="list-booked-tasks__datetime">
+                <span>{{ booking.date | date }}</span>
+                <span class="list-booked-tasks__dot">•</span>
+                <span>{{ booking.time }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT : Actions -->
+          <div class="list-booked-tasks__card-right">
+            <!-- <app-button variant="secondary">Message</app-button> -->
+            <app-button (clickEvent)="navigateTaskDetails(booking.id)"
+              >View Details</app-button
+            >
+          </div>
+        </div>
+      } @empty {
+        <p class="empty-text">No bookings yet</p>
+      }
+    }
+  </div>
+
+  <!-- paginations  -->
+  <app-pagination
+    [paginationData]="paginationData()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+</div>

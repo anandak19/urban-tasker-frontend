@@ -1,0 +1,23 @@
+<div class="wallet container">
+  <div class="wallet__contents-wrapper">
+    <app-page-title title="Your Wallet"></app-page-title>
+
+    <div class="summary">
+      <app-wallet-details
+        [walletDetails]="walletDetails() ?? null"
+      ></app-wallet-details>
+    </div>
+
+    <div class="wallet__history">
+      <h4 class="sub-title">transaction history</h4>
+      <app-wallet-transactions-listing
+        [transactions]="walletTransactions()"
+      ></app-wallet-transactions-listing>
+
+      <app-pagination
+        [paginationData]="pagination()"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    </div>
+  </div>
+</div>

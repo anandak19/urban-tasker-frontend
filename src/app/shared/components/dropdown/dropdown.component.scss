@@ -1,0 +1,85 @@
+@use 'index' as *;
+
+.dropdown {
+  position: relative;
+  min-width: 300px;
+  white-space: nowrap;
+  &__main,
+  &__options {
+    border: $input-border;
+    background-color: $black;
+    color: $white;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-sm;
+  }
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: calc($spacing-2 - 1.5px) $spacing-3;
+    span {
+      font-size: $font-size-sm;
+      line-height: 24px;
+    }
+  }
+
+  &__options {
+    position: absolute;
+    left: 0;
+    top: 105%;
+    width: 100%;
+    min-height: 30px;
+    height: max-content;
+    max-height: 300px;
+    overflow-y: scroll;
+    display: none;
+    z-index: 1;
+    &--active {
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+      li {
+        padding: $spacing-2;
+        &:hover {
+          background-color: $black-hover;
+        }
+      }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $black;
+  }
+
+  &--small {
+    width: 150px;
+  }
+
+  &--large {
+    width: 300px;
+  }
+
+  @include respond('xs') {
+    min-width: 120px;
+    flex-wrap: wrap;
+
+    ::ng-deep .mat-horizontal-content-container {
+      padding: 0;
+    }
+
+    &__main,
+    &__options {
+      font-size: $font-size-xs;
+    }
+
+    mat-icon {
+      font-size: $font-size-xl;
+    }
+  }
+}

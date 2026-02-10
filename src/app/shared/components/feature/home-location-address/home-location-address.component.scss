@@ -1,0 +1,8 @@
+@use 'index' as *;
+
+.home-location {
+  @include section-box;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(80px, auto);
+}

@@ -1,0 +1,33 @@
+@use 'index' as *;
+
+.view-tasker-application {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+  min-height: calc(100vh - $header-height);
+  padding: $spacing-8 0;
+  margin-bottom: $spacing-8;
+
+  &__wrapper {
+    width: 50%;
+    .title {
+      margin: $spacing-4 0;
+    }
+  }
+
+  &__tasker-apply {
+    padding: $spacing-6;
+    border: $section-border;
+    border-radius: $border-radius-md;
+  }
+
+  &__tasker-apply {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    app-button {
+      margin: 0 auto;
+    }
+  }
+}

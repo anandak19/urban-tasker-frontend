@@ -1,0 +1,57 @@
+<div class="booking-details">
+  <app-admin-page-title title="Booking Details">
+    <app-back-button></app-back-button>
+  </app-admin-page-title>
+
+  @if (bookingDetails()) {
+    <div class="booking-details__wrapper">
+      <!-- LEFT SIDE -->
+      <div class="booking-details__left">
+        <!-- Task Status -->
+        <app-task-status-box
+          [taskStatus]="bookingDetails()?.taskStatus ?? null"
+        ></app-task-status-box>
+
+        <!-- Task Details -->
+        <app-task-info-box [taskInfo]="bookingDetails()"> </app-task-info-box>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="booking-details__right">
+        <!-- Tasker Details -->
+        <app-related-user-box
+          [title]="bookingDetails()?.taskerName || null"
+          label="Tasker"
+        >
+          <app-button-loading
+            text="Chat"
+            (isClicked)="onChatWithTaskerClick()"
+            [isLoading]="isTaskerChatLoading"
+          ></app-button-loading>
+        </app-related-user-box>
+
+        <!-- User Details -->
+        <app-related-user-box
+          [title]="bookingDetails()?.userName || null"
+          label="Client"
+        >
+          <app-button-loading
+            text="Chat"
+            (isClicked)="onChatWithUserClick()"
+            [isLoading]="isUserChatLoading"
+          ></app-button-loading>
+        </app-related-user-box>
+
+        <!-- Timings -->
+        <app-task-timings-box
+          [taskData]="bookingDetails()"
+        ></app-task-timings-box>
+
+        <!-- Payment -->
+        <app-payment-details-box
+          [payment]="bookingDetails()?.payment || null"
+        ></app-payment-details-box>
+      </div>
+    </div>
+  }
+</div>

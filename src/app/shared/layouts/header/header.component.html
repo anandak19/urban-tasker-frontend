@@ -1,5 +1,5 @@
 <header class="app-header container">
-  <div class="left-section">
+  <div class="app-header__left-section">
     <mat-icon
       class="material-icons-outlined menu-option"
       (click)="toggleSidePannel()"
@@ -8,20 +8,40 @@
     </mat-icon>
     <app-brand></app-brand>
   </div>
-  <app-nav-links [links]="links"></app-nav-links>
-  <div class="right-section">
-    <!-- button   -->
-    @if (_authGuardService.currentUser()) {
-      <app-button [variant]="'primary'" (clickEvent)="bookTaskerClicked()"
-        >Book a Tasker</app-button
+  <app-nav-links
+    [links]="links()"
+    (isLinkClicked)="toggleSidePannel()"
+  ></app-nav-links>
+  <div class="app-header__right-section">
+    <!-- button  -->
+    @if (currentUser()?.userRole === userRoles.TASKER) {
+      <app-button (clickEvent)="navigateTaskerDashboard()"
+        >View Tasker Dashboard</app-button
+      >
+    } @else if (
+      currentUser()?.email && currentUser()?.userRole !== userRoles.TASKER
+    ) {
+      <app-button variant="primary" (clickEvent)="bookTaskerClicked()"
+        >Book Tasker</app-button
+      >
+    }
+    @if (currentUser()) {
+      <app-button (clickEvent)="onMesagesClick()"
+        ><mat-icon class="material-icons-outlined app-header__icon"
+          >chat</mat-icon
+        ></app-button
       >
     }
 
     <!-- user options  -->
     <div class="user-options">
       @if (_authGuardService.currentUser()?.email) {
-        <app-notification (isnoficationClicked)="openNotifications()" />
-        <app-user-profile-circle (logout)="onUserLogout()" />
+        <!-- <app-notification (isnoficationClicked)="openNotifications()" /> -->
+        <app-user-profile-circle
+          (logout)="onUserLogout()"
+          (clickProfile)="navigateProfile()"
+          [imageUrl]="currentUser()?.profileImageUrl || ''"
+        />
       } @else {
         <app-button
           [variant]="isLoginPage ? 'secondary' : 'primary'"

@@ -1,0 +1,7 @@
+@use 'index' as *;
+
+.list-category {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}

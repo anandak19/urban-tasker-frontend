@@ -1,0 +1,12 @@
+<div class="view-sub-category">
+  <app-admin-page-title [title]="'Sub-Category: ' + subcategoryDetails().name">
+    <app-back-button></app-back-button>
+  </app-admin-page-title>
+
+  <!-- category details card  -->
+  <app-category-details-card
+    [categoryData]="subcategoryDetails()"
+    (changeActiveStatus)="onChangeActiveStatus($event)"
+    (deleteClicked)="onDeleteClick()"
+  ></app-category-details-card>
+</div>

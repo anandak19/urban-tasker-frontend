@@ -1,11 +1,11 @@
 <mat-toolbar class="admin-header">
-  <div class="left">
+  <div class="admin-header__left">
     <ng-content></ng-content>
     <app-brand [link]="'reports'"></app-brand>
   </div>
 
-  <div class="right">
-    <app-notification></app-notification>
+  <div class="admin-header__right">
+    <!-- <app-notification></app-notification> -->
     <app-user-profile-circle
       (logout)="onAdminLogut()"
     ></app-user-profile-circle>

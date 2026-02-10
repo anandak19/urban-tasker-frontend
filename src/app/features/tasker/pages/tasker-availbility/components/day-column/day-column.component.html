@@ -1,0 +1,40 @@
+<div class="day">
+  <div class="day__title">
+    {{ day | titlecase }}
+  </div>
+
+  <div class="day__slots">
+    @if (availabilityData) {
+      @for (slot of availabilityData.slots; track $index) {
+        <div
+          class="day__slot"
+          [ngClass]="{ 'day__slot--disabled': !slot.isActive }"
+          (click)="onEditSlot(day, slot)"
+          tabindex="0"
+          role="button"
+        >
+          <div class="times">
+            <p class="time">{{ to12hr(slot.start) | uppercase }} -</p>
+            <p class="time">
+              {{ to12hr(slot.end) | uppercase }}
+            </p>
+          </div>
+        </div>
+      } @empty {
+        <small style="text-align: center; font-style: italic"
+          >Empty slots</small
+        >
+      }
+    }
+
+    @if (!isMaxSlot) {
+      <button
+        class="day__add-slot"
+        (click)="onAddSlot(day)"
+        [disabled]="isMaxSlot"
+      >
+        + Add Slot
+      </button>
+    }
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="booking-details">
+  <app-page-title title="Task Details">
+    <app-back-button></app-back-button>
+  </app-page-title>
+
+  @if (bookingDetails()) {
+    <div class="booking-details__wrapper">
+      <!-- LEFT SIDE -->
+      <div class="booking-details__left">
+        <!-- Task Status -->
+        <app-task-status-box
+          [taskStatus]="bookingDetails()?.taskStatus ?? null"
+        >
+          <div class="actions">
+            @if (
+              bookingDetails()?.taskStatus === taskStatus.PENDING &&
+              bookingDetails()?.isAccepted
+            ) {
+              <app-button size="small" (clickEvent)="onStartCode()"
+                >Get Start Code</app-button
+              >
+            }
+          </div>
+        </app-task-status-box>
+
+        <!-- Tasker Details mobile -->
+        <app-related-user-box
+          [title]="bookingDetails()?.taskerName || null"
+          label="Tasker"
+          class="tasker-details tasker-details--mobile"
+        >
+          <app-button-loading
+            text="Chat"
+            (isClicked)="onChatWithTaskerClick()"
+            [isLoading]="isChatLoading"
+          ></app-button-loading>
+        </app-related-user-box>
+
+        <!-- Task Details -->
+        <app-task-info-box [taskInfo]="bookingDetails()">
+          <div class="actions actions--info">
+            @if (bookingDetails()?.taskStatus === taskStatus.COMPLETED) {
+              <app-button
+                size="small"
+                variant="danger"
+                (clickEvent)="raiseComplaintClicked()"
+                >Raise a Complaint</app-button
+              >
+              <app-button
+                size="small"
+                variant="primary"
+                (clickEvent)="onAddReview()"
+                >Review Tasker</app-button
+              >
+            }
+            @if (
+              bookingDetails()?.taskStatus !== taskStatus.OVERDUE &&
+              bookingDetails()?.taskStatus !== taskStatus.COMPLETED &&
+              bookingDetails()?.taskStatus !== taskStatus.IN_PROGRESS &&
+              bookingDetails()?.taskStatus !== taskStatus.CANCELLED
+            ) {
+              <app-button-loading
+                text="Cancel Booking"
+                variant="danger"
+                [isLoading]="isCancelLoading"
+                (isClicked)="onCancelBookging()"
+              ></app-button-loading>
+            }
+          </div>
+        </app-task-info-box>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="booking-details__right">
+        <!-- Tasker Details desktop -->
+        <app-related-user-box
+          [title]="bookingDetails()?.taskerName || null"
+          label="Tasker"
+          class="tasker-details tasker-details--desktop"
+        >
+          <app-button-loading
+            text="Chat"
+            (isClicked)="onChatWithTaskerClick()"
+            [isLoading]="isChatLoading"
+          ></app-button-loading>
+        </app-related-user-box>
+
+        <!-- Timings -->
+        <app-task-timings-box
+          [taskData]="bookingDetails()"
+        ></app-task-timings-box>
+
+        <!-- Payment -->
+        <app-payment-details-box [payment]="bookingDetails()?.payment || null">
+          @if (bookingDetails()?.taskStatus === taskStatus.COMPLETED) {
+            @if (
+              bookingDetails()?.payment?.paymentStatus !== paymentStatus.PAID
+            ) {
+              <app-button (clickEvent)="onPay()">Pay</app-button>
+            }
+          }
+        </app-payment-details-box>
+      </div>
+    </div>
+  }
+</div>

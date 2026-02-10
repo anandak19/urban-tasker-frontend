@@ -1,0 +1,32 @@
+<div class="start-code-modal">
+  <div class="start-code-modal__container">
+    <h3 class="start-code-modal__title">Start Code</h3>
+
+    <p class="start-code-modal__description">
+      Share this code with your tasker to start the task (Expires in 5 min)
+    </p>
+
+    <div class="start-code-modal__code-box">
+      <span class="start-code-modal__code" #codeRef>{{ startCode() }}</span>
+
+      <span
+        class="start-code-modal__copy"
+        title="Copy code"
+        (click)="copyCode(codeRef)"
+        role="button"
+        tabindex="0"
+      >
+        <mat-icon class="material-icons-outlined">content_copy</mat-icon>
+      </span>
+    </div>
+
+    <div class="start-code-modal__actions">
+      <app-button-loading
+        text="Get new code"
+        (isClicked)="onGetNewcode()"
+      ></app-button-loading>
+
+      <app-button variant="secondary" (clickEvent)="close()">Close</app-button>
+    </div>
+  </div>
+</div>

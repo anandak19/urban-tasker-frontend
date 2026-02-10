@@ -29,25 +29,17 @@ export class AuthGuardService {
       .get<IisLoginResponse>(`${this._apiEndPoint}/login-user`)
       .pipe(
         tap((res) => {
-          this.currentUser.set(res.data.user);
-          console.log('current user', this.currentUser());
+          this.currentUser.set(res.data);
+          console.log(
+            '[fetchLoginUser] current user role: ',
+            this.currentUser()?.userRole,
+          );
         }),
-        catchError((err) => {
-          console.log('faild to fetch login user', err);
+        catchError(() => {
+          console.log('[fetchLoginUser] faild to fetch login user');
           this.currentUser.set(null);
           return of(null);
         }),
       );
-
-    // return this._http.get(`${this._apiEndPoint}/login-user`).subscribe({
-    //   next: (res) => {
-    //     const response = res as IisLoginResponse;
-    //     this.currentUser.set(response.data.user);
-    //     console.log('Current user', this.currentUser());
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   },
-    // });
   }
 }

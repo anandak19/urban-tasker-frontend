@@ -1,0 +1,92 @@
+@use 'index' as *;
+
+.choose-tasker {
+  width: 90%;
+
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - $header-height);
+
+  // filter
+  &__filters {
+    margin-top: $spacing-3;
+    @include section-box;
+    form {
+      display: flex;
+      justify-content: space-between;
+      gap: $spacing-2;
+    }
+  }
+
+  // control
+  .control {
+    width: 100%;
+
+    &.mat-focused {
+      .mdc-notched-outline {
+        --mdc-outlined-text-field-outline-width: 2px;
+      }
+    }
+
+    .mat-mdc-text-field-wrapper {
+      background-color: $background;
+      border-radius: 8px;
+    }
+
+    input {
+      color: #e5e7eb;
+      margin: auto 0;
+      padding: 0;
+    }
+
+    .mat-mdc-floating-label {
+      color: #94a3b8;
+    }
+  }
+
+  &__result-count {
+    margin: $spacing-4 0;
+  }
+
+  app-button-loading {
+    margin: auto 0;
+  }
+
+  // remove this later
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__taskers-listing-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  // actions
+  &__actions {
+    display: flex;
+    gap: $spacing-3;
+    justify-content: space-between;
+  }
+
+  @include respond('xs') {
+    // filters
+    &__filters {
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: $spacing-2;
+
+        .custom-field {
+          margin-bottom: 12px;
+        }
+      }
+    }
+  }
+}

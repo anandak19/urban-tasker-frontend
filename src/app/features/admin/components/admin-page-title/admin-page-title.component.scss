@@ -1,0 +1,22 @@
+@use 'index' as *;
+
+.admin-page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__title {
+    h2 {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-medium;
+      color: $white;
+    }
+  }
+
+  @include respond('xs') {
+    &__title {
+      h2 {
+        font-size: $font-size-md;
+      }
+    }
+  }
+}

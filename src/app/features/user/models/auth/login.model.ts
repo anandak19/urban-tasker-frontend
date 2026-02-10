@@ -10,12 +10,9 @@ export interface ICurrentUser {
   id: string;
   email: string;
   userRole: UserRoles;
-  iat: number;
-  exp: number;
+  firstName: string;
+  lastName: string;
+  profileImageUrl: string;
 }
 
-export interface IisLoginData {
-  user: ICurrentUser;
-}
-
-export type IisLoginResponse = IApiResponseSuccess<IisLoginData>;
+export type IisLoginResponse = IApiResponseSuccess<ICurrentUser>;

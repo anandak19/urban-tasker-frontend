@@ -1,5 +1,31 @@
-<app-header></app-header>
-<main class="main-content">
-  <app-sidebar></app-sidebar>
-  <router-outlet></router-outlet>
+<app-tasker-header>
+  <button mat-icon-button (click)="collapseNav()" class="nav-btn">
+    <mat-icon class="material-icons-outlined menu-option">menu</mat-icon>
+  </button>
+</app-tasker-header>
+
+<main class="main-content-wrapper background">
+  <mat-sidenav-container class="background">
+    <!-- side bar  -->
+    <mat-sidenav
+      (closedStart)="onSidenavClose()"
+      [opened]="!isHandset || collapsed()"
+      [mode]="sidenavMode()"
+      [style.width]="isHandset ? '278px' : sidenavWidth()"
+      class="background"
+    >
+      <!-- navigation links  -->
+      <app-sidebar
+        [collapsed]="hideText()"
+        [sideMenuItems]="sideMenuItems"
+      ></app-sidebar>
+    </mat-sidenav>
+
+    <!-- content  -->
+    <mat-sidenav-content
+      [style.margin-left]="isHandset ? '0px' : sidenavWidth()"
+    >
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </main>

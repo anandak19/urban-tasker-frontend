@@ -1,5 +1,7 @@
 @use 'index' as *;
 
 .popular-categories {
-  height: fit-content;
+  flex: 1;
+  height: 50%;
+  padding: $spacing-4 0;
 }

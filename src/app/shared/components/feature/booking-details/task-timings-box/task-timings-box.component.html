@@ -1,0 +1,47 @@
+@if (taskData) {
+  <div class="task-timings-box">
+    <p class="task-timings-box__title">Task Timings</p>
+
+    <div class="task-timings-box__list">
+      <div class="task-timings-box__item">
+        <span class="task-timings-box__label">Date</span>
+        <span class="task-timings-box__value">{{ taskData.date | date }}</span>
+      </div>
+
+      <div class="task-timings-box__item">
+        <span class="task-timings-box__label">Time</span>
+        <span class="task-timings-box__value">{{ taskData.time }}</span>
+      </div>
+
+      <div class="task-timings-box__item">
+        <span class="task-timings-box__label">Task Start Time</span>
+        <span class="task-timings-box__value">{{
+          taskData.taskTimes?.taskStartTime | date: 'shortTime'
+        }}</span>
+      </div>
+
+      <div class="task-timings-box__item">
+        <span class="task-timings-box__label">Task End Time</span>
+        <span class="task-timings-box__value">{{
+          taskData.taskTimes?.taskEndTime | date: 'shortTime'
+        }}</span>
+      </div>
+
+      <div class="task-timings-box__item">
+        <span class="task-timings-box__label">Total Work In Minutes</span>
+        <span class="task-timings-box__value">{{
+          (taskData.taskTimes?.totalTaskTime ?? 0) * 1000
+            | date: 'mm:ss' : 'UTC'
+        }}</span>
+      </div>
+
+      <div class="task-timings-box__item">
+        <span class="task-timings-box__label">Total Break In Minutes</span>
+        <span class="task-timings-box__value">{{
+          (taskData.taskTimes?.totalBreakTime ?? 0) * 1000
+            | date: 'mm:ss' : 'UTC'
+        }}</span>
+      </div>
+    </div>
+  </div>
+}

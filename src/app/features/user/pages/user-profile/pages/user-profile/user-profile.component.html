@@ -1,0 +1,62 @@
+<div class="user-profile">
+  <app-section-title title="User Profile" variant="center"></app-section-title>
+
+  <div class="user-profile__profile-data-wrapper">
+    <div class="user-profile__left-section">
+      <div class="user-profile__profile-picture">
+        <div class="picture-box">
+          <img
+            [src]="
+              userData()?.profileImageUrl || 'assets/defaults/default-user.png'
+            "
+            alt=""
+          />
+        </div>
+        <div class="picture-change">
+          <input
+            type="file"
+            #fileInput
+            accept="image/*"
+            hidden
+            (change)="onFileSelect($event)"
+          />
+          <app-button size="small" (clickEvent)="fileInput.click()"
+            >Change Profile Picture</app-button
+          >
+        </div>
+      </div>
+
+      <div class="user-profile__password-actions">
+        <app-button
+          size="small"
+          variant="secondary"
+          (clickEvent)="onChangePasswordBtnClick()"
+          >Change Password</app-button
+        >
+      </div>
+    </div>
+    <div class="user-profile__right-section">
+      <div class="user-profile__data-box">
+        <div class="user-profile__box-title">
+          <h3>Personal Data</h3>
+          <app-button size="small" (clickEvent)="onEditProfileBtnClick()"
+            >Edit</app-button
+          >
+        </div>
+        <app-user-data [userData]="userData()"></app-user-data>
+      </div>
+
+      <div class="user-profile__data-box">
+        <div class="user-profile__box-title">
+          <h3>Home Location</h3>
+          <app-button size="small" (clickEvent)="onHomeAddressBtnClick()"
+            >Update Home Location</app-button
+          >
+        </div>
+        <app-home-location-address
+          [userLocation]="userData()?.homeAddress || null"
+        ></app-home-location-address>
+      </div>
+    </div>
+  </div>
+</div>

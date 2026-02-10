@@ -1,0 +1,18 @@
+@if (taskStatus) {
+  <div class="task-status-box">
+    <div class="task-status-box__content">
+      <p class="task-status-box__title">Task Status</p>
+
+      <span
+        class="task-status-box__chip"
+        [ngClass]="'task-status-box__chip--' + taskStatus"
+      >
+        {{ taskStatus.replace('_', ' ') | titlecase }}
+      </span>
+    </div>
+
+    <div class="task-status-box__projected">
+      <ng-content></ng-content>
+    </div>
+  </div>
+}

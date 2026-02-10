@@ -1,0 +1,22 @@
+@use 'index' as *;
+
+.tasker-profile-about {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  &__section {
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      .title {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-medium;
+      }
+    }
+  }
+
+  &__categories {
+    padding: $spacing-3 0;
+  }
+}

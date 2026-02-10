@@ -1,0 +1,7 @@
+@use 'index' as *;
+
+.view-sub-category {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}

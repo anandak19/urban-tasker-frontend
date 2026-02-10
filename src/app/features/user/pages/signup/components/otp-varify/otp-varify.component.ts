@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   OnInit,
@@ -10,6 +9,7 @@ import {
   signal,
   Output,
   EventEmitter,
+  DestroyRef,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -25,7 +25,8 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { finalize } from 'rxjs';
-import { IBasicDataResponse } from '../../../../models/signup/signup-response.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IBasicDataResponse } from '@features/user/models/signup/signup-response.model';
 
 @Component({
   selector: 'app-otp-varify',
@@ -43,6 +44,7 @@ export class OtpVarifyComponent implements OnInit {
   private _signupService = inject(SignupService);
   private _timerService = inject(TimerService);
   private _snackBar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   //OTP input configuration
   otpConfig = {
@@ -59,6 +61,7 @@ export class OtpVarifyComponent implements OnInit {
   isLoading = signal(false);
   isResendLoading = signal(false);
   timeLeft = this._timerService.timer;
+
   @Output() nextStep = new EventEmitter<void>();
 
   // method to resend otp
@@ -67,7 +70,10 @@ export class OtpVarifyComponent implements OnInit {
     this.clearOtpInput();
     this._signupService
       .resendOtp()
-      .pipe(finalize(() => this.isResendLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isResendLoading.set(false)),
+      )
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -107,16 +113,19 @@ export class OtpVarifyComponent implements OnInit {
     this.isLoading.set(true);
     this._signupService
       .validateOtp(this.otpForm.value.otp)
-      .pipe(finalize(() => this.isLoading.set(false)))
+
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        finalize(() => this.isLoading.set(false)),
+      )
       .subscribe({
         next: (res: IBasicDataResponse) => {
           console.log(res);
           this._snackBar.success(res.message);
           this.nextStep.emit();
         },
-        error: (err: HttpErrorResponse) => {
-          const error = err.error as IApiResponseError;
-          this._snackBar.info(error.message);
+        error: (err: IApiResponseError) => {
+          this._snackBar.info(err.message);
         },
       });
   }

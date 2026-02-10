@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
 import { AuthService } from '@core/services/auth/auth.service';
@@ -13,7 +13,7 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 export class UserProfileCircleComponent {
   @Output() clickProfile = new EventEmitter();
   @Output() logout = new EventEmitter();
-  imageUrl = 'https://imgflip.com/s/meme/Smiling-Cat.jpg';
+  @Input() imageUrl = 'https://imgflip.com/s/meme/Smiling-Cat.jpg';
 
   private _authService = inject(AuthService);
   private _snackBar = inject(SnackbarService);
@@ -35,6 +35,6 @@ export class UserProfileCircleComponent {
   }
 
   gotToProfileClicked() {
-    alert('Method not implemeted');
+    this.clickProfile.emit();
   }
 }

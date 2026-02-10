@@ -1,0 +1,38 @@
+@use 'index' as *;
+
+.chat-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('/assets/images/chat-bg.png') center/cover no-repeat;
+
+  &__content {
+    text-align: center;
+    max-width: 320px;
+    padding: 24px;
+    border-radius: 10%;
+    background-color: $background;
+  }
+
+  &__icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 1.4;
+  }
+}

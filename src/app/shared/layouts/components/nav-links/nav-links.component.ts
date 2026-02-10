@@ -1,7 +1,9 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   WritableSignal,
   inject,
 } from '@angular/core';
@@ -21,7 +23,12 @@ export class NavLinksComponent implements OnInit {
   private headerService = inject(HeaderService);
 
   @Input() links: NavLink[] = [];
+  @Output() isLinkClicked = new EventEmitter();
   isSidebarOpen!: WritableSignal<boolean>;
+
+  onLinkClick() {
+    this.isLinkClicked.emit();
+  }
 
   ngOnInit(): void {
     this.isSidebarOpen = this.headerService.sidebarOpen;

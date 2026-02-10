@@ -1,0 +1,33 @@
+<div class="view-application">
+  <app-admin-page-title title="Application Details">
+    <app-back-button></app-back-button>
+  </app-admin-page-title>
+
+  <div class="view-application__wrapper">
+    <div class="view-application__edit">
+      <app-form-field-wrapper label="User Email" [isFormField]="false">
+        <p class="value">
+          {{ taskerApplicationData()?.email }}
+        </p>
+      </app-form-field-wrapper>
+
+      @if (!isApproved) {
+        <div class="view-application__actions">
+          <app-button
+            size="small"
+            variant="secondary"
+            (clickEvent)="onChangeStatus()"
+            >Change Status</app-button
+          >
+
+          <app-button size="small" (clickEvent)="onApprove()"
+            >Approve</app-button
+          >
+        </div>
+      }
+    </div>
+    <app-tasker-application-data
+      [taskerApplicationData]="taskerApplicationData"
+    ></app-tasker-application-data>
+  </div>
+</div>
