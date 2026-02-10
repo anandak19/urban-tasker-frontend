@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
 
     return [
       { label: 'Home', path: '/' },
-      { label: 'Categories', path: '/categories' },
+      // { label: 'Categories', path: '/categories' },
       { label: 'My Bookings', path: '/tasks' },
       { label: 'My Wallet', path: '/wallet' },
     ];
