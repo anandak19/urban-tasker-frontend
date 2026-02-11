@@ -8,6 +8,7 @@ import { IisLoginResponse } from '@features/user/models/auth/login.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SignalingService } from '../signaling/signaling.service';
 import { SocketManagerService } from '../socket-manager/socket-manager.service';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class AuthService {
   private _signalingService = inject(SignalingService);
 
   googleLogin() {
-    window.open('http://localhost:3000/api/auth/google/login', '_self');
+    window.open(`${environment.apiUrl}/auth/google/login`, '_self');
   }
 
   localLogin(loginData: ILoginData) {
