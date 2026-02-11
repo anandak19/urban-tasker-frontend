@@ -1,6 +1,7 @@
 export const environment = {
-  production: true,
-  apiUrl: 'http://localhost:3000/api',
+  production: false,
+  apiUrl: 'https://api.urbantasker.online/api',
+  socektUrl: 'https://api.urbantasker.online',
   rzpKey: 'rzp_test_S6YvspMIUR6SGA',
 };
 

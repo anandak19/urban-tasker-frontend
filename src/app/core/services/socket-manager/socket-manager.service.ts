@@ -6,13 +6,14 @@ import {
   ISocketExeption,
   SocketAck,
 } from '@shared/models/socket/socket.model';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketManagerService implements OnDestroy {
   private socket!: Socket;
-  private readonly SOCKET_URL = 'http://localhost:3000';
+  private readonly SOCKET_URL = environment.socektUrl;
 
   private refreshInProgress = false;
   // eventQueue: Array<() => void> = [];
@@ -37,6 +38,8 @@ export class SocketManagerService implements OnDestroy {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
     });
+
+    console.log(`Socket urL: ${this.SOCKET_URL}`);
 
     this.registerCoreListeners();
   }
