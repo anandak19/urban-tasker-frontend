@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'http:13.235.19.61:3000/api',
   rzpKey: 'rzp_test_S6YvspMIUR6SGA',
 };
 
