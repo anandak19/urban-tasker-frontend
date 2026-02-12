@@ -2,7 +2,8 @@
   <app-admin-page-title title="Tasker Applications"></app-admin-page-title>
 
   <app-admin-table-filters
-    searchPlaceholder="Search by user email"
+    (searchChange)="onSearch($event)"
+    searchPlaceholder="Search by name"
   ></app-admin-table-filters>
 
   <app-table-listing

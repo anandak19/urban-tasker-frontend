@@ -6,12 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -31,7 +26,7 @@ export class AdminTableFiltersComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchForm = this._fb.group({
-      search: ['', Validators.required],
+      search: [''],
     });
   }
 

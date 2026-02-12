@@ -70,6 +70,11 @@ export class ListPaymentsComponent implements OnInit {
     this.getAllPayments();
   }
 
+  onSearch(search: string) {
+    this.filter.update((cur) => ({ ...cur, search }));
+    this.getAllPayments();
+  }
+
   onPaymentStatusChange(status: PaymentStatus) {
     this.filter.update((curr) => ({
       ...curr,
