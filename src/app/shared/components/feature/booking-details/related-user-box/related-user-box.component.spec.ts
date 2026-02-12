@@ -8,9 +8,8 @@ describe('RelatedUserBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RelatedUserBoxComponent]
-    })
-    .compileComponents();
+      imports: [RelatedUserBoxComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RelatedUserBoxComponent);
     component = fixture.componentInstance;

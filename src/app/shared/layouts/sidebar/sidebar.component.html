@@ -7,6 +7,7 @@
         routerLinkActive="active"
         class="sidenav__nav-item"
         [routerLinkActiveOptions]="{ exact: false }"
+        (click)="onOptionSelect()"
       >
         <mat-icon matListItemIcon class="material-icons-outlined">{{
           item.icon

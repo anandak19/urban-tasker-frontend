@@ -25,7 +25,7 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { finalize } from 'rxjs';
-import { BackButtonComponent } from "@features/admin/components/back-button/back-button.component";
+import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-complaint-form',
@@ -37,8 +37,8 @@ import { BackButtonComponent } from "@features/admin/components/back-button/back
     ButtonLoadingComponent,
     MatIconModule,
     ReactiveFormsModule,
-    BackButtonComponent
-],
+    BackButtonComponent,
+  ],
   templateUrl: './complaint-form.component.html',
   styleUrl: './complaint-form.component.scss',
 })

@@ -1,7 +1,10 @@
 <div class="payments-listing">
   <app-admin-page-title title="Payments Management"></app-admin-page-title>
 
-  <app-admin-table-filters searchPlaceholder="Search by Receipt-Id" (searchChange)="onSearch($event)">
+  <app-admin-table-filters
+    searchPlaceholder="Search by Receipt-Id"
+    (searchChange)="onSearch($event)"
+  >
     <!-- other filters goes here -->
 
     <div class="payment-filter">

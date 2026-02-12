@@ -8,9 +8,8 @@ describe('TaskInfoBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskInfoBoxComponent]
-    })
-    .compileComponents();
+      imports: [TaskInfoBoxComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskInfoBoxComponent);
     component = fixture.componentInstance;

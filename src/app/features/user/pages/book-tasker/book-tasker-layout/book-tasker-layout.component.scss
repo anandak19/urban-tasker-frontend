@@ -3,7 +3,7 @@
 .book-tasker {
   min-height: calc(100vh - $header-height);
   @include center-div;
-  
+
   ::ng-deep .mat-horizontal-stepper-header-container {
     display: none !important;
   }

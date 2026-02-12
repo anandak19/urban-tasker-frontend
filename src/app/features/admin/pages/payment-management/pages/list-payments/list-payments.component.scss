@@ -28,4 +28,12 @@
       color: #ffffff;
     }
   }
+
+  @include respond('xs') {
+    gap: 4px;
+    width: 150px;
+    &__select {
+      font-size: 10px;
+    }
+  }
 }

@@ -17,7 +17,7 @@
     gap: $spacing-2;
   }
 
-  @include respond('xs'){
+  @include respond('xs') {
     width: 400px;
   }
 }

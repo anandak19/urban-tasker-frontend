@@ -87,7 +87,8 @@
     display: flex;
     flex-direction: column;
     background-color: $background;
-    app-empty-chat-box, app-chat-box{
+    app-empty-chat-box,
+    app-chat-box {
       height: 100%;
     }
   }

@@ -45,6 +45,7 @@
   }
 
   @include respond('xs') {
+    gap: 4px;
     &__search-form {
       form {
         padding: $spacing-1;

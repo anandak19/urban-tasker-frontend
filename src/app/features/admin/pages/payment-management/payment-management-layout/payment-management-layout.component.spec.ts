@@ -8,9 +8,8 @@ describe('PaymentManagementLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaymentManagementLayoutComponent]
-    })
-    .compileComponents();
+      imports: [PaymentManagementLayoutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PaymentManagementLayoutComponent);
     component = fixture.componentInstance;
