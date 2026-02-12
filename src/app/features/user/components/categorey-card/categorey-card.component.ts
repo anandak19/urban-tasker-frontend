@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { IListCategoryCard } from '@features/user/models/home/home.model';
 import { ButtonComponent } from '@shared/components/button/button.component';
 
 export interface ICategory {
@@ -16,7 +17,7 @@ export interface ICategory {
   styleUrl: './categorey-card.component.scss',
 })
 export class CategoreyCardComponent {
-  @Input() categoryData!: ICategory;
+  @Input() categoryData!: IListCategoryCard;
 
   onBookBtnClick(categoreyId: string) {
     alert(`Clicked category ${categoreyId}`);

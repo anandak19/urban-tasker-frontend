@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import {
-  CategoreyCardComponent,
-  ICategory,
-} from '@features/user/components/categorey-card/categorey-card.component';
+import { Component, Input } from '@angular/core';
+import { CategoreyCardComponent } from '@features/user/components/categorey-card/categorey-card.component';
+import { IListCategoryCard } from '@features/user/models/home/home.model';
 
 // this is a categories showing compoent only
 @Component({
@@ -12,11 +10,5 @@ import {
   styleUrl: './category-listing.component.scss',
 })
 export class CategoryListingComponent {
-  category: ICategory = {
-    categoryId: 'sfsdfgsdfsd',
-    categoryName: 'Cleaning Service',
-    description:
-      'Clean your home in a way that you dont need to clean it aggin in your life',
-    imageUrl: '/assets/images/category.jpg',
-  };
+  @Input() categories: IListCategoryCard[] = [];
 }

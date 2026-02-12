@@ -2,18 +2,18 @@
   <div class="category-card">
     <!-- image  -->
     <div class="category-card__image-section">
-      <img [src]="categoryData.imageUrl" alt="" />
+      <img [src]="categoryData.image" alt="" />
     </div>
     <!-- content  -->
     <div class="category-card__content-section">
       <div class="content-wrapper">
-        <p class="category-name">{{ categoryData.categoryName }}</p>
+        <p class="category-name">{{ categoryData.name }}</p>
         <span class="category-disc">{{ categoryData.description }}</span>
         <!-- book button  -->
         <app-button
           type="button"
           size="small"
-          (clickEvent)="onBookBtnClick(categoryData.categoryId)"
+          (clickEvent)="onBookBtnClick(categoryData.id)"
         >
           Book Now
         </app-button>
