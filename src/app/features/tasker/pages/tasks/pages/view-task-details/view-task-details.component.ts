@@ -83,7 +83,6 @@ export class ViewTaskDetailsComponent implements OnInit {
         )
         .subscribe({
           next: (res) => {
-            console.log(res.data);
             this._router.navigate(['/chat', res.data.roomId]);
           },
           error: (err: IApiResponseError) => {

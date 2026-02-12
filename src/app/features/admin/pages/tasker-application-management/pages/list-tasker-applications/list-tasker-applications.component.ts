@@ -75,7 +75,6 @@ export class ListTaskerApplicationsComponent implements OnInit {
       ...c,
       search,
     }));
-    console.log(this.filter());
     this.getApplications();
   }
 

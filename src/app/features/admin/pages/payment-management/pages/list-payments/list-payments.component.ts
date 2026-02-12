@@ -89,7 +89,6 @@ export class ListPaymentsComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.payments.set(res.data.documents);
           this.pagination.set(res.data.meta);
         },

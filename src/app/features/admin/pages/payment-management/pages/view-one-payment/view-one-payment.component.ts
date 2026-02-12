@@ -48,7 +48,6 @@ export class ViewOnePaymentComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.payment = res.data;
         },
         error: (err: IApiResponseError) => {

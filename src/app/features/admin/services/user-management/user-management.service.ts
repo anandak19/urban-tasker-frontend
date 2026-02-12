@@ -34,7 +34,6 @@ export class UserManagementService {
   }
 
   suspendUser(id: string, reason: string) {
-    console.log(`${id} - ${reason}`);
     return this._http.patch<IOneUserResponse>(
       `${this._apiEndPoint}/${id}/suspend`,
       { suspendedReason: reason },
@@ -42,7 +41,6 @@ export class UserManagementService {
   }
 
   unsuspendUser(id: string) {
-    console.log(`${id}`);
     return this._http.patch<IOneUserResponse>(
       `${this._apiEndPoint}/${id}/unsuspend`,
       {},

@@ -19,6 +19,8 @@ import {
 import { IApplicationStatusInfoForm } from '@features/admin/models/tasker-application.model';
 import { TaskerApplicationStatus } from '@shared/constants/enums/application-status.enum';
 import { TaskerApplicationManagementService } from '@features/admin/services/tasker-application-management/tasker-application-management.service';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { IApiResponseError } from '@shared/models/api-response.model';
 
 @Component({
   selector: 'app-status-modal',
@@ -37,6 +39,7 @@ export class StatusModalComponent implements OnInit {
   statusForm!: FormGroup;
   private _taskerApplication = inject(TaskerApplicationManagementService);
   private _fb = inject(FormBuilder);
+  private _snackbar = inject(SnackbarService);
   private data: ITaskerApplication = inject(DIALOG_DATA);
   private _dialog = inject(DialogRef, { optional: true });
 
@@ -85,11 +88,10 @@ export class StatusModalComponent implements OnInit {
         .changeApplicationStatus(this.data.id, applicationStatusInfo)
         .subscribe({
           next: (res) => {
-            console.log(res);
             this.close(res.success);
           },
-          error: (err) => {
-            console.log(err);
+          error: (err: IApiResponseError) => {
+            this._snackbar.error(err.message);
           },
         });
     }

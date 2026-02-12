@@ -34,3 +34,11 @@ export interface IStatusGraphData {
   cancelled: number;
   overdue: number;
 }
+
+export interface IPaymentStatusData {
+  created: number;
+  attempted: number;
+  paid: number;
+  faild: number;
+  pending: number;
+}

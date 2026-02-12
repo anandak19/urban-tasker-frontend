@@ -104,7 +104,6 @@ export class AddPortfolioModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('h');
     this.initForm();
   }
 }

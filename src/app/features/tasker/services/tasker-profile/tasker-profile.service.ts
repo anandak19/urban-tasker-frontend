@@ -31,7 +31,6 @@ export class TaskerProfileService {
 
   // to update tasker about
   updateTaskerAbout(payload: ITaskerAbout) {
-    console.log('payload', payload);
     return this._http.patch<IBaseApiResponse>(
       `${this.API_ENDPOINT}/about`,
       payload,

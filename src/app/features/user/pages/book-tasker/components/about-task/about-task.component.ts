@@ -27,6 +27,7 @@ import { CategoryService } from '@core/services/category/category.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { SubCategoryService } from '@core/services/category/sub-category.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-about-task',
@@ -48,6 +49,7 @@ export class AboutTaskComponent implements OnInit {
   private _bookTaskerService = inject(BookTaskerService);
   private _categoryService = inject(CategoryService);
   private _subCategoryService = inject(SubCategoryService);
+  private _snackbarService = inject(SnackbarService);
   private _destroyRef = inject(DestroyRef);
 
   onNext() {
@@ -115,11 +117,10 @@ export class AboutTaskComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.subCategoryOptions.set(res.data);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
+          this._snackbarService.error(err.message);
         },
       });
   }
@@ -130,11 +131,10 @@ export class AboutTaskComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res.data);
           this.categoryOptions.set(res.data);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
+          this._snackbarService.error(err.message);
         },
       });
   }

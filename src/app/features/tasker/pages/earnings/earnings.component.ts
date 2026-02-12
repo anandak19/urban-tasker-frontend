@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
@@ -23,7 +23,7 @@ import { PaginationComponent } from '@features/admin/components/pagination/pagin
   templateUrl: './earnings.component.html',
   styleUrl: './earnings.component.scss',
 })
-export class EarningsComponent {
+export class EarningsComponent implements OnInit {
   pagination = signal<IPaginationMeta>({
     limit: 0,
     page: 1,
@@ -67,7 +67,6 @@ export class EarningsComponent {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res.data);
           this.walletDetails.set(res.data);
           this.getTransactionHistory();
         },
