@@ -51,8 +51,6 @@ export class GraphVisualizationComponent implements OnInit, AfterViewInit {
         ...curr,
         startDate: this.startDate as string,
       }));
-
-      console.log(typeof this.startDate);
       // call the method to get the graph data with filter here
       this.getGraphData();
     }
@@ -64,8 +62,6 @@ export class GraphVisualizationComponent implements OnInit, AfterViewInit {
         ...curr,
         endDate: this.endDate as string,
       }));
-
-      console.log(typeof this.endDate);
       this.getGraphData();
       // call the method to get the graph data with filter here
     }
@@ -98,7 +94,6 @@ export class GraphVisualizationComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: (res) => {
           this.graphDataResponse.set(res.data);
-          console.log(this.ngxGraphData());
 
           this.chart.data.labels = this.chartLabels();
           this.chart.data.datasets[0].data = this.data();

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 import {
   IUserData,
@@ -15,6 +15,9 @@ import { IOptionData } from '@shared/models/form-inputs.model';
 import { UserRoles } from '@shared/constants/enums/user.enum';
 import { DropdownComponent } from '@shared/components/dropdown/dropdown.component';
 import { IUserFilter } from '@features/admin/models/user-filter.model';
+import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { IApiResponseError } from '@shared/models/api-response.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-list-users',
@@ -32,6 +35,8 @@ export class ListUsersComponent implements OnInit {
   private _usersManagementService = inject(UserManagementService);
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
+  private _snackbarService = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
   users!: IUserData[];
   pagination = signal<IPaginationMeta>({
     limit: 0,
@@ -71,17 +76,19 @@ export class ListUsersComponent implements OnInit {
   }
 
   getUsers() {
-    this._usersManagementService.getAllUsers(this.filter()).subscribe({
-      next: (res) => {
-        const response = res as IGetAllUsersSuccessResponse;
-        this.users = response.data.allUsers;
-        console.log(response.data.allUsers);
-        this.pagination.set(response.data.metaData);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this._usersManagementService
+      .getAllUsers(this.filter())
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          const response = res as IGetAllUsersSuccessResponse;
+          this.users = response.data.allUsers;
+          this.pagination.set(response.data.metaData);
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbarService.error(err.message);
+        },
+      });
   }
 
   onViewClick(id: string) {
@@ -94,7 +101,6 @@ export class ListUsersComponent implements OnInit {
       page: 1,
       search,
     }));
-    console.log(`Search: ${search} find it`);
     this.getUsers();
   }
 

@@ -70,6 +70,11 @@ export class ListPaymentsComponent implements OnInit {
     this.getAllPayments();
   }
 
+  onSearch(search: string) {
+    this.filter.update((cur) => ({ ...cur, search }));
+    this.getAllPayments();
+  }
+
   onPaymentStatusChange(status: PaymentStatus) {
     this.filter.update((curr) => ({
       ...curr,
@@ -84,7 +89,6 @@ export class ListPaymentsComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.payments.set(res.data.documents);
           this.pagination.set(res.data.meta);
         },

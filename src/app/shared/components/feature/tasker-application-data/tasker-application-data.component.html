@@ -65,13 +65,27 @@
     <!-- 2 image showing compoenent  -->
     <div class="images-wrapper">
       <app-form-field-wrapper label="Front Image" [isFormField]="false">
-        <div class="image">
+        <div
+          class="image"
+          (click)="
+            onImagePreview(taskerApplicationData()?.idProof?.frontImage ?? '')
+          "
+          role="button"
+          tabindex="0"
+        >
           <img [src]="taskerApplicationData()?.idProof?.frontImage" alt="" />
         </div>
       </app-form-field-wrapper>
 
       <app-form-field-wrapper label="Back Image" [isFormField]="false">
-        <div class="image">
+        <div
+          class="image"
+          (click)="
+            onImagePreview(taskerApplicationData()?.idProof?.backImage ?? '')
+          "
+          role="button"
+          tabindex="0"
+        >
           <img [src]="taskerApplicationData()?.idProof?.backImage" alt="" />
         </div>
       </app-form-field-wrapper>

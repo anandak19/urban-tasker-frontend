@@ -64,6 +64,13 @@
     }
   }
 
+  .status-graphs {
+    display: flex;
+    &__graph {
+      flex: 1;
+    }
+  }
+
   @include respond('xs') {
     .reports-summary {
       &__item {
@@ -79,6 +86,10 @@
       &__value {
         font-size: $font-size-sm;
       }
+    }
+
+    .status-graphs {
+      flex-direction: column;
     }
   }
 }

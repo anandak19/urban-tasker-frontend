@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   inject,
   Input,
   OnInit,
@@ -19,6 +20,7 @@ import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.servi
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { TaskerApplicationStatus } from '@shared/constants/enums/application-status.enum';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view-one-tasker-application',
@@ -40,6 +42,7 @@ export class ViewOneTaskerApplicationComponent implements OnInit {
   private _dialog = inject(Dialog);
   private _confirmDialog = inject(ConfirmDialogService);
   private _snackbar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   private _taskerApplicationManagement = inject(
     TaskerApplicationManagementService,
@@ -52,11 +55,13 @@ export class ViewOneTaskerApplicationComponent implements OnInit {
       data: this.taskerApplicationData(),
     });
 
-    dialogRef.closed.subscribe((statusChanged) => {
-      if (statusChanged) {
-        this.getApplicationData();
-      }
-    });
+    dialogRef.closed
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((statusChanged) => {
+        if (statusChanged) {
+          this.getApplicationData();
+        }
+      });
   }
 
   async onApprove() {
@@ -67,9 +72,9 @@ export class ViewOneTaskerApplicationComponent implements OnInit {
     if (yes) {
       this._taskerApplicationManagement
         .approveApplication(this.applicationId)
+        .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
-            console.log(res);
             this._snackbar.success(res.message);
             this.getApplicationData();
           },
@@ -83,6 +88,7 @@ export class ViewOneTaskerApplicationComponent implements OnInit {
   getApplicationData() {
     this._taskerApplicationManagement
       .findOneApplicationById(this.applicationId)
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
           this.taskerApplicationData.set(res.data);

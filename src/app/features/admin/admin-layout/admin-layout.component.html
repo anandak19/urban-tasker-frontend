@@ -20,6 +20,7 @@
       <app-sidebar
         [collapsed]="hideText()"
         [sideMenuItems]="sideMenuItems"
+        (collapse)="onSidenavClose()"
       ></app-sidebar>
     </mat-sidenav>
 

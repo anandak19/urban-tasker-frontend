@@ -1,6 +1,7 @@
 <div class="category-listing">
-  <app-categorey-card [categoryData]="category"></app-categorey-card>
-  <app-categorey-card [categoryData]="category"></app-categorey-card>
-  <app-categorey-card [categoryData]="category"></app-categorey-card>
-  <app-categorey-card [categoryData]="category"></app-categorey-card>
+  @for (item of categories; track $index) {
+    <app-categorey-card [categoryData]="item"></app-categorey-card>
+  }@empty {
+    <p class="empty-text">Nothing to show</p>
+  }
 </div>

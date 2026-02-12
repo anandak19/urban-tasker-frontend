@@ -1,0 +1,49 @@
+@use 'index' as *;
+
+.graph {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 100%;
+
+  &__head {
+    padding-bottom: $spacing-3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2 {
+      font-size: $font-size-lg;
+    }
+  }
+
+  &__filter {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .date-input {
+      outline: none;
+      padding: 6px 8px;
+      font-size: 14px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      min-width: 160px;
+    }
+  }
+
+  &__body {
+    background-color: #e8e7e3;
+    height: 300px;
+    padding: $spacing-2;
+  }
+
+  canvas {
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  @include respond('xs') {
+    width: 100%;
+  }
+}

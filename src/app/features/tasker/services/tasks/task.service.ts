@@ -62,8 +62,6 @@ export class TaskService {
   }
 
   private getTasksFilterParam(filter: ITaskFilter) {
-    console.log(filter);
-
     let params = new HttpParams();
     Object.entries(filter).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {

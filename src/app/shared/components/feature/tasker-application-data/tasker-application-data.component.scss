@@ -79,4 +79,16 @@
       }
     }
   }
+
+  @include respond('xs') {
+    &__id-data {
+      .images-wrapper {
+        display: flex;
+        flex-direction: column;
+        .image {
+          width: 240px;
+        }
+      }
+    }
+  }
 }

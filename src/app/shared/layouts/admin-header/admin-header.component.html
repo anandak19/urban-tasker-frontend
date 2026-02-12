@@ -6,8 +6,12 @@
 
   <div class="admin-header__right">
     <!-- <app-notification></app-notification> -->
+    <app-button (clickEvent)="exitDashboard()">Exit Dashboard</app-button>
+
     <app-user-profile-circle
-      (logout)="onAdminLogut()"
+      [imageUrl]="imageUrl"
+      (logout)="exitDashboard()"
+      (clickProfile)="onProfile()"
     ></app-user-profile-circle>
   </div>
 </mat-toolbar>

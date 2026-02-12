@@ -8,9 +8,8 @@ describe('ComplaintManagementLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComplaintManagementLayoutComponent]
-    })
-    .compileComponents();
+      imports: [ComplaintManagementLayoutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ComplaintManagementLayoutComponent);
     component = fixture.componentInstance;

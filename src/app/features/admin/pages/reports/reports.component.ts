@@ -26,6 +26,7 @@ import { IOptionData } from '@shared/models/form-inputs.model';
 import { IBaseFilters } from '@shared/models/request-data.model';
 import { GraphVisualizationComponent } from './components/graph-visualization/graph-visualization.component';
 import { StatusBasedBookingDoughnutGraphComponent } from './components/status-based-booking-doughnut-graph/status-based-booking-doughnut-graph.component';
+import { PaymentStatusPiChartComponent } from './components/payment-status-pi-chart/payment-status-pi-chart.component';
 
 export interface IBookingSummeryFilter extends IBaseFilters {
   groupBy: BookingGroupBy;
@@ -41,6 +42,7 @@ export interface IBookingSummeryFilter extends IBaseFilters {
     PaginationComponent,
     GraphVisualizationComponent,
     StatusBasedBookingDoughnutGraphComponent,
+    PaymentStatusPiChartComponent,
   ],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss',

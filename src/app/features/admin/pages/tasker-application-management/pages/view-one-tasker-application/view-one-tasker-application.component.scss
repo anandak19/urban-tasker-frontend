@@ -24,4 +24,10 @@
     @include center-div;
     gap: $spacing-2;
   }
+
+  @include respond('xs') {
+    &__wrapper {
+      width: 100%;
+    }
+  }
 }

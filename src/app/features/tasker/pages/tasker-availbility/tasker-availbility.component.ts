@@ -106,11 +106,10 @@ export class TaskerAvailbilityComponent implements OnInit {
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
-            console.log(res);
+            this._snackbar.success(res.message);
             this.getAvailabilities();
           },
           error: (err: IApiResponseError) => {
-            console.log(err);
             this._snackbar.error(err.message);
           },
         });
@@ -128,7 +127,6 @@ export class TaskerAvailbilityComponent implements OnInit {
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
-            console.log(res);
             this._snackbar.success(res.message);
             this.getAvailabilities();
           },
@@ -146,10 +144,9 @@ export class TaskerAvailbilityComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.availability.set(res.data);
-          console.log(this.availability);
         },
-        error: (err) => {
-          console.error(err);
+        error: (err: IApiResponseError) => {
+          this._snackbar.error(err.message);
         },
       });
   }

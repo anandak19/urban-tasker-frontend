@@ -1,4 +1,11 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { AdminPageTitleComponent } from '@features/admin/components/admin-page-title/admin-page-title.component';
 import { BackButtonComponent } from '@features/admin/components/back-button/back-button.component';
 import { IUserData } from '@features/admin/models/user-data.interface';
@@ -12,6 +19,7 @@ import { SuspendModalComponent } from '../../components/suspend-modal/suspend-mo
 import { ConfirmDialogService } from '@core/services/dialog/confirm-dialog.service';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view-one-user',
@@ -37,17 +45,20 @@ export class ViewOneUserComponent implements OnInit {
   private _dialog = inject(Dialog);
   private _confirmDialog = inject(ConfirmDialogService);
   private _snackbar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   getUserData() {
-    this._userManagement.getUserById(this.userId).subscribe({
-      next: (res) => {
-        console.log(res.data);
-        this.userData.set(res.data);
-      },
-      error: (err: IApiResponseError) => {
-        console.log(err);
-      },
-    });
+    this._userManagement
+      .getUserById(this.userId)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.userData.set(res.data);
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbar.error(err.message);
+        },
+      });
   }
 
   get fullName() {
@@ -63,17 +74,18 @@ export class ViewOneUserComponent implements OnInit {
 
     if (yes) {
       // userId
-      this._userManagement.unsuspendUser(this.userId).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.userData.set(res.data);
-          this._snackbar.success('Un-Suspended User successfully');
-        },
-        error: (err: IApiResponseError) => {
-          console.log(err);
-          this._snackbar.error(err.message);
-        },
-      });
+      this._userManagement
+        .unsuspendUser(this.userId)
+        .pipe(takeUntilDestroyed(this._destroyRef))
+        .subscribe({
+          next: (res) => {
+            this.userData.set(res.data);
+            this._snackbar.success('Un-Suspended User successfully');
+          },
+          error: (err: IApiResponseError) => {
+            this._snackbar.error(err.message);
+          },
+        });
     }
   }
 
@@ -86,22 +98,27 @@ export class ViewOneUserComponent implements OnInit {
         width: '450px',
       });
 
-      dialogRef.closed.subscribe((reason) => {
-        if (reason) this.suspendUser(reason as string);
-      });
+      dialogRef.closed
+        .pipe(takeUntilDestroyed(this._destroyRef))
+        .subscribe((reason) => {
+          if (reason) this.suspendUser(reason as string);
+        });
     }
   }
 
   suspendUser(reason: string) {
-    this._userManagement.suspendUser(this.userId, reason).subscribe({
-      next: (res) => {
-        this.userData.set(res.data);
-        this._snackbar.success('Suspended user successfully');
-      },
-      error: (err: IApiResponseError) => {
-        this._snackbar.error(err.message);
-      },
-    });
+    this._userManagement
+      .suspendUser(this.userId, reason)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.userData.set(res.data);
+          this._snackbar.success('Suspended user successfully');
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbar.error(err.message);
+        },
+      });
   }
 
   ngOnInit(): void {

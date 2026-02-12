@@ -8,9 +8,8 @@ describe('EmptyChatBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmptyChatBoxComponent]
-    })
-    .compileComponents();
+      imports: [EmptyChatBoxComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EmptyChatBoxComponent);
     component = fixture.componentInstance;

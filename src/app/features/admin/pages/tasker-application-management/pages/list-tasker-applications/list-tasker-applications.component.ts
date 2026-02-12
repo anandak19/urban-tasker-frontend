@@ -70,6 +70,14 @@ export class ListTaskerApplicationsComponent implements OnInit {
     this.getApplications();
   }
 
+  onSearch(search: string) {
+    this.filter.update((c) => ({
+      ...c,
+      search,
+    }));
+    this.getApplications();
+  }
+
   onViewClicked(id: string) {
     this._router.navigate([`${id}`], { relativeTo: this._route });
   }

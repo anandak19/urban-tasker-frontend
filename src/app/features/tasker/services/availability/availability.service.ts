@@ -12,7 +12,10 @@ export class AvailabilityService {
   private _http = inject(HttpClient);
 
   createDefault() {
-    return this._http.patch(`${this.API_ENDPOINT}/default`, {});
+    return this._http.patch<IBaseApiResponse>(
+      `${this.API_ENDPOINT}/default`,
+      {},
+    );
   }
 
   findTaskerAvailabilities() {

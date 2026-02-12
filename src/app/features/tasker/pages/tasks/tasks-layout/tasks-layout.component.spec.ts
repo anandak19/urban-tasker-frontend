@@ -8,9 +8,8 @@ describe('TasksLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TasksLayoutComponent]
-    })
-    .compileComponents();
+      imports: [TasksLayoutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TasksLayoutComponent);
     component = fixture.componentInstance;

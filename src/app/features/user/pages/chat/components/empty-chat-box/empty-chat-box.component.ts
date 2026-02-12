@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-empty-chat-box',
   imports: [],
   templateUrl: './empty-chat-box.component.html',
-  styleUrl: './empty-chat-box.component.scss'
+  styleUrl: './empty-chat-box.component.scss',
 })
-export class EmptyChatBoxComponent {
-
-}
+export class EmptyChatBoxComponent {}

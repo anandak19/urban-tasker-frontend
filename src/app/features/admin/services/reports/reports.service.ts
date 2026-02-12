@@ -4,6 +4,7 @@ import { IFindAllBookingSummery } from '@features/admin/models/api-response.mode
 import {
   IDashboardSummary,
   IGraphDataItem,
+  IPaymentStatusData,
   IStatusGraphData,
 } from '@features/admin/models/reports.mode';
 import { IBookingSummeryFilter } from '@features/admin/pages/reports/reports.component';
@@ -49,6 +50,12 @@ export class ReportsService {
   getStatusGraphData() {
     return this._http.get<IApiResponseSuccess<IStatusGraphData>>(
       `${this.API_ENDPOINT}/status-graph`,
+    );
+  }
+
+  getPaymentStatusGraphData() {
+    return this._http.get<IApiResponseSuccess<IPaymentStatusData>>(
+      `${this.API_ENDPOINT}/payment-status-graph`,
     );
   }
 }
