@@ -9,7 +9,7 @@ import { IApiResponseSuccess } from '@shared/models/api-response.model';
 export class HomeService {
   // mocke api url
   private _apiUrl = 'auth/protected';
-  private BOOKINGS_API_ENDPOINT = 'bookings';
+  private BOOKINGS_API_ENDPOINT = 'common/bookings';
 
   private _http = inject(HttpClient);
 
