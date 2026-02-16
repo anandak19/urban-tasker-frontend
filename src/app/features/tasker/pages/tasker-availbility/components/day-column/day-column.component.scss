@@ -25,6 +25,7 @@
     padding: $spacing-2;
     background: $box-green;
     border-radius: $border-radius-sm;
+    font-weight: $font-weight-medium;
     position: relative;
     text-align: center;
     cursor: pointer;
@@ -44,7 +45,8 @@
 
     &--disabled {
       background-color: $box-red;
-      color: $red;
+      color: $red-text;
+      font-weight: $font-weight-bold;
       &:hover {
         background-color: color.adjust($box-red, $lightness: 10%);
       }

@@ -79,4 +79,16 @@
       }
     }
   }
+
+  @include respond('xs') {
+    padding: 0 $spacing-2;
+
+    .images {
+      flex-wrap: nowrap;
+    }
+
+    .image {
+      flex: 1;
+    }
+  }
 }

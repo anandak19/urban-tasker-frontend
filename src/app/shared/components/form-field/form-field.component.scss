@@ -32,4 +32,8 @@
   .error-input {
     border-color: $red;
   }
+
+  @include respond('xs') {
+    flex: 1;
+  }
 }

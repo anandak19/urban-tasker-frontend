@@ -114,6 +114,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scroll(0, 0);
     this._userService
       .getUserData()
       .pipe(takeUntilDestroyed(this._destroyRef))

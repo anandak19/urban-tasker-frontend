@@ -8,31 +8,19 @@
     color: $background-text;
     transition: all 0.2s ease-in;
     span {
-      color: $background-text;
+      color: $black;
     }
 
     // When hovering
     &:hover {
       background-color: $background-hover;
-
-      mat-icon {
-        color: $white;
-      }
-      span {
-        color: $white;
-      }
     }
 
     // Active route
     &.active {
       background-color: $primary-color;
-      color: $white;
 
       mat-icon {
-        color: $black;
-      }
-
-      span {
         color: $black;
       }
     }

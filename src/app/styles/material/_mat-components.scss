@@ -106,14 +106,28 @@
 
 // time picker
 :root {
-  @include mat.timepicker-overrides((
-    container-background-color: $white,
-  ));
+  @include mat.timepicker-overrides(
+    (
+      container-background-color: $white,
+    )
+  );
 }
 
 // dialog
 :root {
-  @include mat.dialog-overrides((
-    container-color: $white,
-  ));
+  @include mat.dialog-overrides(
+    (
+      container-color: $white,
+    )
+  );
+}
+
+// tab
+:root {
+  @include mat.tabs-overrides(
+    (
+      active-label-text-color: $black,
+      inactive-hover-label-text-color: $background-text,
+    )
+  );
 }

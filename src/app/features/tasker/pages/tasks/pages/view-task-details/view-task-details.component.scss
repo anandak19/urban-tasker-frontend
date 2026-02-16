@@ -29,4 +29,15 @@
     display: flex;
     justify-content: space-between;
   }
+
+  @include respond('xs') {
+    &__wrapper {
+      flex-direction: column;
+    }
+
+    &__left,
+    &__right {
+      width: 100%;
+    }
+  }
 }
