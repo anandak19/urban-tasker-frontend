@@ -14,9 +14,6 @@ app-admin-header {
     align-items: center;
     &:hover {
       background-color: $background-hover;
-      mat-icon {
-        color: $white;
-      }
     }
   }
 }
@@ -45,5 +42,4 @@ app-admin-header {
 
 .background {
   background-color: $background;
-  color: $white;
 }
