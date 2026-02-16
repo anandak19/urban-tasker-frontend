@@ -8,12 +8,22 @@
     grid-template-columns: repeat(2, 1fr);
     gap: $spacing-6;
   }
+
   &__signup-btn {
     margin-top: $spacing-6;
   }
 
+  &__login-option{
+    margin-top: $spacing-3;
+    color: $background-text;
+    a{
+      color: $black;
+      cursor: pointer;
+    }
+  }
+
   @include respond('xs') {
-    padding: $spacing-3;
+    padding: $spacing-2;
 
     &__form-fields {
       display: flex;

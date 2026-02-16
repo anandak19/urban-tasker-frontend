@@ -7,8 +7,7 @@
   &__main,
   &__options {
     border: $input-border;
-    background-color: $black;
-    color: $white;
+    background-color: $inputs;
     border-radius: $border-radius-sm;
     font-size: $font-size-sm;
   }
@@ -43,7 +42,7 @@
       li {
         padding: $spacing-2;
         &:hover {
-          background-color: $black-hover;
+          background-color: $inputs;
         }
       }
     }
@@ -54,7 +53,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: $black;
+    background: $inputs;
   }
 
   &--small {

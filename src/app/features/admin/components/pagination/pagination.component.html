@@ -4,8 +4,9 @@
       class="pagination-container__nav-btn"
       (click)="goPrev()"
       [disabled]="isPrevDisabled"
+      mat-icon-button
     >
-      Prev
+      <mat-icon class="material-icons-outlined">arrow_back_ios</mat-icon>
     </button>
 
     <span class="pagination-container__page-info">
@@ -16,8 +17,9 @@
       class="pagination-container__nav-btn"
       (click)="goNext()"
       [disabled]="isNextDisabled"
+      mat-icon-button
     >
-      Next
+      <mat-icon class="material-icons-outlined">arrow_forward_ios</mat-icon>
     </button>
   </div>
 }

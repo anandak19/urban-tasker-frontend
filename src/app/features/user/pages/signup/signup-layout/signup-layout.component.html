@@ -1,32 +1,36 @@
 <div class="signup-layout">
-  <h2>Signup</h2>
-  <div class="signup-layout__stepper-container">
-    <!-- indicators  -->
-    @if (stepper) {
-      <div class="signup-layout__circle-steps">
-        @for (step of stepper.steps; track step; let i = $index) {
-          <div class="circle" [class.active]="stepper.selectedIndex === i">
-            {{ i + 1 }}
-          </div>
-        }
-      </div>
-    }
+  <div class="signup-layout__content-wrapper">
+    <h2>Signup</h2>
+    <div class="signup-layout__stepper-container">
+      <!-- indicators  -->
+      @if (stepper) {
+        <div class="signup-layout__circle-steps">
+          @for (step of stepper.steps; track step; let i = $index) {
+            <div class="circle" [class.active]="stepper.selectedIndex === i">
+              {{ i + 1 }}
+            </div>
+          }
+        </div>
+      }
 
-    <mat-horizontal-stepper [linear]="true" #stepper>
-      <!-- Step 1: Basic Info -->
-      <mat-step>
-        <app-signup-form (nextStep)="initOtpForm(stepper)"></app-signup-form>
-      </mat-step>
+      <mat-horizontal-stepper [linear]="true" #stepper>
+        <!-- Step 1: Basic Info -->
+        <mat-step>
+          <app-signup-form (nextStep)="initOtpForm(stepper)"></app-signup-form>
+        </mat-step>
 
-      <!-- Step 2: OTP Verification -->
-      <mat-step>
-        <app-otp-varify (nextStep)="stepper.next()"></app-otp-varify>
-      </mat-step>
+        <!-- Step 2: OTP Verification -->
+        <mat-step>
+          <app-otp-varify (nextStep)="stepper.next()"></app-otp-varify>
+        </mat-step>
 
-      <!-- Step 3: Password -->
-      <mat-step>
-        <app-password-form (singupCompleted)="resetForm()"></app-password-form>
-      </mat-step>
-    </mat-horizontal-stepper>
+        <!-- Step 3: Password -->
+        <mat-step>
+          <app-password-form
+            (singupCompleted)="resetForm()"
+          ></app-password-form>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
   </div>
 </div>

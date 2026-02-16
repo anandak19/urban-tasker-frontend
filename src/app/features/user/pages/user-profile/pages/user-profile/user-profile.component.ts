@@ -11,6 +11,8 @@ import { SectionTitleComponent } from '@features/user/components/section-title/s
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { TImageFile } from '@features/admin/models/category.interface';
 import { UserProfileService } from '@features/user/services/user/user-profile/user-profile.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,6 +21,8 @@ import { UserProfileService } from '@features/user/services/user/user-profile/us
     UserDataComponent,
     HomeLocationAddressComponent,
     SectionTitleComponent,
+    MatIcon,
+    MatIconButton,
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',

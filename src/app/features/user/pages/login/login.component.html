@@ -15,8 +15,17 @@
     </div>
 
     <div class="login-container__nav-option">
-      <small><a href="/forgot-password">Forgot Password ?</a></small>
-      <small>Don't have an account? <a href="/signup">Signup</a></small>
+      <small
+        ><a (click)="navigateForgotPassword()" role="button" tabindex="0"
+          >Forgot Password ?</a
+        ></small
+      >
+      <small
+        >Don't have an account?
+        <a (click)="navigateSignup()" role="button" tabindex="0"
+          >Signup</a
+        ></small
+      >
     </div>
   </div>
 </div>

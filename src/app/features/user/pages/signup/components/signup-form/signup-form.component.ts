@@ -28,6 +28,7 @@ import {
 import { finalize } from 'rxjs';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-form',
@@ -47,6 +48,7 @@ export class SignupFormComponent implements OnInit {
   //snackbar
   private _snackbarService = inject(SnackbarService);
   private _destroyRef = inject(DestroyRef);
+  private _routerService = inject(Router);
 
   basicForm!: FormGroup;
   isLoading = signal(false);
@@ -118,6 +120,10 @@ export class SignupFormComponent implements OnInit {
     } else {
       this.basicForm.markAllAsTouched();
     }
+  }
+
+  navigateLogin() {
+    this._routerService.navigate(['/login']);
   }
 
   ngOnInit(): void {

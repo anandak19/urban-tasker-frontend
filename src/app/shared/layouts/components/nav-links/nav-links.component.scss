@@ -5,11 +5,11 @@
   gap: $spacing-5;
   &__nav-item {
     text-decoration: none;
-    color: $white;
     padding: $spacing-1;
+    color: $black;
 
     &.active {
-      border-bottom: $border-width-thin solid $primary-color;
+      border-bottom: $border-width-thick solid $primary-color;
     }
   }
 

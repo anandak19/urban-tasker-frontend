@@ -9,7 +9,7 @@
     font-size: $font-size-sm;
     font-weight: $font-weight-regular;
     margin-bottom: $spacing-1;
-    color: $white;
+    color: $black;
   }
 
   input {
@@ -19,7 +19,6 @@
     background-color: $inputs;
     font-size: $font-size-sm;
     outline: none;
-    color: $white;
     transition: border-color 0.2s;
 
     &::placeholder {
