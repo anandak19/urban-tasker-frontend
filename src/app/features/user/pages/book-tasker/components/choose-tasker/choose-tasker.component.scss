@@ -2,7 +2,7 @@
 
 .choose-tasker {
   width: 90%;
-
+  color: $black;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -36,13 +36,8 @@
     }
 
     input {
-      color: #e5e7eb;
       margin: auto 0;
       padding: 0;
-    }
-
-    .mat-mdc-floating-label {
-      color: #94a3b8;
     }
   }
 

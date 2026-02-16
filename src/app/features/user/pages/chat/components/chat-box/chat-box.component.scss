@@ -32,7 +32,6 @@
   &__window-name {
     font-size: 15px;
     font-weight: 600;
-    color: $white;
   }
 
   /* MESSAGES */
@@ -44,7 +43,7 @@
     flex-direction: column;
     gap: 10px;
     background:
-      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
       url('/assets/images/chat-bg.png') center/cover no-repeat;
   }
 
@@ -52,13 +51,12 @@
     max-width: 65%;
     padding: 10px 12px;
     border-radius: 14px;
-    background-color: $primary-color-active;
+    background-color: $primary-color;
     color: $black;
     align-self: flex-end;
 
     &--incoming {
       background-color: $background-active;
-      color: $white;
       align-self: flex-start;
     }
   }
@@ -70,8 +68,8 @@
 
   &__message-status {
     text-align: right;
+    color: $black;
     margin-top: 4px;
-    color: $background-division;
 
     small {
       font-size: $font-size-xs;

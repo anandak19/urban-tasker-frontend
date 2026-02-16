@@ -4,6 +4,7 @@
   height: 100%;
   display: flex;
   align-items: center;
+  // color: $black;
   justify-content: center;
   background:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
@@ -26,13 +27,11 @@
   &__title {
     font-size: 18px;
     font-weight: 600;
-    color: #ffffff;
     margin-bottom: 8px;
   }
 
   &__subtitle {
     font-size: 14px;
-    color: #ffffff;
     line-height: 1.4;
   }
 }
