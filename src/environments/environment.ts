@@ -2,6 +2,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/api',
   socektUrl: 'http://localhost:3000',
+  stunUrl: 'stun:stun.l.google.com:19302',
   rzpKey: 'rzp_test_S6YvspMIUR6SGA',
 };
 
