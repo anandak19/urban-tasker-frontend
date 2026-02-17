@@ -11,18 +11,23 @@
             "
             alt=""
           />
-        </div>
-        <div class="picture-change">
-          <input
-            type="file"
-            #fileInput
-            accept="image/*"
-            hidden
-            (change)="onFileSelect($event)"
-          />
-          <app-button size="small" (clickEvent)="fileInput.click()"
-            >Change Profile Picture</app-button
-          >
+
+          <div class="picture-change">
+            <input
+              type="file"
+              #fileInput
+              accept="image/*"
+              hidden
+              (change)="onFileSelect($event)"
+            />
+            <button
+              mat-icon-button
+              class="edit-button"
+              (click)="fileInput.click()"
+            >
+              <mat-icon class="material-icons-outlined">edit</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -39,9 +44,13 @@
       <div class="user-profile__data-box">
         <div class="user-profile__box-title">
           <h3>Personal Data</h3>
-          <app-button size="small" (clickEvent)="onEditProfileBtnClick()"
-            >Edit</app-button
+          <button
+            mat-icon-button
+            class="edit-button"
+            (click)="onEditProfileBtnClick()"
           >
+            <mat-icon class="material-icons-outlined">edit</mat-icon>
+          </button>
         </div>
         <app-user-data [userData]="userData()"></app-user-data>
       </div>
@@ -49,9 +58,14 @@
       <div class="user-profile__data-box">
         <div class="user-profile__box-title">
           <h3>Home Location</h3>
-          <app-button size="small" (clickEvent)="onHomeAddressBtnClick()"
-            >Update Home Location</app-button
+
+          <button
+            mat-icon-button
+            class="edit-button"
+            (click)="onHomeAddressBtnClick()"
           >
+            <mat-icon class="material-icons-outlined">edit</mat-icon>
+          </button>
         </div>
         <app-home-location-address
           [userLocation]="userData()?.homeAddress || null"

@@ -3,12 +3,16 @@
 .signup-layout {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   height: calc(100vh - $header-height);
 
-  &__stepper-container {
-    width: 50%;
+  &__content-wrapper {
+    margin: auto 0;
+    @include section-box();
+    h2 {
+      text-align: center;
+    }
   }
 
   ::ng-deep .mat-horizontal-stepper-header-container {
@@ -41,14 +45,22 @@
   }
 
   @include respond('xs') {
-    height: fit-content;
     padding: $spacing-4 0;
-    h2 {
-      font-size: $font-size-lg;
+
+    &__content-wrapper {
+      
+      width: 90%;
+      margin: 0 auto;
+      padding: 0;
+      h2 {
+        text-align: center;
+        font-size: $font-size-lg;
+      }
     }
 
     &__stepper-container {
-      width: 90%;
+      width: 100%;
+      margin: 0 auto;
     }
   }
 }

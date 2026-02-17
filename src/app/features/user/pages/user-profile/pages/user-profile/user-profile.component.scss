@@ -28,12 +28,14 @@
     gap: $spacing-2;
     align-items: center;
     margin-bottom: $spacing-4;
+
     .picture-box {
       height: 150px;
       width: 150px;
       overflow: hidden;
       border-radius: $border-radius-full;
       border: $section-border;
+      position: relative;
       img {
         height: 100%;
         width: 100%;
@@ -42,7 +44,10 @@
     }
 
     .picture-change {
-      margin: 0 auto;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
     }
   }
 
@@ -62,5 +67,46 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+  }
+
+  .edit-button {
+    background-color: $primary-color;
+  }
+
+  @include respond('xs') {
+    padding: $spacing-1 $spacing-4;
+
+    &__profile-data-wrapper {
+      flex-direction: column;
+      gap: $spacing-2;
+      padding: $spacing-2;
+    }
+
+    &__left-section {
+      width: 100%;
+    }
+
+    &__right-section {
+      width: 100%;
+    }
+
+    &__profile-picture {
+      gap: $spacing-1;
+      margin-bottom: $spacing-2;
+
+      .picture-box {
+        height: 100px;
+        width: 100px;
+      }
+    }
+
+    .edit-button {
+      padding: $spacing-1;
+      width: 32px;
+      height: 32px;
+      mat-icon {
+        font-size: $font-size-md;
+      }
+    }
   }
 }

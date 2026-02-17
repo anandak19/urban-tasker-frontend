@@ -3,10 +3,11 @@
 .video-call {
   position: relative;
   width: 100%;
-  max-height: calc(100vh - $header-height);
+  min-height: calc(100vh - $header-height);
   background-color: #000;
   overflow: hidden;
   padding: 16px;
+  @include center-div();
 
   /* Centered remote video container */
   &__remote-wrapper {
@@ -97,6 +98,16 @@
 
     &:hover {
       background-color: #c62828;
+    }
+  }
+
+  @include respond('xs') {
+    &__remote-wrapper {
+      padding: 0 $spacing-2;
+    }
+
+    &__remote {
+      max-width: 100vw;
     }
   }
 }

@@ -31,7 +31,7 @@
     .image-upload-box {
       width: 120px;
       height: 120px;
-      border: 2px dashed #ccc;
+      border: 2px dashed $background-division;
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -41,8 +41,8 @@
       color: #666;
 
       &:hover {
-        border-color: #ffffff;
-        color: #ffffff;
+        border-color: $primary-color;
+        color: $background-text;
       }
     }
 
@@ -73,6 +73,30 @@
           height: 22px;
           cursor: pointer;
         }
+      }
+    }
+  }
+
+  @include respond('xs') {
+    &__form-wrapper {
+      form {
+        width: 100%;
+        gap: $spacing-4;
+      }
+    }
+
+    &__image-fields {
+      flex-direction: column;
+    }
+
+    .image-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      &__item {
+        width: 120px;
+        height: 120px;
       }
     }
   }

@@ -6,7 +6,7 @@
   <div class="availabilty-slot-modal__title">
     <h3>{{ isEditModal() ? 'Edit Slot' : 'Add Slot' }}</h3>
     @if (isInactive) {
-      <p style="color: red">Currently Disabled</p>
+      <p class="error-text">Currently Disabled</p>
     }
   </div>
 
@@ -15,8 +15,8 @@
     <form [formGroup]="slotForm" (ngSubmit)="onFormSubmit()">
       <div class="inputs">
         <!-- Start time  -->
-        <app-form-field-wrapper>
-          <mat-form-field>
+        <app-form-field-wrapper [isFormField]="false">
+          <mat-form-field appearance="outline">
             <mat-label>Start Time</mat-label>
             <input matInput [matTimepicker]="start" formControlName="start" />
             <mat-timepicker-toggle
@@ -28,8 +28,8 @@
         </app-form-field-wrapper>
 
         <!-- End time  -->
-        <app-form-field-wrapper>
-          <mat-form-field>
+        <app-form-field-wrapper [isFormField]="false">
+          <mat-form-field appearance="outline">
             <mat-label>End Time</mat-label>
             <input matInput [matTimepicker]="end" formControlName="end" />
             <mat-timepicker-toggle

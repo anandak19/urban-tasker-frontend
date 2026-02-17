@@ -82,3 +82,52 @@
     )
   );
 }
+
+// date picker
+:root {
+  @include mat.datepicker-overrides(
+    (
+      calendar-container-text-color: $black,
+      calendar-container-background-color: $white,
+    )
+  );
+}
+
+:root {
+  @include mat.form-field-overrides(
+    (
+      outlined-hover-outline-color: $black,
+      outlined-input-text-color: $black,
+      filled-input-text-color: $black,
+      select-option-text-color: $black,
+    )
+  );
+}
+
+// time picker
+:root {
+  @include mat.timepicker-overrides(
+    (
+      container-background-color: $white,
+    )
+  );
+}
+
+// dialog
+:root {
+  @include mat.dialog-overrides(
+    (
+      container-color: $white,
+    )
+  );
+}
+
+// tab
+:root {
+  @include mat.tabs-overrides(
+    (
+      active-label-text-color: $black,
+      inactive-hover-label-text-color: $background-text,
+    )
+  );
+}

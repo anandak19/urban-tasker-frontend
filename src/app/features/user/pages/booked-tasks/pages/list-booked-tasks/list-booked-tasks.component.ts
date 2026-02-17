@@ -40,7 +40,6 @@ export class ListBookedTasksComponent implements OnInit {
   status = TaskStatus;
   filter = signal<ITaskFilter>({
     page: 1,
-    limit: 5,
   });
 
   onChangeStatusFilter(selectedStatus?: TaskStatus) {

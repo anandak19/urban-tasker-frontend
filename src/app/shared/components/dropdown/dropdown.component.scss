@@ -4,11 +4,12 @@
   position: relative;
   min-width: 300px;
   white-space: nowrap;
+  color: $black;
   &__main,
   &__options {
     border: $input-border;
-    background-color: $black;
-    color: $white;
+    background-color: $inputs;
+
     border-radius: $border-radius-sm;
     font-size: $font-size-sm;
   }
@@ -42,8 +43,9 @@
       list-style: none;
       li {
         padding: $spacing-2;
+        cursor: pointer;
         &:hover {
-          background-color: $black-hover;
+          background-color: $secondary-color;
         }
       }
     }
@@ -54,7 +56,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: $black;
+    background: $inputs;
   }
 
   &--small {

@@ -58,4 +58,56 @@
     margin: $spacing-4 auto;
     width: 50%;
   }
+
+  @include respond('xs') {
+    padding: $spacing-8 $spacing-4;
+    &__wrapper {
+      width: 95%;
+
+      .title {
+        margin: $spacing-2 0;
+        gap: $spacing-2;
+        .content {
+          width: 240px;
+          h2 {
+            font-size: $font-size-md;
+          }
+          p {
+            font-size: $font-size-sm;
+          }
+        }
+      }
+
+      form {
+        gap: $spacing-2;
+        width: 100%;
+
+        app-back-button {
+          flex: 1;
+        }
+      }
+    }
+
+    &__basics,
+    &__work-categories,
+    &__id-proof {
+      width: 95%;
+    }
+
+    &__basics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    &__dropdown-wrapper {
+      width: 220px;
+      margin: $spacing-2 0;
+    }
+
+    &__id-proof {
+      .images-wrapper {
+        flex-direction: column;
+        gap: $spacing-4;
+      }
+    }
+  }
 }

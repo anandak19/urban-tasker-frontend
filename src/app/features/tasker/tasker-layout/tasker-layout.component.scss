@@ -14,9 +14,6 @@ app-tasker-header {
     align-items: center;
     &:hover {
       background-color: $background-hover;
-      mat-icon {
-        color: $white;
-      }
     }
   }
 }
@@ -45,5 +42,5 @@ app-tasker-header {
 
 .background {
   background-color: $background;
-  color: $white;
+  color: $black;
 }

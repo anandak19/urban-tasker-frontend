@@ -16,13 +16,13 @@
     <!-- button  -->
     @if (currentUser()?.userRole === userRoles.TASKER) {
       <app-button (clickEvent)="navigateTaskerDashboard()"
-        >View Tasker Dashboard</app-button
+        >Dashboard</app-button
       >
     } @else if (
       currentUser()?.email && currentUser()?.userRole !== userRoles.TASKER
     ) {
       <app-button variant="primary" (clickEvent)="bookTaskerClicked()"
-        >Book Tasker</app-button
+        >Book</app-button
       >
     }
     @if (currentUser()) {

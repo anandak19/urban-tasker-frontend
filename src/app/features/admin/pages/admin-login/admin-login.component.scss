@@ -4,26 +4,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - $header-height);
+  height: 100vh;
 
   &__wrapper {
-    padding: $spacing-2;
+    @include section-box();
     border-radius: $border-radius-md;
     background-color: $background;
-    width: 80%;
-    max-width: 400px;
+    width: 100%;
+    max-width: 500px;
     h2 {
       text-align: center;
       margin-bottom: $spacing-3;
-      color: $white;
+    }
+  }
+
+  &__exit {
+    margin-top: $spacing-3;
+    a {
+      font-size: $font-size-sm;
+      cursor: pointer;
     }
   }
 
   @include respond('xs') {
     flex-direction: column;
-    justify-content: flex-start;
-    height: auto;
-    padding-top: $spacing-8;
+    justify-content: center;
     &__wrapper {
       h2 {
         font-size: $font-size-lg;

@@ -62,4 +62,11 @@
     transition: transform 0.3s ease;
     display: block;
   }
+
+  @include respond('xs') {
+    &__gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: $spacing-2;
+    }
+  }
 }

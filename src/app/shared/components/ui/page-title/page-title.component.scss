@@ -6,11 +6,12 @@
   align-items: center;
   &__title {
     h2 {
+      color: $black;
       font-size: $font-size-xl;
       font-weight: $font-weight-medium;
-      color: $white;
     }
     p {
+      color: $black;
       font-size: $font-size-md;
     }
   }

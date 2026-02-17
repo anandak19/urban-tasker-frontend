@@ -17,6 +17,7 @@
       <!-- navigation links  -->
       <app-sidebar
         [collapsed]="hideText()"
+        (collapse)="onSidenavClose()"
         [sideMenuItems]="sideMenuItems"
       ></app-sidebar>
     </mat-sidenav>

@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, Input, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ButtonLoadingComponent } from '@shared/components/button-loading/button-loading.component';
 import { TextAreaFieldComponent } from '@shared/components/form/text-area-field/text-area-field.component';
@@ -25,7 +32,7 @@ import { Router } from '@angular/router';
   templateUrl: './add-review.component.html',
   styleUrl: './add-review.component.scss',
 })
-export class AddReviewComponent {
+export class AddReviewComponent implements OnInit {
   @Input() taskId!: string;
 
   private fb = inject(FormBuilder);
@@ -79,5 +86,9 @@ export class AddReviewComponent {
     };
 
     this.submitReview(createReview);
+  }
+
+  ngOnInit(): void {
+    window.scroll(0, 0);
   }
 }

@@ -18,7 +18,6 @@
       input[type='text'] {
         border: none;
         outline: none;
-        color: $white;
         background: transparent;
         font-size: $font-size-sm;
         width: 220px;
@@ -45,13 +44,13 @@
   }
 
   @include respond('xs') {
-    gap: 4px;
+    gap: $spacing-2;
     &__search-form {
       form {
         padding: $spacing-1;
 
         input[type='text'] {
-          width: 194px;
+          width: 154px;
           padding: $spacing-1;
         }
       }

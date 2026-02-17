@@ -35,16 +35,18 @@
         </span>
       </div>
 
-      <!-- Divider -->
-      <div class="payment-details-box__divider"></div>
+      @if (payment.payableAmount) {
+        <!-- Divider -->
+        <div class="payment-details-box__divider"></div>
 
-      <!-- Total Payable -->
-      <div class="payment-details-box__row payment-details-box__row--total">
-        <span class="payment-details-box__label">Total Amount</span>
-        <span class="payment-details-box__value">
-          {{ payment.payableAmount | currency: 'INR' : 'symbol' : '1.2-2' }}
-        </span>
-      </div>
+        <!-- Total Payable -->
+        <div class="payment-details-box__row payment-details-box__row--total">
+          <span class="payment-details-box__label">Total Amount</span>
+          <span class="payment-details-box__value">
+            {{ payment.payableAmount | currency: 'INR' : 'symbol' : '1.2-2' }}
+          </span>
+        </div>
+      }
     </div>
 
     <div class="actions">

@@ -68,6 +68,14 @@ export class LoginComponent {
       });
   }
 
+  navigateSignup() {
+    this._router.navigate(['/signup']);
+  }
+
+  navigateForgotPassword() {
+    this._router.navigate(['/forgot-password']);
+  }
+
   googleLoginClicked() {
     this._authServices.googleLogin();
   }

@@ -8,6 +8,7 @@
   min-height: calc(100vh - $header-height);
   padding: $spacing-8 0;
   margin-bottom: $spacing-8;
+  color: $black;
 
   &__wrapper {
     width: 50%;
@@ -28,6 +29,22 @@
     justify-content: center;
     app-button {
       margin: 0 auto;
+    }
+  }
+
+  @include respond('xs') {
+    &__wrapper {
+      width: 90%;
+    }
+
+    &__title-text {
+      font-size: $font-size-lg;
+    }
+
+    &__tasker-apply {
+      p {
+        font-size: $font-size-sm;
+      }
     }
   }
 }

@@ -4,9 +4,8 @@
   display: flex;
   align-items: center;
   background-color: $background;
-  color: $white;
   border-radius: $border-radius-md;
-  border: $border-width-thin solid $background-hover;
+  border: $border-width-thin solid $background-division;
   overflow: hidden;
   width: 100%;
   max-width: 600px;
@@ -41,7 +40,6 @@
 
       .category-name {
         font-size: $font-size-md;
-        color: $primary-color;
         font-weight: $font-weight-bold;
         margin: 0;
       }

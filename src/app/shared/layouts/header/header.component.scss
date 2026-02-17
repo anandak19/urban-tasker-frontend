@@ -2,11 +2,12 @@
 
 .app-header {
   width: 100%;
-  background-color: $black;
+  background-color: $background;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: $header-height;
+  border-bottom: 1px solid $background-division;
   position: fixed;
   top: 0;
   left: 0;

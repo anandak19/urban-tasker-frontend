@@ -30,6 +30,10 @@ export class AdminLoginComponent {
   private _router = inject(Router);
   private _destroyRef = inject(DestroyRef);
 
+  onExit() {
+    this._router.navigate(['/']);
+  }
+
   onLogin(data: ILoginData) {
     this._authService
       .localLogin(data)

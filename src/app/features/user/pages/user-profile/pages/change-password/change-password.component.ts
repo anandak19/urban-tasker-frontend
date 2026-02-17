@@ -114,5 +114,6 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    window.scroll(0, 0);
   }
 }

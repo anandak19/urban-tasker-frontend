@@ -5,4 +5,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(80px, auto);
+
+  @include respond('xs') {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-2
+  }
 }

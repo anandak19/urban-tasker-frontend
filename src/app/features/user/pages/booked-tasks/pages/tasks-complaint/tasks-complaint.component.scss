@@ -4,4 +4,8 @@
   width: 80%;
   margin: 0 auto;
   min-height: calc(100vh - $header-height);
+
+  @include respond('xs') {
+    width: 100%;
+  }
 }

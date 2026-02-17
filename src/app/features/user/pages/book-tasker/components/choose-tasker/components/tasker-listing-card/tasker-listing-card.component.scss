@@ -8,6 +8,7 @@
   border: 1px solid $background-division;
   border-radius: 12px;
   width: 100%;
+  color: $black;
 
   &__profile {
     display: flex;
@@ -53,7 +54,6 @@
     font-size: 1.1rem;
     font-weight: 600;
     margin: 0;
-    color: $white;
   }
 
   &__rating {
@@ -100,7 +100,7 @@
   &__rate-unit {
     font-size: 0.85rem;
     font-weight: 500;
-    color: $secondary-color;
+    color: $background-text;
     margin-left: 2px;
   }
 

@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { IPaginationMeta } from '@features/admin/models/common.interface';
 
 @Component({
   selector: 'app-pagination',
-  imports: [],
+  imports: [MatButtonModule, MatIconModule, MatIconButton, MatIcon],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss',
 })

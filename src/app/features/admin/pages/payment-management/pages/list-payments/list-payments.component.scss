@@ -11,8 +11,7 @@
     font-size: 14px;
     border-radius: 8px;
     border: 1px solid $primary-color;
-    background-color: $black;
-    color: #ffffff;
+    background-color: $inputs;
     cursor: pointer;
     transition:
       border-color 0.15s ease,
@@ -20,12 +19,8 @@
 
     &:focus {
       outline: none;
-      border-color: #6366f1;
+      border-color: $primary-color;
       box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
-    }
-
-    option {
-      color: #ffffff;
     }
   }
 

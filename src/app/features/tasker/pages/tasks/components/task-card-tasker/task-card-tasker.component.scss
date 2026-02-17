@@ -37,14 +37,13 @@
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 6px;
-    color: $white;
   }
 
   &__meta {
     display: flex;
     gap: 12px;
     font-size: 13px;
-    color: #777;
+    color: $background-text;
     margin-bottom: 12px;
   }
 
@@ -58,14 +57,14 @@
     font-size: 13px;
     border-radius: 6px;
     border: none;
-    background-color: #ffd000;
+    background-color: $primary-color;
     color: #000;
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #f5c400;
+      background-color: $primary-color-hover;
     }
   }
 
@@ -84,7 +83,7 @@
     }
 
     &--accepted {
-      color: #067647;
+      color: $success-green;
       background-color: #dcfce7;
       border: 1px solid #86efac;
 
