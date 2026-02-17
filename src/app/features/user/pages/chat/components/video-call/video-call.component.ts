@@ -1,11 +1,13 @@
 import {
   Component,
+  DestroyRef,
   ElementRef,
   inject,
   OnInit,
   signal,
   ViewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
@@ -51,6 +53,7 @@ export class VideoCallComponent implements OnInit {
   private _callStateService = inject(CallStateService);
   private _router = inject(Router);
   private _snackbar = inject(SnackbarService);
+  private _destroyRef = inject(DestroyRef);
 
   // handle local ice candidates
   handleLocalIceCandidates(event: RTCPeerConnectionIceEvent) {
@@ -191,6 +194,16 @@ export class VideoCallComponent implements OnInit {
     this._snackbar.info('Call ended');
   }
 
+  onConnectionError() {
+    this._pcService.pcDisconnected$
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: () => {
+          this.hangup();
+        },
+      });
+  }
+
   onCallHangup() {
     this._videoCallService.onCallHangup().subscribe({
       next: (data) => {
@@ -241,6 +254,7 @@ export class VideoCallComponent implements OnInit {
     this.onAnswer();
     this.onRemoteStrem();
     this.onCallHangup();
+    this.onConnectionError();
     if (this._callStateService.mode === 'caller') {
       console.log('to caller details');
       console.log(this._callStateService.toUserId);

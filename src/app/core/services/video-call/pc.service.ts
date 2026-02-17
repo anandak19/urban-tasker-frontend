@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
 import { Subject } from 'rxjs';
 
 @Injectable()
@@ -10,8 +11,11 @@ export class PcService {
   private remoteStream = new MediaStream();
   public gotRemoteStream = new Subject<MediaStream>();
 
+  private pcDisconnetedSubject = new Subject<void>();
+  pcDisconnected$ = this.pcDisconnetedSubject.asObservable();
+
   config = {
-    iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+    iceServers: [{ urls: environment.stunUrl }],
   };
 
   init(): void {
@@ -21,6 +25,7 @@ export class PcService {
 
     console.log('ICE gathering state:', this.peerConnection.iceGatheringState);
 
+    // local ice candidate handle
     this.peerConnection.addEventListener('icecandidate', (e) => {
       console.log(
         'Local ICE gathering state:',
@@ -29,6 +34,7 @@ export class PcService {
       this.onIceCandidate.next(e);
     });
 
+    // on remote track received
     this.peerConnection.addEventListener('track', (e) => {
       console.log('Got remote track:', e.track.kind);
 
@@ -37,8 +43,17 @@ export class PcService {
       this.gotRemoteStream.next(this.remoteStream);
     });
 
+    // connection state change event
     this.peerConnection.onconnectionstatechange = () => {
       console.log('connectionState:', this.peerConnection.connectionState);
+      const state = this.peerConnection.connectionState;
+      if (
+        state === 'disconnected' ||
+        state === 'failed' ||
+        state === 'closed'
+      ) {
+        this.pcDisconnetedSubject.next();
+      }
     };
 
     this.peerConnection.oniceconnectionstatechange = () => {
@@ -58,8 +73,8 @@ export class PcService {
   }
 
   cleanup() {
-    this.pc.getSenders().forEach((s) => this.pc.removeTrack(s));
-    this.pc.close();
+    this.pc?.getSenders().forEach((s) => this.pc.removeTrack(s));
+    this.pc?.close();
   }
 
   // Add Track
@@ -140,6 +155,7 @@ export class PcService {
 
   // close the peerConnection
   public close() {
+    console.log('close connection method called');
     this.pc.close();
   }
 
