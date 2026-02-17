@@ -13,10 +13,19 @@
       <div class="footer__links">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a>About Us</a></li>
+          <li>
+            <a (click)="navigateTo('/tasks')" role="button" tabindex="0"
+              >Bookings</a
+            >
+          </li>
+          <li>
+            <a (click)="navigateTo('/wallet')" role="button" tabindex="0"
+              >Wallet</a
+            >
+          </li>
+          <li><a>Contact</a></li>
+          <li><a>Privacy Policy</a></li>
         </ul>
       </div>
       <div class="footer__social">
