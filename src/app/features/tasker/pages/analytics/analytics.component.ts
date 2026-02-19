@@ -4,7 +4,6 @@ import {
   computed,
   DestroyRef,
   inject,
-  OnInit,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,12 +15,14 @@ import {
   IReportFilter,
   IReportGroupByFilter,
 } from '@shared/models/report/query-filter.model';
-import { Chart } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
 import { FormsModule } from '@angular/forms';
 import { BookingsCountChartComponent } from '@shared/components/feature/bookings-count-chart/bookings-count-chart.component';
 import { IBookingsCountReportData } from '@shared/models/report/report.model';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
+
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-analytics',
@@ -34,7 +35,7 @@ import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.scss',
 })
-export class AnalyticsComponent implements OnInit, AfterViewInit {
+export class AnalyticsComponent implements AfterViewInit {
   // injections
   private _reportsService = inject(TaskerReportsService);
   private _destroyRef = inject(DestroyRef);
@@ -114,10 +115,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
 
   // lifecycle
 
-  ngOnInit(): void {
-    this.getGraphData();
-  }
-
   ngAfterViewInit(): void {
     this.chart = new Chart('earnings-chart', {
       type: 'line',
@@ -138,5 +135,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         maintainAspectRatio: false,
       },
     });
+
+    this.getGraphData();
   }
 }

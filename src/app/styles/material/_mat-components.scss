@@ -127,6 +127,7 @@
   @include mat.tabs-overrides(
     (
       active-label-text-color: $black,
+      active-focus-label-text-color: $black,
       inactive-hover-label-text-color: $background-text,
     )
   );

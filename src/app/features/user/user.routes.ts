@@ -1,103 +1,141 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { CategoriesComponent } from './pages/categories/categories.component';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { signupDirtyGuard } from './guards/signup/signup-dirty.guard';
-import { SignupLayoutComponent } from './pages/signup/signup-layout/signup-layout.component';
 import { userAuthGuard } from './guards/auth/user-auth.guard';
 import { isLoginGuard } from './guards/login/is-login.guard';
-import { TaskerApplicationComponent } from './pages/become-tasker/tasker-application/tasker-application.component';
-import { ViewTaskerApplicationComponent } from './pages/become-tasker/view-tasker-application/view-tasker-application.component';
-import { BookTaskerLayoutComponent } from './pages/book-tasker/book-tasker-layout/book-tasker-layout.component';
-import { BookedTasksRoutes } from './pages/booked-tasks/booked-tasks.routes';
-import { BookedTasksLayoutComponent } from './pages/booked-tasks/booked-tasks-layout/booked-tasks-layout.component';
-import { UserProfileRoutes } from './pages/user-profile/user-profile.routes';
-import { UserProfileLayoutComponent } from './pages/user-profile/user-profile-layout/user-profile-layout.component';
-import { ChatRoutes } from './pages/chat/chat.routes';
-import { WalletComponent } from './pages/wallet/wallet/wallet.component';
-import { UserViewTaskerProfileComponent } from './pages/user-view-tasker-profile/user-view-tasker-profile.component';
-
-export const SIGNUP_FEATURE_KEY = 'signup';
 
 export const userRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    loadComponent: () =>
+      import('./pages/home/home.component').then((c) => c.HomeComponent),
   },
+
   {
     path: 'signup',
     canActivate: [isLoginGuard],
-    component: SignupLayoutComponent,
     canDeactivate: [signupDirtyGuard],
+    loadComponent: () =>
+      import('./pages/signup/signup-layout/signup-layout.component').then(
+        (c) => c.SignupLayoutComponent,
+      ),
   },
+
   {
     path: 'login',
     canActivate: [isLoginGuard],
     loadComponent: () =>
       import('./pages/login/login.component').then((c) => c.LoginComponent),
   },
+
   {
     path: 'forgot-password',
     canActivate: [isLoginGuard],
-    component: ForgotPasswordComponent,
+    loadComponent: () =>
+      import('./pages/forgot-password/forgot-password.component').then(
+        (c) => c.ForgotPasswordComponent,
+      ),
   },
+
   {
     path: 'reset-password',
     canActivate: [isLoginGuard],
-    component: ResetPasswordComponent,
+    loadComponent: () =>
+      import('./pages/reset-password/reset-password.component').then(
+        (c) => c.ResetPasswordComponent,
+      ),
   },
+
   {
     path: 'categories',
     canActivate: [userAuthGuard],
-    component: CategoriesComponent,
+    loadComponent: () =>
+      import('./pages/categories/categories.component').then(
+        (c) => c.CategoriesComponent,
+      ),
   },
+
   {
     path: 'profile',
-    children: UserProfileRoutes,
     canActivate: [userAuthGuard],
-    component: UserProfileLayoutComponent,
+    loadComponent: () =>
+      import(
+        './pages/user-profile/user-profile-layout/user-profile-layout.component'
+      ).then((c) => c.UserProfileLayoutComponent),
+    loadChildren: () =>
+      import('./pages/user-profile/user-profile.routes').then(
+        (r) => r.UserProfileRoutes,
+      ),
   },
-  // tasker/application
+
+  // Tasker Application
   {
     path: 'tasker/application',
+    canActivate: [userAuthGuard],
     children: [
       {
         path: '',
-        component: ViewTaskerApplicationComponent,
+        loadComponent: () =>
+          import(
+            './pages/become-tasker/view-tasker-application/view-tasker-application.component'
+          ).then((c) => c.ViewTaskerApplicationComponent),
       },
       {
         path: 'apply',
-        component: TaskerApplicationComponent,
+        loadComponent: () =>
+          import(
+            './pages/become-tasker/tasker-application/tasker-application.component'
+          ).then((c) => c.TaskerApplicationComponent),
       },
     ],
   },
 
-  // book tasker
+  // Book Tasker
   {
     path: 'book-tasker',
-    component: BookTaskerLayoutComponent,
+    canActivate: [userAuthGuard],
+    loadComponent: () =>
+      import(
+        './pages/book-tasker/book-tasker-layout/book-tasker-layout.component'
+      ).then((c) => c.BookTaskerLayoutComponent),
   },
 
-  // list tasks
+  // Tasks
   {
     path: 'tasks',
-    component: BookedTasksLayoutComponent,
-    children: BookedTasksRoutes,
+    loadComponent: () =>
+      import(
+        './pages/booked-tasks/booked-tasks-layout/booked-tasks-layout.component'
+      ).then((c) => c.BookedTasksLayoutComponent),
+    loadChildren: () =>
+      import('./pages/booked-tasks/booked-tasks.routes').then(
+        (r) => r.BookedTasksRoutes,
+      ),
   },
 
-  // sample chat
+  // Chat
   {
     path: 'chat',
-    children: ChatRoutes,
+    canActivate: [userAuthGuard],
+    loadChildren: () =>
+      import('./pages/chat/chat.routes').then((r) => r.ChatRoutes),
   },
-  // wallet
+
+  // Wallet
   {
     path: 'wallet',
-    component: WalletComponent,
+    canActivate: [userAuthGuard],
+    loadComponent: () =>
+      import('./pages/wallet/wallet/wallet.component').then(
+        (c) => c.WalletComponent,
+      ),
   },
+
   {
     path: 'tasker/:taskerId/profile',
-    component: UserViewTaskerProfileComponent,
+    canActivate: [userAuthGuard],
+    loadComponent: () =>
+      import(
+        './pages/user-view-tasker-profile/user-view-tasker-profile.component'
+      ).then((c) => c.UserViewTaskerProfileComponent),
   },
 ];

@@ -4,7 +4,11 @@
   tabindex="0"
   [matMenuTriggerFor]="menu"
 >
-  <img [src]="imageUrl || 'assets/defaults/default-user.png'" alt="User" />
+  <img
+    [src]="imageUrl || 'assets/defaults/default-user.png'"
+    alt="User"
+    loading="lazy"
+  />
 </button>
 
 <mat-menu #menu="matMenu">
