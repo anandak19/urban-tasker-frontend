@@ -13,7 +13,8 @@
     @for (item of subCategories(); track item.id) {
       <app-service-category-card
         (parentCategorySelect)="onSubCategorySelect($event)"
-        [categoryCard]="item">
+        [categoryCard]="item"
+      >
       </app-service-category-card>
     }
   </div>

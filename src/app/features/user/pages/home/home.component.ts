@@ -22,20 +22,4 @@ export class HomeComponent {
   private _homeService = inject(HomeService);
   private _snackBar = inject(SnackbarService);
   private _destroyRef = inject(DestroyRef);
-
-  // mocke api call
-  getProtectedData() {
-    this._homeService
-      .getProtectedData()
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this._snackBar.success('Protected data received');
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-  }
 }

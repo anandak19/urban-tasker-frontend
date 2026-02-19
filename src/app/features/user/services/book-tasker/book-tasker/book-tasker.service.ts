@@ -137,8 +137,6 @@ export class BookTaskerService {
       ...this.whenWhere,
       ...this.taskerData,
     };
-    console.log('The complete data');
-    console.log(this.bookingData);
     // remining logics
     return this._http.post<IBaseApiResponse>(
       this.BOOKING_API_ENDPOINT,
@@ -163,11 +161,9 @@ export class BookTaskerService {
       time: this.whenWhere.time,
       subcategoryId: this.aboutTask.subcategoryId,
     };
-    console.log('payload in avail taskers ', payload);
 
     this._taskerService.getAvailableTaskers(payload, filter).subscribe({
       next: (res) => {
-        console.log(res);
         this.setAvailTaskers(res.data.documents);
         this.paginationData.set(res.data.meta);
       },

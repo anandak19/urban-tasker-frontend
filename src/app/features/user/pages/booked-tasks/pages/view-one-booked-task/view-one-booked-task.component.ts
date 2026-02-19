@@ -72,7 +72,6 @@ export class ViewOneBookedTaskComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.bookingDetails.set(res.data);
         },
         error: (err: IApiResponseError) => {
@@ -96,7 +95,6 @@ export class ViewOneBookedTaskComponent implements OnInit {
         )
         .subscribe({
           next: (res) => {
-            console.log(res.data);
             this._router.navigate(['/chat', res.data.roomId]);
           },
           error: (err: IApiResponseError) => {
@@ -149,7 +147,6 @@ export class ViewOneBookedTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.taskId);
     this.getBookingDetails();
   }
 }

@@ -49,7 +49,6 @@ export class AddWorkCategoryComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res.data);
           this.categoryOptions.set(res.data);
           this.categoryForm.reset();
         },
@@ -65,7 +64,6 @@ export class AddWorkCategoryComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.subCategoryOptions.set(res.data);
         },
         error: (err: IApiResponseError) => {
@@ -88,7 +86,6 @@ export class AddWorkCategoryComponent implements OnInit {
   }
 
   addCategory(categoryId: string) {
-    console.log(categoryId);
     this._taskerProfileService
       .addTaskerWorkCateories(categoryId)
       .pipe(takeUntilDestroyed(this._destroyRef))

@@ -95,7 +95,6 @@ export class UpdatePersonalDataComponent implements OnInit {
   }
 
   updatePersonalData(payload: IPersonalDetails) {
-    console.log('Personal data', payload);
     this._userProfileService
       .updatePersonalData(payload)
       .pipe(
@@ -104,13 +103,11 @@ export class UpdatePersonalDataComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
           this._snackbar.success(res.message);
           this.resetForm();
           this._router.navigate(['/profile']);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
           this._snackbar.error(err.message);
         },
       });

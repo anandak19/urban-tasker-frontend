@@ -68,8 +68,6 @@ export class ChangePasswordComponent implements OnInit {
 
   onSubmit(): void {
     this.isSubmitted.set(true);
-    console.log(this.passwordForm);
-
     if (this.passwordForm.invalid) {
       this.passwordForm.markAllAsTouched();
       return;
@@ -101,12 +99,10 @@ export class ChangePasswordComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
           this._snackbar.success(res.message);
           this._router.navigate(['/login']);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
           this._snackbar.error(err.message);
         },
       });

@@ -90,7 +90,6 @@ export class AboutTaskComponent implements OnInit {
 
   // call api or cache data here
   submitAboutTask(aboutTaskData: IBookTaskerAboutTask) {
-    console.log('Payload to backend:', aboutTaskData);
     this._bookTaskerService.saveAboutTask(aboutTaskData);
     this.onNext();
   }
@@ -122,7 +121,6 @@ export class AboutTaskComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.subCategoryOptions.set(res.data);
-          console.log(res);
         },
         error: (err: IApiResponseError) => {
           this._snackbarService.error(err.message);

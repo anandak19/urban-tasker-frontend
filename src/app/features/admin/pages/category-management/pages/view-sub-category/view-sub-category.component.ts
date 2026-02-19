@@ -47,7 +47,6 @@ export class ViewSubCategoryComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res.data);
           this.subcategoryDetails.set(res.data);
         },
         error: (err: IApiResponseError) => {

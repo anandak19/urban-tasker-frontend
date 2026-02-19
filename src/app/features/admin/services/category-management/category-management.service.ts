@@ -16,7 +16,6 @@ export class CategoryManagementService {
   private _http = inject(HttpClient);
 
   addCategory(categoryData: FormData) {
-    console.log('Category to add', categoryData);
     return this._http.post(`${this.apiEndPoint}`, categoryData);
   }
 
@@ -28,8 +27,6 @@ export class CategoryManagementService {
   }
 
   getAllCategories(query: IBaseFilters) {
-    console.log('par', buildQuery(query));
-
     return this._http.get<IFindAllCategoriesResponse>(`${this.apiEndPoint}`, {
       params: buildQuery(query),
     });

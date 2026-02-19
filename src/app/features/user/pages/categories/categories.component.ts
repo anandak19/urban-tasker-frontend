@@ -34,7 +34,6 @@ export class CategoriesComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.categories.set(res.data);
         },
         error: (err: IApiResponseError) => {

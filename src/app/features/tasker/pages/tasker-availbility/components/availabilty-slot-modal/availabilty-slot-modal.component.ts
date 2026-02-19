@@ -90,13 +90,11 @@ export class AvailabiltySlotModalComponent implements OnInit {
         .changeStatus(this._slotData.slot.id, updatedIsActive)
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
-          next: (res) => {
-            console.log(res);
+          next: () => {
             this.onClose(true);
             this._snackbar.success('Updated status');
           },
           error: (err: IApiResponseError) => {
-            console.log(err);
             this._snackbar.error(err.message);
           },
         });
@@ -108,13 +106,11 @@ export class AvailabiltySlotModalComponent implements OnInit {
       .createSlot(newSlot)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
-        next: (res) => {
-          console.log(res);
+        next: () => {
           this.onClose(true);
           this._snackbar.success('Slot added successfully');
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
           this._snackbar.error(err.message);
         },
       });
@@ -126,13 +122,11 @@ export class AvailabiltySlotModalComponent implements OnInit {
         .updateSlot(this._slotData.slot.id, updatedSlot)
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
-          next: (res) => {
-            console.log(res);
+          next: () => {
             this.onClose(true);
             this._snackbar.success('Slot updated successfully');
           },
           error: (err: IApiResponseError) => {
-            console.log(err);
             this._snackbar.error(err.message);
           },
         });
@@ -201,8 +195,7 @@ export class AvailabiltySlotModalComponent implements OnInit {
       .deleteSlot(slotId)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
-        next: (res) => {
-          console.log(res);
+        next: () => {
           this.onClose(true);
           this._snackbar.success('Succssfully Deleted');
         },
@@ -224,7 +217,6 @@ export class AvailabiltySlotModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this._slotData);
     this.initForm();
     if (this._slotData.slot) {
       this.isEditModal.set(true);

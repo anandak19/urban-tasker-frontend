@@ -58,13 +58,11 @@ export class ChangeComplaintStatusModalComponent implements OnInit {
   private _snackbar = inject(SnackbarService);
 
   changeStatus(update: IChangeComplaintStatus) {
-    console.log(update);
     this._complaintManagement
       .changeStatus(this.data.id, update)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this._snackbar.success(res.message);
           this.close(true);
         },

@@ -69,13 +69,11 @@ export class ListTasksComponent implements OnInit {
   }
 
   getAllTasks() {
-    console.log(this.filter());
     this._taskService
       .getAllTasks(this.filter())
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res.data);
           this.tasks.set(res.data.documents);
           this.pagination.set(res.data.meta);
         },

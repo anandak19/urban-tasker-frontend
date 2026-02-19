@@ -47,7 +47,6 @@ export class ResetPasswordComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
           const result = res as IBasicDataResponse;
           this.isFormReset.set(true);
           const snackbarRef = this._snackbar.success(result.message);

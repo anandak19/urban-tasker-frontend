@@ -66,7 +66,6 @@ export class UpdateAboutMeModalComponent implements OnInit {
   submit(): void {
     if (this.aboutForm.invalid) return;
     const updatedAbout = this.aboutForm.value.about?.trim();
-    console.log(this.aboutForm.value.about);
     const payload: ITaskerAbout = {
       about: updatedAbout,
     };
@@ -76,7 +75,6 @@ export class UpdateAboutMeModalComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.dialogRef.close(updatedAbout);
           this._snackbarService.success(res.message);
         },

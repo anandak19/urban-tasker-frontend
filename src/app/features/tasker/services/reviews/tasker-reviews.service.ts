@@ -14,7 +14,6 @@ export class TaskerReviewsService {
 
   getMyReviews(filter: IBaseFilters) {
     const params = new HttpParams({ fromObject: { ...filter } });
-    console.log('called get my revies');
 
     return this._http.get<IFindAllReviewResponse>(`${this.API_ENDPOINT}/me`, {
       params,

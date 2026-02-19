@@ -63,8 +63,6 @@ export class ChatLayoutComponent implements OnInit {
   chatUsers = signal<IChatUsers[]>([]);
 
   async joinChat(chat: IChatUsers) {
-    console.log(chat);
-
     await this._chatSocket.joinChat(chat.id);
     this.updateChatUrl(chat.id);
     this.currentChat.set(chat);
@@ -101,7 +99,6 @@ export class ChatLayoutComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.chatUsers.set(res.data);
         },
         error: (err: IApiResponseError) => {

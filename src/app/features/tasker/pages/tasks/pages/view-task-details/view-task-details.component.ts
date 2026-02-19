@@ -59,11 +59,8 @@ export class ViewTaskDetailsComponent implements OnInit {
   status = TaskStatus;
 
   getTaskData() {
-    console.log(this.taskId);
-
     this._bookingService.getOneBooking(this.taskId).subscribe({
       next: (res) => {
-        console.log(res);
         this.bookingDetails.set(res.data);
       },
       error: (err: IApiResponseError) => {

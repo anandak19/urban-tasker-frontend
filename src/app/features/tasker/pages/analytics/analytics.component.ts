@@ -21,7 +21,7 @@ import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper
 import { FormsModule } from '@angular/forms';
 import { BookingsCountChartComponent } from '@shared/components/feature/bookings-count-chart/bookings-count-chart.component';
 import { IBookingsCountReportData } from '@shared/models/report/report.model';
-import { PageTitleComponent } from "@shared/components/ui/page-title/page-title.component";
+import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
 
 @Component({
   selector: 'app-analytics',
@@ -29,8 +29,8 @@ import { PageTitleComponent } from "@shared/components/ui/page-title/page-title.
     FormFieldWrapperComponent,
     FormsModule,
     BookingsCountChartComponent,
-    PageTitleComponent
-],
+    PageTitleComponent,
+  ],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.scss',
 })
@@ -75,7 +75,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         endDate: this.endDate as string,
       }));
 
-      console.log(typeof this.endDate);
       this.getGraphData();
       // call the method to get the graph data with filter here
     }

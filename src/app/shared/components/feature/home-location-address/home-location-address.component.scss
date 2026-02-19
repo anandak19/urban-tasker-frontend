@@ -8,6 +8,6 @@
 
   @include respond('xs') {
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-2
+    gap: $spacing-2;
   }
 }

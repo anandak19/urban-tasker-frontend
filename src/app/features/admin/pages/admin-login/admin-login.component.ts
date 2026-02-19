@@ -42,8 +42,7 @@ export class AdminLoginComponent {
         finalize(() => this.isLoding.set(false)),
       )
       .subscribe({
-        next: (res) => {
-          console.log(res);
+        next: () => {
           this.loginFormChild.resetForm();
           const snackbarRef = this._snackbar.success('Login Successfull');
           snackbarRef

@@ -74,7 +74,6 @@ export class ListCategoryComponent implements OnInit {
     this._categoryManagementService.getAllCategories(this.filter()).subscribe({
       next: (res) => {
         this.categories = res.data.documents;
-        console.log(res);
         this.pagination.set(res.data.meta);
       },
       error: (err: IApiResponseError) => {

@@ -83,7 +83,6 @@ export class ComplaintFormComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
           this._snackbar.success(res.message);
           this.isComplaintCreated.emit();
         },
@@ -94,10 +93,7 @@ export class ComplaintFormComponent implements OnInit {
   }
 
   submitComplaint() {
-    console.log('submited');
-
     if (this.complaintForm.invalid) {
-      console.log('invalid');
       this.complaintForm.markAllAsTouched();
       return;
     }

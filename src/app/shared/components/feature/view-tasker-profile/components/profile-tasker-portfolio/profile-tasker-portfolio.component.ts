@@ -60,18 +60,6 @@ export class ProfileTaskerPortfolioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Portfolio');
     this.getPortfolioImages();
-
-    this.gallaryImages.set([
-      'https://i.pinimg.com/736x/90/e5/9f/90e59fc779d1313944e72bb0271f6bb2.jpg',
-      'https://i.pinimg.com/736x/90/e5/9f/90e59fc779d1313944e72bb0271f6bb2.jpg',
-      'https://i.pinimg.com/736x/90/e5/9f/90e59fc779d1313944e72bb0271f6bb2.jpg',
-      'https://i.pinimg.com/736x/90/e5/9f/90e59fc779d1313944e72bb0271f6bb2.jpg',
-      'https://i.pinimg.com/736x/90/e5/9f/90e59fc779d1313944e72bb0271f6bb2.jpg',
-      'https://i.pinimg.com/736x/90/e5/9f/90e59fc779d1313944e72bb0271f6bb2.jpg',
-      'https://i.pinimg.com/736x/90/e5/9f/90e59fc779d1313944e72bb0271f6bb2.jpg',
-      'https://i.pinimg.com/736x/90/e5/9f/90e59fc779d1313944e72bb0271f6bb2.jpg',
-    ]);
   }
 }

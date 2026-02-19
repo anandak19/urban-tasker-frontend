@@ -51,7 +51,6 @@ export class AddSubCategoryComponent {
           this.subcategoryForm.resetForm();
         },
         error: (err: IApiResponseError) => {
-          console.log(`Error`, err);
           this._snackbar.error(err.message);
         },
       });

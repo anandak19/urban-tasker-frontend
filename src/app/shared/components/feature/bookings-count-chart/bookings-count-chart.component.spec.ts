@@ -8,9 +8,8 @@ describe('BookingsCountChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BookingsCountChartComponent]
-    })
-    .compileComponents();
+      imports: [BookingsCountChartComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BookingsCountChartComponent);
     component = fixture.componentInstance;
