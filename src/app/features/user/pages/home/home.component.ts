@@ -4,10 +4,11 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
 import { PopularCategoriesComponent } from './components/popular-categories/popular-categories.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ApplicationSummaryComponent } from "./components/application-summary/application-summary.component";
 
 @Component({
   selector: 'app-home',
-  imports: [HomeHeroComponent, PopularCategoriesComponent],
+  imports: [HomeHeroComponent, PopularCategoriesComponent, ApplicationSummaryComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
