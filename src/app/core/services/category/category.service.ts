@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ICategoryData } from '@features/admin/models/category.interface';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
+import { ICategoryCard } from '@shared/models/categories/categories.model';
 import { IOptionResponse } from '@shared/models/common-api-responses.model';
 import { IOptionData } from '@shared/models/form-inputs.model';
 import { map } from 'rxjs';
@@ -10,12 +11,12 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoryService {
-  private readonly apiEndpoint = 'category';
+  private readonly API_ENDPOINT = 'category';
   private _http = inject(HttpClient);
 
   getAllActiveSubCategories() {
     return this._http
-      .get<IApiResponseSuccess<ICategoryData[]>>(this.apiEndpoint)
+      .get<IApiResponseSuccess<ICategoryData[]>>(this.API_ENDPOINT)
       .pipe(
         map((res) => {
           return res.data.map(
@@ -28,7 +29,13 @@ export class CategoryService {
       );
   }
 
+  getActiveCategories() {
+    return this._http.get<IApiResponseSuccess<ICategoryCard[]>>(
+      `${this.API_ENDPOINT}`,
+    );
+  }
+
   getCategoryOptions() {
-    return this._http.get<IOptionResponse>(`${this.apiEndpoint}/options`);
+    return this._http.get<IOptionResponse>(`${this.API_ENDPOINT}/options`);
   }
 }

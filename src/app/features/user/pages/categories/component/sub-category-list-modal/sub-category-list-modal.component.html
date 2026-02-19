@@ -1,0 +1,20 @@
+<div class="list-subcategory">
+  <button
+    mat-icon-button
+    class="list-subcategory__close"
+    (click)="closeModal()"
+  >
+    <mat-icon class="material-icons-outlined">close</mat-icon>
+  </button>
+  <div class="list-subcategory__head">
+    <h2>{{ data.label }}</h2>
+  </div>
+  <div class="list-subcategory__cards-wrapper">
+    @for (item of subCategories(); track item.id) {
+      <app-parent-category-card
+        (parentCategorySelect)="onSubCategorySelect($event)"
+        [categoryCard]="item"
+      ></app-parent-category-card>
+    }
+  </div>
+</div>

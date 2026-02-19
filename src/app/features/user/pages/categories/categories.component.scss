@@ -1,0 +1,32 @@
+@use 'index' as *;
+
+.categories {
+  margin: $spacing-7 0;
+  min-height: calc(100vh - $header-height);
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  &__cards-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+
+  @include respond('xs') {
+    &__wrapper {
+      gap: $spacing-2;
+      width: 100%;
+    }
+
+    &__cards-wrapper {
+      gap: $spacing-2;
+    }
+  }
+}
