@@ -3,14 +3,19 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
-  selector: 'app-home-hero',
+  selector: 'app-ready-cta',
   imports: [ButtonComponent],
-  templateUrl: './home-hero.component.html',
-  styleUrl: './home-hero.component.scss',
+  templateUrl: './ready-cta.component.html',
+  styleUrl: './ready-cta.component.scss',
 })
-export class HomeHeroComponent {
+export class ReadyCtaComponent {
   private _router = inject(Router);
-  onBook() {
+
+  navigateBooking() {
     this._router.navigate(['/book-tasker']);
+  }
+
+  navigateBecomeTasker() {
+    this._router.navigate(['/tasker/application']);
   }
 }

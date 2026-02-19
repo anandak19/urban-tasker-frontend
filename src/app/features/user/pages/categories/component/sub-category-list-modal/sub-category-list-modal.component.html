@@ -11,10 +11,10 @@
   </div>
   <div class="list-subcategory__cards-wrapper">
     @for (item of subCategories(); track item.id) {
-      <app-parent-category-card
+      <app-service-category-card
         (parentCategorySelect)="onSubCategorySelect($event)"
-        [categoryCard]="item"
-      ></app-parent-category-card>
+        [categoryCard]="item">
+      </app-service-category-card>
     }
   </div>
 </div>

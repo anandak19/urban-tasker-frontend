@@ -1,0 +1,16 @@
+@use 'index' as *;
+
+.presentation-modal {
+  background-color: $modal-background;
+  padding: $spacing-2;
+
+  &__wrapper {
+    position: relative;
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}

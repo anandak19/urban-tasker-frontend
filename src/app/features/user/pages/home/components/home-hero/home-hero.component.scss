@@ -37,6 +37,11 @@
     }
   }
 
+  &__actions {
+    margin: $spacing-2 0;
+  }
+
+  // not using now
   &__search-box {
     background-color: $white;
     padding: $spacing-1;
@@ -69,9 +74,9 @@
 
   @include respond('sm') {
     height: calc(100vh - $header-height);
-      background:
-    linear-gradient(rgba(0, 0, 0, 0.367), rgba(0, 0, 0, 0.367)),
-    url('/assets/images/hero-bg-banner-mobile.png') center/cover no-repeat;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.367), rgba(0, 0, 0, 0.367)),
+      url('/assets/images/hero-bg-banner-mobile.png') center/cover no-repeat;
     &__content {
       gap: $spacing-2;
       h1 {
@@ -89,6 +94,7 @@
       }
     }
 
+    // not using now
     &__search-box {
       width: 20rem;
       input[type='text'] {

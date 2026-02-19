@@ -1,6 +1,5 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
-import { ParentCategoryCardComponent } from './component/parent-category-card/parent-category-card.component';
 import { CategoryService } from '@core/services/category/category.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -11,10 +10,11 @@ import { SubCategoryListModalComponent } from './component/sub-category-list-mod
 import { IOptionData } from '@shared/models/form-inputs.model';
 import { Router } from '@angular/router';
 import { BookingStateService } from '@features/user/services/book-tasker/book-tasker/booking-state.service';
+import { ServiceCategoryCardComponent } from './component/service-category-card/service-category-card.component';
 
 @Component({
   selector: 'app-categories',
-  imports: [PageTitleComponent, ParentCategoryCardComponent],
+  imports: [PageTitleComponent, ServiceCategoryCardComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
@@ -27,13 +27,6 @@ export class CategoriesComponent implements OnInit {
   private _bookingStateService = inject(BookingStateService);
 
   categories = signal<ICategoryCard[]>([]);
-
-  sampleCategory: ICategoryCard = {
-    id: 'dsf',
-    name: 'Pooa',
-    image:
-      'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
-  };
 
   getActiveCategories() {
     this._categoryService

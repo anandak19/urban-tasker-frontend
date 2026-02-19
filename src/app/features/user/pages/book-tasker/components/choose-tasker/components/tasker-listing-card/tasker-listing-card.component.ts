@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { IListTasker } from '@features/user/models/tasker/tasker.model';
 import { ButtonComponent } from '@shared/components/button/button.component';
+import { TaskerProfileModalComponent } from '../../../tasker-profile-modal/tasker-profile-modal.component';
 
 @Component({
   selector: 'app-tasker-listing-card',
@@ -16,7 +17,7 @@ export class TaskerListingCardComponent {
     taskerId: string;
   }>();
 
-  private _router = inject(Router);
+  private _matDialog = inject(MatDialog);
 
   // on choosing tasker
   onChoosingTasker(taskerId: string) {
@@ -24,6 +25,10 @@ export class TaskerListingCardComponent {
   }
 
   viewProfile(taskerId: string) {
-    this._router.navigate([`tasker/${taskerId}/profile`]);
+    this._matDialog.open(TaskerProfileModalComponent, {
+      data: taskerId,
+      width: '90vw',
+      minWidth: '90vw',
+    });
   }
 }

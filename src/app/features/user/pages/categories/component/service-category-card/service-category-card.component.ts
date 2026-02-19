@@ -4,12 +4,12 @@ import { ISubCategoryCard } from '@shared/models/categories/subcategories.model'
 import { IOptionData } from '@shared/models/form-inputs.model';
 
 @Component({
-  selector: 'app-parent-category-card',
+  selector: 'app-service-category-card',
   imports: [],
-  templateUrl: './parent-category-card.component.html',
-  styleUrl: './parent-category-card.component.scss',
+  templateUrl: './service-category-card.component.html',
+  styleUrl: './service-category-card.component.scss',
 })
-export class ParentCategoryCardComponent {
+export class ServiceCategoryCardComponent {
   @Input() categoryCard!: ISubCategoryCard;
   @Output() parentCategorySelect = new EventEmitter<IOptionData>();
 

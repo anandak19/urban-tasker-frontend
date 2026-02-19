@@ -6,13 +6,13 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
 import { ISubCategoryCard } from '@shared/models/categories/subcategories.model';
 import { IOptionData } from '@shared/models/form-inputs.model';
-import { ParentCategoryCardComponent } from '../parent-category-card/parent-category-card.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { ServiceCategoryCardComponent } from '../service-category-card/service-category-card.component';
 
 @Component({
   selector: 'app-sub-category-list-modal',
-  imports: [ParentCategoryCardComponent, MatIconButton, MatIcon],
+  imports: [ServiceCategoryCardComponent, MatIconButton, MatIcon],
   templateUrl: './sub-category-list-modal.component.html',
   styleUrl: './sub-category-list-modal.component.scss',
 })

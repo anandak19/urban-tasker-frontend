@@ -32,7 +32,6 @@ export class ListBookingsComponent implements OnInit {
 
   filter = signal<IListBookingQuery>({
     page: 1,
-    limit: 2,
   });
 
   bookings!: IBookingListing[];

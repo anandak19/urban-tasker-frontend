@@ -108,8 +108,6 @@ export class ProfileAboutTaskerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('About');
     this.getAboutData.emit();
-    console.log(this.taskerWorkCategories());
   }
 }

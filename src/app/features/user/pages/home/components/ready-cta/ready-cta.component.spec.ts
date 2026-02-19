@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubCategoryCardComponent } from './sub-category-card.component';
+import { ReadyCtaComponent } from './ready-cta.component';
 
-describe('SubCategoryCardComponent', () => {
-  let component: SubCategoryCardComponent;
-  let fixture: ComponentFixture<SubCategoryCardComponent>;
+describe('ReadyCtaComponent', () => {
+  let component: ReadyCtaComponent;
+  let fixture: ComponentFixture<ReadyCtaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SubCategoryCardComponent]
+      imports: [ReadyCtaComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SubCategoryCardComponent);
+    fixture = TestBed.createComponent(ReadyCtaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
