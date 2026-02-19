@@ -70,7 +70,6 @@ export class UserViewTaskerProfileComponent {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.taskerWorkCategories.set(res.data);
         },
         error: (err: IApiResponseError) => {
@@ -123,8 +122,6 @@ export class UserViewTaskerProfileComponent {
   onGetAverageRating() {
     this._reviewService.findTaskerAverageRating(this.taskerId).subscribe({
       next: (res) => {
-        console.log(res);
-
         this.avarageRating.set(res.data);
       },
       error: (err: IApiResponseError) => {

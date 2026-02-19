@@ -71,7 +71,6 @@ export class UserProfileComponent implements OnInit {
 
     return this._userProfileService.updateProfilePicture(formData).subscribe({
       next: (res) => {
-        console.log(res);
         this._snackbar.success(res.message);
       },
       error: (err: IApiResponseError) => {
@@ -120,7 +119,6 @@ export class UserProfileComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log('On get user', res);
           this.userData.set(res.data);
         },
         error: (err: IApiResponseError) => {

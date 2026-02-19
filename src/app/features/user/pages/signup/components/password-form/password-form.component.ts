@@ -42,7 +42,6 @@ export class PasswordFormComponent {
       )
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.singupCompleted.emit();
           const result = res as IBasicDataResponse;
           const snackRef = this._snackBar.success(result.message);
@@ -56,7 +55,6 @@ export class PasswordFormComponent {
         },
 
         error: (err: IApiResponseError) => {
-          console.log(err);
           this._snackBar.info(err.message);
         },
       });

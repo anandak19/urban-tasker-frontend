@@ -115,11 +115,9 @@ export class ViewCategoryComponent implements OnInit {
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
-            console.log(res);
             this.categoryData.set(res.data);
           },
           error: (err: IApiResponseError) => {
-            console.error(err);
             this._snackbar.error(err.message);
           },
         });
@@ -137,7 +135,6 @@ export class ViewCategoryComponent implements OnInit {
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe({
           next: (res) => {
-            console.log(res);
             this._snackbar.success(res.message);
             this._router.navigate(['/admin/category-management']);
           },
@@ -163,12 +160,10 @@ export class ViewCategoryComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log('Success', res);
           this.subcategories = res.data.documents;
           this.pagination.set(res.data.meta);
         },
         error: (err: IApiResponseError) => {
-          console.log('Error in adding sub cat', err);
           this._snackbar.error(err.message);
         },
       });
@@ -185,13 +180,11 @@ export class ViewCategoryComponent implements OnInit {
         },
         error: (err: IApiResponseError) => {
           this._snackbar.error(err.message);
-          console.log(err);
         },
       });
   }
 
   ngOnInit(): void {
-    console.log(this.categoryId);
     this.getCategoryDetails();
     this.getSubcategories();
   }

@@ -3,4 +3,6 @@ export interface IListCategoryCard {
   name: string;
   description: string;
   image: string;
+  parentCategoryName: string;
+  parentCategoryId: string;
 }

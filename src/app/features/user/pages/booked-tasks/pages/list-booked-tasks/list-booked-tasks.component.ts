@@ -64,7 +64,6 @@ export class ListBookedTasksComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res.data.documents);
           this.bookings.set(res.data.documents);
           this.paginationData.set(res.data.meta);
         },
@@ -83,8 +82,6 @@ export class ListBookedTasksComponent implements OnInit {
   }
 
   navigateTaskDetails(id: string) {
-    console.log(id);
-
     if (!id) return;
     this._router.navigate(['/tasks', id]);
   }

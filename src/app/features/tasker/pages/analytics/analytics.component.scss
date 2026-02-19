@@ -5,6 +5,11 @@
   width: 90%;
   margin: 0 auto;
 
+  &__setion {
+    margin-bottom: $spacing-2;
+    @include section-box();
+  }
+
   &__head {
     padding-bottom: $spacing-3;
     display: flex;
@@ -49,8 +54,8 @@
       gap: $spacing-2;
 
       .date-input {
-        padding: 4px 6px;
-        width: 120px;
+        padding: 2px 4px;
+        width: 100px;
       }
     }
   }

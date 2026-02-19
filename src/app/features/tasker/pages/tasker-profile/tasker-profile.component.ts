@@ -61,18 +61,15 @@ export class TaskerProfileComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.taskerCardData.set(res.data);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
+          this._snackbarService.error(err.message);
         },
       });
   }
 
   getAllPortfolioImages(filter: IBaseFilters = {}) {
-    console.log('called get portfolio');
-
     this._portfolioService
       .getAllTaskerPortfolioImages(filter)
       .pipe(takeUntilDestroyed(this._destroyRef))
@@ -181,7 +178,7 @@ export class TaskerProfileComponent implements OnInit {
           this.taskerWorkCategories.set(res.data);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
+          this._snackbarService.error(err.message);
         },
       });
   }

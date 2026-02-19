@@ -1,7 +1,7 @@
 <div class="category-listing">
   @for (item of categories; track $index) {
     <app-categorey-card [categoryData]="item"></app-categorey-card>
-  }@empty {
+  } @empty {
     <p class="empty-text">Nothing to show</p>
   }
 </div>

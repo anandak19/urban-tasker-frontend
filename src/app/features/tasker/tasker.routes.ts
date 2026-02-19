@@ -1,9 +1,4 @@
 import { Routes } from '@angular/router';
-import { TaskerAvailbilityComponent } from './pages/tasker-availbility/tasker-availbility.component';
-import { TaskerProfileComponent } from './pages/tasker-profile/tasker-profile.component';
-import { EarningsComponent } from './pages/earnings/earnings.component';
-import { TasksLayoutComponent } from './pages/tasks/tasks-layout/tasks-layout.component';
-import { TasksRoutes } from './pages/tasks/tasks.routes';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
 
 export const taskerRoutes: Routes = [
@@ -12,23 +7,41 @@ export const taskerRoutes: Routes = [
     redirectTo: 'tasks',
     pathMatch: 'full',
   },
+
   {
     path: 'tasks',
-    component: TasksLayoutComponent,
-    children: TasksRoutes,
+    loadComponent: () =>
+      import('./pages/tasks/tasks-layout/tasks-layout.component').then(
+        (c) => c.TasksLayoutComponent,
+      ),
+    loadChildren: () =>
+      import('./pages/tasks/tasks.routes').then((r) => r.TasksRoutes),
   },
+
   {
     path: 'availability',
-    component: TaskerAvailbilityComponent,
+    loadComponent: () =>
+      import('./pages/tasker-availbility/tasker-availbility.component').then(
+        (c) => c.TaskerAvailbilityComponent,
+      ),
   },
+
   {
     path: 'profile',
-    component: TaskerProfileComponent,
+    loadComponent: () =>
+      import('./pages/tasker-profile/tasker-profile.component').then(
+        (c) => c.TaskerProfileComponent,
+      ),
   },
+
   {
     path: 'earnings',
-    component: EarningsComponent,
+    loadComponent: () =>
+      import('./pages/earnings/earnings.component').then(
+        (c) => c.EarningsComponent,
+      ),
   },
+
   {
     path: 'analytics',
     component: AnalyticsComponent,

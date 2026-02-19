@@ -4,7 +4,6 @@ import {
   computed,
   DestroyRef,
   inject,
-  OnInit,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -12,18 +11,31 @@ import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { IGraphDataItem } from '@features/admin/models/reports.mode';
 import { TaskerReportsService } from '@features/tasker/services/reports/tasker-reports.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
-import { IReportFilter } from '@shared/models/report/query-filter.model';
-import { Chart } from 'chart.js';
+import {
+  IReportFilter,
+  IReportGroupByFilter,
+} from '@shared/models/report/query-filter.model';
+import { Chart, registerables } from 'chart.js';
 import { FormFieldWrapperComponent } from '@shared/components/form-field-wrapper/form-field-wrapper.component';
 import { FormsModule } from '@angular/forms';
+import { BookingsCountChartComponent } from '@shared/components/feature/bookings-count-chart/bookings-count-chart.component';
+import { IBookingsCountReportData } from '@shared/models/report/report.model';
+import { PageTitleComponent } from '@shared/components/ui/page-title/page-title.component';
+
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-analytics',
-  imports: [FormFieldWrapperComponent, FormsModule],
+  imports: [
+    FormFieldWrapperComponent,
+    FormsModule,
+    BookingsCountChartComponent,
+    PageTitleComponent,
+  ],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.scss',
 })
-export class AnalyticsComponent implements OnInit, AfterViewInit {
+export class AnalyticsComponent implements AfterViewInit {
   // injections
   private _reportsService = inject(TaskerReportsService);
   private _destroyRef = inject(DestroyRef);
@@ -33,6 +45,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   startDate!: string | null;
   endDate!: string | null;
   reportFilter = signal<IReportFilter>({});
+  bookingsCountChartData = signal<IBookingsCountReportData[]>([]);
   // signals
   graphDataResponse = signal<IGraphDataItem[]>([]);
   chartLabels = computed<string[]>(() => {
@@ -63,7 +76,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         endDate: this.endDate as string,
       }));
 
-      console.log(typeof this.endDate);
       this.getGraphData();
       // call the method to get the graph data with filter here
     }
@@ -87,11 +99,21 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       });
   }
 
-  // lifecycle
-
-  ngOnInit(): void {
-    this.getGraphData();
+  getBookingsCountChartData(filter: IReportGroupByFilter) {
+    this._reportsService
+      .getBookingsCountReportData(filter)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.bookingsCountChartData.set(res.data);
+        },
+        error: (err: IApiResponseError) => {
+          this._snackbar.error(err.message);
+        },
+      });
   }
+
+  // lifecycle
 
   ngAfterViewInit(): void {
     this.chart = new Chart('earnings-chart', {
@@ -113,5 +135,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         maintainAspectRatio: false,
       },
     });
+
+    this.getGraphData();
   }
 }

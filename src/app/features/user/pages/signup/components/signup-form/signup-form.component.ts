@@ -108,8 +108,7 @@ export class SignupFormComponent implements OnInit {
           finalize(() => this.isLoading.set(false)),
         )
         .subscribe({
-          next: (res) => {
-            console.log(res);
+          next: () => {
             this._snackbarService.success('OTP send successfully');
             this.nextStep.emit();
           },

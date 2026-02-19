@@ -2,7 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IGraphDataItem } from '@features/admin/models/reports.mode';
 import { IApiResponseSuccess } from '@shared/models/api-response.model';
-import { IReportFilter } from '@shared/models/report/query-filter.model';
+import {
+  IReportFilter,
+  IReportGroupByFilter,
+} from '@shared/models/report/query-filter.model';
+import { IBookingsCountReportData } from '@shared/models/report/report.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +22,15 @@ export class TaskerReportsService {
 
     return this._http.get<IApiResponseSuccess<IGraphDataItem[]>>(
       `${this.API_ENDPOINT}`,
+      { params },
+    );
+  }
+
+  getBookingsCountReportData(filter: IReportGroupByFilter) {
+    const params = new HttpParams({ fromObject: { ...filter } });
+
+    return this._http.get<IApiResponseSuccess<IBookingsCountReportData[]>>(
+      `${this.API_ENDPOINT}/bookings-counts`,
       { params },
     );
   }

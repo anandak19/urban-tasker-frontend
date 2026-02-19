@@ -2,6 +2,7 @@ export const environment = {
   production: false,
   apiUrl: 'https://api.urbantasker.online/api',
   socektUrl: 'https://api.urbantasker.online',
+  stunUrl: 'stun:stun.l.google.com:19302',
   rzpKey: 'rzp_test_S6YvspMIUR6SGA',
 };
 

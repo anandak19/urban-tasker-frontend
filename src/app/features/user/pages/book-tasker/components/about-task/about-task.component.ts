@@ -28,6 +28,7 @@ import { IApiResponseError } from '@shared/models/api-response.model';
 import { SubCategoryService } from '@core/services/category/sub-category.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { BookingStateService } from '@features/user/services/book-tasker/book-tasker/booking-state.service';
 
 @Component({
   selector: 'app-about-task',
@@ -47,6 +48,7 @@ export class AboutTaskComponent implements OnInit {
   @Output() next = new EventEmitter();
 
   private _bookTaskerService = inject(BookTaskerService);
+  private _bookingStateService = inject(BookingStateService);
   private _categoryService = inject(CategoryService);
   private _subCategoryService = inject(SubCategoryService);
   private _snackbarService = inject(SnackbarService);
@@ -56,6 +58,9 @@ export class AboutTaskComponent implements OnInit {
     this.next.emit();
   }
 
+  selectedCategory = this._bookingStateService.selectedCategory;
+  selectedSubCategory = this._bookingStateService.selectedSubCategory;
+
   aboutTaskForm!: FormGroup;
 
   private fb = inject(FormBuilder);
@@ -63,6 +68,7 @@ export class AboutTaskComponent implements OnInit {
   taskSizes = TaskSize;
 
   selectedSize: TaskSize | null = null;
+
   selectSize(size: TaskSize | null) {
     this.selectedSize = size;
     // assign value to form control
@@ -72,9 +78,6 @@ export class AboutTaskComponent implements OnInit {
 
   categoryOptions = signal<IOptionData[]>([]);
   subCategoryOptions = signal<IOptionData[]>([]);
-  sampleOptions = signal<IOptionData[]>([
-    { id: 'sample1', label: 'Sample Cat' },
-  ]);
 
   private initForm(): void {
     this.aboutTaskForm = this.fb.group({
@@ -87,7 +90,6 @@ export class AboutTaskComponent implements OnInit {
 
   // call api or cache data here
   submitAboutTask(aboutTaskData: IBookTaskerAboutTask) {
-    console.log('Payload to backend:', aboutTaskData);
     this._bookTaskerService.saveAboutTask(aboutTaskData);
     this.onNext();
   }
@@ -111,6 +113,7 @@ export class AboutTaskComponent implements OnInit {
     this.submitAboutTask(payload);
   }
 
+  // on parent category select
   onCategorySelect(categoryOption: IOptionData) {
     this._subCategoryService
       .getActiveSubcategoriesOptions(categoryOption.id)
@@ -125,6 +128,7 @@ export class AboutTaskComponent implements OnInit {
       });
   }
 
+  // get parent category options
   getCategoryOptions() {
     this._categoryService
       .getCategoryOptions()
@@ -139,8 +143,29 @@ export class AboutTaskComponent implements OnInit {
       });
   }
 
+  patchSubcategory(subcategory: IOptionData) {
+    this.onCategorySelect(subcategory);
+    this.aboutTaskForm.patchValue({
+      subcategory: subcategory,
+    });
+  }
+
+  patchCategory(category: IOptionData) {
+    this.aboutTaskForm.patchValue({
+      category: category,
+    });
+  }
+
   ngOnInit(): void {
     this.getCategoryOptions();
     this.initForm();
+
+    if (this.selectedSubCategory()) {
+      this.patchSubcategory(this.selectedSubCategory()!);
+    }
+
+    if (this.selectedCategory()) {
+      this.patchCategory(this.selectedCategory()!);
+    }
   }
 }

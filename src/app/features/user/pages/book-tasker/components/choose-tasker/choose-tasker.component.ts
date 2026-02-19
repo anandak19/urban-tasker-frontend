@@ -177,26 +177,22 @@ export class ChooseTaskerComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this._snackbarService.success(res.message);
           this._bookTaskerService.resetBookingState();
           this._router.navigate(['/tasks']);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
           this._snackbarService.error(err.message);
         },
       });
   }
 
   submitChooseTaskersData(payload: IBookTaskerTimePlace) {
-    console.log('Query', payload);
     this._bookTaskerService.saveWhenWhere(payload);
     this._bookTaskerService.getAvailbleTaskers();
   }
 
   onchooseTaskerFormSubmit() {
-    console.log(this.chooseTaskerForm.value);
     this.isSubmitted.set(true);
 
     if (this.chooseTaskerForm.invalid) {

@@ -47,7 +47,6 @@ export class EditCategoryComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this._snackbar.success(res.message);
-          console.log(res);
         },
         error: (err: IApiResponseError) => {
           this._snackbar.error(err.message);
@@ -64,7 +63,7 @@ export class EditCategoryComponent implements OnInit {
           this.categoryData.set(res.data);
         },
         error: (err: IApiResponseError) => {
-          console.log(err);
+          this._snackbar.error(err.message);
         },
       });
   }

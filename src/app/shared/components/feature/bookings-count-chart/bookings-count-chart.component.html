@@ -1,0 +1,19 @@
+<div class="chart">
+  <div class="chart__head">
+    <h2 class="title">Bookings Count Report</h2>
+    <div class="filter">
+      <select
+        [ngModel]="groupByFilter().reportGroupBy"
+        (ngModelChange)="onFilterChange($event)"
+      >
+        <option [ngValue]="ReportGroupBy.DAY">Day</option>
+        <option [ngValue]="ReportGroupBy.WEEK">Week</option>
+        <option [ngValue]="ReportGroupBy.MONTH">Month</option>
+        <option [ngValue]="ReportGroupBy.YEAR">Year</option>
+      </select>
+    </div>
+  </div>
+  <div class="chart__body">
+    <canvas id="bookings-count-chart"></canvas>
+  </div>
+</div>

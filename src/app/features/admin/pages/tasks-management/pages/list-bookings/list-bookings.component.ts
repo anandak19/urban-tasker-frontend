@@ -32,7 +32,6 @@ export class ListBookingsComponent implements OnInit {
 
   filter = signal<IListBookingQuery>({
     page: 1,
-    limit: 2,
   });
 
   bookings!: IBookingListing[];
@@ -61,8 +60,6 @@ export class ListBookingsComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
-
           this.bookings = res.data.documents;
           this.pagination.set(res.data.meta);
         },

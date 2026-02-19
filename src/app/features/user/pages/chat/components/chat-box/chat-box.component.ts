@@ -111,9 +111,7 @@ export class ChatBoxComponent implements OnInit {
 
   async loadChatForUser(roomId: string) {
     const history = await this._chatSocket.getMessages();
-    console.log(history);
     this._chatSocket.readMessage(roomId);
-
     this.messages.set(history);
   }
 
@@ -145,8 +143,6 @@ export class ChatBoxComponent implements OnInit {
     console.log('[chat box] message listner registered');
     this._chatSocket.onMessage().subscribe({
       next: (res) => {
-        console.log(res);
-
         this.messages.update((c) => [...c, res]);
         const currentUser = this.currentChatUser();
 
@@ -165,9 +161,6 @@ export class ChatBoxComponent implements OnInit {
     this._videoCallService.onOffer().subscribe({
       next: (res) => {
         console.log('Offer came');
-        console.log(res.from);
-        console.log(this._currentUserId);
-
         if (res.from.id === this._currentUserId) {
           this.isIncomingCall.set(true);
         }

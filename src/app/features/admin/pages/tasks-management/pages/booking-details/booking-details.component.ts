@@ -56,7 +56,6 @@ export class BookingDetailsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.bookingDetails.set(res.data);
-          console.log(res.data.categoryName);
         },
         error: (err) => {
           console.log(err);

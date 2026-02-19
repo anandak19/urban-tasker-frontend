@@ -2,4 +2,8 @@
 
 .home {
   min-height: calc(100vh - $header-height);
+
+  .section {
+    padding: $spacing-4 0;
+  }
 }

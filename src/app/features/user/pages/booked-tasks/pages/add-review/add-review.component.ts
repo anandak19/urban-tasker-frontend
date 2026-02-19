@@ -59,7 +59,6 @@ export class AddReviewComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this._snackbar.success(res.message);
           this._router.navigate([`tasks/${this.taskId}`]);
         },

@@ -75,8 +75,7 @@ export class OtpVarifyComponent implements OnInit {
         finalize(() => this.isResendLoading.set(false)),
       )
       .subscribe({
-        next: (res) => {
-          console.log(res);
+        next: () => {
           this._snackBar.success('OTP send successfully');
           this._timerService.setTimer();
         },
@@ -120,7 +119,6 @@ export class OtpVarifyComponent implements OnInit {
       )
       .subscribe({
         next: (res: IBasicDataResponse) => {
-          console.log(res);
           this._snackBar.success(res.message);
           this.nextStep.emit();
         },

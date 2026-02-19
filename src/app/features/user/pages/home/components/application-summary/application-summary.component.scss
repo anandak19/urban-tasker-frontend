@@ -1,0 +1,73 @@
+@use 'index' as *;
+
+.application-summary {
+  color: #fff;
+
+  &__container {
+    border-radius: 20px;
+    padding: $spacing-7 $spacing-5;
+    max-width: 100%;
+    background-color: $black;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__head {
+    margin-bottom: $spacing-3;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+  }
+
+  &__step {
+    background: #111;
+    padding: $spacing-3;
+    border-radius: 16px;
+    border: 1px solid $black-hover;
+    transition:
+      transform 0.3s ease,
+      background 0.3s ease;
+
+    &:hover {
+      transform: translateY(-8px);
+      background: $black-hover;
+    }
+  }
+
+  &__icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #1f1f1f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      font-size: 25px;
+      color: $white;
+    }
+  }
+
+  &__step-title {
+    font-size: $font-size-md;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  &__step-desc {
+    font-size: $font-size-sm;
+    color: $background;
+    line-height: 1.5;
+  }
+}

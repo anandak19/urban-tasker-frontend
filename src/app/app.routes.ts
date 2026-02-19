@@ -1,36 +1,47 @@
 import { Routes } from '@angular/router';
-import { AdminLayoutComponent } from '@features/admin/admin-layout/admin-layout.component';
-import { adminRoutes } from '@features/admin/admin.routes';
 import { adminAuthGuard } from '@features/admin/guards/auth/admin-auth.guard';
 import { isAdminLoginGuard } from '@features/admin/guards/login/is-login.guard';
-import { AdminLoginComponent } from '@features/admin/pages/admin-login/admin-login.component';
 import { isTaskerGuard } from '@features/tasker/guards/isTasker/is-tasker.guard';
-import { TaskerLayoutComponent } from '@features/tasker/tasker-layout/tasker-layout.component';
-import { taskerRoutes } from '@features/tasker/tasker.routes';
-import { UserLayoutComponent } from '@features/user/user-layout/user-layout.component';
-import { userRoutes } from '@features/user/user.routes';
 
 export const routes: Routes = [
   {
     path: '',
-    component: UserLayoutComponent,
-    children: userRoutes,
+    loadComponent: () =>
+      import('./features/user/user-layout/user-layout.component').then(
+        (c) => c.UserLayoutComponent,
+      ),
+    loadChildren: () =>
+      import('./features/user/user.routes').then((r) => r.userRoutes),
   },
+
   {
     path: 'tasker',
-    component: TaskerLayoutComponent,
-    children: taskerRoutes,
+    loadComponent: () =>
+      import('./features/tasker/tasker-layout/tasker-layout.component').then(
+        (c) => c.TaskerLayoutComponent,
+      ),
+    loadChildren: () =>
+      import('./features/tasker/tasker.routes').then((r) => r.taskerRoutes),
     canActivate: [isTaskerGuard],
   },
+
   {
     path: 'admin/login',
-    component: AdminLoginComponent,
+    loadComponent: () =>
+      import('./features/admin/pages/admin-login/admin-login.component').then(
+        (c) => c.AdminLoginComponent,
+      ),
     canActivate: [isAdminLoginGuard],
   },
+
   {
     path: 'admin',
-    component: AdminLayoutComponent,
+    loadComponent: () =>
+      import('./features/admin/admin-layout/admin-layout.component').then(
+        (c) => c.AdminLayoutComponent,
+      ),
     canActivate: [adminAuthGuard],
-    children: adminRoutes,
+    loadChildren: () =>
+      import('./features/admin/admin.routes').then((r) => r.adminRoutes),
   },
 ];

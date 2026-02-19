@@ -49,16 +49,12 @@ export class WalletComponent implements OnInit {
   }
 
   getTransactionHistory() {
-    console.log(this.walletDetails()?.id);
-    console.log('Yas');
-
     //call the method to get the transaction history after wallet data is fetched
     this._walletService
       .getTransactionHistory(this.walletDetails()!.id)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.walletTransactions.set(res.data.documents);
           this.pagination.set(res.data.meta);
         },
@@ -74,7 +70,6 @@ export class WalletComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res.data);
           this.walletDetails.set(res.data);
           this.getTransactionHistory();
         },

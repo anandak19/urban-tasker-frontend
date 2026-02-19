@@ -141,7 +141,6 @@ export class UserLocationFormComponent implements OnInit {
   }
 
   updateHomeLocation(payload: IHomeAddressPayload) {
-    console.log(payload);
     this.isLoading.set(true);
     this._userProfileService
       .updateHomeAddress(payload)

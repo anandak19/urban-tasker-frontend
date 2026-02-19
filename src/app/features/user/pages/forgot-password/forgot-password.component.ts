@@ -52,7 +52,6 @@ export class ForgotPasswordComponent implements OnInit {
         )
         .subscribe({
           next: (res) => {
-            console.log(res);
             const result = res as IBasicDataResponse;
             const snackbarRef = this._snackbar.success(result.message);
             snackbarRef.afterDismissed().subscribe(() => {

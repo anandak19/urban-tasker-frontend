@@ -1,3 +1,15 @@
-<div class="categories">
-  <h1>categories</h1>
+<div class="categories container">
+  <div class="categories__wrapper">
+    <app-page-title title="Categories"></app-page-title>
+
+    <div class="categories__cards-wrapper">
+      @for (item of categories(); track item.id) {
+        <app-service-category-card
+          (parentCategorySelect)="onCategoryClick($event)"
+          [categoryCard]="item"
+        >
+        </app-service-category-card>
+      }
+    </div>
+  </div>
 </div>

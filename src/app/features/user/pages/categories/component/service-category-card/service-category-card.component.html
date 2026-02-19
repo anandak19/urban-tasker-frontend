@@ -1,0 +1,19 @@
+<div
+  class="category-card"
+  (click)="onCategoryClick()"
+  role="button"
+  tabindex="0"
+>
+  <div class="category-card__image">
+    <img [src]="categoryCard.image" [alt]="categoryCard.name" loading="lazy" />
+  </div>
+
+  <div class="category-card__content">
+    <p class="name">{{ categoryCard.name }}</p>
+    @if (categoryCard.description) {
+      <div class="discription">
+        <p>{{ categoryCard.description }}</p>
+      </div>
+    }
+  </div>
+</div>

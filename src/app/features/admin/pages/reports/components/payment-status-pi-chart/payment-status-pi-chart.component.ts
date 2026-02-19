@@ -3,7 +3,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
 import { ReportsService } from '@features/admin/services/reports/reports.service';
 import { IApiResponseError } from '@shared/models/api-response.model';
-import { Chart } from 'chart.js';
+
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-payment-status-pi-chart',

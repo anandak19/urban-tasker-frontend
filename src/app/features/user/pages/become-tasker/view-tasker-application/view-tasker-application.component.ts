@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { TaskerApplicationsService } from '@features/user/services/tasker-applications/tasker-applications.service';
-import { IApiResponseError } from '@shared/models/api-response.model';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { TaskerApplicationDataComponent } from '@shared/components/feature/tasker-application-data/tasker-application-data.component';
 import { Router } from '@angular/router';
@@ -33,9 +32,6 @@ export class ViewTaskerApplicationComponent implements OnInit {
         next: (res) => {
           this.isTaskerApplied.set(true);
           this.taskerApplicationData.set(res.data);
-        },
-        error: (err: IApiResponseError) => {
-          console.log(err);
         },
       });
   }

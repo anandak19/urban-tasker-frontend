@@ -142,7 +142,6 @@ export class PaymentComponent implements OnInit {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.paymentInfo.set(res.data);
           this.realPaymentInfo.set(res.data);
         },
@@ -153,15 +152,12 @@ export class PaymentComponent implements OnInit {
   }
 
   onPayClicked() {
-    console.log(this.tipAmount());
     // call create order  method
     this._paymentService
       .createOrder(this.taskId, this.tipAmount() ?? 0)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: (res) => {
-          console.log(res);
-
           // options
           const options: IRazorpayOptions = {
             key: environment.rzpKey, //  Razorpay Key ID
@@ -202,8 +198,7 @@ export class PaymentComponent implements OnInit {
       .varifyPayment(this.taskId, payload)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
-        next: (res) => {
-          console.log(res);
+        next: () => {
           this._snackbar.success('Payment Success');
           this._router.navigate([`/tasks/${this.taskId}`]);
         },

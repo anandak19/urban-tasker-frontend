@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
   selector: 'app-footer',
-  imports: [ButtonComponent],
+  imports: [],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
@@ -15,9 +14,5 @@ export class FooterComponent {
 
   navigateTo(path: string) {
     this._router.navigate([path]);
-  }
-
-  onBecomeTaskerBtnClick() {
-    this._router.navigate(['tasker/application']);
   }
 }
