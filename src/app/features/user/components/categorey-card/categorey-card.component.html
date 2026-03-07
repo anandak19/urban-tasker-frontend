@@ -10,9 +10,15 @@
         <p class="category-name">{{ categoryData.name }}</p>
         <span class="category-disc">{{ categoryData.description }}</span>
         <!-- book button  -->
-        <app-button type="button" size="small" (clickEvent)="onBookBtnClick()">
-          Book Now
-        </app-button>
+        @if (isUser()) {
+          <app-button
+            type="button"
+            size="small"
+            (clickEvent)="onBookBtnClick()"
+          >
+            Book Now
+          </app-button>
+        }
       </div>
     </div>
   </div>
