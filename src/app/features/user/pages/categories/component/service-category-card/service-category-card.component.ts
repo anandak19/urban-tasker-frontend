@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
+import { UserRoles } from '@shared/constants/enums/user.enum';
 import { toOptionData } from '@shared/helpers/options-builder';
 import { ISubCategoryCard } from '@shared/models/categories/subcategories.model';
 import { IOptionData } from '@shared/models/form-inputs.model';
@@ -13,12 +15,17 @@ export class ServiceCategoryCardComponent {
   @Input() categoryCard!: ISubCategoryCard;
   @Output() parentCategorySelect = new EventEmitter<IOptionData>();
 
-  onCategoryClick() {
-    const selectedCategory = toOptionData(
-      this.categoryCard.id,
-      this.categoryCard.name,
-    );
+  private _authGuardService = inject(AuthGuardService);
+  userRoles = UserRoles;
 
-    this.parentCategorySelect.emit(selectedCategory);
+  onCategoryClick() {
+    if (this._authGuardService.isUserRoleIs(this.userRoles.USER)) {
+      const selectedCategory = toOptionData(
+        this.categoryCard.id,
+        this.categoryCard.name,
+      );
+
+      this.parentCategorySelect.emit(selectedCategory);
+    }
   }
 }

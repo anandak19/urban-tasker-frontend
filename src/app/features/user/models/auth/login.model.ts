@@ -15,4 +15,4 @@ export interface ICurrentUser {
   profileImageUrl: string;
 }
 
-export type IisLoginResponse = IApiResponseSuccess<ICurrentUser>;
+export type IisLoginResponse = IApiResponseSuccess<{ user: ICurrentUser }>;

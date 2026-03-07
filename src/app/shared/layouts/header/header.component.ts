@@ -45,17 +45,21 @@ export class HeaderComponent implements OnInit {
   links = computed<NavLink[]>(() => {
     const user = this.currentUser();
 
-    if (!user || user.userRole === this.userRoles.TASKER) {
-      return [{ label: 'Home', path: '/' }];
+    if (user && user.userRole === this.userRoles.USER) {
+      return [
+        { label: 'Home', path: '/' },
+        { label: 'Categories', path: '/categories' },
+        { label: 'My Bookings', path: '/tasks' },
+        { label: 'My Wallet', path: '/wallet' },
+      ];
     }
 
-    return [
-      { label: 'Home', path: '/' },
-      { label: 'Categories', path: '/categories' },
-      { label: 'My Bookings', path: '/tasks' },
-      { label: 'My Wallet', path: '/wallet' },
-    ];
+    return [{ label: 'Home', path: '/' }];
   });
+
+  isUserRole(role: UserRoles) {
+    this._authGuardService.isUserRoleIs(role);
+  }
 
   bookTaskerClicked() {
     this.headerService.navigateBookTasker();

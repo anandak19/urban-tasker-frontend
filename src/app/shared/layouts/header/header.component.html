@@ -19,13 +19,13 @@
         >Dashboard</app-button
       >
     } @else if (
-      currentUser()?.email && currentUser()?.userRole !== userRoles.TASKER
+      currentUser()?.email && currentUser()?.userRole === userRoles.USER
     ) {
       <app-button variant="primary" (clickEvent)="bookTaskerClicked()"
         >Book</app-button
       >
     }
-    @if (currentUser()) {
+    @if (currentUser() && currentUser()?.userRole !== userRoles.ADMIN) {
       <app-button (clickEvent)="onMesagesClick()"
         ><mat-icon class="material-icons-outlined app-header__icon"
           >chat</mat-icon

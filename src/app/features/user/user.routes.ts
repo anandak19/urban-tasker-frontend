@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { signupDirtyGuard } from './guards/signup/signup-dirty.guard';
 import { userAuthGuard } from './guards/auth/user-auth.guard';
 import { isLoginGuard } from './guards/login/is-login.guard';
+import { isNotAdminGuard } from '@core/guards/admin/is-not-admin.guard';
+import { isUserGuard } from '@core/guards/user/is-user.guard';
 
 export const userRoutes: Routes = [
   {
@@ -92,7 +94,7 @@ export const userRoutes: Routes = [
   // Book Tasker
   {
     path: 'book-tasker',
-    canActivate: [userAuthGuard],
+    canActivate: [userAuthGuard, isUserGuard],
     loadComponent: () =>
       import(
         './pages/book-tasker/book-tasker-layout/book-tasker-layout.component'
@@ -102,6 +104,7 @@ export const userRoutes: Routes = [
   // Tasks
   {
     path: 'tasks',
+    canActivate: [userAuthGuard, isUserGuard],
     loadComponent: () =>
       import(
         './pages/booked-tasks/booked-tasks-layout/booked-tasks-layout.component'
@@ -115,7 +118,7 @@ export const userRoutes: Routes = [
   // Chat
   {
     path: 'chat',
-    canActivate: [userAuthGuard],
+    canActivate: [userAuthGuard, isNotAdminGuard],
     loadChildren: () =>
       import('./pages/chat/chat.routes').then((r) => r.ChatRoutes),
   },
@@ -123,7 +126,7 @@ export const userRoutes: Routes = [
   // Wallet
   {
     path: 'wallet',
-    canActivate: [userAuthGuard],
+    canActivate: [userAuthGuard, isUserGuard],
     loadComponent: () =>
       import('./pages/wallet/wallet/wallet.component').then(
         (c) => c.WalletComponent,
