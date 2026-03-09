@@ -55,15 +55,13 @@ export class LoginComponent {
             .afterDismissed()
             .pipe(takeUntilDestroyed(this._destroyRef))
             .subscribe(() => {
-              if (res.data.user.userRole === UserRoles.TASKER) {
+              if (res.data.userRole === UserRoles.TASKER) {
                 this._router.navigate(['/tasker']);
-              } else if (res.data.user.userRole === UserRoles.ADMIN) {
+              } else if (res.data.userRole === UserRoles.ADMIN) {
                 console.log('to admin');
                 this._router.navigate(['/admin']);
               } else {
-                console.log('normal');
                 console.log(res);
-
                 this._router.navigate(['/']);
               }
             });

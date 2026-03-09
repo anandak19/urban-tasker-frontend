@@ -72,7 +72,7 @@ export const userRoutes: Routes = [
   // Tasker Application
   {
     path: 'tasker/application',
-    canActivate: [userAuthGuard],
+    canActivate: [userAuthGuard, isNotAdminGuard],
     children: [
       {
         path: '',
