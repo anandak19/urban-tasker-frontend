@@ -7,10 +7,22 @@
       [isLoading]="isLoading"
     ></app-login-form>
 
+    <div class="auth-divider">
+      <span class="auth-divider__line"></span>
+      <span class="auth-divider__text">OR</span>
+      <span class="auth-divider__line"></span>
+    </div>
+
     <div class="login-container__login-option">
       <!-- use diffent button here-->
       <button type="button" class="google-btn" (click)="googleLoginClicked()">
-        Login with Google
+        <img
+          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+          alt="Google"
+          class="google-btn__icon"
+        />
+
+        <span>Continue with Google</span>
       </button>
     </div>
 
@@ -27,5 +39,11 @@
         ></small
       >
     </div>
+  </div>
+
+  <div class="login-container__demo">
+    <app-demo-platform-login
+      (login)="onLogin($event)"
+    ></app-demo-platform-login>
   </div>
 </div>
