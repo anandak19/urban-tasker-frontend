@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { AuthGuardService } from '@core/services/auth-guard-service/auth-guard.service';
 import { AuthService } from '@core/services/auth/auth.service';
 import { SnackbarService } from '@core/services/snackbar/snackbar.service';
+import { DemoPlatformLoginComponent } from '@features/user/components/demo-platform-login/demo-platform-login.component';
 import { LoginFormComponent } from '@shared/components/login-form/login-form.component';
 import { UserRoles } from '@shared/constants/enums/user.enum';
 import { IApiResponseError } from '@shared/models/api-response.model';
@@ -19,7 +20,11 @@ import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, LoginFormComponent],
+  imports: [
+    ReactiveFormsModule,
+    LoginFormComponent,
+    DemoPlatformLoginComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

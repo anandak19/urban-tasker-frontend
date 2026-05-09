@@ -1,0 +1,13 @@
+<div class="demo-platform-login">
+  <p class="demo-platform-login__title">Demo Login</p>
+  <div class="demo-platform-login__buttons">
+    <!-- User -->
+    <button class="demo-platform-login__btn" (click)="onDemoLogin(demoUser)">
+      Login as {{ demoUser.firstName }} (User)
+    </button>
+    <!-- Tasker -->
+    <button class="demo-platform-login__btn" (click)="onDemoLogin(demoTasker)">
+      Login as {{ demoTasker.firstName }} (Tasker)
+    </button>
+  </div>
+</div>

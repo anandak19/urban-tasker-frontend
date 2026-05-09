@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: $spacing-5;
   height: calc(100vh - $header-height);
 
   @include respond('xs') {
@@ -11,12 +13,14 @@
     justify-content: center;
   }
 
-  &__login-form {
-    padding: $spacing-5;
+  &__login-form,
+  &__demo {
     @include section-box();
+    padding: $spacing-5;
     border-radius: $border-radius-md;
     background-color: $background;
     width: 80%;
+    // min-width: 300px;
     max-width: 400px;
 
     h2 {
@@ -77,26 +81,69 @@
     }
   }
 
+  .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+
+    &__line {
+      flex: 1;
+      height: 1px;
+      background-color: #dcdcdc;
+    }
+
+    &__text {
+      color: #777;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+  }
+
   &__login-option {
     margin-top: $spacing-4;
     display: flex;
     justify-content: center;
 
-    // style it later
     .google-btn {
-      padding: 0.6rem 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background-color: #fff;
-      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem; 
+      width: 100%;
+      padding: 0.6rem; // TODO: add to varible
+      border: 1px solid #dadce0; // TODO: add to varible
+      border-radius: 8px;
+      background-color: #fff; // TODO: add to varible
+      color: #3c4043; // TODO: add to varible
+      font-size: 0.95rem;
       font-weight: 500;
+      cursor: pointer;
+
       transition:
-        background-color 0.2s,
-        border-color 0.2s;
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 
       &:hover {
-        background-color: #f0f0f0;
-        border-color: #999;
+        background-color: #f8f9fa;
+        border-color: #c6c6c6;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      }
+
+      &:active {
+        background-color: #f1f3f4;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.25);
+      }
+
+      &__icon {
+        width: 20px;
+        height: 20px;
       }
     }
   }
