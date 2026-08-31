@@ -17,14 +17,13 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "baseUrl": "src",
     "rootDir": "./src",
     "paths": {
-      "@core/*": ["app/core/*"],
-      "@features/*": ["app/features/*"],
-      "@shared/*": ["app/shared/*"],
-      "@styles/*": ["app/styles/*"],
-      "@environments/*": ["environments/*"]
+      "@core/*": ["./src/app/core/*"],
+      "@features/*": ["./src/app/features/*"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@styles/*": ["./src/app/styles/*"],
+      "@environments/*": ["./src/environments/*"]
     },
     "types": ["jasmine"]
   },
